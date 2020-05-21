@@ -831,7 +831,7 @@ le numéro de l’étudiant ainsi qu’un attribut HEURES qui indiquera son nomb
 
 SELECT NumEt, SUM(HTP + HTD + HCours) AS HEURES
     FROM  (
-            SELECT DISTINCT UE.NumUE, Etudiant.NumEt, HTP,  HTD, HCours  --DISTINCT UE.NumUE au début pour dédoublonner les lignes avec la même UE pour chaque étudiant
+            SELECT UE.NumUE, Etudiant.NumEt, HTP,  HTD, HCours  --DISTINCT UE.NumUE au début pour dédoublonner les lignes avec la même UE pour chaque étudiant
                 FROM 
                     Etudiant JOIN Inscrit
                     ON Etudiant.NumET = Inscrit.NumEt
@@ -840,8 +840,9 @@ SELECT NumEt, SUM(HTP + HTD + HCours) AS HEURES
                     JOIN Enseigne
                     ON UE.NumUE = Enseigne.NumUE
                 WHERE NCours+ NTD + NTP != 0
+                GROUP BY Etudiant.NumEt, UE.NumUE
         )
-    GROUP BY NumET
+    GROUP BY NumEt
     ORDER BY HEURES DESC
 ;
 ```
