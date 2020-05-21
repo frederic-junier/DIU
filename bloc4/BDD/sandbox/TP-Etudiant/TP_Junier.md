@@ -524,6 +524,77 @@ SELECT
 
 
 
+Plutot : 
+
+
+```python
+%%sql
+
+SELECT 
+    DISTINCT NomEns
+    FROM Enseigne 
+    JOIN Enseignant 
+    ON Enseigne.NumEns = Enseignant.NumEns
+    WHERE NomEns != "Albert A." 
+    AND NumUE IN (    
+            SELECT 
+                NumUE
+                FROM Enseigne 
+                JOIN Enseignant 
+                ON Enseigne.NumEns = Enseignant.NumEns
+                WHERE NomEns = "Albert A."
+                );
+```
+
+    Done.
+
+
+
+
+
+<table>
+    <tr>
+        <th>NomEns</th>
+    </tr>
+    <tr>
+        <td>Bertrand B.</td>
+    </tr>
+</table>
+
+
+
+
+```python
+%%sql
+
+SELECT DISTINCT Ens2.NomEns
+FROM Enseigne AS E1
+JOIN Enseigne AS E2
+ON E2.NumUE = E1.NumUE
+JOIN Enseignant AS Ens1
+ON E1.NumEns = Ens1.NumEns
+JOIN Enseignant AS Ens2
+ON E2.NumEns = Ens2.NumEns
+WHERE Ens1.NomEns = "Albert A." AND E1.NumEns <> E2.NumEns ;
+```
+
+    Done.
+
+
+
+
+
+<table>
+    <tr>
+        <th>NomEns</th>
+    </tr>
+    <tr>
+        <td>Bertrand B.</td>
+    </tr>
+</table>
+
+
+
 
 ```python
 %%sql
@@ -829,10 +900,72 @@ le numéro de l’étudiant ainsi qu’un attribut HEURES qui indiquera son nomb
 ```python
 %%sql
 
+SELECT Etudiant.NumEt, SUM(HTP + HTD + HCours) AS HEURES
+    FROM  Etudiant JOIN Inscrit
+    ON Etudiant.NumET = Inscrit.NumEt
+    JOIN UE
+    ON Inscrit.NumUE = UE.NumUE              
+    GROUP BY Etudiant.NumEt
+    ORDER BY HEURES DESC
+;
+```
+
+    Done.
+
+
+
+
+
+<table>
+    <tr>
+        <th>NumEt</th>
+        <th>HEURES</th>
+    </tr>
+    <tr>
+        <td>1117</td>
+        <td>185.0</td>
+    </tr>
+    <tr>
+        <td>1111</td>
+        <td>149.0</td>
+    </tr>
+    <tr>
+        <td>1114</td>
+        <td>143.0</td>
+    </tr>
+    <tr>
+        <td>1119</td>
+        <td>135.0</td>
+    </tr>
+    <tr>
+        <td>1112</td>
+        <td>104.0</td>
+    </tr>
+    <tr>
+        <td>1116</td>
+        <td>62.0</td>
+    </tr>
+    <tr>
+        <td>1118</td>
+        <td>62.0</td>
+    </tr>
+    <tr>
+        <td>1115</td>
+        <td>50.0</td>
+    </tr>
+</table>
+
+
+
+Plutot la requête suivante
+
+
+```python
+%%sql
+
 SELECT NumEt, SUM(HTP + HTD + HCours) AS HEURES
     FROM  (
-            SELECT UE.NumUE, Etudiant.NumEt, HTP,  HTD, HCours  --DISTINCT UE.NumUE au début pour dédoublonner les lignes avec la même UE pour chaque étudiant
-                FROM 
+            SELECT UE.NumUE, Etudiant.NumEt, HTP,  HTD, HCours  
                     Etudiant JOIN Inscrit
                     ON Etudiant.NumET = Inscrit.NumEt
                     JOIN UE
