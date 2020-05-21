@@ -8,4 +8,4 @@
 
 1 Introduction aux bases de données :
 
-  * [Consignes](BDD/CONSIGNES-INTRODUCTIONSQL.md)
+  * [Consignes](bloc4/BDD/CONSIGNES-INTRODUCTIONSQL.md)
