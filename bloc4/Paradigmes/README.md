@@ -19,7 +19,7 @@ Ici, plus précisément les compétences visées dans le bloc 4
 Contenus/programmes
 -------------------
 
-* [planches d'introduction](introduction_paradigmes.pdf)
+* [planches d'introduction](https://forge.univ-lyon1.fr/diu-eil/bloc4/-/tree/master/1_paradigmes_de_programmation)
 
 Ressources de référence
 -----------------------
