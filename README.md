@@ -19,6 +19,6 @@
   * [Consignes](bloc4/Paradigmes/README.md)
   
   
-  ![youtube](https://cloud-lyon.beta.education.fr/s/q9eZFEWtDoR5aBG)
+  ![youtube](https://cloud-lyon.beta.education.fr/s/q9eZFEWtDoR5aBG/preview)
 
  
