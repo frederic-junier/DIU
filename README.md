@@ -8,6 +8,11 @@
 
 1 Introduction aux bases de données :
 
-  * [Consignes](bloc4/BDD/CONSIGNES-INTRODUCTIONSQL.md)
+  * [Consignes](bloc4/BDD/README.md)
   * [Bac à sable](bloc4/BDD/sandbox)
   * [Codi TP Etudiant](https://codi-lyon.beta.education.fr/tyyJULdEQAGm8wQ0-bPoQw)
+  
+2 Paradigmes de programmation :
+
+  * [Consignes](bloc4/Paradigmes/README.md)
+
