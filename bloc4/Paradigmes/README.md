@@ -35,6 +35,7 @@ Ressources de référence
 
 
 * <http://rosettacode.org> **très utile**
+  *  Pour le PDCD : <http://rosettacode.org/wiki/Greatest_common_divisor>
 * <https://insights.stackoverflow.com/survey/2019#technology>
 * <https://www.tiobe.com/tiobe-index/>
 
