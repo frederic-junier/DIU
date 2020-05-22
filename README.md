@@ -13,6 +13,7 @@
   * [Consignes](bloc4/BDD/README.md)
   * [Bac à sable](bloc4/BDD/sandbox)
   * [Codi TP Etudiant](https://codi-lyon.beta.education.fr/tyyJULdEQAGm8wQ0-bPoQw)
+  * [Codi memento SQL](https://codi-lyon.beta.education.fr/GMedgMDXQBaXHMhlErJLPw#)
   
 2 Paradigmes de programmation :
 
