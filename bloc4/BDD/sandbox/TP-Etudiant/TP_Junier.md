@@ -712,6 +712,120 @@ ON UE.NumUE = Enseigne.NumUE
 
 
 
+
+```python
+%%sql
+
+SELECT 
+UE.NumUE, SUM(HCours * NCours + HTD * NTD + HTP * NTP) AS TOTAL_HEURES
+FROM 
+UE
+JOIN Enseigne
+ON UE.NumUE = Enseigne.NumUE
+GROUP BY UE.NumUE
+UNION
+SELECT NumUE, 0
+FROM UE
+EXCEPT
+SELECT DISTINCT NumUE, 0
+FROM Enseigne
+;
+```
+
+    Done.
+
+
+
+
+
+<table>
+    <tr>
+        <th>NumUE</th>
+        <th>TOTAL_HEURES</th>
+    </tr>
+    <tr>
+        <td>1</td>
+        <td>70.0</td>
+    </tr>
+    <tr>
+        <td>2</td>
+        <td>70.0</td>
+    </tr>
+    <tr>
+        <td>3</td>
+        <td>75.0</td>
+    </tr>
+    <tr>
+        <td>4</td>
+        <td>95.0</td>
+    </tr>
+    <tr>
+        <td>5</td>
+        <td>126.0</td>
+    </tr>
+    <tr>
+        <td>6</td>
+        <td>0</td>
+    </tr>
+</table>
+
+
+
+Avec LEFT OUTER JOIN (https://www.w3schools.com/sql/sql_join_left.asp) +  COALESCE (https://www.w3schools.com/sql/sql_isnull.asp) pour transformer le NULL en 0
+
+
+```python
+%%sql
+
+SELECT 
+UE.NumUE, COALESCE(SUM(HCours * NCours + HTD * NTD + HTP * NTP), 0) AS TOTAL_HEURES
+FROM 
+UE
+LEFT OUTER JOIN Enseigne
+ON UE.NumUE = Enseigne.NumUE
+GROUP BY UE.NumUE
+;
+```
+
+    Done.
+
+
+
+
+
+<table>
+    <tr>
+        <th>NumUE</th>
+        <th>TOTAL_HEURES</th>
+    </tr>
+    <tr>
+        <td>1</td>
+        <td>70.0</td>
+    </tr>
+    <tr>
+        <td>2</td>
+        <td>70.0</td>
+    </tr>
+    <tr>
+        <td>3</td>
+        <td>75.0</td>
+    </tr>
+    <tr>
+        <td>4</td>
+        <td>95.0</td>
+    </tr>
+    <tr>
+        <td>5</td>
+        <td>126.0</td>
+    </tr>
+    <tr>
+        <td>6</td>
+        <td>0</td>
+    </tr>
+</table>
+
+
+
 ## Exercice 8:
 
 Donner le nombre d’UE n’ayant pas de TP (on appellera NB_UES l’attribut donnant ce résultat).
@@ -886,6 +1000,107 @@ FROM  UE ;
         <td>16.5</td>
         <td>16.333333333333332</td>
         <td>8.333333333333334</td>
+    </tr>
+</table>
+
+
+
+
+```python
+%%sql
+
+SELECT
+SUM(HCours)/(SELECT COUNT(*) FROM UE WHERE HCours <> 0) AS MOY_COURS, 
+SUM(HTD)/(SELECT COUNT(*) FROM UE WHERE HTD <> 0) AS   MOY_TD, 
+SUM(HTP)/(SELECT COUNT(*) FROM UE WHERE HTP <> 0)AS   MOY_TP
+FROM
+UE ;
+```
+
+    Done.
+
+
+
+
+
+<table>
+    <tr>
+        <th>MOY_COURS</th>
+        <th>MOY_TD</th>
+        <th>MOY_TP</th>
+    </tr>
+    <tr>
+        <td>16.5</td>
+        <td>19.6</td>
+        <td>12.5</td>
+    </tr>
+</table>
+
+
+
+
+```python
+%%sql
+
+SELECT *
+FROM UE;
+```
+
+    Done.
+
+
+
+
+
+<table>
+    <tr>
+        <th>NumUE</th>
+        <th>Titre</th>
+        <th>HCours</th>
+        <th>HTD</th>
+        <th>HTP</th>
+    </tr>
+    <tr>
+        <td>1</td>
+        <td>Analyse</td>
+        <td>20.0</td>
+        <td>25.0</td>
+        <td>0.0</td>
+    </tr>
+    <tr>
+        <td>2</td>
+        <td>Algebre</td>
+        <td>20.0</td>
+        <td>25.0</td>
+        <td>0.0</td>
+    </tr>
+    <tr>
+        <td>3</td>
+        <td>Programmation</td>
+        <td>15.0</td>
+        <td>15.0</td>
+        <td>15.0</td>
+    </tr>
+    <tr>
+        <td>4</td>
+        <td>Algorithmique</td>
+        <td>20.0</td>
+        <td>15.0</td>
+        <td>15.0</td>
+    </tr>
+    <tr>
+        <td>5</td>
+        <td>Bases de donnes</td>
+        <td>18.0</td>
+        <td>18.0</td>
+        <td>18.0</td>
+    </tr>
+    <tr>
+        <td>6</td>
+        <td>Reseaux</td>
+        <td>6.0</td>
+        <td>0.0</td>
+        <td>2.0</td>
     </tr>
 </table>
 

@@ -281,14 +281,14 @@
 
     
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}2}]:} \PY{o}{\PYZpc{}}\PY{k}{reload\PYZus{}ext} sql
+{\color{incolor}In [{\color{incolor}1}]:} \PY{o}{\PYZpc{}}\PY{k}{reload\PYZus{}ext} sql
         \PY{o}{\PYZpc{}}\PY{k}{config} SqlMagic.displaycon = False
         \PY{o}{\PYZpc{}}\PY{k}{config} SqlMagic.autolimit = 100
 \end{Verbatim}
 
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}3}]:} \PY{o}{\PYZpc{}}\PY{k}{sql} sqlite:///base\PYZhy{}etudiant.db
+{\color{incolor}In [{\color{incolor}2}]:} \PY{o}{\PYZpc{}}\PY{k}{sql} sqlite:///base\PYZhy{}etudiant.db
 \end{Verbatim}
 
 
@@ -729,6 +729,62 @@ Done.
 {\color{outcolor}Out[{\color{outcolor}4}]:} [(436.0,)]
 \end{Verbatim}
             
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{sql}
+         
+         SELECT 
+         UE.NumUE, SUM(HCours * NCours + HTD * NTD + HTP * NTP) AS TOTAL\PYZus{}HEURES
+         FROM 
+         UE
+         JOIN Enseigne
+         ON UE.NumUE = Enseigne.NumUE
+         GROUP BY UE.NumUE
+         UNION
+         SELECT NumUE, 0
+         FROM UE
+         EXCEPT
+         SELECT DISTINCT NumUE, 0
+         FROM Enseigne
+         ;
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Done.
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}21}]:} [(1, 70.0), (2, 70.0), (3, 75.0), (4, 95.0), (5, 126.0), (6, 0)]
+\end{Verbatim}
+            
+    Avec LEFT OUTER JOIN (https://www.w3schools.com/sql/sql\_join\_left.asp)
++ COALESCE (https://www.w3schools.com/sql/sql\_isnull.asp) pour
+transformer le NULL en 0
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{sql}
+        
+        SELECT 
+        UE.NumUE, COALESCE(SUM(HCours * NCours + HTD * NTD + HTP * NTP), 0) AS TOTAL\PYZus{}HEURES
+        FROM 
+        UE
+        LEFT OUTER JOIN Enseigne
+        ON UE.NumUE = Enseigne.NumUE
+        GROUP BY UE.NumUE
+        ;
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Done.
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}9}]:} [(1, 70.0), (2, 70.0), (3, 75.0), (4, 95.0), (5, 126.0), (6, 0)]
+\end{Verbatim}
+            
     \hypertarget{exercice-8}{%
 \subsection{Exercice 8:}\label{exercice-8}}
 
@@ -866,6 +922,49 @@ Done.
 
 \begin{Verbatim}[commandchars=\\\{\}]
 {\color{outcolor}Out[{\color{outcolor}48}]:} [(16.5, 16.333333333333332, 8.333333333333334)]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{sql}
+         
+         SELECT
+         SUM(HCours)/(SELECT COUNT(*) FROM UE WHERE HCours \PYZlt{}\PYZgt{} 0) AS MOY\PYZus{}COURS, 
+         SUM(HTD)/(SELECT COUNT(*) FROM UE WHERE HTD \PYZlt{}\PYZgt{} 0) AS   MOY\PYZus{}TD, 
+         SUM(HTP)/(SELECT COUNT(*) FROM UE WHERE HTP \PYZlt{}\PYZgt{} 0)AS   MOY\PYZus{}TP
+         FROM
+         UE ;
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Done.
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}11}]:} [(16.5, 19.6, 12.5)]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{sql}
+         
+         SELECT *
+         FROM UE;
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Done.
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}13}]:} [(1, 'Analyse', 20.0, 25.0, 0.0),
+          (2, 'Algebre', 20.0, 25.0, 0.0),
+          (3, 'Programmation', 15.0, 15.0, 15.0),
+          (4, 'Algorithmique', 20.0, 15.0, 15.0),
+          (5, 'Bases de donnes', 18.0, 18.0, 18.0),
+          (6, 'Reseaux', 6.0, 0.0, 2.0)]
 \end{Verbatim}
             
     \hypertarget{exercice-11}{%
