@@ -478,6 +478,46 @@ GROUP BY Titre
 
 
 
+Plutôt:
+
+
+```python
+%%sql
+
+SELECT  DISTINCT Titre, HTD
+FROM  Inscrit JOIN UE
+ON Inscrit.NumUE = UE.NumUE
+WHERE HTD >= 18
+;
+```
+
+    Done.
+
+
+
+
+
+<table>
+    <tr>
+        <th>Titre</th>
+        <th>HTD</th>
+    </tr>
+    <tr>
+        <td>Bases de donnes</td>
+        <td>18.0</td>
+    </tr>
+    <tr>
+        <td>Analyse</td>
+        <td>25.0</td>
+    </tr>
+    <tr>
+        <td>Algebre</td>
+        <td>25.0</td>
+    </tr>
+</table>
+
+
+
 ## Exercice 6:
     
 Donner les noms des enseignants qui enseignent dans la même UE que ’Albert A.’ (sauf Albert
@@ -771,7 +811,22 @@ FROM Enseigne
 
 
 
-Avec LEFT OUTER JOIN (https://www.w3schools.com/sql/sql_join_left.asp) +  COALESCE (https://www.w3schools.com/sql/sql_isnull.asp) pour transformer le NULL en 0
+Avec LEFT OUTER JOIN (https://www.w3schools.com/sql/sql_join_left.asp) +  COALESCE (https://www.w3schools.com/sql/sql_isnull.asp) pour transformer le NULL en 0. Noter que RIGHT OUTER JOIN et FULL OUTER JOIN ne sont pas implémentés par Sqlite : [https://www.sqlite.org/omitted.html](https://www.sqlite.org/omitted.html).
+
+Commentaires de Romuald Thion :
+
+> Non. Quand on calcule une jointure A JOIN B (NATURAL ou pas) mais qu'on veut aussi les tuples de A qui n'ont pas de liens avec ceux de B on doit prendre une LEFT [OUTER] JOIN.  Dans le résultat, ces tuples supplémentaires auront des NULL pour tous les attributs de B
+10:06 PM
+
+>Si on veut ceux de B sans images dans A, c'est RIGHT [OUTER] JOIN, et si on les veut tous (ceux de A et ceux de B, mais c'est plus rare), c'est FULL [OUTER] JOIN. Mais SQLite ne supporte aucune de ces deux variantes (https://www.sqlite.org/omitted.html)
+
+> Je préfère r JOIN s USING (atts) que NATURAL JOIN car ça explicite les attributs utilisé et surtout, c'est + robuste au renommage des colonnes : si on renomme Inscrit.NumEt par exemple ca va changer le sens de SELECT * FROM Etudiant NATURAL JOIN Inscrit(qui devient un produit cartésien !) alors que SELECT * FROM Etudiant JOIN Inscrit USING (numEt); produire une erreur (car NumEt n'existe plus)
+2:57 PM
+
+> Les deux, JOIN USING et NATURAL JOIN, font que ya une colonne NumEt unique dans le résultat de la requête, à la différence de INNER JOIN et ses variantes
+2:58 PM
+
+> A part les effects de l'implicit du NATURAL... question de goût. Ya un argument en faveur toutefois : c'est que ça colle mieux avec la théorie du modèle relationnel et l'opérateur de jointure ($\bowtie$ en LaTeX)
 
 
 ```python
@@ -945,9 +1000,7 @@ l’attribut donnant ce nombre).
 
 SELECT COUNT(*) AS NB_ETUDIANTS
 FROM 
-Etudiant JOIN Inscrit
-ON Etudiant.NumET = Inscrit.NumEt
-JOIN UE
+Inscrit JOIN UE
 ON Inscrit.NumUE = UE.NumUE
 WHERE Titre = "Analyse"
 ;
@@ -1115,12 +1168,10 @@ le numéro de l’étudiant ainsi qu’un attribut HEURES qui indiquera son nomb
 ```python
 %%sql
 
-SELECT Etudiant.NumEt, SUM(HTP + HTD + HCours) AS HEURES
-    FROM  Etudiant JOIN Inscrit
-    ON Etudiant.NumET = Inscrit.NumEt
-    JOIN UE
+SELECT Inscrit.NumEt, SUM(HTP + HTD + HCours) AS HEURES
+    FROM  Inscrit JOIN UE
     ON Inscrit.NumUE = UE.NumUE              
-    GROUP BY Etudiant.NumEt
+    GROUP BY Inscrit.NumEt
     ORDER BY HEURES DESC
 ;
 ```
@@ -1180,7 +1231,8 @@ Plutot la requête suivante
 
 SELECT NumEt, SUM(HTP + HTD + HCours) AS HEURES
     FROM  (
-            SELECT UE.NumUE, Etudiant.NumEt, HTP,  HTD, HCours  
+            SELECT UE.NumUE, Etudiant.NumEt, HTP,  HTD, HCours
+                    FROM
                     Etudiant JOIN Inscrit
                     ON Etudiant.NumET = Inscrit.NumEt
                     JOIN UE
@@ -1252,6 +1304,52 @@ Attention, ici une clause HAVING est nécessaire.
 %%sql
 
 SELECT 
+Enseigne.NumEns, SUM(HCours) AS HEURES_COURS
+FROM 
+UE
+JOIN Enseigne
+ON UE.NumUE = Enseigne.NumUE
+GROUP BY Enseigne.NumEns
+HAVING SUM(HCours * NCours) > 17
+;
+```
+
+    Done.
+
+
+
+
+
+<table>
+    <tr>
+        <th>NumEns</th>
+        <th>HEURES_COURS</th>
+    </tr>
+    <tr>
+        <td>111</td>
+        <td>40.0</td>
+    </tr>
+    <tr>
+        <td>112</td>
+        <td>40.0</td>
+    </tr>
+    <tr>
+        <td>114</td>
+        <td>53.0</td>
+    </tr>
+    <tr>
+        <td>115</td>
+        <td>53.0</td>
+    </tr>
+</table>
+
+
+
+
+```python
+%%sql
+
+SELECT 
 Enseignant.NumEns,NomEns, SUM(HCours) AS HEURES_COURS
 FROM 
 UE
@@ -1262,6 +1360,8 @@ ON Enseigne.NumEns = Enseignant.NumEns
 GROUP BY Enseignant.NumEns
 HAVING SUM(HCours * NCours) > 17
 ;
+
+
 ```
 
     Done.
@@ -1517,6 +1617,502 @@ ON Enseigne.NumEns = Enseignant.NumEns
         <td>1</td>
         <td>115</td>
         <td>Edgar E.</td>
+    </tr>
+</table>
+
+
+
+## Sandbox
+
+
+```python
+%%sql
+
+SELECT 
+Enseignant.NumEns, UE.NumUE, SUM(HTP * NTP + HTD * NTD  + HCours * NCours)
+FROM 
+UE
+JOIN Enseigne
+ON UE.NumUE = Enseigne.NumUE
+JOIN Enseignant
+ON Enseigne.NumEns = Enseignant.NumEns
+GROUP BY Enseignant.NumEns, UE.NumUE
+;
+```
+
+    Done.
+
+
+
+
+
+<table>
+    <tr>
+        <th>NumEns</th>
+        <th>NumUE</th>
+        <th>SUM(HTP * NTP + HTD * NTD  + HCours * NCours)</th>
+    </tr>
+    <tr>
+        <td>111</td>
+        <td>1</td>
+        <td>45.0</td>
+    </tr>
+    <tr>
+        <td>111</td>
+        <td>2</td>
+        <td>25.0</td>
+    </tr>
+    <tr>
+        <td>112</td>
+        <td>1</td>
+        <td>25.0</td>
+    </tr>
+    <tr>
+        <td>112</td>
+        <td>2</td>
+        <td>45.0</td>
+    </tr>
+    <tr>
+        <td>113</td>
+        <td>3</td>
+        <td>45.0</td>
+    </tr>
+    <tr>
+        <td>113</td>
+        <td>4</td>
+        <td>15.0</td>
+    </tr>
+    <tr>
+        <td>113</td>
+        <td>5</td>
+        <td>36.0</td>
+    </tr>
+    <tr>
+        <td>114</td>
+        <td>3</td>
+        <td>15.0</td>
+    </tr>
+    <tr>
+        <td>114</td>
+        <td>4</td>
+        <td>50.0</td>
+    </tr>
+    <tr>
+        <td>114</td>
+        <td>5</td>
+        <td>36.0</td>
+    </tr>
+    <tr>
+        <td>115</td>
+        <td>3</td>
+        <td>15.0</td>
+    </tr>
+    <tr>
+        <td>115</td>
+        <td>4</td>
+        <td>30.0</td>
+    </tr>
+    <tr>
+        <td>115</td>
+        <td>5</td>
+        <td>54.0</td>
+    </tr>
+</table>
+
+
+
+
+```python
+%%sql
+
+SELECT 
+Enseignant.NumEns,  UE.NumUE, HCours * NCours
+FROM 
+UE
+JOIN Enseigne
+ON UE.NumUE = Enseigne.NumUE
+JOIN Enseignant
+ON Enseigne.NumEns = Enseignant.NumEns
+GROUP BY Enseignant.NumEns, UE.NumUE
+;
+```
+
+    Done.
+
+
+
+
+
+<table>
+    <tr>
+        <th>NumEns</th>
+        <th>NumUE</th>
+        <th>HCours * NCours</th>
+    </tr>
+    <tr>
+        <td>111</td>
+        <td>1</td>
+        <td>20.0</td>
+    </tr>
+    <tr>
+        <td>111</td>
+        <td>2</td>
+        <td>0.0</td>
+    </tr>
+    <tr>
+        <td>112</td>
+        <td>1</td>
+        <td>0.0</td>
+    </tr>
+    <tr>
+        <td>112</td>
+        <td>2</td>
+        <td>20.0</td>
+    </tr>
+    <tr>
+        <td>113</td>
+        <td>3</td>
+        <td>15.0</td>
+    </tr>
+    <tr>
+        <td>113</td>
+        <td>4</td>
+        <td>0.0</td>
+    </tr>
+    <tr>
+        <td>113</td>
+        <td>5</td>
+        <td>0.0</td>
+    </tr>
+    <tr>
+        <td>114</td>
+        <td>3</td>
+        <td>0.0</td>
+    </tr>
+    <tr>
+        <td>114</td>
+        <td>4</td>
+        <td>20.0</td>
+    </tr>
+    <tr>
+        <td>114</td>
+        <td>5</td>
+        <td>0.0</td>
+    </tr>
+    <tr>
+        <td>115</td>
+        <td>3</td>
+        <td>0.0</td>
+    </tr>
+    <tr>
+        <td>115</td>
+        <td>4</td>
+        <td>0.0</td>
+    </tr>
+    <tr>
+        <td>115</td>
+        <td>5</td>
+        <td>18.0</td>
+    </tr>
+</table>
+
+
+
+
+```python
+%%sql
+
+SELECT 
+DISTINCT Enseignant.NumEns
+FROM 
+UE
+JOIN Enseigne
+ON UE.NumUE = Enseigne.NumUE
+JOIN Enseignant
+ON Enseigne.NumEns = Enseignant.NumEns
+WHERE NTD * HTD > 0
+;
+```
+
+    Done.
+
+
+
+
+
+<table>
+    <tr>
+        <th>NumEns</th>
+    </tr>
+    <tr>
+        <td>111</td>
+    </tr>
+    <tr>
+        <td>112</td>
+    </tr>
+    <tr>
+        <td>113</td>
+    </tr>
+    <tr>
+        <td>114</td>
+    </tr>
+    <tr>
+        <td>115</td>
+    </tr>
+</table>
+
+
+
+
+```python
+%%sql
+
+SELECT 
+Enseignant.NumEns, SUM(NTD * HTD)
+FROM 
+UE
+JOIN Enseigne
+ON UE.NumUE = Enseigne.NumUE
+JOIN Enseignant
+ON Enseigne.NumEns = Enseignant.NumEns
+WHERE NTD * HTD > 0
+GROUP BY Enseignant.NumEns
+;
+```
+
+    Done.
+
+
+
+
+
+<table>
+    <tr>
+        <th>NumEns</th>
+        <th>SUM(NTD * HTD)</th>
+    </tr>
+    <tr>
+        <td>111</td>
+        <td>50.0</td>
+    </tr>
+    <tr>
+        <td>112</td>
+        <td>50.0</td>
+    </tr>
+    <tr>
+        <td>113</td>
+        <td>33.0</td>
+    </tr>
+    <tr>
+        <td>114</td>
+        <td>33.0</td>
+    </tr>
+    <tr>
+        <td>115</td>
+        <td>33.0</td>
+    </tr>
+</table>
+
+
+
+## Sandbox
+
+
+```python
+%%sql
+
+SELECT 
+DISTINCT Enseignant.NumEns
+FROM 
+UE
+JOIN Enseigne
+ON UE.NumUE = Enseigne.NumUE
+JOIN Enseignant
+ON Enseigne.NumEns = Enseignant.NumEns
+WHERE NTD * HTD > 0
+;
+```
+
+    Done.
+
+
+
+
+
+<table>
+    <tr>
+        <th>NumEns</th>
+    </tr>
+    <tr>
+        <td>111</td>
+    </tr>
+    <tr>
+        <td>112</td>
+    </tr>
+    <tr>
+        <td>113</td>
+    </tr>
+    <tr>
+        <td>114</td>
+    </tr>
+    <tr>
+        <td>115</td>
+    </tr>
+</table>
+
+
+
+
+```python
+%%sql
+
+SELECT 
+Enseignant.NumEns, SUM(NTD * HTD)
+FROM 
+UE
+JOIN Enseigne
+ON UE.NumUE = Enseigne.NumUE
+JOIN Enseignant
+ON Enseigne.NumEns = Enseignant.NumEns
+WHERE NTD * HTD > 0
+GROUP BY Enseignant.NumEns
+;
+```
+
+    Done.
+
+
+
+
+
+<table>
+    <tr>
+        <th>NumEns</th>
+        <th>SUM(NTD * HTD)</th>
+    </tr>
+    <tr>
+        <td>111</td>
+        <td>50.0</td>
+    </tr>
+    <tr>
+        <td>112</td>
+        <td>50.0</td>
+    </tr>
+    <tr>
+        <td>113</td>
+        <td>33.0</td>
+    </tr>
+    <tr>
+        <td>114</td>
+        <td>33.0</td>
+    </tr>
+    <tr>
+        <td>115</td>
+        <td>33.0</td>
+    </tr>
+</table>
+
+
+
+
+```python
+%%sql
+
+SELECT 
+Enseignant.NumEns, SUM(NTD * HTD) AS HeuresTD
+FROM 
+UE
+JOIN Enseigne
+ON UE.NumUE = Enseigne.NumUE
+JOIN Enseignant
+ON Enseigne.NumEns = Enseignant.NumEns
+GROUP BY Enseignant.NumEns
+HAVING HeuresTD > 0
+;
+```
+
+    Done.
+
+
+
+
+
+<table>
+    <tr>
+        <th>NumEns</th>
+        <th>HeuresTD</th>
+    </tr>
+    <tr>
+        <td>111</td>
+        <td>50.0</td>
+    </tr>
+    <tr>
+        <td>112</td>
+        <td>50.0</td>
+    </tr>
+    <tr>
+        <td>113</td>
+        <td>33.0</td>
+    </tr>
+    <tr>
+        <td>114</td>
+        <td>33.0</td>
+    </tr>
+    <tr>
+        <td>115</td>
+        <td>33.0</td>
+    </tr>
+</table>
+
+
+
+
+```python
+%%sql
+
+SELECT 
+Enseignant.NumEns, SUM(NTD * HTD) AS HeuresTD
+FROM 
+UE
+JOIN Enseigne
+ON UE.NumUE = Enseigne.NumUE
+JOIN Enseignant
+ON Enseigne.NumEns = Enseignant.NumEns
+GROUP BY Enseignant.NumEns
+HAVING HeuresTD > 0
+;
+```
+
+    Done.
+
+
+
+
+
+<table>
+    <tr>
+        <th>NumEns</th>
+        <th>HeuresTD</th>
+    </tr>
+    <tr>
+        <td>111</td>
+        <td>50.0</td>
+    </tr>
+    <tr>
+        <td>112</td>
+        <td>50.0</td>
+    </tr>
+    <tr>
+        <td>113</td>
+        <td>33.0</td>
+    </tr>
+    <tr>
+        <td>114</td>
+        <td>33.0</td>
+    </tr>
+    <tr>
+        <td>115</td>
+        <td>33.0</td>
     </tr>
 </table>
 

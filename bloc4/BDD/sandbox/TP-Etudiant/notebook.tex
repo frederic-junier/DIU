@@ -281,14 +281,14 @@
 
     
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}1}]:} \PY{o}{\PYZpc{}}\PY{k}{reload\PYZus{}ext} sql
-        \PY{o}{\PYZpc{}}\PY{k}{config} SqlMagic.displaycon = False
-        \PY{o}{\PYZpc{}}\PY{k}{config} SqlMagic.autolimit = 100
+{\color{incolor}In [{\color{incolor}21}]:} \PY{o}{\PYZpc{}}\PY{k}{reload\PYZus{}ext} sql
+         \PY{o}{\PYZpc{}}\PY{k}{config} SqlMagic.displaycon = False
+         \PY{o}{\PYZpc{}}\PY{k}{config} SqlMagic.autolimit = 100
 \end{Verbatim}
 
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}2}]:} \PY{o}{\PYZpc{}}\PY{k}{sql} sqlite:///base\PYZhy{}etudiant.db
+{\color{incolor}In [{\color{incolor}22}]:} \PY{o}{\PYZpc{}}\PY{k}{sql} sqlite:///base\PYZhy{}etudiant.db
 \end{Verbatim}
 
 
@@ -298,7 +298,7 @@
 Donner tous les noms des étudiants.
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}18}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{sql}
+{\color{incolor}In [{\color{incolor}23}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{sql}
          
          SELECT NomEt FROM Etudiant;
 \end{Verbatim}
@@ -310,7 +310,7 @@ Done.
     \end{Verbatim}
 
 \begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}18}]:} [('Armand A.',),
+{\color{outcolor}Out[{\color{outcolor}23}]:} [('Armand A.',),
           ('Berthe B.',),
           ('Cendrine C.',),
           ('David D.',),
@@ -322,7 +322,7 @@ Done.
 \end{Verbatim}
             
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}17}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{sql} 
+{\color{incolor}In [{\color{incolor}24}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{sql} 
          SELECT *
          FROM sqlite\PYZus{}master
 \end{Verbatim}
@@ -334,7 +334,7 @@ Done.
     \end{Verbatim}
 
 \begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}17}]:} [('table', 'Etudiant', 'Etudiant', 2, 'CREATE TABLE Etudiant (\textbackslash{}n       NumEt INTEGER PRIMARY KEY,\textbackslash{}n       NomEt VARCHAR2(255),\textbackslash{}n       Adresse VARCHAR2(1000)\textbackslash{}n)'),
+{\color{outcolor}Out[{\color{outcolor}24}]:} [('table', 'Etudiant', 'Etudiant', 2, 'CREATE TABLE Etudiant (\textbackslash{}n       NumEt INTEGER PRIMARY KEY,\textbackslash{}n       NomEt VARCHAR2(255),\textbackslash{}n       Adresse VARCHAR2(1000)\textbackslash{}n)'),
           ('table', 'Enseignant', 'Enseignant', 3, 'CREATE TABLE Enseignant (\textbackslash{}n       NumEns INTEGER PRIMARY KEY,\textbackslash{}n       NomEns VARCHAR2(255)\textbackslash{}n)'),
           ('table', 'UE', 'UE', 4, 'CREATE TABLE UE (\textbackslash{}n       NumUE INTEGER PRIMARY KEY,\textbackslash{}n       Titre VARCHAR2(255),\textbackslash{}n       HCours FLOAT,\textbackslash{}n       HTD FLOAT,\textbackslash{}n       HTP FLOAT\textbackslash{}n)'),
           ('table', 'Enseigne', 'Enseigne', 5, 'CREATE TABLE Enseigne (\textbackslash{}n       NumEns INTEGER REFERENCES Enseignant(NumEns),\textbackslash{}n       NumUE INTEGER REFERENCES UE(NumUE),\textbackslash{}n       NCours INTEGER,\textbackslash{}n       NTD INTEGER,\textbackslash{}n       NTP INTEGER,\textbackslash{}n       PRIMARY KEY (NumEns,NumUE)\textbackslash{}n)'),
@@ -344,11 +344,11 @@ Done.
 \end{Verbatim}
             
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}6}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{sql}
-        
-        SELECT name 
-        FROM sqlite\PYZus{}master
-        WHERE type = \PYZsq{}table\PYZsq{}
+{\color{incolor}In [{\color{incolor}25}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{sql}
+         
+         SELECT name 
+         FROM sqlite\PYZus{}master
+         WHERE type = \PYZsq{}table\PYZsq{}
 \end{Verbatim}
 
 
@@ -358,11 +358,11 @@ Done.
     \end{Verbatim}
 
 \begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}6}]:} [('Etudiant',), ('Enseignant',), ('UE',), ('Enseigne',), ('Inscrit',)]
+{\color{outcolor}Out[{\color{outcolor}25}]:} [('Etudiant',), ('Enseignant',), ('UE',), ('Enseigne',), ('Inscrit',)]
 \end{Verbatim}
             
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}13}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{sql}
+{\color{incolor}In [{\color{incolor}26}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{sql}
          
          SELECT sql 
          FROM sqlite\PYZus{}master
@@ -376,15 +376,15 @@ Done.
     \end{Verbatim}
 
 \begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}13}]:} [('CREATE TABLE Etudiant (\textbackslash{}n       NumEt INTEGER PRIMARY KEY,\textbackslash{}n       NomEt VARCHAR2(255),\textbackslash{}n       Adresse VARCHAR2(1000)\textbackslash{}n)',)]
+{\color{outcolor}Out[{\color{outcolor}26}]:} [('CREATE TABLE Etudiant (\textbackslash{}n       NumEt INTEGER PRIMARY KEY,\textbackslash{}n       NomEt VARCHAR2(255),\textbackslash{}n       Adresse VARCHAR2(1000)\textbackslash{}n)',)]
 \end{Verbatim}
             
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}9}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{sql}
-        
-        SELECT sql 
-        FROM sqlite\PYZus{}master
-        WHERE name = \PYZsq{}Enseignant\PYZsq{};
+{\color{incolor}In [{\color{incolor}27}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{sql}
+         
+         SELECT sql 
+         FROM sqlite\PYZus{}master
+         WHERE name = \PYZsq{}Enseignant\PYZsq{};
 \end{Verbatim}
 
 
@@ -394,11 +394,11 @@ Done.
     \end{Verbatim}
 
 \begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}9}]:} [('CREATE TABLE Enseignant (\textbackslash{}n       NumEns INTEGER PRIMARY KEY,\textbackslash{}n       NomEns VARCHAR2(255)\textbackslash{}n)',)]
+{\color{outcolor}Out[{\color{outcolor}27}]:} [('CREATE TABLE Enseignant (\textbackslash{}n       NumEns INTEGER PRIMARY KEY,\textbackslash{}n       NomEns VARCHAR2(255)\textbackslash{}n)',)]
 \end{Verbatim}
             
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}14}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{sql}
+{\color{incolor}In [{\color{incolor}28}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{sql}
          
          SELECT sql 
          FROM sqlite\PYZus{}master
@@ -412,11 +412,11 @@ Done.
     \end{Verbatim}
 
 \begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}14}]:} [('CREATE TABLE UE (\textbackslash{}n       NumUE INTEGER PRIMARY KEY,\textbackslash{}n       Titre VARCHAR2(255),\textbackslash{}n       HCours FLOAT,\textbackslash{}n       HTD FLOAT,\textbackslash{}n       HTP FLOAT\textbackslash{}n)',)]
+{\color{outcolor}Out[{\color{outcolor}28}]:} [('CREATE TABLE UE (\textbackslash{}n       NumUE INTEGER PRIMARY KEY,\textbackslash{}n       Titre VARCHAR2(255),\textbackslash{}n       HCours FLOAT,\textbackslash{}n       HTD FLOAT,\textbackslash{}n       HTP FLOAT\textbackslash{}n)',)]
 \end{Verbatim}
             
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}15}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{sql}
+{\color{incolor}In [{\color{incolor}29}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{sql}
          
          SELECT sql 
          FROM sqlite\PYZus{}master
@@ -430,11 +430,11 @@ Done.
     \end{Verbatim}
 
 \begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}15}]:} [('CREATE TABLE Enseigne (\textbackslash{}n       NumEns INTEGER REFERENCES Enseignant(NumEns),\textbackslash{}n       NumUE INTEGER REFERENCES UE(NumUE),\textbackslash{}n       NCours INTEGER,\textbackslash{}n       NTD INTEGER,\textbackslash{}n       NTP INTEGER,\textbackslash{}n       PRIMARY KEY (NumEns,NumUE)\textbackslash{}n)',)]
+{\color{outcolor}Out[{\color{outcolor}29}]:} [('CREATE TABLE Enseigne (\textbackslash{}n       NumEns INTEGER REFERENCES Enseignant(NumEns),\textbackslash{}n       NumUE INTEGER REFERENCES UE(NumUE),\textbackslash{}n       NCours INTEGER,\textbackslash{}n       NTD INTEGER,\textbackslash{}n       NTP INTEGER,\textbackslash{}n       PRIMARY KEY (NumEns,NumUE)\textbackslash{}n)',)]
 \end{Verbatim}
             
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}16}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{sql}
+{\color{incolor}In [{\color{incolor}30}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{sql}
          
          SELECT sql 
          FROM sqlite\PYZus{}master
@@ -448,7 +448,7 @@ Done.
     \end{Verbatim}
 
 \begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}16}]:} [('CREATE TABLE Inscrit (\textbackslash{}n       NumEt INTEGER REFERENCES Etudiant(NumEt),\textbackslash{}n       NumUE INTEGER REFERENCES UE(NumUE),\textbackslash{}n       PRIMARY KEY (NumEt,NumUE)\textbackslash{}n)',)]
+{\color{outcolor}Out[{\color{outcolor}30}]:} [('CREATE TABLE Inscrit (\textbackslash{}n       NumEt INTEGER REFERENCES Etudiant(NumEt),\textbackslash{}n       NumUE INTEGER REFERENCES UE(NumUE),\textbackslash{}n       PRIMARY KEY (NumEt,NumUE)\textbackslash{}n)',)]
 \end{Verbatim}
             
     \begin{figure}
@@ -463,7 +463,7 @@ Done.
 Donner les titre des UEs dans l'ordre alphabétique
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}19}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{sql}
+{\color{incolor}In [{\color{incolor}31}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{sql}
          
          SELECT Titre 
          FROM UE 
@@ -477,7 +477,7 @@ Done.
     \end{Verbatim}
 
 \begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}19}]:} [('Algebre',),
+{\color{outcolor}Out[{\color{outcolor}31}]:} [('Algebre',),
           ('Algorithmique',),
           ('Analyse',),
           ('Bases de donnes',),
@@ -492,7 +492,7 @@ Donner le titre des UEs dont le nombre d'heures total (cours, td et cm)
 par groupe est au moins 46
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}20}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{sql}
+{\color{incolor}In [{\color{incolor}32}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{sql}
          
          SELECT Titre 
          FROM UE 
@@ -506,7 +506,7 @@ Done.
     \end{Verbatim}
 
 \begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}20}]:} [('Algorithmique',), ('Bases de donnes',)]
+{\color{outcolor}Out[{\color{outcolor}32}]:} [('Algorithmique',), ('Bases de donnes',)]
 \end{Verbatim}
             
     \hypertarget{exercice-4}{%
@@ -515,7 +515,7 @@ Done.
 Donner les noms des étudiants qui ont 'Albert A.' comme enseignant.
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}25}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{sql}
+{\color{incolor}In [{\color{incolor}33}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{sql}
          
          SELECT DISTINCT NomEt
          FROM 
@@ -538,7 +538,7 @@ Done.
     \end{Verbatim}
 
 \begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}25}]:} [('David D.',), ('Gerald G.',), ('Jacques J.',)]
+{\color{outcolor}Out[{\color{outcolor}33}]:} [('David D.',), ('Gerald G.',), ('Jacques J.',)]
 \end{Verbatim}
             
     \hypertarget{exercice-5}{%
@@ -571,6 +571,28 @@ Done.
 {\color{outcolor}Out[{\color{outcolor}34}]:} [('Algebre', 25.0), ('Analyse', 25.0), ('Bases de donnes', 18.0)]
 \end{Verbatim}
             
+    Plutôt:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}35}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{sql}
+         
+         SELECT  DISTINCT Titre, HTD
+         FROM  Inscrit JOIN UE
+         ON Inscrit.NumUE = UE.NumUE
+         WHERE HTD \PYZgt{}= 18
+         ;
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Done.
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}35}]:} [('Bases de donnes', 18.0), ('Analyse', 25.0), ('Algebre', 25.0)]
+\end{Verbatim}
+            
     \hypertarget{exercice-6}{%
 \subsection{Exercice 6:}\label{exercice-6}}
 
@@ -578,7 +600,7 @@ Donner les noms des enseignants qui enseignent dans la même UE que
 'Albert A.' (sauf Albert A. lui-même).
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}39}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{sql}
+{\color{incolor}In [{\color{incolor}36}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{sql}
          
          SELECT 
              DISTINCT NomEns
@@ -607,13 +629,13 @@ Done.
     \end{Verbatim}
 
 \begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}39}]:} [('Bertrand B.',)]
+{\color{outcolor}Out[{\color{outcolor}36}]:} [('Bertrand B.',)]
 \end{Verbatim}
             
     Plutot :
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}18}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{sql}
+{\color{incolor}In [{\color{incolor}37}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{sql}
          
          SELECT 
              DISTINCT NomEns
@@ -638,11 +660,11 @@ Done.
     \end{Verbatim}
 
 \begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}18}]:} [('Bertrand B.',)]
+{\color{outcolor}Out[{\color{outcolor}37}]:} [('Bertrand B.',)]
 \end{Verbatim}
             
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}17}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{sql}
+{\color{incolor}In [{\color{incolor}38}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{sql}
          
          SELECT DISTINCT Ens2.NomEns
          FROM Enseigne AS E1
@@ -662,11 +684,11 @@ Done.
     \end{Verbatim}
 
 \begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}17}]:} [('Bertrand B.',)]
+{\color{outcolor}Out[{\color{outcolor}38}]:} [('Bertrand B.',)]
 \end{Verbatim}
             
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}36}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{sql}
+{\color{incolor}In [{\color{incolor}39}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{sql}
          
          SELECT 
          NomEns, Titre
@@ -686,7 +708,7 @@ Done.
     \end{Verbatim}
 
 \begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}36}]:} [('Albert A.', 'Analyse'),
+{\color{outcolor}Out[{\color{outcolor}39}]:} [('Albert A.', 'Analyse'),
           ('Albert A.', 'Algebre'),
           ('Bertrand B.', 'Analyse'),
           ('Bertrand B.', 'Algebre'),
@@ -708,15 +730,15 @@ Donner le nombre total d'heures de cours/TD/TP dispensées à
 l'université. On nommera TOTAL\_HEURES ce nombre.
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}4}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{sql}
-        
-        SELECT 
-        SUM(HCours * NCours + HTD * NTD + HTP * NTP) AS TOTAL\PYZus{}HEURES
-        FROM 
-        UE
-        JOIN Enseigne
-        ON UE.NumUE = Enseigne.NumUE
-        ;
+{\color{incolor}In [{\color{incolor}40}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{sql}
+         
+         SELECT 
+         SUM(HCours * NCours + HTD * NTD + HTP * NTP) AS TOTAL\PYZus{}HEURES
+         FROM 
+         UE
+         JOIN Enseigne
+         ON UE.NumUE = Enseigne.NumUE
+         ;
 \end{Verbatim}
 
 
@@ -726,11 +748,11 @@ Done.
     \end{Verbatim}
 
 \begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}4}]:} [(436.0,)]
+{\color{outcolor}Out[{\color{outcolor}40}]:} [(436.0,)]
 \end{Verbatim}
             
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}21}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{sql}
+{\color{incolor}In [{\color{incolor}41}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{sql}
          
          SELECT 
          UE.NumUE, SUM(HCours * NCours + HTD * NTD + HTP * NTP) AS TOTAL\PYZus{}HEURES
@@ -755,24 +777,64 @@ Done.
     \end{Verbatim}
 
 \begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}21}]:} [(1, 70.0), (2, 70.0), (3, 75.0), (4, 95.0), (5, 126.0), (6, 0)]
+{\color{outcolor}Out[{\color{outcolor}41}]:} [(1, 70.0), (2, 70.0), (3, 75.0), (4, 95.0), (5, 126.0), (6, 0)]
 \end{Verbatim}
             
     Avec LEFT OUTER JOIN (https://www.w3schools.com/sql/sql\_join\_left.asp)
 + COALESCE (https://www.w3schools.com/sql/sql\_isnull.asp) pour
-transformer le NULL en 0
+transformer le NULL en 0. Noter que RIGHT OUTER JOIN et FULL OUTER JOIN
+ne sont pas implémentés par Sqlite :
+\url{https://www.sqlite.org/omitted.html}.
+
+Commentaires de Romuald Thion :
+
+\begin{quote}
+Non. Quand on calcule une jointure A JOIN B (NATURAL ou pas) mais qu'on
+veut aussi les tuples de A qui n'ont pas de liens avec ceux de B on doit
+prendre une LEFT {[}OUTER{]} JOIN. Dans le résultat, ces tuples
+supplémentaires auront des NULL pour tous les attributs de B 10:06 PM
+\end{quote}
+
+\begin{quote}
+Si on veut ceux de B sans images dans A, c'est RIGHT {[}OUTER{]} JOIN,
+et si on les veut tous (ceux de A et ceux de B, mais c'est plus rare),
+c'est FULL {[}OUTER{]} JOIN. Mais SQLite ne supporte aucune de ces deux
+variantes (https://www.sqlite.org/omitted.html)
+\end{quote}
+
+\begin{quote}
+Je préfère r JOIN s USING (atts) que NATURAL JOIN car ça explicite les
+attributs utilisé et surtout, c'est + robuste au renommage des colonnes
+: si on renomme Inscrit.NumEt par exemple ca va changer le sens de
+SELECT * FROM Etudiant NATURAL JOIN Inscrit(qui devient un produit
+cartésien !) alors que SELECT * FROM Etudiant JOIN Inscrit USING
+(numEt); produire une erreur (car NumEt n'existe plus) 2:57 PM
+\end{quote}
+
+\begin{quote}
+Les deux, JOIN USING et NATURAL JOIN, font que ya une colonne NumEt
+unique dans le résultat de la requête, à la différence de INNER JOIN et
+ses variantes 2:58 PM
+\end{quote}
+
+\begin{quote}
+A part les effects de l'implicit du NATURAL\ldots{} question de goût. Ya
+un argument en faveur toutefois : c'est que ça colle mieux avec la
+théorie du modèle relationnel et l'opérateur de jointure (\(\bowtie\) en
+LaTeX)
+\end{quote}
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}9}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{sql}
-        
-        SELECT 
-        UE.NumUE, COALESCE(SUM(HCours * NCours + HTD * NTD + HTP * NTP), 0) AS TOTAL\PYZus{}HEURES
-        FROM 
-        UE
-        LEFT OUTER JOIN Enseigne
-        ON UE.NumUE = Enseigne.NumUE
-        GROUP BY UE.NumUE
-        ;
+{\color{incolor}In [{\color{incolor}42}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{sql}
+         
+         SELECT 
+         UE.NumUE, COALESCE(SUM(HCours * NCours + HTD * NTD + HTP * NTP), 0) AS TOTAL\PYZus{}HEURES
+         FROM 
+         UE
+         LEFT OUTER JOIN Enseigne
+         ON UE.NumUE = Enseigne.NumUE
+         GROUP BY UE.NumUE
+         ;
 \end{Verbatim}
 
 
@@ -782,7 +844,7 @@ Done.
     \end{Verbatim}
 
 \begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}9}]:} [(1, 70.0), (2, 70.0), (3, 75.0), (4, 95.0), (5, 126.0), (6, 0)]
+{\color{outcolor}Out[{\color{outcolor}42}]:} [(1, 70.0), (2, 70.0), (3, 75.0), (4, 95.0), (5, 126.0), (6, 0)]
 \end{Verbatim}
             
     \hypertarget{exercice-8}{%
@@ -792,7 +854,7 @@ Donner le nombre d'UE n'ayant pas de TP (on appellera NB\_UES l'attribut
 donnant ce résultat).
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}20}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{sql}
+{\color{incolor}In [{\color{incolor}43}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{sql}
          
          SELECT
          COUNT(*) 
@@ -809,11 +871,11 @@ Done.
     \end{Verbatim}
 
 \begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}20}]:} [(2,)]
+{\color{outcolor}Out[{\color{outcolor}43}]:} [(2,)]
 \end{Verbatim}
             
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}19}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{sql}
+{\color{incolor}In [{\color{incolor}44}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{sql}
          
          SELECT
          COUNT(*) 
@@ -836,13 +898,13 @@ Done.
     \end{Verbatim}
 
 \begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}19}]:} [(2,)]
+{\color{outcolor}Out[{\color{outcolor}44}]:} [(2,)]
 \end{Verbatim}
             
     Plutot la requête ci-dessous
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}12}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{sql}
+{\color{incolor}In [{\color{incolor}45}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{sql}
          
          SELECT 
              COUNT(*)
@@ -867,7 +929,7 @@ Done.
     \end{Verbatim}
 
 \begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}12}]:} [(3,)]
+{\color{outcolor}Out[{\color{outcolor}45}]:} [(3,)]
 \end{Verbatim}
             
     \hypertarget{exercice-9}{%
@@ -877,13 +939,11 @@ Donner le nombre d'étudiants qui suivent le cours d'Analyse (on
 appellera NB\_ETUDIANTS l'attribut donnant ce nombre).
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}63}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{sql}
+{\color{incolor}In [{\color{incolor}46}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{sql}
          
          SELECT COUNT(*) AS NB\PYZus{}ETUDIANTS
          FROM 
-         Etudiant JOIN Inscrit
-         ON Etudiant.NumET = Inscrit.NumEt
-         JOIN UE
+         Inscrit JOIN UE
          ON Inscrit.NumUE = UE.NumUE
          WHERE Titre = \PYZdq{}Analyse\PYZdq{}
          ;
@@ -896,7 +956,7 @@ Done.
     \end{Verbatim}
 
 \begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}63}]:} [(3,)]
+{\color{outcolor}Out[{\color{outcolor}46}]:} [(3,)]
 \end{Verbatim}
             
     \hypertarget{exercice-10}{%
@@ -907,7 +967,7 @@ appelera MOY\_COURS la moyenne des heures, MOY\_TD celle des TD et
 MOY\_TP celle des TPs.
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}48}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{sql}
+{\color{incolor}In [{\color{incolor}47}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{sql}
          
          SELECT
          AVG(HCours) AS MOY\PYZus{}COURS, AVG(HTD) AS  MOY\PYZus{}TD, AVG(HTP) AS MOY\PYZus{}TP
@@ -921,11 +981,11 @@ Done.
     \end{Verbatim}
 
 \begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}48}]:} [(16.5, 16.333333333333332, 8.333333333333334)]
+{\color{outcolor}Out[{\color{outcolor}47}]:} [(16.5, 16.333333333333332, 8.333333333333334)]
 \end{Verbatim}
             
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}11}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{sql}
+{\color{incolor}In [{\color{incolor}48}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{sql}
          
          SELECT
          SUM(HCours)/(SELECT COUNT(*) FROM UE WHERE HCours \PYZlt{}\PYZgt{} 0) AS MOY\PYZus{}COURS, 
@@ -942,11 +1002,11 @@ Done.
     \end{Verbatim}
 
 \begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}11}]:} [(16.5, 19.6, 12.5)]
+{\color{outcolor}Out[{\color{outcolor}48}]:} [(16.5, 19.6, 12.5)]
 \end{Verbatim}
             
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}13}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{sql}
+{\color{incolor}In [{\color{incolor}49}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{sql}
          
          SELECT *
          FROM UE;
@@ -959,7 +1019,7 @@ Done.
     \end{Verbatim}
 
 \begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}13}]:} [(1, 'Analyse', 20.0, 25.0, 0.0),
+{\color{outcolor}Out[{\color{outcolor}49}]:} [(1, 'Analyse', 20.0, 25.0, 0.0),
           (2, 'Algebre', 20.0, 25.0, 0.0),
           (3, 'Programmation', 15.0, 15.0, 15.0),
           (4, 'Algorithmique', 20.0, 15.0, 15.0),
@@ -975,14 +1035,12 @@ donnera dans le résultat le numéro de l'étudiant ainsi qu'un attribut
 HEURES qui indiquera son nombre d'heures.
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}15}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{sql}
+{\color{incolor}In [{\color{incolor}50}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{sql}
          
-         SELECT Etudiant.NumEt, SUM(HTP + HTD + HCours) AS HEURES
-             FROM  Etudiant JOIN Inscrit
-             ON Etudiant.NumET = Inscrit.NumEt
-             JOIN UE
+         SELECT Inscrit.NumEt, SUM(HTP + HTD + HCours) AS HEURES
+             FROM  Inscrit JOIN UE
              ON Inscrit.NumUE = UE.NumUE              
-             GROUP BY Etudiant.NumEt
+             GROUP BY Inscrit.NumEt
              ORDER BY HEURES DESC
          ;
 \end{Verbatim}
@@ -994,7 +1052,7 @@ Done.
     \end{Verbatim}
 
 \begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}15}]:} [(1117, 185.0),
+{\color{outcolor}Out[{\color{outcolor}50}]:} [(1117, 185.0),
           (1111, 149.0),
           (1114, 143.0),
           (1119, 135.0),
@@ -1007,11 +1065,12 @@ Done.
     Plutot la requête suivante
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}16}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{sql}
+{\color{incolor}In [{\color{incolor}51}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{sql}
          
          SELECT NumEt, SUM(HTP + HTD + HCours) AS HEURES
              FROM  (
-                     SELECT UE.NumUE, Etudiant.NumEt, HTP,  HTD, HCours  
+                     SELECT UE.NumUE, Etudiant.NumEt, HTP,  HTD, HCours
+                             FROM
                              Etudiant JOIN Inscrit
                              ON Etudiant.NumET = Inscrit.NumEt
                              JOIN UE
@@ -1033,7 +1092,7 @@ Done.
     \end{Verbatim}
 
 \begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}16}]:} [(1117, 185.0),
+{\color{outcolor}Out[{\color{outcolor}51}]:} [(1117, 185.0),
           (1111, 149.0),
           (1114, 135.0),
           (1119, 135.0),
@@ -1050,7 +1109,31 @@ Donner les numéros des enseignants qui effectuent plus de 17 heures de
 cours magistraux. Attention, ici une clause HAVING est nécessaire.
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}49}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{sql}
+{\color{incolor}In [{\color{incolor}52}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{sql}
+         
+         SELECT 
+         Enseigne.NumEns, SUM(HCours) AS HEURES\PYZus{}COURS
+         FROM 
+         UE
+         JOIN Enseigne
+         ON UE.NumUE = Enseigne.NumUE
+         GROUP BY Enseigne.NumEns
+         HAVING SUM(HCours * NCours) \PYZgt{} 17
+         ;
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Done.
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}52}]:} [(111, 40.0), (112, 40.0), (114, 53.0), (115, 53.0)]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}53}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{sql}
          
          SELECT 
          Enseignant.NumEns,NomEns, SUM(HCours) AS HEURES\PYZus{}COURS
@@ -1072,14 +1155,14 @@ Done.
     \end{Verbatim}
 
 \begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}49}]:} [(111, 'Albert A.', 40.0),
+{\color{outcolor}Out[{\color{outcolor}53}]:} [(111, 'Albert A.', 40.0),
           (112, 'Bertrand B.', 40.0),
           (114, 'David D.', 53.0),
           (115, 'Edgar E.', 53.0)]
 \end{Verbatim}
             
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}48}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{sql}
+{\color{incolor}In [{\color{incolor}54}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{sql}
          
          SELECT 
          *
@@ -1099,7 +1182,7 @@ Done.
     \end{Verbatim}
 
 \begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}48}]:} [(1, 'Analyse', 20.0, 25.0, 0.0, 111, 1, 1, 1, 0, 111, 'Albert A.'),
+{\color{outcolor}Out[{\color{outcolor}54}]:} [(1, 'Analyse', 20.0, 25.0, 0.0, 111, 1, 1, 1, 0, 111, 'Albert A.'),
           (2, 'Algebre', 20.0, 25.0, 0.0, 111, 2, 0, 1, 0, 111, 'Albert A.'),
           (1, 'Analyse', 20.0, 25.0, 0.0, 112, 1, 0, 1, 0, 112, 'Bertrand B.'),
           (2, 'Algebre', 20.0, 25.0, 0.0, 112, 2, 1, 1, 0, 112, 'Bertrand B.'),
@@ -1112,6 +1195,240 @@ Done.
           (5, 'Bases de donnes', 18.0, 18.0, 18.0, 114, 5, 0, 1, 1, 114, 'David D.'),
           (3, 'Programmation', 15.0, 15.0, 15.0, 115, 3, 0, 0, 1, 115, 'Edgar E.'),
           (4, 'Algorithmique', 20.0, 15.0, 15.0, 115, 4, 0, 1, 1, 115, 'Edgar E.')]
+\end{Verbatim}
+            
+    \hypertarget{sandbox}{%
+\subsection{Sandbox}\label{sandbox}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}55}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{sql}
+         
+         SELECT 
+         Enseignant.NumEns, UE.NumUE, SUM(HTP * NTP + HTD * NTD  + HCours * NCours)
+         FROM 
+         UE
+         JOIN Enseigne
+         ON UE.NumUE = Enseigne.NumUE
+         JOIN Enseignant
+         ON Enseigne.NumEns = Enseignant.NumEns
+         GROUP BY Enseignant.NumEns, UE.NumUE
+         ;
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Done.
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}55}]:} [(111, 1, 45.0),
+          (111, 2, 25.0),
+          (112, 1, 25.0),
+          (112, 2, 45.0),
+          (113, 3, 45.0),
+          (113, 4, 15.0),
+          (113, 5, 36.0),
+          (114, 3, 15.0),
+          (114, 4, 50.0),
+          (114, 5, 36.0),
+          (115, 3, 15.0),
+          (115, 4, 30.0),
+          (115, 5, 54.0)]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}56}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{sql}
+         
+         SELECT 
+         Enseignant.NumEns,  UE.NumUE, HCours * NCours
+         FROM 
+         UE
+         JOIN Enseigne
+         ON UE.NumUE = Enseigne.NumUE
+         JOIN Enseignant
+         ON Enseigne.NumEns = Enseignant.NumEns
+         GROUP BY Enseignant.NumEns, UE.NumUE
+         ;
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Done.
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}56}]:} [(111, 1, 20.0),
+          (111, 2, 0.0),
+          (112, 1, 0.0),
+          (112, 2, 20.0),
+          (113, 3, 15.0),
+          (113, 4, 0.0),
+          (113, 5, 0.0),
+          (114, 3, 0.0),
+          (114, 4, 20.0),
+          (114, 5, 0.0),
+          (115, 3, 0.0),
+          (115, 4, 0.0),
+          (115, 5, 18.0)]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}57}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{sql}
+         
+         SELECT 
+         DISTINCT Enseignant.NumEns
+         FROM 
+         UE
+         JOIN Enseigne
+         ON UE.NumUE = Enseigne.NumUE
+         JOIN Enseignant
+         ON Enseigne.NumEns = Enseignant.NumEns
+         WHERE NTD * HTD \PYZgt{} 0
+         ;
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Done.
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}57}]:} [(111,), (112,), (113,), (114,), (115,)]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}58}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{sql}
+         
+         SELECT 
+         Enseignant.NumEns, SUM(NTD * HTD)
+         FROM 
+         UE
+         JOIN Enseigne
+         ON UE.NumUE = Enseigne.NumUE
+         JOIN Enseignant
+         ON Enseigne.NumEns = Enseignant.NumEns
+         WHERE NTD * HTD \PYZgt{} 0
+         GROUP BY Enseignant.NumEns
+         ;
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Done.
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}58}]:} [(111, 50.0), (112, 50.0), (113, 33.0), (114, 33.0), (115, 33.0)]
+\end{Verbatim}
+            
+    \hypertarget{sandbox}{%
+\subsection{Sandbox}\label{sandbox}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}59}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{sql}
+         
+         SELECT 
+         DISTINCT Enseignant.NumEns
+         FROM 
+         UE
+         JOIN Enseigne
+         ON UE.NumUE = Enseigne.NumUE
+         JOIN Enseignant
+         ON Enseigne.NumEns = Enseignant.NumEns
+         WHERE NTD * HTD \PYZgt{} 0
+         ;
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Done.
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}59}]:} [(111,), (112,), (113,), (114,), (115,)]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}60}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{sql}
+         
+         SELECT 
+         Enseignant.NumEns, SUM(NTD * HTD)
+         FROM 
+         UE
+         JOIN Enseigne
+         ON UE.NumUE = Enseigne.NumUE
+         JOIN Enseignant
+         ON Enseigne.NumEns = Enseignant.NumEns
+         WHERE NTD * HTD \PYZgt{} 0
+         GROUP BY Enseignant.NumEns
+         ;
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Done.
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}60}]:} [(111, 50.0), (112, 50.0), (113, 33.0), (114, 33.0), (115, 33.0)]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}61}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{sql}
+         
+         SELECT 
+         Enseignant.NumEns, SUM(NTD * HTD) AS HeuresTD
+         FROM 
+         UE
+         JOIN Enseigne
+         ON UE.NumUE = Enseigne.NumUE
+         JOIN Enseignant
+         ON Enseigne.NumEns = Enseignant.NumEns
+         GROUP BY Enseignant.NumEns
+         HAVING HeuresTD \PYZgt{} 0
+         ;
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Done.
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}61}]:} [(111, 50.0), (112, 50.0), (113, 33.0), (114, 33.0), (115, 33.0)]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}62}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{sql}
+         
+         SELECT 
+         Enseignant.NumEns, SUM(NTD * HTD) AS HeuresTD
+         FROM 
+         UE
+         JOIN Enseigne
+         ON UE.NumUE = Enseigne.NumUE
+         JOIN Enseignant
+         ON Enseigne.NumEns = Enseignant.NumEns
+         GROUP BY Enseignant.NumEns
+         HAVING HeuresTD \PYZgt{} 0
+         ;
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Done.
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}62}]:} [(111, 50.0), (112, 50.0), (113, 33.0), (114, 33.0), (115, 33.0)]
 \end{Verbatim}
             
 

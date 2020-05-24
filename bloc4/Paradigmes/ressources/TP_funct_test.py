@@ -2,7 +2,7 @@
 
 import pytest
 from functools import wraps
-import TP_Paradigme_Fonctionnel_Junier as m
+import TP_funct as m
 
 
 def counter(fn):

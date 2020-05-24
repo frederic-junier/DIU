@@ -1,18 +1,25 @@
+# pylint: disable=invalid-name
+# -*- coding: utf-8 -*-
+"""Example Google style docstrings."""
+
 # %%
-from functools import wraps, reduce, lru_cache
+from functools import wraps, reduce
 import time
 
-###############################################################################
+
+####################################################################################################
 # TP : pratique de la programmation fonctionnelle en Python
 #
 # Cette feuille de TP a pour but de vous familiariser avec la programmation fonctionnelle.
 # Elle est composée des parties suivantes :
 # 1. une introduction avec des versions itératives/récursives de Fibonacci et de la factorielle
-# 2. une variation sur le thème de la fonction "forall" qui teste si tous les éléments d'une liste satisfont un prédicat
-#   * vous utiliserez à cette occasion les briques de base de la programmation fonctionnelle, disponibles dans la bibliothèque standard de Python
-# 3. un introduction aux décorateurs, des fonctions "qui modifient le comportement d'autres fonction"
-# 4. la découverte des fonctionnalités spécifiques des décorateurs en Python qui doit vous amener à une application utile en classe avec les élèves
-###############################################################################
+# 2. une variation sur le thème de la fonction "forall" qui teste si tous les éléments d'une liste
+#    satisfont un prédicat. vous utiliserez à cette occasion les briques de base de la programmation
+#    fonctionnelle, disponibles dans la bibliothèque standard de Python
+# 3. une introduction aux décorateurs, des fonctions qui modifient d'autres fonctions
+# 4. la découverte des fonctionnalités spécifiques des décorateurs en Python qui doit vous amener
+#    à une application utile en classe avec les élèves
+####################################################################################################
 
 # %%
 ###############################################################################
@@ -20,10 +27,9 @@ import time
 ###############################################################################
 
 
-def gen_examples(f, n=10):
+def gen_examples(fnct, n=10):
     """Pour générer les (n + 1) premiers termes f(0), f(1), ..., f(n)"""
-    return [f(i) for i in range(0, n)]
-
+    return [fnct(i) for i in range(0, n)]
 
 
 ########################################
@@ -95,7 +101,11 @@ def fact_rec(n):
 ex1 = [4, 4, 2, 0, 1]
 ex2 = []
 ex3 = [4, 4, 2, 0, 8]
-def pair(x): return x % 2 == 0
+
+
+def pair(x):
+    """Un test de parité"""
+    return x % 2 == 0
 
 ########################################
 # EXERCICE :  définir forall (version boucle for)
@@ -144,7 +154,8 @@ def tail(l):
 
 
 def forall_funct(pred, l):
-    """TODO : une version récursive de forall, plus fonctionnelle, utilisant UNIQUEMENT empty, head et tail, sans boucle for ni affectation. La fonction sera récursive"""
+    """TODO : une version récursive de forall, plus fonctionnelle, utilisant UNIQUEMENT
+       empty, head et tail, sans boucle for ni affectation. La fonction sera récursive"""
     pass
 
 
@@ -181,7 +192,8 @@ def forall_map_all(pred, l):
 
 
 def forall_filter(pred, l):
-    """TODO : une version de forall utilisant les fonctions standards filter et len. On pourra avoir besoin de transformer le résultat intermédiaire avec list()"""
+    """TODO : une version de forall utilisant les fonctions standards filter et len. On pourra avoir
+       besoin de transformer le résultat intermédiaire avec list()"""
     pass
 
 
@@ -205,8 +217,8 @@ def forall_filter(pred, l):
 # f(...(f(f(x0, x1), x2)...), xn)
 # Par exemple, reduce(lambda acc, x : acc * x, range(1,6), 1) calcule
 # ((((((1*1)*2)*3)*4)*5)*6) = 6! = 120
-# print( f"reduce(lambda acc, x : acc * x, range(1,6), 1)={reduce(lambda acc, x : acc * x, range(1,6), 1)}")
-
+# print( f"reduce(lambda acc, x : acc * x, range(1,6), 1)
+#   ={reduce(lambda acc, x : acc * x, range(1,6), 1)}")
 # https://docs.python.org/3/library/functools.html#functools.reduce
 
 
@@ -232,9 +244,9 @@ def forall_reduce(pred, l):
 # Un décorateur est une fonction qui modifie le comportement d'une autre fonction.
 # Plus précisément, c'est une fonction d qui prend une fonction f (unaire) en argument,
 # telle que d(f) est la fonction f dont le comportement est modifié.
-# La fonction d est donc une fonction d'ordre supérieur qui prend une fonction en argument et en renvoie une.
-
-# Un exemple, le décorateur qui affiche le temps d'exécution. On ne gère ici que le cas où f est unaire
+# La fonction d est donc une fonction d'ordre supérieur qui prend une fonction en argument et
+# en fabrique une nouvelle qu'elle renvoie.
+# Un exemple, le décorateur qui affiche le temps d'exécution.
 
 
 def timer(f):
@@ -248,7 +260,9 @@ def timer(f):
     return wrapped
 
 
-# On peut se servir pour chronométrer une des fonctions précédentes, par exemple fibo_rec(32) qui prend un temps sensible (~1 sec. sur ma machine)
+# On peut se servir pour chronométrer une des fonctions précédentes
+# par exemple fibo_rec(32) qui prend un temps sensible (~1 sec. sur ma machine)
+#
 # print(timer(fibo_rec)(32))
 # ATTENDU
 # Durée 0.8552179336547852  secs
@@ -261,11 +275,13 @@ def timer(f):
 
 
 def maybe(f, v):
-    """Appelle f et si f renvoie None, alors renvoie v à la place. Autrement dit, maybe(f, v) fait la même chose que f sauf pour les entrées où f est indéfinie"""
+    """Appelle f et si f renvoie None, alors renvoie v à la place. Autrement dit,
+       maybe(f, v) fait la même chose que f sauf pour les entrées où f est indéfinie"""
     pass
 
 
 def positive_or_none(n):
+    """Teste si positif et si oui renvoie le nombre en entrée, None sinon"""
     if n < 0:
         return None
     return n
@@ -282,7 +298,6 @@ def positive_or_none(n):
 # positive_or_none(-1)=None
 # positive_or_zero(42)=42
 # positive_or_zero(-1)=0
-
 
 
 ########################################
@@ -308,7 +323,9 @@ maybe_lambda = lambda f,v : None
 # EXERCICE (POUR ALLER PLUS LOIN)
 ########################################
 
-# même chose que précédemment, maybe uniquement avec des lambdas mais en faisant attention à n'appeler f QU'UNE SEULE FOIS
+
+# Même chose que précédemment, maybe uniquement avec des lambdas mais en faisant attention
+# à n'appeler f QU'UNE SEULE FOIS.
 
 maybe_lambda_better = lambda f,v : None
 
@@ -332,7 +349,8 @@ maybe_lambda_better = lambda f,v : None
 
 
 def maybe_nary(f, v):
-    """Appelle f et si f renvoie None, alors renvoie v à la place. Autrement dit, maybe(f, v) fait la même chose que f sauf pour les cas où f est indéfinie"""
+    """Appelle f et si f renvoie None, alors renvoie v à la place. Autrement dit, maybe(f, v) fait
+       la même chose que f sauf pour les cas où f est indéfinie"""
     pass
 
 
@@ -362,9 +380,12 @@ def any_positive_or_none(*args):
 # EXERCICE : définir le décorateur memoize
 ########################################
 
-
+####################################################################################################
 def memoize(f):
-    """memoize permet de mémoriser les appels de f : si memoize(f) a déjà été appelée avec le même argument, alors memoize(f) renvoie directement (sans rappeler relancer le calcul de f) la valeur retournée précédemment par f pour cet argument. On supposera f unaire et on utilisera un dictionnaire pour mémoriser les valeurs calculées"""
+    """memoize permet de mémoriser les appels de f : si memoize(f) a déjà été appelée avec le même
+       argument, alors memoize(f) renvoie directement (sans rappeler relancer le calcul de f) la
+       valeur retournée précédemment par f pour cet argument. On supposera f unaire et on utilisera
+       un dictionnaire pour mémoriser les valeurs calculées."""
     pass
 
 
@@ -387,12 +408,13 @@ def memoize(f):
 # fonction_de_test_memo(0)=0
 
 ########################################
-# EXERCICE  (POUR ALLER PLUS LOIN) : définir le décorateur memoize qui gère le cas des fonction n-aires (sans arguments de type keywords, autrement dit, on gère juste *args, pas **kwargs)
+# EXERCICE (POUR ALLER PLUS LOIN) : définir le décorateur memoize qui gère le cas des fonctions
+# n-aires (sans arguments de type keywords, autrement dit, on gère juste *args, pas **kwargs)
 ########################################
 
 
 def memoize_nary(f):
-    """Pour cette version, on devra convertir une "liste" de plusieurs paramètres (*args) en 
+    """Pour cette version, on devra convertir une "liste" de plusieurs paramètres (*args) en
        une structure qui soit hashable pour pouvoir servir de clef dans le dictionnaire
        Les listes ne le sont pas, mais les tuples le sont en revanche."""
     pass
@@ -422,15 +444,15 @@ def memoize_nary(f):
 # LES DÉCORATEURS PYTHON DANS LA BIBLIOTHÈQUE STANDARD : UNE APPLICATION POUR LA CLASSE
 ###############################################################################
 
-# /!\ Cet exercice vous amène à écrire un décorateur qui peut être très utile en classe pour illustrer la récursivité.
+# /!\ Cet exercice vous amène à écrire un décorateur qui peut être très utile en classe
 # Cet exercice est issu de discussions avec des étudiants en CAPES NSI qui souhaitaient,
 # dans le cadre de la préparation du projet à présenter pour l'oral 2 du concours,
 # fournir une petite bibliothèque pour aider les élèves à aborder cette notion.
 # Je pense que le décorateur suivant pourrait en faire partie. /!\
-
+#
 # Python propose une syntaxe ad hoc @decorator pour la manipulation des décorateurs.
-# De plus, la bibliothèque standard propose quelques outils pour en faciliter la manipulation ainsi que quelques décorateurs très utiles.
-# Voir :
+# De plus, la bibliothèque standard propose quelques outils pour en faciliter la manipulation
+# ainsi que quelques décorateurs très utiles. Voir :
 #
 # https://docs.python.org/3/glossary.html#term-decorator
 # https://docs.python.org/3/reference/compound_stmts.html#function
@@ -438,7 +460,9 @@ def memoize_nary(f):
 # https://docs.python.org/3/library/functools.html
 
 
-# Par exemple, avec le décorateur suivant @tracer, on peut tracer les appels à la fonction récursive qui calcule le n-ieme terme de la suite de Fibonacci
+
+# Par exemple, avec le décorateur suivant @tracer, on peut tracer les appels à la fonction récursive
+# qui calcule le n-ieme terme de la suite de Fibonacci
 
 
 def tracer(func):
@@ -480,7 +504,7 @@ def fibo_tracee(n):
 # fibo_tracee(5)=5
 
 
-# /!\ IMPORTANT /!\ 
+# /!\ IMPORTANT /!\
 # On remarque immédiatement 2 choses :
 # * cette implémentation est sous optimale car elle produit un nombre exponentiel d'appel récursifs
 # * la profondeur des appels récursifs n'est pas visible, elle devrait l'être avec une indentation
@@ -526,7 +550,8 @@ def fibo_indent(n):
 # fibo_indent(5)=5
 
 
-# On peut utiliser maintenant le décorateur de la bibliothèque standard @lru_cache ou votre décorateur @memoize pour optimiser le calcul des termes de la suite de Fibonacci !
+# On peut utiliser maintenant le décorateur de la bibliothèque standard @lru_cache ou votre
+# décorateur @memoize pour optimiser le calcul des termes de la suite de Fibonacci !
 
 @memoize
 @visualise
