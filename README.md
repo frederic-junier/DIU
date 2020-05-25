@@ -1,4 +1,4 @@
-<h1>Calendrier du DIU de Lyon1 (<a href="https://diu-eil.univ-lyon1.fr/">page source</a>)</h1>
+<h1>Calendrier du DIU de Lyon1 (voir <a href="https://diu-eil.univ-lyon1.fr/">page source</a>)</h1>
 
 <ul>
 							<li>UE 1 : Représentation des données et programmation (vague 2, promotion 2019-2021)
