@@ -25,7 +25,7 @@ Contenus/programmes
 
 Anomalies, dépendances fonctionnnelles, normalisation, conception (dont E/A)
 
-* [planches](IntroductionBD.pdf)
+* [planches](https://forge.univ-lyon1.fr/diu-eil/bloc4/-/blob/master/4_bases_de_donnees_normalisation/conception_bd.pdf)
 * La [vidéo YT de la partie 1](https://youtu.be/2ZnHB--Joo0) (anomalies, dépendances fonctionnnelles,)
 * La [vidéo YT de la partie 2](https://youtu.be/nj8cUY16fAs) (normalisation, conception)
 
