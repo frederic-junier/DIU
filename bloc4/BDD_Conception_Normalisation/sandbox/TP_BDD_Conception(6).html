@@ -13365,8 +13365,7 @@ SELECT * FROM Herite;
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Exercice</strong> : dessinez un diagramme Entité-Association du schéma de cette base. Ensuite, représentez graphiquement <em>le contenu</em> de cette base par une hiérarchie entre les classes.
-&lt;/div&gt;</p>
+<p><strong>Exercice</strong> : dessinez un diagramme Entité-Association du schéma de cette base. Ensuite, représentez graphiquement <em>le contenu</em> de cette base par une hiérarchie entre les classes.</p>
 
 </div>
 </div>
@@ -13407,15 +13406,14 @@ SELECT * FROM Herite;
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Exercice</strong> : si on remplace <code>PRIMARY KEY (enfant, parent)</code> par la contrainte <code>PRIMARY KEY (enfant)</code> dans la définition de <code>Herite</code> : 
-&lt;/div&gt;</p>
+<p><strong>Exercice</strong> : si on remplace <code>PRIMARY KEY (enfant, parent)</code> par la contrainte <code>PRIMARY KEY (enfant)</code> dans la définition de <code>Herite</code> :</p>
 <ul>
 <li>quelle restriction est imposée sur les hiérarchies de classes que cette base peut représenter ? </li>
 </ul>
 <blockquote><p>Voir ci-dessous, on ne peut pas insérer dans la table  <code>Herite</code> deux relations d'héritage avec le même identifiant <code>enfant</code> et des identifiants <code>parent</code> distincts. Autrement dit, un enfant ne peut avoir qu'un parent, une classe enfant ne peut hériter que d'une seule classe mère.</p>
 </blockquote>
 <ul>
-<li>quel est le changement correspondant dans le diagramme E/A ? <blockquote><p>Changement de cardinalité sur l'une des pattes de l'association <code>Herite</code>, et séparation de l'entité <code>Classe</code> en deux entités <code>Classe_parent</code> et <code>Classe_enfant</code>. L'entité association estune relation fonctionnelle entre <code>Classe_enfant</code> et  <code>Classe_parent</code>.</p>
+<li>quel est le changement correspondant dans le diagramme E/A ? <blockquote><p>Changement de cardinalité sur l'une des pattes de l'association <code>Herite</code>, et séparation de l'entité <code>Classe</code> en deux entités <code>Classe_parent</code> et <code>Classe_enfant</code>. L'entité association est une relation fonctionnelle entre <code>Classe_enfant</code> et  <code>Classe_parent</code>.</p>
 </blockquote>
 </li>
 </ul>
@@ -13425,11 +13423,6 @@ SELECT * FROM Herite;
 </ul>
 <blockquote><p>Avec <a href="http://mocodo.wingi.net/">Mocodo</a>, on obtient un schéma avec deux classes <code>Classe_Enfant</code> et <code>Classe_Parent</code> :</p>
 </blockquote>
-<p><style></p>
-<h1 id="mld-.relation-{-font-variant:-small-caps;-font-weight:-bold-}">mld .relation { font-variant: small-caps; font-weight: bold }<a class="anchor-link" href="#mld-.relation-{-font-variant:-small-caps;-font-weight:-bold-}">&#182;</a></h1><h1 id="mld-.primary-{-text-decoration:-underline-}">mld .primary { text-decoration: underline }<a class="anchor-link" href="#mld-.primary-{-text-decoration:-underline-}">&#182;</a></h1><h1 id="mld-.foreign-{-font-style:-oblique-}">mld .foreign { font-style: oblique }<a class="anchor-link" href="#mld-.foreign-{-font-style:-oblique-}">&#182;</a></h1><h1 id="mld-.normal-{-}">mld .normal { }<a class="anchor-link" href="#mld-.normal-{-}">&#182;</a></h1><h1 id="mld-strong-{-font-weight:-bold-}">mld strong { font-weight: bold }<a class="anchor-link" href="#mld-strong-{-font-weight:-bold-}">&#182;</a></h1><h1 id="mld-i-{-font-style:-italic-}">mld i { font-style: italic }<a class="anchor-link" href="#mld-i-{-font-style:-italic-}">&#182;</a></h1><h1 id="mld-ul-{-list-style-type:square;-margin:-0-0-1em-2em-}">mld ul { list-style-type:square; margin: 0 0 1em 2em }<a class="anchor-link" href="#mld-ul-{-list-style-type:square;-margin:-0-0-1em-2em-}">&#182;</a></h1><p>&lt;/style&gt;
-&lt;/head&gt;</p>
-<p><body></p>
-<div id='mld'>
 <div>
   <span class='relation'>Classe_Enfant</span> (
     <span class='primary'>id</span>,
@@ -13450,8 +13443,7 @@ SELECT * FROM Herite;
     <li>Le champ <i>id</i> constitue la clef primaire de la table. C'était déjà un identifiant de l'entité <i>Classe_Parent</i>.</li>
     <li>Le champ <i>description</i> était déjà un simple attribut de l'entité <i>Classe_Parent</i>.</li>
   </ul>
-</div><p>&lt;/div&gt;</p>
-<div class="highlight"><pre><span></span><span class="p">.</span><span class="k">open</span> <span class="ss">&quot;CLASSE_ENFANTS&quot;</span><span class="p">;</span>
+</div><div class="highlight"><pre><span></span><span class="p">.</span><span class="k">open</span> <span class="ss">&quot;CLASSE_ENFANTS&quot;</span><span class="p">;</span>
 
 <span class="k">CREATE</span> <span class="k">TABLE</span> <span class="ss">&quot;CLASSE_ENFANT&quot;</span> <span class="p">(</span>
   <span class="ss">&quot;id&quot;</span> <span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">42</span><span class="p">),</span>
@@ -13697,8 +13689,7 @@ The above exception was the direct cause of the following exception:
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Exercice</strong> : mêmes questions que précédemment si on remplace <code>PRIMARY KEY (enfant, parent)</code> par la contrainte <code>PRIMARY KEY (parent)</code> .
-&lt;/div&gt;</p>
+<p><strong>Exercice</strong> : mêmes questions que précédemment si on remplace <code>PRIMARY KEY (enfant, parent)</code> par la contrainte <code>PRIMARY KEY (parent)</code> .</p>
 <ul>
 <li>quelle restriction est imposée sur les hiérarchies de classes que cette base peut représenter ? </li>
 </ul>
@@ -13716,13 +13707,8 @@ The above exception was the direct cause of the following exception:
 <ul>
 <li>si on retraduit le diagramme E/A en schéma SQL, quel schéma obtiendra-t'on ?</li>
 </ul>
-<blockquote><p>Avec <a href="http://mocodo.wingi.net/">Mocodo</a>, on obtient un schéma deux classes <code>Classe_Enfant\ et</code>Classe_Parent` :</p>
+<blockquote><p>Avec <a href="http://mocodo.wingi.net/">Mocodo</a>, on obtient un schéma deux classes <code>Classe_Enfant</code> et <code>Classe_Parent</code> :</p>
 </blockquote>
-<p><style></p>
-<h1 id="mld-.relation-{-font-variant:-small-caps;-font-weight:-bold-}">mld .relation { font-variant: small-caps; font-weight: bold }<a class="anchor-link" href="#mld-.relation-{-font-variant:-small-caps;-font-weight:-bold-}">&#182;</a></h1><h1 id="mld-.primary-{-text-decoration:-underline-}">mld .primary { text-decoration: underline }<a class="anchor-link" href="#mld-.primary-{-text-decoration:-underline-}">&#182;</a></h1><h1 id="mld-.foreign-{-font-style:-oblique-}">mld .foreign { font-style: oblique }<a class="anchor-link" href="#mld-.foreign-{-font-style:-oblique-}">&#182;</a></h1><h1 id="mld-.normal-{-}">mld .normal { }<a class="anchor-link" href="#mld-.normal-{-}">&#182;</a></h1><h1 id="mld-strong-{-font-weight:-bold-}">mld strong { font-weight: bold }<a class="anchor-link" href="#mld-strong-{-font-weight:-bold-}">&#182;</a></h1><h1 id="mld-i-{-font-style:-italic-}">mld i { font-style: italic }<a class="anchor-link" href="#mld-i-{-font-style:-italic-}">&#182;</a></h1><h1 id="mld-ul-{-list-style-type:square;-margin:-0-0-1em-2em-}">mld ul { list-style-type:square; margin: 0 0 1em 2em }<a class="anchor-link" href="#mld-ul-{-list-style-type:square;-margin:-0-0-1em-2em-}">&#182;</a></h1><p>&lt;/style&gt;
-&lt;/head&gt;</p>
-<p><body></p>
-<div id='mld'>
 <div>
   <span class='relation'>Classe_Enfant</span> (
     <span class='primary'>id</span>,
@@ -13743,8 +13729,7 @@ The above exception was the direct cause of the following exception:
     <li>Le champ <i>id</i> constitue la clef primaire de la table. C'était déjà un identifiant de l'entité <i>Classe_Parent</i>.</li>
     <li>Le champ <i>description</i> était déjà un simple attribut de l'entité <i>Classe_Parent</i>.</li>
   </ul>
-</div><p>&lt;/div&gt;</p>
-<div class="highlight"><pre><span></span><span class="p">.</span><span class="k">open</span> <span class="ss">&quot;CLASSE_ENFANTS&quot;</span><span class="p">;</span>
+</div><div class="highlight"><pre><span></span><span class="p">.</span><span class="k">open</span> <span class="ss">&quot;CLASSE_ENFANTS&quot;</span><span class="p">;</span>
 
 <span class="k">CREATE</span> <span class="k">TABLE</span> <span class="ss">&quot;CLASSE_ENFANT&quot;</span> <span class="p">(</span>
   <span class="ss">&quot;id&quot;</span> <span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">42</span><span class="p">),</span>
@@ -14169,8 +14154,7 @@ Done.
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><div class="alert-info">
-On a toujours une contrainte d'intégrité avec la clef <code>id</code> dans la table <code>Classe</code>, on ne peut pas insérer un tuple avec un <code>id</code> déjà attibué</p>
+<p>On a toujours une contrainte d'intégrité avec la clef <code>id</code> dans la table <code>Classe</code>, on ne peut pas insérer un tuple avec un <code>id</code> déjà attibué</p>
 
 </div>
 </div>
@@ -14750,7 +14734,6 @@ SELECT * FROM Classe;
 <ul>
 <li>Schéma SQL :</li>
 </ul>
-<div id='mld'>
 <div>
   <span class='relation'>Classe</span> (
     <span class='primary'>id</span>,
@@ -14768,8 +14751,7 @@ SELECT * FROM Classe;
   <ul>
     <li>Les champs <i>id</i> et <i>id.1</i> constituent la clef primaire de la table. Ce sont des clefs étrangères qui ont migré directement à partir de l'entité <i>Classe</i>.</li>
   </ul>
-</div><p>&lt;/div&gt;</p>
-<div class="highlight"><pre><span></span><span class="p">.</span><span class="k">open</span> <span class="ss">&quot;CLASSES&quot;</span><span class="p">;</span>
+</div><div class="highlight"><pre><span></span><span class="p">.</span><span class="k">open</span> <span class="ss">&quot;CLASSES&quot;</span><span class="p">;</span>
 
 <span class="k">CREATE</span> <span class="k">TABLE</span> <span class="ss">&quot;CLASSE&quot;</span> <span class="p">(</span>
   <span class="ss">&quot;id&quot;</span> <span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">42</span><span class="p">),</span>
@@ -15039,7 +15021,6 @@ Done.
 <li>Diagramme entité relation dans ce cas (j'ai rajouté une clef primaire <code>id</code> dans la table <code>Apply</code>) :</li>
 </ul>
 <p><img src="mocodo/Stanford/Students.png" alt="Students.png"></p>
-<div id='mld'>
 <div>
   <span class='relation'>Apply</span> (
     <span class='primary'>id</span>,
@@ -15077,8 +15058,7 @@ Done.
     <li>Le champ <i>cName</i> constitue la clef primaire de la table. C'était déjà un identifiant de l'entité <i>College</i>.</li>
     <li>Les champs <i>state</i> et <i>enrollment</i> étaient déjà de simples attributs de l'entité <i>College</i>.</li>
   </ul>
-</div><p>&lt;/div&gt;</p>
-
+</div>
 </div>
 </div>
 </div>
@@ -15086,8 +15066,6 @@ Done.
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<div class="alert-danger">
-
 <p><strong>Exercice</strong> : SQL propose un type de contrainte assez générique appelée <code>CHECK</code>, définissez en pour les attributs <a href="https://en.wikipedia.org/wiki/Academic_grading_in_the_United_States#Numerical_and_letter_grades"><em>GPA</em></a> et <em>decision</em>. Là encore, toutes les données doivent pouvoir s'importer correctement après ajout des contraintes supplémentaires.</p>
 
 </div>
@@ -16203,7 +16181,6 @@ ON Apply.codeMajor=Major.Code;
 <li>Diagramme entité relation dans ce cas  :</li>
 </ul>
 <p><img src="mocodo/Stanford2/Students.png" alt="Students.png"></p>
-<div id='mld'>
 <div>
   <span class='relation'>Student</span> (
     <span class='primary'>sID</span>,
@@ -16252,8 +16229,7 @@ ON Apply.codeMajor=Major.Code;
     <li>Le champ <i>cName</i> constitue la clef primaire de la table. C'était déjà un identifiant de l'entité <i>College</i>.</li>
     <li>Les champs <i>state</i> et <i>enrollment</i> étaient déjà de simples attributs de l'entité <i>College</i>.</li>
   </ul>
-</div><p>&lt;/div&gt;</p>
-
+</div>
 </div>
 </div>
 </div>
