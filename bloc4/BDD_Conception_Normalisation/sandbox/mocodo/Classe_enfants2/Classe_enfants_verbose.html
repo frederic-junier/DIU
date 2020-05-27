@@ -1,0 +1,42 @@
+<html>
+<head>
+<meta charset='utf-8'>
+<style>
+  #mld .relation { font-variant: small-caps; font-weight: bold }
+  #mld .primary { text-decoration: underline }
+  #mld .foreign { font-style: oblique }
+  #mld .normal { }
+  #mld strong { font-weight: bold }
+  #mld i { font-style: italic }
+  #mld ul { list-style-type:square; margin: 0 0 1em 2em }
+</style>
+</head>
+<body>
+<div id='mld'>
+<div>
+  <span class='relation'>Classe_Enfant</span> (
+    <span class='primary'>id</span>,
+    <span class='normal'>description</span>
+  )
+  <ul>
+    <li>Le champ <i>id</i> constitue la clef primaire de la table. C'était déjà un identifiant de l'entité <i>Classe_Enfant</i>.</li>
+    <li>Le champ <i>description</i> était déjà un simple attribut de l'entité <i>Classe_Enfant</i>.</li>
+  </ul>
+</div>
+
+<div>
+  <span class='relation'>Classe_Parent</span> (
+    <span class='primary'>id</span>,
+    <span class='normal'>description</span>,
+    <span class='foreign'>id.1</span>
+  )
+  <ul>
+    <li>Le champ <i>id</i> constitue la clef primaire de la table. C'était déjà un identifiant de l'entité <i>Classe_Parent</i>.</li>
+    <li>Le champ <i>description</i> était déjà un simple attribut de l'entité <i>Classe_Parent</i>.</li>
+    <li>Le champ <i>id.1</i> est une clef étrangère. Il a migré à partir de l'entité <i>Classe_Enfant</i> par l'association de dépendance fonctionnelle <i>Herite</i> en perdant son caractère identifiant.</li>
+  </ul>
+</div>
+
+</div>
+</body>
+</html>

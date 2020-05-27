@@ -1,0 +1,6 @@
+%%mocodo
+:
+Classe_Enfant: id, description, #id.1->Classe_Parent->id
+:
+Classe_Parent: id, description
+:

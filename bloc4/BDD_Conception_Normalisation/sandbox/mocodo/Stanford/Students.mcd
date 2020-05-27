@@ -1,0 +1,6 @@
+Apply: id, sID, cName, major, decision
+Candidature, 0N Student, 11 Apply
+Student: sID, sName, GPA, sizeHS
+
+Dossier, 0N College, 11 Apply
+College: cName, state, enrollment

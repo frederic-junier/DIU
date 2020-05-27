@@ -1,0 +1,51 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+
+<svg width="116" height="254" view_box="0 0 116 254"
+xmlns="http://www.w3.org/2000/svg"
+xmlns:link="http://www.w3.org/1999/xlink">\n\n<desc>Généré par Mocodo 2.3.7 le Wed, 27 May 2020 07:50:34</desc>
+
+<rect id="frame" x="0" y="0" width="116" height="254" fill="#ffffbf" stroke="none" stroke-width="0"/>
+
+<!-- Association Herite -->
+<line x1="58" y1="211" x2="58" y2="127" stroke="#f46d43" stroke-width="2"/>
+<text x="63.0" y="169" fill="#3288bd" font-family="Verdana" font-size="12">0,N</text>
+<line x1="58" y1="43" x2="58" y2="127" stroke="#f46d43" stroke-width="2"/>
+<text x="63.0" y="94" fill="#3288bd" font-family="Verdana" font-size="12">0,N</text>
+<g id="association-Herite">
+	<path d="M 70 102 a 14 14 90 0 1 14 14 V 127 h -52 V 116 a 14 14 90 0 1 14 -14" fill="#fdae61" stroke="#fdae61" stroke-width="0"/>
+	<path d="M 84 127.0 v 11 a 14 14 90 0 1 -14 14 H 46 a 14 14 90 0 1 -14 -14 V 127.0 H 52" fill="#fee08b" stroke="#fee08b" stroke-width="0"/>
+	<rect x="32" y="102" width="52" height="50" fill="none" rx="14" stroke="#f46d43" stroke-width="2"/>
+	<line x1="32" y1="127" x2="84" y2="127" stroke="#f46d43" stroke-width="1"/>
+	<text x="39" y="119.7" fill="#000000" font-family="Verdana" font-size="12">Herite</text>
+</g>
+
+<!-- Entity Classe_parent -->
+<g id="entity-Classe_parent">
+	<g id="frame-Classe_parent">
+		<rect x="9" y="9" width="98" height="25" fill="#abdda4" stroke="#abdda4" stroke-width="0"/>
+		<rect x="9" y="34.0" width="98" height="43" fill="#e6f598" stroke="#e6f598" stroke-width="0"/>
+		<rect x="9" y="9" width="98" height="68" fill="none" stroke="#66c2a5" stroke-width="2"/>
+		<line x1="9" y1="34" x2="107" y2="34" stroke="#66c2a5" stroke-width="1"/>
+	</g>
+	<text x="14" y="26.7" fill="#000000" font-family="Verdana" font-size="12">Classe_parent</text>
+	<text x="14" y="51.8" fill="#000000" font-family="Verdana" font-size="12">id</text>
+	<line x1="14" y1="54" x2="26" y2="54" stroke="#000000" stroke-width="1"/>
+	<text x="14" y="68.8" fill="#000000" font-family="Verdana" font-size="12">description</text>
+</g>
+
+<!-- Entity Classe_enfant -->
+<g id="entity-Classe_enfant">
+	<g id="frame-Classe_enfant">
+		<rect x="10" y="177" width="96" height="25" fill="#abdda4" stroke="#abdda4" stroke-width="0"/>
+		<rect x="10" y="202.0" width="96" height="43" fill="#e6f598" stroke="#e6f598" stroke-width="0"/>
+		<rect x="10" y="177" width="96" height="68" fill="none" stroke="#66c2a5" stroke-width="2"/>
+		<line x1="10" y1="202" x2="106" y2="202" stroke="#66c2a5" stroke-width="1"/>
+	</g>
+	<text x="15" y="194.7" fill="#000000" font-family="Verdana" font-size="12">Classe_enfant</text>
+	<text x="15" y="219.8" fill="#000000" font-family="Verdana" font-size="12">id</text>
+	<line x1="15" y1="222" x2="27" y2="222" stroke="#000000" stroke-width="1"/>
+	<text x="15" y="236.8" fill="#000000" font-family="Verdana" font-size="12">description</text>
+</g>
+</svg>

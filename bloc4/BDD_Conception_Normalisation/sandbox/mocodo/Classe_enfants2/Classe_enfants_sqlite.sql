@@ -1,0 +1,15 @@
+.open "CLASSE_PARENTS";
+
+CREATE TABLE "CLASSE_ENFANT" (
+  "id" VARCHAR(42),
+  "description" VARCHAR(42),
+  PRIMARY KEY ("id")
+);
+
+CREATE TABLE "CLASSE_PARENT" (
+  "id" VARCHAR(42),
+  "description" VARCHAR(42),
+  "id_1" VARCHAR(42),
+  PRIMARY KEY ("id"),
+  FOREIGN KEY ("id_1") REFERENCES "CLASSE_ENFANT" ("id")
+);

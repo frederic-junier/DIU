@@ -1,0 +1,8 @@
+%%mocodo
+:
+Classe_Enfant: id, description
+:
+Herite: #id->Classe_Parent->id, _#id.1->Classe_Enfant->id
+:
+Classe_Parent: id, description
+:

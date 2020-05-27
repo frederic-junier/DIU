@@ -1,0 +1,11 @@
+%%mocodo
+:
+Apply: id, sID, cName, major, decision, #cName.1->College->cName, #sID.1->Student->sID
+:::
+Student: sID, sName, GPA, sizeHS
+:
+
+
+:::
+College: cName, state, enrollment
+:::

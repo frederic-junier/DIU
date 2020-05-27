@@ -1,0 +1,11 @@
+Student: sID, sName, GPA, sizeHS
+Discipline, 0N Major, 11 Apply
+Major : code, description
+
+Candidature, 0N Student, 11 Apply
+Apply: id, sID, cName, code, decision
+:
+
+:
+Dossier, 0N College, 11 Apply
+College: cName, state, enrollment

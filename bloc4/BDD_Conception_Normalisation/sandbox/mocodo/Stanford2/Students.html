@@ -1,0 +1,48 @@
+<html>
+<head>
+<meta charset='utf-8'>
+<style>
+  #mld .relation { font-variant: small-caps; font-weight: bold }
+  #mld .primary { text-decoration: underline }
+  #mld .foreign { font-style: oblique }
+  #mld .normal { }
+</style>
+</head>
+<body>
+<div id='mld'>
+<div>
+  <span class='relation'>Student</span> (
+    <span class='primary'>sID</span>,
+    <span class='normal'>sName</span>,
+    <span class='normal'>GPA</span>,
+    <span class='normal'>sizeHS</span>
+  )
+</div>
+<div>
+  <span class='relation'>Major</span> (
+    <span class='primary'>code</span>,
+    <span class='normal'>description</span>
+  )
+</div>
+<div>
+  <span class='relation'>Apply</span> (
+    <span class='primary'>id</span>,
+    <span class='normal'>sID</span>,
+    <span class='normal'>cName</span>,
+    <span class='normal'>code</span>,
+    <span class='normal'>decision</span>,
+    <span class='foreign'>code.1</span>,
+    <span class='foreign'>cName.1</span>,
+    <span class='foreign'>sID.1</span>
+  )
+</div>
+<div>
+  <span class='relation'>College</span> (
+    <span class='primary'>cName</span>,
+    <span class='normal'>state</span>,
+    <span class='normal'>enrollment</span>
+  )
+</div>
+</div>
+</body>
+</html>

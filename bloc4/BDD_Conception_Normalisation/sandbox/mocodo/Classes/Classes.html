@@ -1,0 +1,27 @@
+<html>
+<head>
+<meta charset='utf-8'>
+<style>
+  #mld .relation { font-variant: small-caps; font-weight: bold }
+  #mld .primary { text-decoration: underline }
+  #mld .foreign { font-style: oblique }
+  #mld .normal { }
+</style>
+</head>
+<body>
+<div id='mld'>
+<div>
+  <span class='relation'>Classe</span> (
+    <span class='primary'>id</span>,
+    <span class='normal'>description</span>
+  )
+</div>
+<div>
+  <span class='relation'>Herite</span> (
+    <span class='foreign primary'>id</span>,
+    <span class='foreign primary'>id.1</span>
+  )
+</div>
+</div>
+</body>
+</html>

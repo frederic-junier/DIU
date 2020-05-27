@@ -1,0 +1,61 @@
+<html>
+<head>
+<meta charset='utf-8'>
+<style>
+  #mld .relation { font-variant: small-caps; font-weight: bold }
+  #mld .primary { text-decoration: underline }
+  #mld .foreign { font-style: oblique }
+  #mld .normal { }
+  #mld strong { font-weight: bold }
+  #mld i { font-style: italic }
+  #mld ul { list-style-type:square; margin: 0 0 1em 2em }
+</style>
+</head>
+<body>
+<div id='mld'>
+<div>
+  <span class='relation'>Apply</span> (
+    <span class='primary'>id</span>,
+    <span class='normal'>sID</span>,
+    <span class='normal'>cName</span>,
+    <span class='normal'>major</span>,
+    <span class='normal'>decision</span>,
+    <span class='foreign'>cName.1</span>,
+    <span class='foreign'>sID.1</span>
+  )
+  <ul>
+    <li>Le champ <i>id</i> constitue la clef primaire de la table. C'était déjà un identifiant de l'entité <i>Apply</i>.</li>
+    <li>Les champs <i>sID</i>, <i>cName</i>, <i>major</i> et <i>decision</i> étaient déjà de simples attributs de l'entité <i>Apply</i>.</li>
+    <li>Le champ <i>cName.1</i> est une clef étrangère. Il a migré à partir de l'entité <i>College</i> par l'association de dépendance fonctionnelle <i>Dossier</i> en perdant son caractère identifiant.</li>
+    <li>Le champ <i>sID.1</i> est une clef étrangère. Il a migré à partir de l'entité <i>Student</i> par l'association de dépendance fonctionnelle <i>Candidature</i> en perdant son caractère identifiant.</li>
+  </ul>
+</div>
+
+<div>
+  <span class='relation'>Student</span> (
+    <span class='primary'>sID</span>,
+    <span class='normal'>sName</span>,
+    <span class='normal'>GPA</span>,
+    <span class='normal'>sizeHS</span>
+  )
+  <ul>
+    <li>Le champ <i>sID</i> constitue la clef primaire de la table. C'était déjà un identifiant de l'entité <i>Student</i>.</li>
+    <li>Les champs <i>sName</i>, <i>GPA</i> et <i>sizeHS</i> étaient déjà de simples attributs de l'entité <i>Student</i>.</li>
+  </ul>
+</div>
+
+<div>
+  <span class='relation'>College</span> (
+    <span class='primary'>cName</span>,
+    <span class='normal'>state</span>,
+    <span class='normal'>enrollment</span>
+  )
+  <ul>
+    <li>Le champ <i>cName</i> constitue la clef primaire de la table. C'était déjà un identifiant de l'entité <i>College</i>.</li>
+    <li>Les champs <i>state</i> et <i>enrollment</i> étaient déjà de simples attributs de l'entité <i>College</i>.</li>
+  </ul>
+</div>
+
+</div>
+</body>
+</html>

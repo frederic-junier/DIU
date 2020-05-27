@@ -1,0 +1,5 @@
+Classe_Enfant : id, description
+Herite, 0N Classe_Parent, 0N Classe_Enfant
+Classe_Parent : id, description
+
+

@@ -1,0 +1,111 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+
+<svg width="314" height="329" view_box="0 0 314 329"
+xmlns="http://www.w3.org/2000/svg"
+xmlns:link="http://www.w3.org/1999/xlink">\n\n<desc>Généré par Mocodo 2.3.7 le Wed, 27 May 2020 13:49:54</desc>
+
+<rect id="frame" x="0" y="0" width="314" height="329" fill="#ffffbf" stroke="none" stroke-width="0"/>
+
+<!-- Association Discipline -->
+<line x1="266" y1="60" x2="159" y2="60" stroke="#f46d43" stroke-width="2"/>
+<text x="200" y="77.0" fill="#3288bd" font-family="Verdana" font-size="12">0,N</text>
+<line x1="159" y1="169" x2="159" y2="60" stroke="#f46d43" stroke-width="2"/>
+<text x="164.0" y="102" fill="#3288bd" font-family="Verdana" font-size="12">1,1</text>
+<g id="association-Discipline">
+	<path d="M 181 35 a 14 14 90 0 1 14 14 V 60 h -72 V 49 a 14 14 90 0 1 14 -14" fill="#fdae61" stroke="#fdae61" stroke-width="0"/>
+	<path d="M 195 60.0 v 11 a 14 14 90 0 1 -14 14 H 137 a 14 14 90 0 1 -14 -14 V 60.0 H 72" fill="#fee08b" stroke="#fee08b" stroke-width="0"/>
+	<rect x="123" y="35" width="72" height="50" fill="none" rx="14" stroke="#f46d43" stroke-width="2"/>
+	<line x1="123" y1="60" x2="195" y2="60" stroke="#f46d43" stroke-width="1"/>
+	<text x="130" y="52.7" fill="#000000" font-family="Verdana" font-size="12">Discipline</text>
+</g>
+
+<!-- Association Dossier -->
+<line x1="266" y1="278" x2="159" y2="278" stroke="#f46d43" stroke-width="2"/>
+<text x="201" y="295.0" fill="#3288bd" font-family="Verdana" font-size="12">0,N</text>
+<line x1="159" y1="169" x2="159" y2="278" stroke="#f46d43" stroke-width="2"/>
+<text x="164.0" y="245" fill="#3288bd" font-family="Verdana" font-size="12">1,1</text>
+<g id="association-Dossier">
+	<path d="M 175 253 a 14 14 90 0 1 14 14 V 278 h -60 V 267 a 14 14 90 0 1 14 -14" fill="#fdae61" stroke="#fdae61" stroke-width="0"/>
+	<path d="M 189 278.0 v 11 a 14 14 90 0 1 -14 14 H 143 a 14 14 90 0 1 -14 -14 V 278.0 H 60" fill="#fee08b" stroke="#fee08b" stroke-width="0"/>
+	<rect x="129" y="253" width="60" height="50" fill="none" rx="14" stroke="#f46d43" stroke-width="2"/>
+	<line x1="129" y1="278" x2="189" y2="278" stroke="#f46d43" stroke-width="1"/>
+	<text x="136" y="270.7" fill="#000000" font-family="Verdana" font-size="12">Dossier</text>
+</g>
+
+<!-- Association Candidature -->
+<line x1="53" y1="60" x2="53" y2="169" stroke="#f46d43" stroke-width="2"/>
+<text x="58.0" y="128" fill="#3288bd" font-family="Verdana" font-size="12">0,N</text>
+<line x1="159" y1="169" x2="53" y2="169" stroke="#f46d43" stroke-width="2"/>
+<text x="103" y="186.0" fill="#3288bd" font-family="Verdana" font-size="12">1,1</text>
+<g id="association-Candidature">
+	<path d="M 83 144 a 14 14 90 0 1 14 14 V 169 h -88 V 158 a 14 14 90 0 1 14 -14" fill="#fdae61" stroke="#fdae61" stroke-width="0"/>
+	<path d="M 97 169.0 v 11 a 14 14 90 0 1 -14 14 H 23 a 14 14 90 0 1 -14 -14 V 169.0 H 88" fill="#fee08b" stroke="#fee08b" stroke-width="0"/>
+	<rect x="9" y="144" width="88" height="50" fill="none" rx="14" stroke="#f46d43" stroke-width="2"/>
+	<line x1="9" y1="169" x2="97" y2="169" stroke="#f46d43" stroke-width="1"/>
+	<text x="16" y="161.7" fill="#000000" font-family="Verdana" font-size="12">Candidature</text>
+</g>
+
+<!-- Entity Apply -->
+<g id="entity-Apply">
+	<g id="frame-Apply">
+		<rect x="129" y="110" width="60" height="25" fill="#abdda4" stroke="#abdda4" stroke-width="0"/>
+		<rect x="129" y="135.0" width="60" height="93" fill="#e6f598" stroke="#e6f598" stroke-width="0"/>
+		<rect x="129" y="110" width="60" height="118" fill="none" stroke="#66c2a5" stroke-width="2"/>
+		<line x1="129" y1="135" x2="189" y2="135" stroke="#66c2a5" stroke-width="1"/>
+	</g>
+	<text x="141" y="127.7" fill="#000000" font-family="Verdana" font-size="12">Apply</text>
+	<text x="134" y="152.7" fill="#000000" font-family="Verdana" font-size="12">id</text>
+	<line x1="134" y1="155" x2="146" y2="155" stroke="#000000" stroke-width="1"/>
+	<text x="134" y="169.8" fill="#000000" font-family="Verdana" font-size="12">sID</text>
+	<text x="134" y="186.8" fill="#000000" font-family="Verdana" font-size="12">cName</text>
+	<text x="134" y="203.8" fill="#000000" font-family="Verdana" font-size="12">code</text>
+	<text x="134" y="220.8" fill="#000000" font-family="Verdana" font-size="12">decision</text>
+</g>
+
+<!-- Entity Major -->
+<g id="entity-Major">
+	<g id="frame-Major">
+		<rect x="227" y="26" width="78" height="25" fill="#abdda4" stroke="#abdda4" stroke-width="0"/>
+		<rect x="227" y="51.0" width="78" height="43" fill="#e6f598" stroke="#e6f598" stroke-width="0"/>
+		<rect x="227" y="26" width="78" height="68" fill="none" stroke="#66c2a5" stroke-width="2"/>
+		<line x1="227" y1="51" x2="305" y2="51" stroke="#66c2a5" stroke-width="1"/>
+	</g>
+	<text x="248" y="43.7" fill="#000000" font-family="Verdana" font-size="12">Major</text>
+	<text x="232" y="68.8" fill="#000000" font-family="Verdana" font-size="12">code</text>
+	<line x1="232" y1="71" x2="261" y2="71" stroke="#000000" stroke-width="1"/>
+	<text x="232" y="85.8" fill="#000000" font-family="Verdana" font-size="12">description</text>
+</g>
+
+<!-- Entity College -->
+<g id="entity-College">
+	<g id="frame-College">
+		<rect x="228" y="236" width="76" height="25" fill="#abdda4" stroke="#abdda4" stroke-width="0"/>
+		<rect x="228" y="261.0" width="76" height="59" fill="#e6f598" stroke="#e6f598" stroke-width="0"/>
+		<rect x="228" y="236" width="76" height="84" fill="none" stroke="#66c2a5" stroke-width="2"/>
+		<line x1="228" y1="261" x2="304" y2="261" stroke="#66c2a5" stroke-width="1"/>
+	</g>
+	<text x="243" y="253.7" fill="#000000" font-family="Verdana" font-size="12">College</text>
+	<text x="233" y="278.8" fill="#000000" font-family="Verdana" font-size="12">cName</text>
+	<line x1="233" y1="281" x2="275" y2="281" stroke="#000000" stroke-width="1"/>
+	<text x="233" y="295.8" fill="#000000" font-family="Verdana" font-size="12">state</text>
+	<text x="233" y="312.8" fill="#000000" font-family="Verdana" font-size="12">enrollment</text>
+</g>
+
+<!-- Entity Student -->
+<g id="entity-Student">
+	<g id="frame-Student">
+		<rect x="23" y="9" width="60" height="25" fill="#abdda4" stroke="#abdda4" stroke-width="0"/>
+		<rect x="23" y="34.0" width="60" height="77" fill="#e6f598" stroke="#e6f598" stroke-width="0"/>
+		<rect x="23" y="9" width="60" height="102" fill="none" stroke="#66c2a5" stroke-width="2"/>
+		<line x1="23" y1="34" x2="83" y2="34" stroke="#66c2a5" stroke-width="1"/>
+	</g>
+	<text x="28" y="26.7" fill="#000000" font-family="Verdana" font-size="12">Student</text>
+	<text x="28" y="51.7" fill="#000000" font-family="Verdana" font-size="12">sID</text>
+	<line x1="28" y1="54" x2="50" y2="54" stroke="#000000" stroke-width="1"/>
+	<text x="28" y="68.8" fill="#000000" font-family="Verdana" font-size="12">sName</text>
+	<text x="28" y="85.8" fill="#000000" font-family="Verdana" font-size="12">GPA</text>
+	<text x="28" y="102.8" fill="#000000" font-family="Verdana" font-size="12">sizeHS</text>
+</g>
+</svg>

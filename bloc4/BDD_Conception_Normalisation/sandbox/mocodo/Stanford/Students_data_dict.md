@@ -1,0 +1,12 @@
+- id
+- sID
+- cName
+- major
+- decision
+- sID
+- sName
+- GPA
+- sizeHS
+- cName
+- state
+- enrollment
