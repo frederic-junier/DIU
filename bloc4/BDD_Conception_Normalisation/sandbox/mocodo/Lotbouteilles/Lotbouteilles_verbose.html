@@ -1,0 +1,127 @@
+<html>
+<head>
+<meta charset='utf-8'>
+<style>
+  #mld .relation { font-variant: small-caps; font-weight: bold }
+  #mld .primary { text-decoration: underline }
+  #mld .foreign { font-style: oblique }
+  #mld .normal { }
+  #mld strong { font-weight: bold }
+  #mld i { font-style: italic }
+  #mld ul { list-style-type:square; margin: 0 0 1em 2em }
+</style>
+</head>
+<body>
+<div id='mld'>
+<div>
+  <span class='relation'>Appellation</span> (
+    <span class='primary'>idAppellation</span>,
+    <span class='normal'>type</span>,
+    <span class='normal'>nom</span>
+  )
+  <ul>
+    <li>Le champ <i>idAppellation</i> constitue la clef primaire de la table. C'était déjà un identifiant de l'entité <i>Appellation</i>.</li>
+    <li>Les champs <i>type</i> et <i>nom</i> étaient déjà de simples attributs de l'entité <i>Appellation</i>.</li>
+  </ul>
+</div>
+
+<div>
+  <span class='relation'>Domaine</span> (
+    <span class='primary'>idDomaine</span>,
+    <span class='normal'>nom</span>
+  )
+  <ul>
+    <li>Le champ <i>idDomaine</i> constitue la clef primaire de la table. C'était déjà un identifiant de l'entité <i>Domaine</i>.</li>
+    <li>Le champ <i>nom</i> était déjà un simple attribut de l'entité <i>Domaine</i>.</li>
+  </ul>
+</div>
+
+<div>
+  <span class='relation'>Stockage</span> (
+    <span class='primary'>idLotBouteille</span>,
+    <span class='primary'>idSite</span>,
+    <span class='normal'>nombre</span>,
+    <span class='foreign'>idLotBouteille.1</span>,
+    <span class='foreign'>idSite.1</span>
+  )
+  <ul>
+    <li>Les champs <i>idLotBouteille</i> et <i>idSite</i> constituent la clef primaire de la table. C'était déjà des identifiants de l'entité <i>Stockage</i>.</li>
+    <li>Le champ <i>nombre</i> était déjà un simple attribut de l'entité <i>Stockage</i>.</li>
+    <li>Le champ <i>idLotBouteille.1</i> est une clef étrangère. Il a migré à partir de l'entité <i>LotBouteille</i> par l'association de dépendance fonctionnelle <i>Admet pour stockage</i> en perdant son caractère identifiant.</li>
+    <li>Le champ <i>idSite.1</i> est une clef étrangère. Il a migré à partir de l'entité <i>Site</i> par l'association de dépendance fonctionnelle <i>Stocké à</i> en perdant son caractère identifiant.</li>
+  </ul>
+</div>
+
+<div>
+  <span class='relation'>LotBouteille</span> (
+    <span class='primary'>idLotBouteille</span>,
+    <span class='normal'>volume</span>,
+    <span class='normal'>degré</span>,
+    <span class='normal'>total</span>,
+    <span class='normal'>prix</span>,
+    <span class='normal'>commentaire</span>,
+    <span class='normal'>millésime</span>,
+    <span class='foreign'>idRégion</span>,
+    <span class='foreign'>idAppellation</span>,
+    <span class='foreign'>idCuvée</span>,
+    <span class='foreign'>idDomaine</span>,
+    <span class='foreign'>idCouleur</span>
+  )
+  <ul>
+    <li>Le champ <i>idLotBouteille</i> constitue la clef primaire de la table. C'était déjà un identifiant de l'entité <i>LotBouteille</i>.</li>
+    <li>Les champs <i>volume</i>, <i>degré</i>, <i>total</i>, <i>prix</i>, <i>commentaire</i> et <i>millésime</i> étaient déjà de simples attributs de l'entité <i>LotBouteille</i>.</li>
+    <li>Le champ <i>idRégion</i> est une clef étrangère. Il a migré à partir de l'entité <i>Région</i> par l'association de dépendance fonctionnelle <i>De la région</i> en perdant son caractère identifiant.</li>
+    <li>Le champ <i>idAppellation</i> est une clef étrangère. Il a migré à partir de l'entité <i>Appellation</i> par l'association de dépendance fonctionnelle <i>De l'appellation</i> en perdant son caractère identifiant.</li>
+    <li>Le champ <i>idCuvée</i> est une clef étrangère. Il a migré à partir de l'entité <i>Cuvée</i> par l'association de dépendance fonctionnelle <i>De la cuvée</i> en perdant son caractère identifiant.</li>
+    <li>Le champ <i>idDomaine</i> est une clef étrangère. Il a migré à partir de l'entité <i>Domaine</i> par l'association de dépendance fonctionnelle <i>Du domaine</i> en perdant son caractère identifiant.</li>
+    <li>Le champ <i>idCouleur</i> est une clef étrangère. Il a migré à partir de l'entité <i>Couleur</i> par l'association de dépendance fonctionnelle <i>De la couleur</i> en perdant son caractère identifiant.</li>
+  </ul>
+</div>
+
+<div>
+  <span class='relation'>Couleur</span> (
+    <span class='primary'>idCouleur</span>,
+    <span class='normal'>type</span>
+  )
+  <ul>
+    <li>Le champ <i>idCouleur</i> constitue la clef primaire de la table. C'était déjà un identifiant de l'entité <i>Couleur</i>.</li>
+    <li>Le champ <i>type</i> était déjà un simple attribut de l'entité <i>Couleur</i>.</li>
+  </ul>
+</div>
+
+<div>
+  <span class='relation'>Région</span> (
+    <span class='primary'>idRégion</span>,
+    <span class='normal'>nom</span>
+  )
+  <ul>
+    <li>Le champ <i>idRégion</i> constitue la clef primaire de la table. C'était déjà un identifiant de l'entité <i>Région</i>.</li>
+    <li>Le champ <i>nom</i> était déjà un simple attribut de l'entité <i>Région</i>.</li>
+  </ul>
+</div>
+
+<div>
+  <span class='relation'>Cuvée</span> (
+    <span class='primary'>idCuvée</span>,
+    <span class='normal'>nom</span>
+  )
+  <ul>
+    <li>Le champ <i>idCuvée</i> constitue la clef primaire de la table. C'était déjà un identifiant de l'entité <i>Cuvée</i>.</li>
+    <li>Le champ <i>nom</i> était déjà un simple attribut de l'entité <i>Cuvée</i>.</li>
+  </ul>
+</div>
+
+<div>
+  <span class='relation'>Site</span> (
+    <span class='primary'>idSite</span>,
+    <span class='normal'>description</span>
+  )
+  <ul>
+    <li>Le champ <i>idSite</i> constitue la clef primaire de la table. C'était déjà un identifiant de l'entité <i>Site</i>.</li>
+    <li>Le champ <i>description</i> était déjà un simple attribut de l'entité <i>Site</i>.</li>
+  </ul>
+</div>
+
+</div>
+</body>
+</html>

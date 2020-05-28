@@ -1,0 +1,24 @@
+%%mocodo
+:
+Dégustation: idDégustation, date, idLotBouteille, #idLotBouteille.1->LotBouteille->idLotBouteille
+:::
+Région: idRégion, nom
+:::
+Appellation: idAppellation, type, nom
+:
+
+
+:::
+LotBouteille: idLotBouteille, volume, degré, prix, couleur, commentaire, millésime, idDomaine, #idDomaine.1->Domaine->idDomaine
+:::
+Domaine: idDomaine, nom, idRégion, idCuvée, idAppellation, #idAppellation.1->Appellation->idAppellation, #idCuvée.1->Cuvée->idCuvée, #idRégion.1->Région->idRégion
+:::
+
+
+:
+Stockage: idLotBouteille, _idSite, nombre, #idLotBouteille.1->LotBouteille->idLotBouteille, #idSite.1->Site->idSite
+:::
+Site: idSite, description
+:::
+Cuvée: idCuvée, nom
+:

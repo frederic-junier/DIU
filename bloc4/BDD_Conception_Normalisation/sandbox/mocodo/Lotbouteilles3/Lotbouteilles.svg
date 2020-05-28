@@ -1,0 +1,226 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+
+<svg width="670" height="372" view_box="0 0 670 372"
+xmlns="http://www.w3.org/2000/svg"
+xmlns:link="http://www.w3.org/1999/xlink">\n\n<desc>Généré par Mocodo 2.3.7 le Thu, 28 May 2020 14:26:53</desc>
+
+<rect id="frame" x="0" y="0" width="670" height="372" fill="#ffffbf" stroke="none" stroke-width="0"/>
+
+<!-- Association De l'appellation -->
+<line x1="476" y1="186" x2="607" y2="186" stroke="#f46d43" stroke-width="2"/>
+<text x="526" y="203.0" fill="#3288bd" font-family="Verdana" font-size="12">1,1</text>
+<line x1="607" y1="51" x2="607" y2="186" stroke="#f46d43" stroke-width="2"/>
+<text x="612.0" y="110" fill="#3288bd" font-family="Verdana" font-size="12">0,N</text>
+<g id="association-De l'appellation">
+	<path d="M 647 161 a 14 14 90 0 1 14 14 V 186 h -108 V 175 a 14 14 90 0 1 14 -14" fill="#fdae61" stroke="#fdae61" stroke-width="0"/>
+	<path d="M 661 186.0 v 11 a 14 14 90 0 1 -14 14 H 567 a 14 14 90 0 1 -14 -14 V 186.0 H 108" fill="#fee08b" stroke="#fee08b" stroke-width="0"/>
+	<rect x="553" y="161" width="108" height="50" fill="none" rx="14" stroke="#f46d43" stroke-width="2"/>
+	<line x1="553" y1="186" x2="661" y2="186" stroke="#f46d43" stroke-width="1"/>
+	<text x="560" y="178.7" fill="#000000" font-family="Verdana" font-size="12">De l'appellation</text>
+</g>
+
+<!-- Association Admet pour stockage -->
+<line x1="232" y1="186" x2="81" y2="186" stroke="#f46d43" stroke-width="2"/>
+<text x="158" y="203.0" fill="#3288bd" font-family="Verdana" font-size="12">1,N</text>
+<line x1="81" y1="321" x2="81" y2="186" stroke="#f46d43" stroke-width="2"/>
+<text x="86.0" y="271" fill="#3288bd" font-family="Verdana" font-size="12">1,1</text>
+<g id="association-Admet pour stockage">
+	<path d="M 139 161 a 14 14 90 0 1 14 14 V 186 h -144 V 175 a 14 14 90 0 1 14 -14" fill="#fdae61" stroke="#fdae61" stroke-width="0"/>
+	<path d="M 153 186.0 v 11 a 14 14 90 0 1 -14 14 H 23 a 14 14 90 0 1 -14 -14 V 186.0 H 144" fill="#fee08b" stroke="#fee08b" stroke-width="0"/>
+	<rect x="9" y="161" width="144" height="50" fill="none" rx="14" stroke="#f46d43" stroke-width="2"/>
+	<line x1="9" y1="186" x2="153" y2="186" stroke="#f46d43" stroke-width="1"/>
+	<text x="16" y="178.7" fill="#000000" font-family="Verdana" font-size="12">Admet pour stockage</text>
+</g>
+
+<!-- Association De la cuvée -->
+<line x1="476" y1="186" x2="476" y2="321" stroke="#f46d43" stroke-width="2"/>
+<text x="481.0" y="262" fill="#3288bd" font-family="Verdana" font-size="12">0,1</text>
+<line x1="607" y1="321" x2="476" y2="321" stroke="#f46d43" stroke-width="2"/>
+<text x="550" y="338.0" fill="#3288bd" font-family="Verdana" font-size="12">0,N</text>
+<g id="association-De la cuvée">
+	<path d="M 505 296 a 14 14 90 0 1 14 14 V 321 h -86 V 310 a 14 14 90 0 1 14 -14" fill="#fdae61" stroke="#fdae61" stroke-width="0"/>
+	<path d="M 519 321.0 v 11 a 14 14 90 0 1 -14 14 H 447 a 14 14 90 0 1 -14 -14 V 321.0 H 86" fill="#fee08b" stroke="#fee08b" stroke-width="0"/>
+	<rect x="433" y="296" width="86" height="50" fill="none" rx="14" stroke="#f46d43" stroke-width="2"/>
+	<line x1="433" y1="321" x2="519" y2="321" stroke="#f46d43" stroke-width="1"/>
+	<text x="440" y="313.7" fill="#000000" font-family="Verdana" font-size="12">De la cuvée</text>
+</g>
+
+<!-- Association Du domaine -->
+<line x1="232" y1="186" x2="355" y2="186" stroke="#f46d43" stroke-width="2"/>
+<text x="284" y="203.0" fill="#3288bd" font-family="Verdana" font-size="12">1,1</text>
+<line x1="476" y1="186" x2="355" y2="186" stroke="#f46d43" stroke-width="2"/>
+<text x="404" y="203.0" fill="#3288bd" font-family="Verdana" font-size="12">0,N</text>
+<g id="association-Du domaine">
+	<path d="M 385 161 a 14 14 90 0 1 14 14 V 186 h -88 V 175 a 14 14 90 0 1 14 -14" fill="#fdae61" stroke="#fdae61" stroke-width="0"/>
+	<path d="M 399 186.0 v 11 a 14 14 90 0 1 -14 14 H 325 a 14 14 90 0 1 -14 -14 V 186.0 H 88" fill="#fee08b" stroke="#fee08b" stroke-width="0"/>
+	<rect x="311" y="161" width="88" height="50" fill="none" rx="14" stroke="#f46d43" stroke-width="2"/>
+	<line x1="311" y1="186" x2="399" y2="186" stroke="#f46d43" stroke-width="1"/>
+	<text x="318" y="178.7" fill="#000000" font-family="Verdana" font-size="12">Du domaine</text>
+</g>
+
+<!-- Association Stocké à -->
+<line x1="81" y1="321" x2="232" y2="321" stroke="#f46d43" stroke-width="2"/>
+<text x="133" y="338.0" fill="#3288bd" font-family="Verdana" font-size="12">1,1</text>
+<line x1="355" y1="321" x2="232" y2="321" stroke="#f46d43" stroke-width="2"/>
+<text x="289" y="338.0" fill="#3288bd" font-family="Verdana" font-size="12">0,N</text>
+<g id="association-Stocké à">
+	<path d="M 252 296 a 14 14 90 0 1 14 14 V 321 h -68 V 310 a 14 14 90 0 1 14 -14" fill="#fdae61" stroke="#fdae61" stroke-width="0"/>
+	<path d="M 266 321.0 v 11 a 14 14 90 0 1 -14 14 H 212 a 14 14 90 0 1 -14 -14 V 321.0 H 68" fill="#fee08b" stroke="#fee08b" stroke-width="0"/>
+	<rect x="198" y="296" width="68" height="50" fill="none" rx="14" stroke="#f46d43" stroke-width="2"/>
+	<line x1="198" y1="321" x2="266" y2="321" stroke="#f46d43" stroke-width="1"/>
+	<text x="205" y="313.7" fill="#000000" font-family="Verdana" font-size="12">Stocké à</text>
+</g>
+
+<!-- Association Dans la région -->
+<line x1="476" y1="186" x2="476" y2="51" stroke="#f46d43" stroke-width="2"/>
+<text x="481.0" y="119" fill="#3288bd" font-family="Verdana" font-size="12">1,1</text>
+<line x1="355" y1="51" x2="476" y2="51" stroke="#f46d43" stroke-width="2"/>
+<text x="392" y="68.0" fill="#3288bd" font-family="Verdana" font-size="12">0,N</text>
+<g id="association-Dans la région">
+	<path d="M 513 26 a 14 14 90 0 1 14 14 V 51 h -102 V 40 a 14 14 90 0 1 14 -14" fill="#fdae61" stroke="#fdae61" stroke-width="0"/>
+	<path d="M 527 51.0 v 11 a 14 14 90 0 1 -14 14 H 439 a 14 14 90 0 1 -14 -14 V 51.0 H 102" fill="#fee08b" stroke="#fee08b" stroke-width="0"/>
+	<rect x="425" y="26" width="102" height="50" fill="none" rx="14" stroke="#f46d43" stroke-width="2"/>
+	<line x1="425" y1="51" x2="527" y2="51" stroke="#f46d43" stroke-width="1"/>
+	<text x="432" y="43.7" fill="#000000" font-family="Verdana" font-size="12">Dans la région</text>
+</g>
+
+<!-- Association A été dégustée -->
+<line x1="232" y1="186" x2="232" y2="51" stroke="#f46d43" stroke-width="2"/>
+<text x="237.0" y="93" fill="#3288bd" font-family="Verdana" font-size="12">0,N</text>
+<line x1="81" y1="51" x2="232" y2="51" stroke="#f46d43" stroke-width="2"/>
+<text x="133" y="68.0" fill="#3288bd" font-family="Verdana" font-size="12">1,1</text>
+<g id="association-A été dégustée">
+	<path d="M 271 26 a 14 14 90 0 1 14 14 V 51 h -106 V 40 a 14 14 90 0 1 14 -14" fill="#fdae61" stroke="#fdae61" stroke-width="0"/>
+	<path d="M 285 51.0 v 11 a 14 14 90 0 1 -14 14 H 193 a 14 14 90 0 1 -14 -14 V 51.0 H 106" fill="#fee08b" stroke="#fee08b" stroke-width="0"/>
+	<rect x="179" y="26" width="106" height="50" fill="none" rx="14" stroke="#f46d43" stroke-width="2"/>
+	<line x1="179" y1="51" x2="285" y2="51" stroke="#f46d43" stroke-width="1"/>
+	<text x="186" y="43.7" fill="#000000" font-family="Verdana" font-size="12">A été dégustée</text>
+</g>
+
+<!-- Entity Appellation -->
+<g id="entity-Appellation">
+	<g id="frame-Appellation">
+		<rect x="562" y="9" width="90" height="25" fill="#abdda4" stroke="#abdda4" stroke-width="0"/>
+		<rect x="562" y="34.0" width="90" height="59" fill="#e6f598" stroke="#e6f598" stroke-width="0"/>
+		<rect x="562" y="9" width="90" height="84" fill="none" stroke="#66c2a5" stroke-width="2"/>
+		<line x1="562" y1="34" x2="652" y2="34" stroke="#66c2a5" stroke-width="1"/>
+	</g>
+	<text x="573" y="26.7" fill="#000000" font-family="Verdana" font-size="12">Appellation</text>
+	<text x="567" y="51.8" fill="#000000" font-family="Verdana" font-size="12">idAppellation</text>
+	<line x1="567" y1="54" x2="646" y2="54" stroke="#000000" stroke-width="1"/>
+	<text x="567" y="68.8" fill="#000000" font-family="Verdana" font-size="12">type</text>
+	<text x="567" y="85.8" fill="#000000" font-family="Verdana" font-size="12">nom</text>
+</g>
+
+<!-- Entity Région -->
+<g id="entity-Région">
+	<g id="frame-Région">
+		<rect x="323" y="17" width="64" height="25" fill="#abdda4" stroke="#abdda4" stroke-width="0"/>
+		<rect x="323" y="42.0" width="64" height="43" fill="#e6f598" stroke="#e6f598" stroke-width="0"/>
+		<rect x="323" y="17" width="64" height="68" fill="none" stroke="#66c2a5" stroke-width="2"/>
+		<line x1="323" y1="42" x2="387" y2="42" stroke="#66c2a5" stroke-width="1"/>
+	</g>
+	<text x="334" y="34.7" fill="#000000" font-family="Verdana" font-size="12">Région</text>
+	<text x="328" y="59.8" fill="#000000" font-family="Verdana" font-size="12">idRégion</text>
+	<line x1="328" y1="62" x2="381" y2="62" stroke="#000000" stroke-width="1"/>
+	<text x="328" y="76.8" fill="#000000" font-family="Verdana" font-size="12">nom</text>
+</g>
+
+<!-- Entity Site -->
+<g id="entity-Site">
+	<g id="frame-Site">
+		<rect x="316" y="287" width="78" height="25" fill="#abdda4" stroke="#abdda4" stroke-width="0"/>
+		<rect x="316" y="312.0" width="78" height="43" fill="#e6f598" stroke="#e6f598" stroke-width="0"/>
+		<rect x="316" y="287" width="78" height="68" fill="none" stroke="#66c2a5" stroke-width="2"/>
+		<line x1="316" y1="312" x2="394" y2="312" stroke="#66c2a5" stroke-width="1"/>
+	</g>
+	<text x="343" y="304.7" fill="#000000" font-family="Verdana" font-size="12">Site</text>
+	<text x="321" y="329.8" fill="#000000" font-family="Verdana" font-size="12">idSite</text>
+	<line x1="321" y1="332" x2="356" y2="332" stroke="#000000" stroke-width="1"/>
+	<text x="321" y="346.8" fill="#000000" font-family="Verdana" font-size="12">description</text>
+</g>
+
+<!-- Entity Domaine -->
+<g id="entity-Domaine">
+	<g id="frame-Domaine">
+		<rect x="431" y="127" width="90" height="25" fill="#abdda4" stroke="#abdda4" stroke-width="0"/>
+		<rect x="431" y="152.0" width="90" height="93" fill="#e6f598" stroke="#e6f598" stroke-width="0"/>
+		<rect x="431" y="127" width="90" height="118" fill="none" stroke="#66c2a5" stroke-width="2"/>
+		<line x1="431" y1="152" x2="521" y2="152" stroke="#66c2a5" stroke-width="1"/>
+	</g>
+	<text x="449" y="144.7" fill="#000000" font-family="Verdana" font-size="12">Domaine</text>
+	<text x="436" y="169.7" fill="#000000" font-family="Verdana" font-size="12">idDomaine</text>
+	<line x1="436" y1="172" x2="501" y2="172" stroke="#000000" stroke-width="1"/>
+	<text x="436" y="186.8" fill="#000000" font-family="Verdana" font-size="12">nom</text>
+	<text x="436" y="203.8" fill="#000000" font-family="Verdana" font-size="12">idRégion</text>
+	<text x="436" y="220.8" fill="#000000" font-family="Verdana" font-size="12">idCuvée</text>
+	<text x="436" y="237.8" fill="#000000" font-family="Verdana" font-size="12">idAppellation</text>
+</g>
+
+<!-- Entity Cuvée -->
+<g id="entity-Cuvée">
+	<g id="frame-Cuvée">
+		<rect x="577" y="287" width="60" height="25" fill="#abdda4" stroke="#abdda4" stroke-width="0"/>
+		<rect x="577" y="312.0" width="60" height="43" fill="#e6f598" stroke="#e6f598" stroke-width="0"/>
+		<rect x="577" y="287" width="60" height="68" fill="none" stroke="#66c2a5" stroke-width="2"/>
+		<line x1="577" y1="312" x2="637" y2="312" stroke="#66c2a5" stroke-width="1"/>
+	</g>
+	<text x="588" y="304.7" fill="#000000" font-family="Verdana" font-size="12">Cuvée</text>
+	<text x="582" y="329.8" fill="#000000" font-family="Verdana" font-size="12">idCuvée</text>
+	<line x1="582" y1="332" x2="631" y2="332" stroke="#000000" stroke-width="1"/>
+	<text x="582" y="346.8" fill="#000000" font-family="Verdana" font-size="12">nom</text>
+</g>
+
+<!-- Entity Stockage -->
+<g id="entity-Stockage">
+	<g id="frame-Stockage">
+		<rect x="34" y="279" width="94" height="25" fill="#abdda4" stroke="#abdda4" stroke-width="0"/>
+		<rect x="34" y="304.0" width="94" height="59" fill="#e6f598" stroke="#e6f598" stroke-width="0"/>
+		<rect x="34" y="279" width="94" height="84" fill="none" stroke="#66c2a5" stroke-width="2"/>
+		<line x1="34" y1="304" x2="128" y2="304" stroke="#66c2a5" stroke-width="1"/>
+	</g>
+	<text x="53" y="296.7" fill="#000000" font-family="Verdana" font-size="12">Stockage</text>
+	<text x="39" y="321.8" fill="#000000" font-family="Verdana" font-size="12">idLotBouteille</text>
+	<line x1="39" y1="324" x2="122" y2="324" stroke="#000000" stroke-width="1"/>
+	<text x="39" y="338.8" fill="#000000" font-family="Verdana" font-size="12">idSite</text>
+	<line x1="39" y1="341" x2="74" y2="341" stroke="#000000" stroke-width="1"/>
+	<text x="39" y="355.8" fill="#000000" font-family="Verdana" font-size="12">nombre</text>
+</g>
+
+<!-- Entity LotBouteille -->
+<g id="entity-LotBouteille">
+	<g id="frame-LotBouteille">
+		<rect x="185" y="101" width="94" height="25" fill="#abdda4" stroke="#abdda4" stroke-width="0"/>
+		<rect x="185" y="126.0" width="94" height="145" fill="#e6f598" stroke="#e6f598" stroke-width="0"/>
+		<rect x="185" y="101" width="94" height="170" fill="none" stroke="#66c2a5" stroke-width="2"/>
+		<line x1="185" y1="126" x2="279" y2="126" stroke="#66c2a5" stroke-width="1"/>
+	</g>
+	<text x="196" y="118.7" fill="#000000" font-family="Verdana" font-size="12">LotBouteille</text>
+	<text x="190" y="143.7" fill="#000000" font-family="Verdana" font-size="12">idLotBouteille</text>
+	<line x1="190" y1="146" x2="273" y2="146" stroke="#000000" stroke-width="1"/>
+	<text x="190" y="160.7" fill="#000000" font-family="Verdana" font-size="12">volume</text>
+	<text x="190" y="177.7" fill="#000000" font-family="Verdana" font-size="12">degré</text>
+	<text x="190" y="194.8" fill="#000000" font-family="Verdana" font-size="12">prix</text>
+	<text x="190" y="211.8" fill="#000000" font-family="Verdana" font-size="12">couleur</text>
+	<text x="190" y="228.8" fill="#000000" font-family="Verdana" font-size="12">commentaire</text>
+	<text x="190" y="245.8" fill="#000000" font-family="Verdana" font-size="12">millésime</text>
+	<text x="190" y="262.8" fill="#000000" font-family="Verdana" font-size="12">idDomaine</text>
+</g>
+
+<!-- Entity Dégustation -->
+<g id="entity-Dégustation">
+	<g id="frame-Dégustation">
+		<rect x="34" y="9" width="94" height="25" fill="#abdda4" stroke="#abdda4" stroke-width="0"/>
+		<rect x="34" y="34.0" width="94" height="59" fill="#e6f598" stroke="#e6f598" stroke-width="0"/>
+		<rect x="34" y="9" width="94" height="84" fill="none" stroke="#66c2a5" stroke-width="2"/>
+		<line x1="34" y1="34" x2="128" y2="34" stroke="#66c2a5" stroke-width="1"/>
+	</g>
+	<text x="44" y="26.7" fill="#000000" font-family="Verdana" font-size="12">Dégustation</text>
+	<text x="39" y="51.8" fill="#000000" font-family="Verdana" font-size="12">idDégustation</text>
+	<line x1="39" y1="54" x2="123" y2="54" stroke="#000000" stroke-width="1"/>
+	<text x="39" y="68.8" fill="#000000" font-family="Verdana" font-size="12">date</text>
+	<text x="39" y="85.8" fill="#000000" font-family="Verdana" font-size="12">idLotBouteille</text>
+</g>
+</svg>

@@ -1,0 +1,24 @@
+%%mocodo
+:
+Appellation: idAppellation, type, nom
+:::
+Domaine: idDomaine, nom
+:::
+Stockage: idLotBouteille, _idSite, nombre, #idLotBouteille.1->LotBouteille->idLotBouteille, #idSite.1->Site->idSite
+:
+
+
+:::
+LotBouteille: idLotBouteille, volume, degré, total, prix, commentaire, millésime, #idRégion->Région->idRégion, #idAppellation->Appellation->idAppellation, #idCuvée->Cuvée->idCuvée, #idDomaine->Domaine->idDomaine, #idCouleur->Couleur->idCouleur
+:::
+Couleur: idCouleur, type
+:::
+
+
+:
+Région: idRégion, nom
+:::::
+Cuvée: idCuvée, nom
+:
+Site: idSite, description
+:
