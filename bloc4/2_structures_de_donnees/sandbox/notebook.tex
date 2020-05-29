@@ -1,0 +1,725 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{TD\_Listes}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}242}]:} \PY{k+kn}{import} \PY{n+nn}{sys}
+\end{Verbatim}
+
+
+    \hypertarget{classe-liste}{%
+\section{Classe liste}\label{classe-liste}}
+
+\begin{figure}
+\centering
+\includegraphics{doublement_chainee.png}
+\caption{Liste doublement chainée non circulaire}
+\end{figure}
+
+Construire une classe implémentant les listes doublement chaînées non
+circulaires incluant :
+
+\begin{itemize}
+\tightlist
+\item
+  un constructeur et un destructeur
+\item
+  deux attributs premier et dernier qui sont des cellules
+\item
+  des méthodes estVide, vider, nbElements, iemeElement,
+  modifierIemeElement, afficher, ajouterEnTete, ajouterEnQueue,
+  supprimerTete, rechercherElement et insererElement
+\end{itemize}
+
+Vous définirez pour cela une classe-structure Cellule composée de trois
+attributs : info, suivant et precedent.
+
+Écrire une procédure de la classe Liste qui, à partir d'un tableau
+d'éléments (liste Python), crée la liste chaînée contenant les mêmes
+éléments dans le même ordre. Donnez un exemple d'appel à cette
+procédure.
+
+Écrivre une procédure de la classe Liste qui trie les éléments par ordre
+croissant, en utilisant l'algorithme du tri par insertion.
+
+\begin{figure}
+\centering
+\includegraphics{fonctionnalites_listes.png}
+\caption{Fonctionnalités listes 1}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics{fonctionnalites_listes2.png}
+\caption{Fonctionnalités listes 2}
+\end{figure}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}243}]:} \PY{k}{class}  \PY{n+nc}{Liste}\PY{p}{:}
+              
+              \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{premier} \PY{o}{=} \PY{k+kc}{None}
+                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{dernier} \PY{o}{=} \PY{k+kc}{None}
+                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{taille} \PY{o}{=} \PY{l+m+mi}{0}
+              
+              \PY{k}{def} \PY{n+nf}{est\PYZus{}vide}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                  \PY{c+c1}{\PYZsh{}return self.premier is None and self.dernier is None}
+                  \PY{k}{return} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{premier} \PY{o+ow}{is} \PY{k+kc}{None}
+              
+              \PY{k}{def} \PY{n+nf}{vider}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                  \PY{k}{while} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{premier} \PY{o+ow}{is} \PY{o+ow}{not} \PY{k+kc}{None}\PY{p}{:}
+                      \PY{n}{poubelle} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{premier}
+                      \PY{n}{nouveau} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{premier}\PY{o}{.}\PY{n}{suivant}
+                      \PY{k}{if} \PY{n}{nouveau} \PY{o+ow}{is} \PY{o+ow}{not} \PY{k+kc}{None}\PY{p}{:}
+                          \PY{n}{nouveau}\PY{o}{.}\PY{n}{precedent} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{premier}
+                      \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{premier} \PY{o}{=} \PY{n}{nouveau}
+                      \PY{k}{del} \PY{n}{poubelle}
+                      \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{taille} \PY{o}{\PYZhy{}}\PY{o}{=} \PY{l+m+mi}{1}
+                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{dernier} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{premier}
+              
+              
+              \PY{k}{def} \PY{n+nf}{detruire}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{vider}\PY{p}{(}\PY{p}{)}
+                  \PY{k}{del} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{dernier}
+                  \PY{k}{del} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{premier}
+                  \PY{k}{del} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{taille}
+              
+              
+              \PY{k}{def} \PY{n+nf}{ajouterEnTete}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{e}\PY{p}{)}\PY{p}{:}
+                  \PY{n}{nouveau} \PY{o}{=} \PY{n}{Cellule}\PY{p}{(}\PY{n}{e}\PY{p}{,} \PY{k+kc}{None}\PY{p}{,} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{premier}\PY{p}{)}        
+                  \PY{k}{if} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{est\PYZus{}vide}\PY{p}{(}\PY{p}{)}\PY{p}{:}  \PY{c+c1}{\PYZsh{}si la liste est vide}
+                      \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{dernier} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{premier} \PY{o}{=} \PY{n}{nouveau}
+                  \PY{k}{else}\PY{p}{:}
+                      \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{premier}\PY{o}{.}\PY{n}{precedent} \PY{o}{=} \PY{n}{nouveau}
+                      \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{premier} \PY{o}{=} \PY{n}{nouveau} 
+                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{taille} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+          
+          
+              \PY{k}{def} \PY{n+nf}{ajouterEnQueue}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{e}\PY{p}{)}\PY{p}{:}
+                  \PY{n}{nouveau} \PY{o}{=} \PY{n}{Cellule}\PY{p}{(}\PY{n}{e}\PY{p}{,} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{dernier}\PY{p}{,} \PY{k+kc}{None}\PY{p}{)}        
+                  \PY{k}{if} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{est\PYZus{}vide}\PY{p}{(}\PY{p}{)}\PY{p}{:}  \PY{c+c1}{\PYZsh{}si la liste est vide}
+                      \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{dernier} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{premier} \PY{o}{=} \PY{n}{nouveau}
+                  \PY{k}{else}\PY{p}{:}
+                      \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{dernier}\PY{o}{.}\PY{n}{suivant} \PY{o}{=} \PY{n}{nouveau}
+                      \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{dernier} \PY{o}{=} \PY{n}{nouveau} 
+                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{taille} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+                  
+              \PY{k}{def} \PY{n+nf}{afficher}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                  \PY{n}{pointeur} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{premier}
+                  \PY{n}{output} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{[}\PY{l+s+s2}{\PYZdq{}}
+                  \PY{k}{while} \PY{n}{pointeur} \PY{o+ow}{is} \PY{o+ow}{not} \PY{k+kc}{None}\PY{p}{:}
+                      \PY{n}{output} \PY{o}{+}\PY{o}{=} \PY{n+nb}{str}\PY{p}{(}\PY{n}{pointeur}\PY{o}{.}\PY{n}{info}\PY{p}{)} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{,}\PY{l+s+s1}{\PYZsq{}}
+                      \PY{n}{pointeur} \PY{o}{=} \PY{n}{pointeur}\PY{o}{.}\PY{n}{suivant}
+                  \PY{n+nb}{print}\PY{p}{(}\PY{n}{output}\PY{o}{.}\PY{n}{rstrip}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{,}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              
+              \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}str\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                  \PY{n}{pointeur} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{premier}
+                  \PY{n}{output} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{[}\PY{l+s+s2}{\PYZdq{}}
+                  \PY{k}{while} \PY{n}{pointeur} \PY{o+ow}{is} \PY{o+ow}{not} \PY{k+kc}{None}\PY{p}{:}
+                      \PY{n}{output} \PY{o}{+}\PY{o}{=} \PY{n+nb}{str}\PY{p}{(}\PY{n}{pointeur}\PY{o}{.}\PY{n}{info}\PY{p}{)} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{,}\PY{l+s+s1}{\PYZsq{}}
+                      \PY{n}{pointeur} \PY{o}{=} \PY{n}{pointeur}\PY{o}{.}\PY{n}{suivant}
+                  \PY{k}{return} \PY{n}{output}\PY{o}{.}\PY{n}{rstrip}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{,}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{]}\PY{l+s+s1}{\PYZsq{}}        
+          
+          
+              \PY{k}{def} \PY{n+nf}{nb\PYZus{}elements}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                  \PY{c+c1}{\PYZsh{}return self.taille}
+                  \PY{n}{pointeur} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{premier}
+                  \PY{n}{compteur} \PY{o}{=} \PY{l+m+mi}{0}
+                  \PY{k}{while} \PY{n}{pointeur} \PY{o+ow}{is} \PY{o+ow}{not} \PY{k+kc}{None}\PY{p}{:}
+                      \PY{n}{pointeur} \PY{o}{=} \PY{n}{pointeur}\PY{o}{.}\PY{n}{suivant}
+                      \PY{n}{compteur} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+                  \PY{k}{return} \PY{n}{compteur}
+                  
+              \PY{k}{def} \PY{n+nf}{iemeElement}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{i}\PY{p}{)}\PY{p}{:}
+                  \PY{k}{assert} \PY{l+m+mi}{0} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{i} \PY{o}{\PYZlt{}} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{nb\PYZus{}elements}\PY{p}{(}\PY{p}{)}
+                  \PY{n}{index} \PY{o}{=} \PY{l+m+mi}{0}
+                  \PY{n}{pointeur} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{premier}
+                  \PY{k}{while} \PY{n}{pointeur} \PY{o+ow}{is} \PY{o+ow}{not} \PY{k+kc}{None} \PY{o+ow}{and} \PY{n}{index} \PY{o}{!=} \PY{n}{i}\PY{p}{:}
+                      \PY{n}{index} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+                      \PY{n}{pointeur} \PY{o}{=} \PY{n}{pointeur}\PY{o}{.}\PY{n}{suivant}
+                  \PY{k}{if} \PY{n}{pointeur} \PY{o+ow}{is} \PY{o+ow}{not} \PY{k+kc}{None}\PY{p}{:}
+                      \PY{k}{return} \PY{n}{pointeur}\PY{o}{.}\PY{n}{info}
+                  \PY{k}{else}\PY{p}{:}
+                      \PY{k}{return} \PY{k+kc}{None}
+                  
+              \PY{k}{def} \PY{n+nf}{modifierIemeElement}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{e}\PY{p}{,} \PY{n}{i}\PY{p}{)}\PY{p}{:}
+                  \PY{k}{assert} \PY{l+m+mi}{0} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{i} \PY{o}{\PYZlt{}} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{nb\PYZus{}elements}\PY{p}{(}\PY{p}{)}
+                  \PY{n}{index} \PY{o}{=} \PY{l+m+mi}{0}
+                  \PY{n}{pointeur} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{premier}
+                  \PY{k}{while} \PY{n}{pointeur} \PY{o+ow}{is} \PY{o+ow}{not} \PY{k+kc}{None} \PY{o+ow}{and} \PY{n}{index} \PY{o}{!=} \PY{n}{i}\PY{p}{:}
+                      \PY{n}{index} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+                      \PY{n}{pointeur} \PY{o}{=} \PY{n}{pointeur}\PY{o}{.}\PY{n}{suivant}
+                  \PY{k}{if} \PY{n}{pointeur} \PY{o+ow}{is} \PY{o+ow}{not} \PY{k+kc}{None}\PY{p}{:}
+                      \PY{n}{pointeur}\PY{o}{.}\PY{n}{info} \PY{o}{=} \PY{n}{e}
+                      
+                      
+              \PY{k}{def} \PY{n+nf}{supprimerTete}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                  \PY{k}{if} \PY{o+ow}{not} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{est\PYZus{}vide}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+                      \PY{n}{poubelle} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{premier}
+                      \PY{n}{nouveau} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{premier}\PY{o}{.}\PY{n}{suivant}
+                      \PY{k}{if} \PY{n}{nouveau} \PY{o+ow}{is} \PY{o+ow}{not} \PY{k+kc}{None}\PY{p}{:}
+                          \PY{n}{nouveau}\PY{o}{.}\PY{n}{precedent} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{premier}
+                      \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{premier} \PY{o}{=} \PY{n}{nouveau}            
+                      \PY{k}{if} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{est\PYZus{}vide}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+                          \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{dernier} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{premier}
+                      \PY{k}{del} \PY{n}{poubelle}
+                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{taille} \PY{o}{\PYZhy{}}\PY{o}{=} \PY{l+m+mi}{1}
+              
+              \PY{k}{def} \PY{n+nf}{rechercherElement}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{e}\PY{p}{)}\PY{p}{:}
+                  \PY{n}{pointeur} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{premier}
+                  \PY{n}{index} \PY{o}{=} \PY{l+m+mi}{0}
+                  \PY{k}{while} \PY{n}{pointeur} \PY{o+ow}{is} \PY{o+ow}{not} \PY{k+kc}{None} \PY{o+ow}{and} \PY{n}{pointeur}\PY{o}{.}\PY{n}{info} \PY{o}{!=} \PY{n}{e}\PY{p}{:}
+                      \PY{n}{pointeur} \PY{o}{=} \PY{n}{pointeur}\PY{o}{.}\PY{n}{suivant}
+                      \PY{n}{index} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+                  \PY{k}{return} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1} \PY{k}{if} \PY{n}{pointeur} \PY{o+ow}{is} \PY{k+kc}{None} \PY{k}{else} \PY{n}{index}
+              
+              \PY{k}{def} \PY{n+nf}{insererElement}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{e}\PY{p}{,} \PY{n}{i}\PY{p}{)}\PY{p}{:}        
+                  \PY{n}{n} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{nb\PYZus{}elements}\PY{p}{(}\PY{p}{)}
+                  \PY{k}{assert} \PY{l+m+mi}{0} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{i} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{n}       
+                  \PY{k}{if} \PY{n}{i} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{:}
+                      \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{ajouterEnTete}\PY{p}{(}\PY{n}{e}\PY{p}{)}
+                  \PY{k}{elif} \PY{n}{i} \PY{o}{==} \PY{n}{n}\PY{p}{:}
+                      \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{ajouterEnQueue}\PY{p}{(}\PY{n}{e}\PY{p}{)}
+                  \PY{k}{elif} \PY{n}{i} \PY{o}{\PYZlt{}} \PY{n}{n} \PY{o}{/}\PY{o}{/} \PY{l+m+mi}{2}\PY{p}{:}
+                      \PY{n}{pointeur} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{premier}
+                      \PY{n}{index} \PY{o}{=} \PY{l+m+mi}{0}
+                      \PY{k}{while} \PY{n}{pointeur} \PY{o+ow}{is} \PY{o+ow}{not} \PY{k+kc}{None} \PY{o+ow}{and} \PY{n}{index} \PY{o}{!=} \PY{n}{i}\PY{p}{:}
+                          \PY{n}{pointeur} \PY{o}{=} \PY{n}{pointeur}\PY{o}{.}\PY{n}{suivant}
+                          \PY{n}{index} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+                      \PY{n}{avant} \PY{o}{=} \PY{n}{pointeur}\PY{o}{.}\PY{n}{precedent}
+                      \PY{n}{apres} \PY{o}{=} \PY{n}{pointeur}
+                      \PY{n}{nouveau} \PY{o}{=} \PY{n}{Cellule}\PY{p}{(}\PY{n}{e}\PY{p}{,} \PY{n}{avant}\PY{p}{,} \PY{n}{apres}\PY{p}{)}
+                      \PY{n}{avant}\PY{o}{.}\PY{n}{suivant} \PY{o}{=} \PY{n}{nouveau}
+                      \PY{n}{apres}\PY{o}{.}\PY{n}{precedent} \PY{o}{=} \PY{n}{nouveau}
+                  \PY{k}{else}\PY{p}{:}
+                      \PY{n}{pointeur} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{dernier}
+                      \PY{n}{index} \PY{o}{=} \PY{n}{n} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}
+                      \PY{k}{while} \PY{n}{pointeur} \PY{o+ow}{is} \PY{o+ow}{not} \PY{k+kc}{None} \PY{o+ow}{and} \PY{n}{index} \PY{o}{!=} \PY{n}{i}\PY{p}{:}
+                          \PY{n}{pointeur} \PY{o}{=} \PY{n}{pointeur}\PY{o}{.}\PY{n}{precedent}
+                          \PY{n}{index} \PY{o}{\PYZhy{}}\PY{o}{=} \PY{l+m+mi}{1}
+                      \PY{n}{avant} \PY{o}{=} \PY{n}{pointeur}\PY{o}{.}\PY{n}{precedent}
+                      \PY{n}{apres} \PY{o}{=} \PY{n}{pointeur}
+                      \PY{n}{nouveau} \PY{o}{=} \PY{n}{Cellule}\PY{p}{(}\PY{n}{e}\PY{p}{,} \PY{n}{avant}\PY{p}{,} \PY{n}{apres}\PY{p}{)}
+                      \PY{n}{avant}\PY{o}{.}\PY{n}{suivant} \PY{o}{=} \PY{n}{nouveau}
+                      \PY{n}{apres}\PY{o}{.}\PY{n}{precedent} \PY{o}{=} \PY{n}{nouveau}
+                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{taille} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+                  
+              \PY{n+nd}{@staticmethod}
+              \PY{k}{def} \PY{n+nf}{doubleChainedList\PYZus{}from\PYZus{}Pythonlist}\PY{p}{(}\PY{n}{t}\PY{p}{)}\PY{p}{:}
+                  \PY{n}{L} \PY{o}{=} \PY{n}{Liste}\PY{p}{(}\PY{p}{)}
+                  \PY{k}{for} \PY{n}{e} \PY{o+ow}{in} \PY{n}{t}\PY{p}{:}
+                      \PY{n}{L}\PY{o}{.}\PY{n}{ajouterEnQueue}\PY{p}{(}\PY{n}{e}\PY{p}{)}
+                  \PY{k}{return} \PY{n}{L}
+              
+              \PY{k}{def} \PY{n+nf}{triInsertion}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                  \PY{n}{element} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{premier}        
+                  \PY{k}{while} \PY{n}{element} \PY{o+ow}{is} \PY{o+ow}{not} \PY{k+kc}{None}\PY{p}{:}
+                      \PY{n}{avant} \PY{o}{=} \PY{n}{element}\PY{o}{.}\PY{n}{precedent}
+                      \PY{n}{val} \PY{o}{=} \PY{n}{element}\PY{o}{.}\PY{n}{info}
+                      \PY{k}{while} \PY{n}{avant} \PY{o+ow}{is} \PY{o+ow}{not} \PY{k+kc}{None} \PY{o+ow}{and} \PY{n}{avant}\PY{o}{.}\PY{n}{info} \PY{o}{\PYZgt{}} \PY{n}{val}\PY{p}{:}
+                          \PY{n}{avant}\PY{o}{.}\PY{n}{suivant}\PY{o}{.}\PY{n}{info} \PY{o}{=} \PY{n}{avant}\PY{o}{.}\PY{n}{info}
+                          \PY{n}{avant} \PY{o}{=} \PY{n}{avant}\PY{o}{.}\PY{n}{precedent}
+                      \PY{k}{if} \PY{n}{avant} \PY{o+ow}{is} \PY{k+kc}{None}\PY{p}{:}
+                          \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{premier}\PY{o}{.}\PY{n}{info} \PY{o}{=} \PY{n}{val}
+                      \PY{k}{else}\PY{p}{:}
+                          \PY{n}{avant}\PY{o}{.}\PY{n}{suivant}\PY{o}{.}\PY{n}{info} \PY{o}{=} \PY{n}{val}
+                      \PY{n}{element} \PY{o}{=} \PY{n}{element}\PY{o}{.}\PY{n}{suivant}
+                  
+              
+          \PY{k}{class} \PY{n+nc}{Cellule}\PY{p}{:}
+              
+              \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{info}\PY{p}{,} \PY{n}{precedent}\PY{p}{,} \PY{n}{suivant}\PY{p}{)}\PY{p}{:}
+                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{info} \PY{o}{=} \PY{n}{info}
+                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{precedent} \PY{o}{=} \PY{n}{precedent}
+                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{suivant} \PY{o}{=} \PY{n}{suivant}    
+                  
+                  
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}244}]:} \PY{n}{L} \PY{o}{=} \PY{n}{Liste}\PY{p}{(}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Attributs : }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{vars(L)\PYZcb{}, identifiants : }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{id(L)\PYZcb{} et taille en octets : }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{sys.getsizeof(L)\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          
+          
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          
+          
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Ajout de list(range(6)) avec L.ajouterEnTete()}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{6}\PY{p}{)}\PY{p}{:}
+              \PY{n}{L}\PY{o}{.}\PY{n}{ajouterEnTete}\PY{p}{(}\PY{n}{k}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Affichage de la liste}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{L}\PY{o}{.}\PY{n}{afficher}\PY{p}{(}\PY{p}{)}
+          \PY{n}{n} \PY{o}{=} \PY{n}{L}\PY{o}{.}\PY{n}{nb\PYZus{}elements}\PY{p}{(}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Affichage du nombre d}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{éléments : }\PY{l+s+si}{\PYZob{}n\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{6}\PY{p}{)}\PY{p}{:}
+              \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ 0 \PYZlt{}= k \PYZlt{} L.nb\PYZus{}elements() : }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{0 \PYZlt{}= k \PYZlt{} n\PYZcb{} et }\PY{l+s+si}{\PYZob{}k\PYZcb{}}\PY{l+s+s2}{\PYZhy{}ieme élément : }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{L.iemeElement(k)\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Premier : }\PY{l+s+si}{\PYZob{}L.premier.info\PYZcb{}}\PY{l+s+s2}{ et Dernier : }\PY{l+s+si}{\PYZob{}L.dernier.info\PYZcb{}}\PY{l+s+s2}{ }\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}    
+              
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          
+          
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{On vide la liste}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{L}\PY{o}{.}\PY{n}{vider}\PY{p}{(}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Affichage de la liste}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{L}\PY{o}{.}\PY{n}{afficher}\PY{p}{(}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{attributs : }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{vars(L)\PYZcb{}, identifiants : }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{id(L)\PYZcb{} et taille en octets : }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{sys.getsizeof(L)\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          
+          
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          
+          
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{On détruit la liste}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{L}\PY{o}{.}\PY{n}{detruire}\PY{p}{(}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{attributs : }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{vars(L)\PYZcb{}, identifiants : }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{id(L)\PYZcb{} et taille en octets : }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{sys.getsizeof(L)\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          
+          
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{L} \PY{o}{=} \PY{n}{Liste}\PY{p}{(}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Ajout de list(range(6)) avec L.ajouterEnQueue()}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{6}\PY{p}{)}\PY{p}{:}
+              \PY{n}{L}\PY{o}{.}\PY{n}{ajouterEnQueue}\PY{p}{(}\PY{n}{k}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Affichage de la liste}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{L}\PY{o}{.}\PY{n}{afficher}\PY{p}{(}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Affichage de la liste}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{L}\PY{o}{.}\PY{n}{afficher}\PY{p}{(}\PY{p}{)}
+          \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{6}\PY{p}{)}\PY{p}{:}
+              \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ 0 \PYZlt{}= k \PYZlt{} L.nb\PYZus{}elements() : }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{0 \PYZlt{}= k \PYZlt{} n\PYZcb{}, on remplace le  }\PY{l+s+si}{\PYZob{}k\PYZcb{}}\PY{l+s+s2}{\PYZhy{}ieme élément : }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{L.iemeElement(k)\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PYZbs{}
+                    \PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ par }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{k+1\PYZcb{}  }\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+              \PY{n}{L}\PY{o}{.}\PY{n}{modifierIemeElement}\PY{p}{(}\PY{n}{k} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{k}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Affichage de la liste}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{L}\PY{o}{.}\PY{n}{afficher}\PY{p}{(}\PY{p}{)} 
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Premier : }\PY{l+s+si}{\PYZob{}L.premier.info\PYZcb{}}\PY{l+s+s2}{ et Dernier : }\PY{l+s+si}{\PYZob{}L.dernier.info\PYZcb{}}\PY{l+s+s2}{ }\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Affichage de la liste}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{L}\PY{o}{.}\PY{n}{afficher}\PY{p}{(}\PY{p}{)} 
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Vidage de la liste avec supprimerTete}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{k}{while} \PY{n}{L}\PY{o}{.}\PY{n}{premier} \PY{o+ow}{is} \PY{o+ow}{not} \PY{k+kc}{None}\PY{p}{:}
+              \PY{n}{L}\PY{o}{.}\PY{n}{supprimerTete}\PY{p}{(}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Affichage de la liste}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{L}\PY{o}{.}\PY{n}{afficher}\PY{p}{(}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{attributs : }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{vars(L)\PYZcb{}, identifiants : }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{id(L)\PYZcb{} et taille en octets : }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{sys.getsizeof(L)\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          
+          
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Ajout de list(range(6)) avec L.ajouterEnTete()}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{6}\PY{p}{)}\PY{p}{:}
+              \PY{n}{L}\PY{o}{.}\PY{n}{ajouterEnTete}\PY{p}{(}\PY{n}{k}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Affichage de la liste}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{L}\PY{o}{.}\PY{n}{afficher}\PY{p}{(}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Insertion d}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{un élément en position }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{L.nb\PYZus{}elements() \PYZhy{} 1\PYZcb{},  dans la seconde moitié}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{L}\PY{o}{.}\PY{n}{insererElement}\PY{p}{(}\PY{l+m+mf}{5.5}\PY{p}{,} \PY{n}{L}\PY{o}{.}\PY{n}{nb\PYZus{}elements}\PY{p}{(}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Affichage de la liste}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{L}\PY{o}{.}\PY{n}{afficher}\PY{p}{(}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Insertion d}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{un élément en position }\PY{l+s+si}{\PYZob{}1\PYZcb{}}\PY{l+s+s2}{,  dans la première moitié}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{L}\PY{o}{.}\PY{n}{insererElement}\PY{p}{(}\PY{l+m+mf}{0.5}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Affichage de la liste}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{L}\PY{o}{.}\PY{n}{afficher}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Attributs : \{'premier': None, 'dernier': None, 'taille': 0\}, identifiants : 139820595078928 et taille en octets : 56
+-----------------------
+Ajout de list(range(6)) avec L.ajouterEnTete()
+Affichage de la liste
+[5,4,3,2,1,0]
+Affichage du nombre d'éléments : 6
+ 0 <= k < L.nb\_elements() : True et 0-ieme élément : 5
+ 0 <= k < L.nb\_elements() : True et 1-ieme élément : 4
+ 0 <= k < L.nb\_elements() : True et 2-ieme élément : 3
+ 0 <= k < L.nb\_elements() : True et 3-ieme élément : 2
+ 0 <= k < L.nb\_elements() : True et 4-ieme élément : 1
+ 0 <= k < L.nb\_elements() : True et 5-ieme élément : 0
+Premier : 5 et Dernier : 0 
+-----------------------
+On vide la liste
+Affichage de la liste
+[]
+attributs : \{'premier': None, 'dernier': None, 'taille': 0\}, identifiants : 139820595078928 et taille en octets : 56
+-----------------------
+On détruit la liste
+attributs : \{\}, identifiants : 139820595078928 et taille en octets : 56
+-----------------------
+Ajout de list(range(6)) avec L.ajouterEnQueue()
+Affichage de la liste
+[0,1,2,3,4,5]
+Affichage de la liste
+[0,1,2,3,4,5]
+ 0 <= k < L.nb\_elements() : True, on remplace le  0-ieme élément : 0 par 1  
+ 0 <= k < L.nb\_elements() : True, on remplace le  1-ieme élément : 1 par 2  
+ 0 <= k < L.nb\_elements() : True, on remplace le  2-ieme élément : 2 par 3  
+ 0 <= k < L.nb\_elements() : True, on remplace le  3-ieme élément : 3 par 4  
+ 0 <= k < L.nb\_elements() : True, on remplace le  4-ieme élément : 4 par 5  
+ 0 <= k < L.nb\_elements() : True, on remplace le  5-ieme élément : 5 par 6  
+Affichage de la liste
+[1,2,3,4,5,6]
+Premier : 1 et Dernier : 6 
+-----------------------
+Affichage de la liste
+[1,2,3,4,5,6]
+Vidage de la liste avec supprimerTete
+Affichage de la liste
+[]
+attributs : \{'premier': None, 'dernier': None, 'taille': 0\}, identifiants : 139820595080104 et taille en octets : 56
+-----------------------
+Ajout de list(range(6)) avec L.ajouterEnTete()
+Affichage de la liste
+[5,4,3,2,1,0]
+Insertion d'un élément en position 5,  dans la seconde moitié
+Affichage de la liste
+[5,4,3,2,1,5.5,0]
+Insertion d'un élément en position 1,  dans la première moitié
+Affichage de la liste
+[5,0.5,4,3,2,1,5.5,0]
+
+    \end{Verbatim}
+
+    \hypertarget{cruxe9ation-dune-liste-chauxeenuxe9e-uxe0-partir-dun-tableau}{%
+\subsection{Création d'une liste chaînée à partir d'un
+tableau}\label{cruxe9ation-dune-liste-chauxeenuxe9e-uxe0-partir-dun-tableau}}
+
+Écrire une procédure de la classe Liste qui, à partir d'un tableau
+d'éléments (liste Python), crée la liste chaînée contenant les mêmes
+éléments dans le même ordre. Donnez un exemple d'appel à cette
+procédure.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}245}]:} \PY{n}{L} \PY{o}{=} \PY{n}{Liste}\PY{o}{.}\PY{n}{doubleChainedList\PYZus{}from\PYZus{}Pythonlist}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}246}]:} \PY{n}{L}\PY{o}{.}\PY{n}{afficher}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[1,2,3]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}247}]:} \PY{k+kn}{from} \PY{n+nn}{random} \PY{k}{import} \PY{n}{randint}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}248}]:} \PY{n}{L} \PY{o}{=} \PY{n}{Liste}\PY{o}{.}\PY{n}{doubleChainedList\PYZus{}from\PYZus{}Pythonlist}\PY{p}{(}\PY{p}{[}\PY{n}{randint}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{)} \PY{k}{for} \PY{n}{\PYZus{}} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Avant tri }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{L}\PY{p}{)}
+          \PY{n}{L}\PY{o}{.}\PY{n}{triInsertion}\PY{p}{(}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Après tri }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{L}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Avant tri  [17,16,9,81,58,8,18,36,65,68]
+Après tri  [8,9,16,17,18,36,58,65,68,81]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}249}]:} \PY{c+c1}{\PYZsh{}Test du tri par insertion sur les permutations de \PYZob{}0,1,2,3,4,5\PYZcb{}}
+          
+          \PY{k+kn}{from} \PY{n+nn}{itertools} \PY{k}{import} \PY{n}{permutations}
+          
+          \PY{n}{collector} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+          \PY{n}{base} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{[}\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{,}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n+nb}{map}\PY{p}{(}\PY{n+nb}{str}\PY{p}{,} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{6}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{]}\PY{l+s+s1}{\PYZsq{}}
+          \PY{k}{for} \PY{n}{p} \PY{o+ow}{in} \PY{n}{permutations}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{6}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+              \PY{n}{t} \PY{o}{=} \PY{n}{Liste}\PY{o}{.}\PY{n}{doubleChainedList\PYZus{}from\PYZus{}Pythonlist}\PY{p}{(}\PY{n+nb}{list}\PY{p}{(}\PY{n}{p}\PY{p}{)}\PY{p}{)}
+              \PY{n}{t}\PY{o}{.}\PY{n}{triInsertion}\PY{p}{(}\PY{p}{)}
+              \PY{n}{collector}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n+nb}{str}\PY{p}{(}\PY{n}{t}\PY{p}{)} \PY{o}{==} \PY{n}{base}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{all}\PY{p}{(}\PY{n}{collector}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+True
+
+    \end{Verbatim}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
