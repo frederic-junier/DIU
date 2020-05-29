@@ -1,0 +1,8 @@
+**Site** (<ins>idSite</ins>, description)  
+**Région** (<ins>idRégion</ins>, nom)  
+**Cuvée** (<ins>idCuvée</ins>, nom)  
+**Stockage** (<ins>idStockage</ins>, <ins>idLotBouteille</ins>, <ins>idSite</ins>, nombre, _idLotBouteille.1_, _idSite.1_)  
+**Domaine** (<ins>idDomaine</ins>, nom, idRégion, idCuvée, idAppellation, _idAppellation.1_, _idCuvée.1_, _idRégion.1_)  
+**Dégustation** (<ins>idDégustation</ins>, date, idStockage, _idStockage.1_, _idLotBouteille_, _idSite_)  
+**LotBouteille** (<ins>idLotBouteille</ins>, volume, degré, prix, couleur, commentaire, millésime, idDomaine, _idDomaine.1_)  
+**Appellation** (<ins>idAppellation</ins>, type, nom)
