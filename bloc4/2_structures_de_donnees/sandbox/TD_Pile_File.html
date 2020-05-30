@@ -12589,13 +12589,87 @@ div#notebook {
 
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[173]:</div>
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">TD_Listes</span> <span class="k">import</span> <span class="n">Liste</span><span class="p">,</span> <span class="n">Cellule</span>
 </pre></div>
 
 </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Attributs : {&#39;premier&#39;: None, &#39;dernier&#39;: None, &#39;taille&#39;: 0}, identifiants : 140413423600976 et taille en octets : 56
+-----------------------
+Ajout de list(range(6)) avec L.ajouterEnTete()
+Affichage de la liste
+[5,4,3,2,1,0]
+Affichage du nombre d&#39;éléments : 6
+ 0 &lt;= k &lt; L.nb_elements() : True et 0-ieme élément : 5
+ 0 &lt;= k &lt; L.nb_elements() : True et 1-ieme élément : 4
+ 0 &lt;= k &lt; L.nb_elements() : True et 2-ieme élément : 3
+ 0 &lt;= k &lt; L.nb_elements() : True et 3-ieme élément : 2
+ 0 &lt;= k &lt; L.nb_elements() : True et 4-ieme élément : 1
+ 0 &lt;= k &lt; L.nb_elements() : True et 5-ieme élément : 0
+Premier : 5 et Dernier : 0 
+-----------------------
+On vide la liste
+Affichage de la liste
+[]
+attributs : {&#39;premier&#39;: None, &#39;dernier&#39;: None, &#39;taille&#39;: 0}, identifiants : 140413423600976 et taille en octets : 56
+-----------------------
+On détruit la liste
+attributs : {}, identifiants : 140413423600976 et taille en octets : 56
+-----------------------
+Ajout de list(range(6)) avec L.ajouterEnQueue()
+Affichage de la liste
+[0,1,2,3,4,5]
+Affichage de la liste
+[0,1,2,3,4,5]
+ 0 &lt;= k &lt; L.nb_elements() : True, on remplace le  0-ieme élément : 0 par 1  
+ 0 &lt;= k &lt; L.nb_elements() : True, on remplace le  1-ieme élément : 1 par 2  
+ 0 &lt;= k &lt; L.nb_elements() : True, on remplace le  2-ieme élément : 2 par 3  
+ 0 &lt;= k &lt; L.nb_elements() : True, on remplace le  3-ieme élément : 3 par 4  
+ 0 &lt;= k &lt; L.nb_elements() : True, on remplace le  4-ieme élément : 4 par 5  
+ 0 &lt;= k &lt; L.nb_elements() : True, on remplace le  5-ieme élément : 5 par 6  
+Affichage de la liste
+[1,2,3,4,5,6]
+Premier : 1 et Dernier : 6 
+-----------------------
+Affichage de la liste
+[1,2,3,4,5,6]
+Vidage de la liste avec supprimerTete
+Affichage de la liste
+[]
+attributs : {&#39;premier&#39;: None, &#39;dernier&#39;: None, &#39;taille&#39;: 0}, identifiants : 140413423601424 et taille en octets : 56
+-----------------------
+Ajout de list(range(6)) avec L.ajouterEnTete()
+Affichage de la liste
+[5,4,3,2,1,0]
+Insertion d&#39;un élément en position 5,  dans la seconde moitié
+Affichage de la liste
+[5,4,3,2,1,5.5,0]
+Insertion d&#39;un élément en position 1,  dans la première moitié
+Affichage de la liste
+[5,0.5,4,3,2,1,5.5,0]
+[1,2,3]
+Avant tri  [93,67,93,7,34,43,79,17,83,61]
+Après tri  [7,17,34,43,61,67,79,83,93,93]
+True
+</pre>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -12626,7 +12700,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[174]:</div>
+<div class="prompt input_prompt">In&nbsp;[30]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">Pile</span><span class="p">:</span>
@@ -12681,6 +12755,9 @@ div#notebook {
             <span class="bp">self</span><span class="o">.</span><span class="n">empiler</span><span class="p">(</span><span class="n">pile2</span><span class="o">.</span><span class="n">traiter</span><span class="p">())</span>
         <span class="k">return</span> <span class="n">compteur</span>
     
+    <span class="k">def</span> <span class="nf">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">hauteur</span><span class="p">()</span>
+    
     <span class="k">def</span> <span class="nf">vider</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">while</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">est_vide</span><span class="p">():</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">depiler</span><span class="p">()</span>
@@ -12698,7 +12775,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[175]:</div>
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Exemple d&#39;utilisation</span>
@@ -12825,7 +12902,7 @@ Attributs de la pile : {}
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[176]:</div>
+<div class="prompt input_prompt">In&nbsp;[28]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">Pile2</span><span class="p">(</span><span class="n">Liste</span><span class="p">):</span>
@@ -12869,6 +12946,10 @@ Attributs de la pile : {}
     
     <span class="k">def</span> <span class="nf">hauteur</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">nb_elements</span><span class="p">()</span>
+    
+    <span class="k">def</span> <span class="nf">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">hauteur</span><span class="p">()</span>
+    
 </pre></div>
 
 </div>
@@ -12878,7 +12959,7 @@ Attributs de la pile : {}
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[177]:</div>
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">stack</span> <span class="o">=</span> <span class="n">Pile2</span><span class="p">([])</span>
@@ -12910,7 +12991,7 @@ Attributs de la pile : {}
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[178]:</div>
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Exemple d&#39;utilisation</span>
@@ -13061,7 +13142,7 @@ Attributs de la pile : {}
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[179]:</div>
+<div class="prompt input_prompt">In&nbsp;[29]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">File</span><span class="p">:</span>
@@ -13114,7 +13195,10 @@ Attributs de la pile : {}
         <span class="k">while</span> <span class="ow">not</span> <span class="n">file2</span><span class="o">.</span><span class="n">est_vide</span><span class="p">():</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">enfiler</span><span class="p">(</span><span class="n">file2</span><span class="o">.</span><span class="n">traiter</span><span class="p">())</span>
         <span class="k">return</span> <span class="n">compteur</span>
-
+    
+    <span class="k">def</span> <span class="nf">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">longueur</span><span class="p">()</span>
+    
     <span class="k">def</span> <span class="nf">vider</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">while</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">est_vide</span><span class="p">():</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">defiler</span><span class="p">()</span>
@@ -13139,7 +13223,7 @@ Attributs de la pile : {}
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[180]:</div>
+<div class="prompt input_prompt">In&nbsp;[12]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Exemple d&#39;utilisation</span>
@@ -13228,7 +13312,7 @@ Attributs de la file : {}
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[181]:</div>
+<div class="prompt input_prompt">In&nbsp;[13]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">File2</span><span class="p">(</span><span class="n">Liste</span><span class="p">):</span>
@@ -13281,7 +13365,7 @@ Attributs de la file : {}
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[182]:</div>
+<div class="prompt input_prompt">In&nbsp;[14]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Exemple d&#39;utilisation</span>
@@ -13380,7 +13464,7 @@ Attributs de la file : {}
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[183]:</div>
+<div class="prompt input_prompt">In&nbsp;[15]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">inverserFile</span><span class="p">(</span><span class="n">queue</span><span class="p">):</span>
@@ -13398,7 +13482,7 @@ Attributs de la file : {}
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[184]:</div>
+<div class="prompt input_prompt">In&nbsp;[16]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">queue</span> <span class="o">=</span>  <span class="n">File</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">)))</span>
@@ -13458,7 +13542,7 @@ File inversée :
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[185]:</div>
+<div class="prompt input_prompt">In&nbsp;[17]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">parenthesage_valide</span><span class="p">(</span><span class="n">expression</span><span class="p">):</span>
@@ -13492,43 +13576,39 @@ File inversée :
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[186]:</div>
+<div class="prompt input_prompt">In&nbsp;[38]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">parenthesage_valide</span><span class="p">(</span><span class="s2">&quot;()&quot;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">parenthesage_valide2</span><span class="p">(</span><span class="n">expression</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;meilleure version&quot;&quot;&quot;</span>
+    <span class="n">ouvrante</span> <span class="o">=</span> <span class="s1">&#39;([&#39;</span>
+    <span class="n">stack</span> <span class="o">=</span> <span class="n">Pile</span><span class="p">([])</span>
+    <span class="n">fermante</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;)&#39;</span><span class="p">:</span><span class="s1">&#39;(&#39;</span><span class="p">,</span> <span class="s1">&#39;]&#39;</span> <span class="p">:</span> <span class="s1">&#39;[&#39;</span><span class="p">}</span>
+    <span class="c1">#construction de la pile de parenthèses/crochets</span>
+    <span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">expression</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">ouvrante</span><span class="p">:</span>
+            <span class="n">stack</span><span class="o">.</span><span class="n">empiler</span><span class="p">(</span><span class="n">token</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">fermante</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">stack</span><span class="o">.</span><span class="n">est_vide</span><span class="p">():</span>
+                <span class="k">return</span> <span class="kc">False</span>
+            <span class="k">elif</span> <span class="n">stack</span><span class="o">.</span><span class="n">sommet</span><span class="p">()</span> <span class="o">==</span> <span class="n">fermante</span><span class="p">[</span><span class="n">token</span><span class="p">]:</span>
+                <span class="n">stack</span><span class="o">.</span><span class="n">depiler</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">stack</span><span class="o">.</span><span class="n">est_vide</span><span class="p">()</span>     
 </pre></div>
 
 </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt output_prompt">Out[186]:</div>
-
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>True</pre>
-</div>
-
-</div>
-
 </div>
 </div>
 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[187]:</div>
+<div class="prompt input_prompt">In&nbsp;[40]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">parenthesage_valide</span><span class="p">(</span><span class="s2">&quot;)(&quot;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Test</span>
+<span class="k">for</span> <span class="n">exp</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;()&quot;</span><span class="p">,</span><span class="s2">&quot;)(&quot;</span><span class="p">,</span><span class="s2">&quot;[)&quot;</span><span class="p">,</span> <span class="s2">&quot;[([bonjour+]essai)7plus- ];&quot;</span><span class="p">,</span> <span class="s2">&quot;(&quot;</span><span class="p">,</span> <span class="s2">&quot;4(essai]&quot;</span><span class="p">]:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">parenthesage_valide</span><span class="p">(</span><span class="n">exp</span><span class="p">),</span> <span class="n">parenthesage_valide2</span><span class="p">(</span><span class="n">exp</span><span class="p">))</span>
 </pre></div>
 
 </div>
@@ -13541,147 +13621,18 @@ File inversée :
 
 <div class="output_area">
 
-<div class="prompt output_prompt">Out[187]:</div>
+<div class="prompt"></div>
 
 
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>False</pre>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>True True
+False False
+False False
+True True
+False False
+False False
+</pre>
 </div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[188]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">parenthesage_valide</span><span class="p">(</span><span class="s2">&quot;[)&quot;</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt output_prompt">Out[188]:</div>
-
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>False</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[189]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">parenthesage_valide</span><span class="p">(</span><span class="s2">&quot;[([bonjour+]essai)7plus- ];&quot;</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt output_prompt">Out[189]:</div>
-
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>True</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[190]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">parenthesage_valide</span><span class="p">(</span><span class="s2">&quot;(&quot;</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt output_prompt">Out[190]:</div>
-
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>False</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[191]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">parenthesage_valide</span><span class="p">(</span><span class="s2">&quot;4(essai]&quot;</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt output_prompt">Out[191]:</div>
-
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>False</pre>
-</div>
-
 </div>
 
 </div>

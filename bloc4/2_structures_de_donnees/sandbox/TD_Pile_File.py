@@ -1,7 +1,7 @@
 
 # coding: utf-8
 
-# In[173]:
+# In[5]:
 
 
 from TD_Listes import Liste, Cellule
@@ -20,7 +20,7 @@ from TD_Listes import Liste, Cellule
 
 # ## Classe Pile avec tableau dynamique en Python
 
-# In[174]:
+# In[30]:
 
 
 class Pile:
@@ -75,6 +75,9 @@ class Pile:
             self.empiler(pile2.traiter())
         return compteur
     
+    def __len__(self):
+        return self.hauteur()
+    
     def vider(self):
         while not self.est_vide():
             self.depiler()
@@ -85,7 +88,7 @@ class Pile:
         
 
 
-# In[175]:
+# In[7]:
 
 
 # Exemple d'utilisation
@@ -121,7 +124,7 @@ print(f"Attributs de la pile : {vars(stack)}")
 
 # ## Classe Pile avec liste doublement chaînée
 
-# In[176]:
+# In[28]:
 
 
 class Pile2(Liste):
@@ -165,16 +168,20 @@ class Pile2(Liste):
     
     def hauteur(self):
         return self.nb_elements()
+    
+    def __len__(self):
+        return self.hauteur()
+    
 
 
-# In[177]:
+# In[9]:
 
 
 stack = Pile2([])
 print(vars(stack))
 
 
-# In[178]:
+# In[10]:
 
 
 # Exemple d'utilisation
@@ -223,7 +230,7 @@ print(f"Attributs de la pile : {vars(stack)}")
 
 # ### Implémentation à l'aide d'un tableau dynamique en Python
 
-# In[179]:
+# In[29]:
 
 
 class File:
@@ -276,7 +283,10 @@ class File:
         while not file2.est_vide():
             self.enfiler(file2.traiter())
         return compteur
-
+    
+    def __len__(self):
+        return self.longueur()
+    
     def vider(self):
         while not self.est_vide():
             self.defiler()
@@ -288,7 +298,7 @@ class File:
 
 # ## Implémentation à l'aide d'une liste doublement chaînée
 
-# In[180]:
+# In[12]:
 
 
 # Exemple d'utilisation
@@ -322,7 +332,7 @@ queue.detruire()
 print(f"Attributs de la file : {vars(queue)}")
 
 
-# In[181]:
+# In[13]:
 
 
 class File2(Liste):
@@ -368,7 +378,7 @@ class File2(Liste):
         return self.nb_elements()   
 
 
-# In[182]:
+# In[14]:
 
 
 # Exemple d'utilisation
@@ -408,7 +418,7 @@ print(f"Attributs de la file : {vars(queue)}")
 # 
 # On demande de ne pas utiliser de tableau ou de liste de travail pour effectuer l'inversion, mais d'utiliser plutôt une pile. Il existe en effet une méthode très simple pour inverser une file en utilisant une pile.
 
-# In[183]:
+# In[15]:
 
 
 def inverserFile(queue):
@@ -419,7 +429,7 @@ def inverserFile(queue):
         queue.enfiler(stack.traiter())
 
 
-# In[184]:
+# In[16]:
 
 
 queue =  File(list(range(5)))
@@ -438,7 +448,7 @@ print("File inversée : \n", queue)
 # Notre but est donc d’évaluer la validité d’une expression en ne considérant que ses parenthèses et ses crochets. On suppose que l’expression à tester est dans une chaîne de caractères, dont on peut ignorer tous les caractères autres que ‘(’,
 # ‘[’, ’]’ et ‘)’. Écrire en Python la fonction valide qui renvoie vrai si l’expression passée en paramètre est valide, faux sinon.
 
-# In[185]:
+# In[17]:
 
 
 def parenthesage_valide(expression):
@@ -465,38 +475,30 @@ def parenthesage_valide(expression):
     return stack2.est_vide()     
 
 
-# In[186]:
+# In[38]:
 
 
-parenthesage_valide("()")
+def parenthesage_valide2(expression):
+    """meilleure version"""
+    ouvrante = '(['
+    stack = Pile([])
+    fermante = {')':'(', ']' : '['}
+    #construction de la pile de parenthèses/crochets
+    for token in expression:
+        if token in ouvrante:
+            stack.empiler(token)
+        elif token in fermante:
+            if stack.est_vide():
+                return False
+            elif stack.sommet() == fermante[token]:
+                stack.depiler()
+    return stack.est_vide()     
 
 
-# In[187]:
+# In[40]:
 
 
-parenthesage_valide(")(")
-
-
-# In[188]:
-
-
-parenthesage_valide("[)")
-
-
-# In[189]:
-
-
-parenthesage_valide("[([bonjour+]essai)7plus- ];")
-
-
-# In[190]:
-
-
-parenthesage_valide("(")
-
-
-# In[191]:
-
-
-parenthesage_valide("4(essai]")
+# Test
+for exp in ["()",")(","[)", "[([bonjour+]essai)7plus- ];", "(", "4(essai]"]:
+    print(parenthesage_valide(exp), parenthesage_valide2(exp))
 
