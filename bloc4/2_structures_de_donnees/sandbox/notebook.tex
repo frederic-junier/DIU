@@ -281,9 +281,70 @@
 
     
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}173}]:} \PY{k+kn}{from} \PY{n+nn}{TD\PYZus{}Listes} \PY{k}{import} \PY{n}{Liste}\PY{p}{,} \PY{n}{Cellule}
+{\color{incolor}In [{\color{incolor}5}]:} \PY{k+kn}{from} \PY{n+nn}{TD\PYZus{}Listes} \PY{k}{import} \PY{n}{Liste}\PY{p}{,} \PY{n}{Cellule}
 \end{Verbatim}
 
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Attributs : \{'premier': None, 'dernier': None, 'taille': 0\}, identifiants : 140413423600976 et taille en octets : 56
+-----------------------
+Ajout de list(range(6)) avec L.ajouterEnTete()
+Affichage de la liste
+[5,4,3,2,1,0]
+Affichage du nombre d'éléments : 6
+ 0 <= k < L.nb\_elements() : True et 0-ieme élément : 5
+ 0 <= k < L.nb\_elements() : True et 1-ieme élément : 4
+ 0 <= k < L.nb\_elements() : True et 2-ieme élément : 3
+ 0 <= k < L.nb\_elements() : True et 3-ieme élément : 2
+ 0 <= k < L.nb\_elements() : True et 4-ieme élément : 1
+ 0 <= k < L.nb\_elements() : True et 5-ieme élément : 0
+Premier : 5 et Dernier : 0 
+-----------------------
+On vide la liste
+Affichage de la liste
+[]
+attributs : \{'premier': None, 'dernier': None, 'taille': 0\}, identifiants : 140413423600976 et taille en octets : 56
+-----------------------
+On détruit la liste
+attributs : \{\}, identifiants : 140413423600976 et taille en octets : 56
+-----------------------
+Ajout de list(range(6)) avec L.ajouterEnQueue()
+Affichage de la liste
+[0,1,2,3,4,5]
+Affichage de la liste
+[0,1,2,3,4,5]
+ 0 <= k < L.nb\_elements() : True, on remplace le  0-ieme élément : 0 par 1  
+ 0 <= k < L.nb\_elements() : True, on remplace le  1-ieme élément : 1 par 2  
+ 0 <= k < L.nb\_elements() : True, on remplace le  2-ieme élément : 2 par 3  
+ 0 <= k < L.nb\_elements() : True, on remplace le  3-ieme élément : 3 par 4  
+ 0 <= k < L.nb\_elements() : True, on remplace le  4-ieme élément : 4 par 5  
+ 0 <= k < L.nb\_elements() : True, on remplace le  5-ieme élément : 5 par 6  
+Affichage de la liste
+[1,2,3,4,5,6]
+Premier : 1 et Dernier : 6 
+-----------------------
+Affichage de la liste
+[1,2,3,4,5,6]
+Vidage de la liste avec supprimerTete
+Affichage de la liste
+[]
+attributs : \{'premier': None, 'dernier': None, 'taille': 0\}, identifiants : 140413423601424 et taille en octets : 56
+-----------------------
+Ajout de list(range(6)) avec L.ajouterEnTete()
+Affichage de la liste
+[5,4,3,2,1,0]
+Insertion d'un élément en position 5,  dans la seconde moitié
+Affichage de la liste
+[5,4,3,2,1,5.5,0]
+Insertion d'un élément en position 1,  dans la première moitié
+Affichage de la liste
+[5,0.5,4,3,2,1,5.5,0]
+[1,2,3]
+Avant tri  [93,67,93,7,34,43,79,17,83,61]
+Après tri  [7,17,34,43,61,67,79,83,93,93]
+True
+
+    \end{Verbatim}
 
     \hypertarget{classe-pile}{%
 \section{Classe Pile}\label{classe-pile}}
@@ -305,99 +366,102 @@ sommet, estVide, hauteur et traiter
 Python}\label{classe-pile-avec-tableau-dynamique-en-python}}
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}174}]:} \PY{k}{class} \PY{n+nc}{Pile}\PY{p}{:}
-              \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}à partir d\PYZsq{}un tableau dynamique en Python\PYZdq{}\PYZdq{}\PYZdq{}}
-              
-              \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{liste}\PY{p}{)}\PY{p}{:}
-                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{liste} \PY{o}{=} \PY{n}{liste}
-                  
-              \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}str\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
-                  \PY{n}{output} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}
-                  \PY{k}{for} \PY{n}{e} \PY{o+ow}{in} \PY{n+nb}{reversed}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{liste}\PY{p}{)}\PY{p}{:}
-                      \PY{n}{output} \PY{o}{+}\PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{|}\PY{l+s+si}{\PYZob{}:\PYZca{}15\PYZcb{}}\PY{l+s+s2}{|}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{e}\PY{p}{)}
-                      \PY{n}{output} \PY{o}{+}\PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{|}\PY{l+s+si}{\PYZob{}:\PYZca{}15\PYZcb{}}\PY{l+s+s2}{|}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZus{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{*}\PY{l+m+mi}{15}\PY{p}{)}
-                  \PY{k}{return} \PY{n}{output}
-              
-              \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}repr\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
-                  \PY{n+nb}{repr}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{liste}\PY{p}{)}
-                  
-              \PY{k}{def} \PY{n+nf}{depiler}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
-                  \PY{k}{assert} \PY{o+ow}{not} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{est\PYZus{}vide}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{La pile est vide !}\PY{l+s+s2}{\PYZdq{}}
-                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{liste}\PY{o}{.}\PY{n}{pop}\PY{p}{(}\PY{p}{)}
-              
-              \PY{k}{def} \PY{n+nf}{empiler}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{e}\PY{p}{)}\PY{p}{:}
-                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{liste}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{e}\PY{p}{)}
-                  
-              \PY{k}{def} \PY{n+nf}{est\PYZus{}vide}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
-                  \PY{k}{return} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{liste} \PY{o}{==} \PY{p}{[}\PY{p}{]}
-                  \PY{c+c1}{\PYZsh{}return len(self.liste) == 0 \PYZsh{}non sinon on utiliserait len pour la hauteur}
-              
-              \PY{k}{def} \PY{n+nf}{sommet}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
-                  \PY{k}{assert} \PY{o+ow}{not} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{est\PYZus{}vide}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{La pile est vide !}\PY{l+s+s2}{\PYZdq{}}
-                  \PY{k}{return} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{liste}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
-              
-              \PY{k}{def} \PY{n+nf}{traiter}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
-                  \PY{k}{assert} \PY{o+ow}{not} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{est\PYZus{}vide}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{La pile est vide !}\PY{l+s+s2}{\PYZdq{}}
-                  \PY{n}{element} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{sommet}\PY{p}{(}\PY{p}{)}
-                  \PY{c+c1}{\PYZsh{}return self.liste.pop()}
-                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{depiler}\PY{p}{(}\PY{p}{)}
-                  \PY{k}{return} \PY{n}{element}
-                  
-              
-              \PY{k}{def} \PY{n+nf}{hauteur}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
-                  \PY{n}{pile2} \PY{o}{=} \PY{n}{Pile}\PY{p}{(}\PY{p}{[}\PY{p}{]}\PY{p}{)}
-                  \PY{n}{compteur} \PY{o}{=} \PY{l+m+mi}{0}
-                  \PY{c+c1}{\PYZsh{}on utilise est\PYZus{}vide }
-                  \PY{c+c1}{\PYZsh{}donc il ne faut pas utiliser hauteur dans est\PYZus{}vide}
-                  \PY{k}{while} \PY{o+ow}{not} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{est\PYZus{}vide}\PY{p}{(}\PY{p}{)}\PY{p}{:} 
-                      \PY{n}{pile2}\PY{o}{.}\PY{n}{empiler}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{traiter}\PY{p}{(}\PY{p}{)}\PY{p}{)}
-                      \PY{n}{compteur} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
-                  \PY{c+c1}{\PYZsh{}on reconstruit la pile}
-                  \PY{k}{while} \PY{o+ow}{not} \PY{n}{pile2}\PY{o}{.}\PY{n}{est\PYZus{}vide}\PY{p}{(}\PY{p}{)}\PY{p}{:}
-                      \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{empiler}\PY{p}{(}\PY{n}{pile2}\PY{o}{.}\PY{n}{traiter}\PY{p}{(}\PY{p}{)}\PY{p}{)}
-                  \PY{k}{return} \PY{n}{compteur}
-              
-              \PY{k}{def} \PY{n+nf}{vider}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
-                  \PY{k}{while} \PY{o+ow}{not} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{est\PYZus{}vide}\PY{p}{(}\PY{p}{)}\PY{p}{:}
-                      \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{depiler}\PY{p}{(}\PY{p}{)}
-              
-              \PY{k}{def} \PY{n+nf}{detruire}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
-                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{vider}\PY{p}{(}\PY{p}{)}
-                  \PY{k}{del} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{liste}
-                  
+{\color{incolor}In [{\color{incolor}30}]:} \PY{k}{class} \PY{n+nc}{Pile}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}à partir d\PYZsq{}un tableau dynamique en Python\PYZdq{}\PYZdq{}\PYZdq{}}
+             
+             \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{liste}\PY{p}{)}\PY{p}{:}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{liste} \PY{o}{=} \PY{n}{liste}
+                 
+             \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}str\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{output} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}
+                 \PY{k}{for} \PY{n}{e} \PY{o+ow}{in} \PY{n+nb}{reversed}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{liste}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{output} \PY{o}{+}\PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{|}\PY{l+s+si}{\PYZob{}:\PYZca{}15\PYZcb{}}\PY{l+s+s2}{|}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{e}\PY{p}{)}
+                     \PY{n}{output} \PY{o}{+}\PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{|}\PY{l+s+si}{\PYZob{}:\PYZca{}15\PYZcb{}}\PY{l+s+s2}{|}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZus{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{*}\PY{l+m+mi}{15}\PY{p}{)}
+                 \PY{k}{return} \PY{n}{output}
+             
+             \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}repr\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                 \PY{n+nb}{repr}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{liste}\PY{p}{)}
+                 
+             \PY{k}{def} \PY{n+nf}{depiler}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{assert} \PY{o+ow}{not} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{est\PYZus{}vide}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{La pile est vide !}\PY{l+s+s2}{\PYZdq{}}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{liste}\PY{o}{.}\PY{n}{pop}\PY{p}{(}\PY{p}{)}
+             
+             \PY{k}{def} \PY{n+nf}{empiler}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{e}\PY{p}{)}\PY{p}{:}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{liste}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{e}\PY{p}{)}
+                 
+             \PY{k}{def} \PY{n+nf}{est\PYZus{}vide}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{return} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{liste} \PY{o}{==} \PY{p}{[}\PY{p}{]}
+                 \PY{c+c1}{\PYZsh{}return len(self.liste) == 0 \PYZsh{}non sinon on utiliserait len pour la hauteur}
+             
+             \PY{k}{def} \PY{n+nf}{sommet}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{assert} \PY{o+ow}{not} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{est\PYZus{}vide}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{La pile est vide !}\PY{l+s+s2}{\PYZdq{}}
+                 \PY{k}{return} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{liste}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+             
+             \PY{k}{def} \PY{n+nf}{traiter}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{assert} \PY{o+ow}{not} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{est\PYZus{}vide}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{La pile est vide !}\PY{l+s+s2}{\PYZdq{}}
+                 \PY{n}{element} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{sommet}\PY{p}{(}\PY{p}{)}
+                 \PY{c+c1}{\PYZsh{}return self.liste.pop()}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{depiler}\PY{p}{(}\PY{p}{)}
+                 \PY{k}{return} \PY{n}{element}
+                 
+             
+             \PY{k}{def} \PY{n+nf}{hauteur}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{pile2} \PY{o}{=} \PY{n}{Pile}\PY{p}{(}\PY{p}{[}\PY{p}{]}\PY{p}{)}
+                 \PY{n}{compteur} \PY{o}{=} \PY{l+m+mi}{0}
+                 \PY{c+c1}{\PYZsh{}on utilise est\PYZus{}vide }
+                 \PY{c+c1}{\PYZsh{}donc il ne faut pas utiliser hauteur dans est\PYZus{}vide}
+                 \PY{k}{while} \PY{o+ow}{not} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{est\PYZus{}vide}\PY{p}{(}\PY{p}{)}\PY{p}{:} 
+                     \PY{n}{pile2}\PY{o}{.}\PY{n}{empiler}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{traiter}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+                     \PY{n}{compteur} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+                 \PY{c+c1}{\PYZsh{}on reconstruit la pile}
+                 \PY{k}{while} \PY{o+ow}{not} \PY{n}{pile2}\PY{o}{.}\PY{n}{est\PYZus{}vide}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+                     \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{empiler}\PY{p}{(}\PY{n}{pile2}\PY{o}{.}\PY{n}{traiter}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+                 \PY{k}{return} \PY{n}{compteur}
+             
+             \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}len\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{return} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{hauteur}\PY{p}{(}\PY{p}{)}
+             
+             \PY{k}{def} \PY{n+nf}{vider}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{while} \PY{o+ow}{not} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{est\PYZus{}vide}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+                     \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{depiler}\PY{p}{(}\PY{p}{)}
+             
+             \PY{k}{def} \PY{n+nf}{detruire}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{vider}\PY{p}{(}\PY{p}{)}
+                 \PY{k}{del} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{liste}
+                 
 \end{Verbatim}
 
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}175}]:} \PY{c+c1}{\PYZsh{} Exemple d\PYZsq{}utilisation}
-          \PY{n}{stack} \PY{o}{=} \PY{n}{Pile}\PY{p}{(}\PY{p}{[}\PY{p}{]}\PY{p}{)}
-          \PY{n}{v} \PY{o}{=} \PY{n}{stack}\PY{o}{.}\PY{n}{est\PYZus{}vide}\PY{p}{(}\PY{p}{)}
-          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Pile vide ? }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{v}\PY{p}{)}
-          \PY{n}{stack}\PY{o}{.}\PY{n}{empiler}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}
-          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{On empile 5 : }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}  \PY{n}{stack}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-          \PY{n}{stack}\PY{o}{.}\PY{n}{empiler}\PY{p}{(}\PY{l+m+mi}{6}\PY{p}{)}
-          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{On empile 6 : }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{stack}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-          \PY{n}{stack}\PY{o}{.}\PY{n}{empiler}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
-          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{On empile 1 : }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{stack}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-          \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Sommet de la pile }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{stack.sommet()\PYZcb{}, hauteur : }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{stack.hauteur()\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-          \PY{n}{stack}\PY{o}{.}\PY{n}{depiler}\PY{p}{(}\PY{p}{)}
-          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{On dépile  : }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{stack}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-          \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Sommet de la pile }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{stack.sommet()\PYZcb{}, hauteur : }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{stack.hauteur()\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-          \PY{n}{stack}\PY{o}{.}\PY{n}{empiler}\PY{p}{(}\PY{l+m+mi}{7}\PY{p}{)}
-          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{On empile 7 : }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{stack}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-          \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Sommet de la pile }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{stack.sommet()\PYZcb{}, hauteur : }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{stack.hauteur()\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-          \PY{n}{stack}\PY{o}{.}\PY{n}{depiler}\PY{p}{(}\PY{p}{)}
-          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{On dépile  : }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{stack}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-          \PY{n}{v} \PY{o}{=} \PY{n}{stack}\PY{o}{.}\PY{n}{est\PYZus{}vide}\PY{p}{(}\PY{p}{)}
-          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Pile vide ? }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{v}\PY{p}{)}
-          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{On empile 8 : }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{stack}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-          \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Sommet de la pile }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{stack.sommet()\PYZcb{}, hauteur : }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{stack.hauteur()\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Vider la pile}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-          \PY{n}{stack}\PY{o}{.}\PY{n}{vider}\PY{p}{(}\PY{p}{)}
-          \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Attributs de la pile : }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{vars(stack)\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Détruire la pile}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-          \PY{n}{stack}\PY{o}{.}\PY{n}{detruire}\PY{p}{(}\PY{p}{)}
-          \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Attributs de la pile : }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{vars(stack)\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}7}]:} \PY{c+c1}{\PYZsh{} Exemple d\PYZsq{}utilisation}
+        \PY{n}{stack} \PY{o}{=} \PY{n}{Pile}\PY{p}{(}\PY{p}{[}\PY{p}{]}\PY{p}{)}
+        \PY{n}{v} \PY{o}{=} \PY{n}{stack}\PY{o}{.}\PY{n}{est\PYZus{}vide}\PY{p}{(}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Pile vide ? }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{v}\PY{p}{)}
+        \PY{n}{stack}\PY{o}{.}\PY{n}{empiler}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{On empile 5 : }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}  \PY{n}{stack}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{stack}\PY{o}{.}\PY{n}{empiler}\PY{p}{(}\PY{l+m+mi}{6}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{On empile 6 : }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{stack}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{stack}\PY{o}{.}\PY{n}{empiler}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{On empile 1 : }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{stack}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Sommet de la pile }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{stack.sommet()\PYZcb{}, hauteur : }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{stack.hauteur()\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{stack}\PY{o}{.}\PY{n}{depiler}\PY{p}{(}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{On dépile  : }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{stack}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Sommet de la pile }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{stack.sommet()\PYZcb{}, hauteur : }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{stack.hauteur()\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{stack}\PY{o}{.}\PY{n}{empiler}\PY{p}{(}\PY{l+m+mi}{7}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{On empile 7 : }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{stack}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Sommet de la pile }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{stack.sommet()\PYZcb{}, hauteur : }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{stack.hauteur()\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{stack}\PY{o}{.}\PY{n}{depiler}\PY{p}{(}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{On dépile  : }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{stack}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{v} \PY{o}{=} \PY{n}{stack}\PY{o}{.}\PY{n}{est\PYZus{}vide}\PY{p}{(}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Pile vide ? }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{v}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{On empile 8 : }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{stack}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Sommet de la pile }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{stack.sommet()\PYZcb{}, hauteur : }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{stack.hauteur()\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Vider la pile}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{stack}\PY{o}{.}\PY{n}{vider}\PY{p}{(}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Attributs de la pile : }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{vars(stack)\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Détruire la pile}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{stack}\PY{o}{.}\PY{n}{detruire}\PY{p}{(}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Attributs de la pile : }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{vars(stack)\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
 \end{Verbatim}
 
 
@@ -471,53 +535,57 @@ Attributs de la pile : \{\}
 chaînée}\label{classe-pile-avec-liste-doublement-chauxeenuxe9e}}
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}176}]:} \PY{k}{class} \PY{n+nc}{Pile2}\PY{p}{(}\PY{n}{Liste}\PY{p}{)}\PY{p}{:}
-              \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}hérite de la classe Liste de liste doublement chainée non circulaire\PYZdq{}\PYZdq{}\PYZdq{}}
-              
-              \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{liste}\PY{p}{)}\PY{p}{:}
-                  \PY{n}{Liste}\PY{o}{.}\PY{n+nf+fm}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}
-                  \PY{n+nb+bp}{self} \PY{o}{=} \PY{n}{Liste}\PY{o}{.}\PY{n}{doubleChainedList\PYZus{}from\PYZus{}Pythonlist}\PY{p}{(}\PY{n}{liste}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}28}]:} \PY{k}{class} \PY{n+nc}{Pile2}\PY{p}{(}\PY{n}{Liste}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}hérite de la classe Liste de liste doublement chainée non circulaire\PYZdq{}\PYZdq{}\PYZdq{}}
+             
+             \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{liste}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{Liste}\PY{o}{.}\PY{n+nf+fm}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}
+                 \PY{n+nb+bp}{self} \PY{o}{=} \PY{n}{Liste}\PY{o}{.}\PY{n}{doubleChainedList\PYZus{}from\PYZus{}Pythonlist}\PY{p}{(}\PY{n}{liste}\PY{p}{)}
+                
                  
-                  
-              \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}str\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
-                  \PY{n}{pointeur} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{premier}
-                  \PY{n}{output} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}
-                  \PY{k}{while} \PY{n}{pointeur} \PY{o+ow}{is} \PY{o+ow}{not} \PY{k+kc}{None}\PY{p}{:}
-                      \PY{n}{output} \PY{o}{+}\PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{|}\PY{l+s+si}{\PYZob{}:\PYZca{}15\PYZcb{}}\PY{l+s+s2}{|}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{pointeur}\PY{o}{.}\PY{n}{info}\PY{p}{)}
-                      \PY{n}{output} \PY{o}{+}\PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{|}\PY{l+s+si}{\PYZob{}:\PYZca{}15\PYZcb{}}\PY{l+s+s2}{|}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZus{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{*}\PY{l+m+mi}{15}\PY{p}{)}
-                      \PY{n}{pointeur} \PY{o}{=} \PY{n}{pointeur}\PY{o}{.}\PY{n}{suivant}
-                  \PY{k}{return} \PY{n}{output}
-                  
-              
-              \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}repr\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
-                  \PY{n+nb}{repr}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}
-                  
-              \PY{k}{def} \PY{n+nf}{depiler}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
-                  \PY{k}{assert} \PY{o+ow}{not} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{est\PYZus{}vide}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{La pile est vide !}\PY{l+s+s2}{\PYZdq{}}
-                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{supprimerTete}\PY{p}{(}\PY{p}{)}
-              
-              \PY{k}{def} \PY{n+nf}{empiler}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{e}\PY{p}{)}\PY{p}{:}
-                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{ajouterEnTete}\PY{p}{(}\PY{n}{e}\PY{p}{)}
-                      
-              
-              \PY{k}{def} \PY{n+nf}{sommet}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
-                  \PY{k}{assert} \PY{o+ow}{not} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{est\PYZus{}vide}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{La pile est vide !}\PY{l+s+s2}{\PYZdq{}}
-                  \PY{k}{return} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{iemeElement}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
-              
-              \PY{k}{def} \PY{n+nf}{traiter}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
-                  \PY{k}{assert} \PY{o+ow}{not} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{est\PYZus{}vide}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{La pile est vide !}\PY{l+s+s2}{\PYZdq{}}
-                  \PY{n}{element} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{sommet}\PY{p}{(}\PY{p}{)}
-                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{supprimerTete}\PY{p}{(}\PY{p}{)}
-                  \PY{k}{return} \PY{n}{element}
-              
-              \PY{k}{def} \PY{n+nf}{hauteur}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
-                  \PY{k}{return} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{nb\PYZus{}elements}\PY{p}{(}\PY{p}{)}
+             \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}str\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{pointeur} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{premier}
+                 \PY{n}{output} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}
+                 \PY{k}{while} \PY{n}{pointeur} \PY{o+ow}{is} \PY{o+ow}{not} \PY{k+kc}{None}\PY{p}{:}
+                     \PY{n}{output} \PY{o}{+}\PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{|}\PY{l+s+si}{\PYZob{}:\PYZca{}15\PYZcb{}}\PY{l+s+s2}{|}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{pointeur}\PY{o}{.}\PY{n}{info}\PY{p}{)}
+                     \PY{n}{output} \PY{o}{+}\PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{|}\PY{l+s+si}{\PYZob{}:\PYZca{}15\PYZcb{}}\PY{l+s+s2}{|}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZus{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{*}\PY{l+m+mi}{15}\PY{p}{)}
+                     \PY{n}{pointeur} \PY{o}{=} \PY{n}{pointeur}\PY{o}{.}\PY{n}{suivant}
+                 \PY{k}{return} \PY{n}{output}
+                 
+             
+             \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}repr\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                 \PY{n+nb}{repr}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}
+                 
+             \PY{k}{def} \PY{n+nf}{depiler}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{assert} \PY{o+ow}{not} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{est\PYZus{}vide}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{La pile est vide !}\PY{l+s+s2}{\PYZdq{}}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{supprimerTete}\PY{p}{(}\PY{p}{)}
+             
+             \PY{k}{def} \PY{n+nf}{empiler}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{e}\PY{p}{)}\PY{p}{:}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{ajouterEnTete}\PY{p}{(}\PY{n}{e}\PY{p}{)}
+                     
+             
+             \PY{k}{def} \PY{n+nf}{sommet}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{assert} \PY{o+ow}{not} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{est\PYZus{}vide}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{La pile est vide !}\PY{l+s+s2}{\PYZdq{}}
+                 \PY{k}{return} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{iemeElement}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
+             
+             \PY{k}{def} \PY{n+nf}{traiter}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{assert} \PY{o+ow}{not} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{est\PYZus{}vide}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{La pile est vide !}\PY{l+s+s2}{\PYZdq{}}
+                 \PY{n}{element} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{sommet}\PY{p}{(}\PY{p}{)}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{supprimerTete}\PY{p}{(}\PY{p}{)}
+                 \PY{k}{return} \PY{n}{element}
+             
+             \PY{k}{def} \PY{n+nf}{hauteur}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{return} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{nb\PYZus{}elements}\PY{p}{(}\PY{p}{)}
+             
+             \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}len\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{return} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{hauteur}\PY{p}{(}\PY{p}{)}
+             
 \end{Verbatim}
 
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}177}]:} \PY{n}{stack} \PY{o}{=} \PY{n}{Pile2}\PY{p}{(}\PY{p}{[}\PY{p}{]}\PY{p}{)}
-          \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{vars}\PY{p}{(}\PY{n}{stack}\PY{p}{)}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{stack} \PY{o}{=} \PY{n}{Pile2}\PY{p}{(}\PY{p}{[}\PY{p}{]}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{vars}\PY{p}{(}\PY{n}{stack}\PY{p}{)}\PY{p}{)}
 \end{Verbatim}
 
 
@@ -527,35 +595,35 @@ chaînée}\label{classe-pile-avec-liste-doublement-chauxeenuxe9e}}
     \end{Verbatim}
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}178}]:} \PY{c+c1}{\PYZsh{} Exemple d\PYZsq{}utilisation}
-          \PY{n}{stack} \PY{o}{=} \PY{n}{Pile2}\PY{p}{(}\PY{p}{[}\PY{p}{]}\PY{p}{)}
-          \PY{n}{v} \PY{o}{=} \PY{n}{stack}\PY{o}{.}\PY{n}{est\PYZus{}vide}\PY{p}{(}\PY{p}{)}
-          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Pile vide ? }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{v}\PY{p}{)}
-          \PY{n}{stack}\PY{o}{.}\PY{n}{empiler}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}
-          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{On empile 5 : }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}  \PY{n}{stack}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-          \PY{n}{stack}\PY{o}{.}\PY{n}{empiler}\PY{p}{(}\PY{l+m+mi}{6}\PY{p}{)}
-          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{On empile 6 : }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{stack}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-          \PY{n}{stack}\PY{o}{.}\PY{n}{empiler}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
-          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{On empile 1 : }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{stack}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-          \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Sommet de la pile }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{stack.sommet()\PYZcb{}, hauteur : }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{stack.hauteur()\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-          \PY{n}{stack}\PY{o}{.}\PY{n}{depiler}\PY{p}{(}\PY{p}{)}
-          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{On dépile  : }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{stack}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-          \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Sommet de la pile }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{stack.sommet()\PYZcb{}, hauteur : }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{stack.hauteur()\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-          \PY{n}{stack}\PY{o}{.}\PY{n}{empiler}\PY{p}{(}\PY{l+m+mi}{7}\PY{p}{)}
-          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{On empile 7 : }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{stack}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-          \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Sommet de la pile }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{stack.sommet()\PYZcb{}, hauteur : }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{stack.hauteur()\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-          \PY{n}{stack}\PY{o}{.}\PY{n}{depiler}\PY{p}{(}\PY{p}{)}
-          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{On dépile  : }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{stack}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-          \PY{n}{v} \PY{o}{=} \PY{n}{stack}\PY{o}{.}\PY{n}{est\PYZus{}vide}\PY{p}{(}\PY{p}{)}
-          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Pile vide ? }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{v}\PY{p}{)}
-          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{On empile 8 : }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{stack}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-          \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Sommet de la pile }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{stack.sommet()\PYZcb{}, hauteur : }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{stack.hauteur()\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Vider la pile}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-          \PY{n}{stack}\PY{o}{.}\PY{n}{vider}\PY{p}{(}\PY{p}{)}
-          \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Attributs de la pile : }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{vars(stack)\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Détruire la pile}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-          \PY{n}{stack}\PY{o}{.}\PY{n}{detruire}\PY{p}{(}\PY{p}{)}
-          \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Attributs de la pile : }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{vars(stack)\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}10}]:} \PY{c+c1}{\PYZsh{} Exemple d\PYZsq{}utilisation}
+         \PY{n}{stack} \PY{o}{=} \PY{n}{Pile2}\PY{p}{(}\PY{p}{[}\PY{p}{]}\PY{p}{)}
+         \PY{n}{v} \PY{o}{=} \PY{n}{stack}\PY{o}{.}\PY{n}{est\PYZus{}vide}\PY{p}{(}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Pile vide ? }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{v}\PY{p}{)}
+         \PY{n}{stack}\PY{o}{.}\PY{n}{empiler}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{On empile 5 : }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}  \PY{n}{stack}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{stack}\PY{o}{.}\PY{n}{empiler}\PY{p}{(}\PY{l+m+mi}{6}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{On empile 6 : }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{stack}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{stack}\PY{o}{.}\PY{n}{empiler}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{On empile 1 : }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{stack}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Sommet de la pile }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{stack.sommet()\PYZcb{}, hauteur : }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{stack.hauteur()\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{stack}\PY{o}{.}\PY{n}{depiler}\PY{p}{(}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{On dépile  : }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{stack}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Sommet de la pile }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{stack.sommet()\PYZcb{}, hauteur : }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{stack.hauteur()\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{stack}\PY{o}{.}\PY{n}{empiler}\PY{p}{(}\PY{l+m+mi}{7}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{On empile 7 : }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{stack}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Sommet de la pile }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{stack.sommet()\PYZcb{}, hauteur : }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{stack.hauteur()\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{stack}\PY{o}{.}\PY{n}{depiler}\PY{p}{(}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{On dépile  : }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{stack}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{v} \PY{o}{=} \PY{n}{stack}\PY{o}{.}\PY{n}{est\PYZus{}vide}\PY{p}{(}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Pile vide ? }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{v}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{On empile 8 : }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{stack}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Sommet de la pile }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{stack.sommet()\PYZcb{}, hauteur : }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{stack.hauteur()\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Vider la pile}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{stack}\PY{o}{.}\PY{n}{vider}\PY{p}{(}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Attributs de la pile : }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{vars(stack)\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Détruire la pile}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{stack}\PY{o}{.}\PY{n}{detruire}\PY{p}{(}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Attributs de la pile : }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{vars(stack)\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
 \end{Verbatim}
 
 
@@ -648,64 +716,67 @@ Python}\label{classe-file-avec-tableau-dynamique-en-python}}
 Python}\label{impluxe9mentation-uxe0-laide-dun-tableau-dynamique-en-python}}
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}179}]:} \PY{k}{class} \PY{n+nc}{File}\PY{p}{:}
-              \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}à partir d\PYZsq{}un tableau dynamique en Python\PYZdq{}\PYZdq{}\PYZdq{}}
-              
-              \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{liste}\PY{p}{)}\PY{p}{:}
-                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{liste} \PY{o}{=} \PY{n}{liste}
-                  
-              \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}str\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
-                  \PY{n}{output} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Tếte : }\PY{l+s+s1}{\PYZsq{}}
-                  \PY{k}{for} \PY{n}{e} \PY{o+ow}{in}  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{liste}\PY{p}{:}
-                      \PY{n}{output} \PY{o}{+}\PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+si}{\PYZob{}:\PYZca{}15\PYZcb{}}\PY{l+s+s2}{\PYZlt{}\PYZhy{}\PYZhy{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{e}\PY{p}{)}
-                  \PY{k}{return} \PY{n}{output}\PY{o}{.}\PY{n}{rstrip}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZlt{}\PYZhy{}\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{: Queue}\PY{l+s+s1}{\PYZsq{}}
-              
-              \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}repr\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
-                  \PY{n+nb}{repr}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{liste}\PY{p}{)}
-                  
-              \PY{k}{def} \PY{n+nf}{defiler}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
-                  \PY{k}{assert} \PY{o+ow}{not} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{est\PYZus{}vide}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{La file est vide !}\PY{l+s+s2}{\PYZdq{}}
-                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{liste}\PY{o}{.}\PY{n}{pop}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
-              
-              \PY{k}{def} \PY{n+nf}{enfiler}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{e}\PY{p}{)}\PY{p}{:}
-                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{liste}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{e}\PY{p}{)}
-                  
-              \PY{k}{def} \PY{n+nf}{est\PYZus{}vide}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
-                  \PY{k}{return} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{liste} \PY{o}{==} \PY{p}{[}\PY{p}{]}
-                  \PY{c+c1}{\PYZsh{}return len(self.liste) == 0 \PYZsh{}non sinon on utiliserait len pour la hauteur}
-              
-              \PY{k}{def} \PY{n+nf}{premierDeLaFile}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
-                  \PY{k}{assert} \PY{o+ow}{not} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{est\PYZus{}vide}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{La file est vide !}\PY{l+s+s2}{\PYZdq{}}
-                  \PY{k}{return} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{liste}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
-              
-              \PY{k}{def} \PY{n+nf}{traiter}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
-                  \PY{k}{assert} \PY{o+ow}{not} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{est\PYZus{}vide}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{La pile est vide !}\PY{l+s+s2}{\PYZdq{}}
-                  \PY{n}{element} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{premierDeLaFile}\PY{p}{(}\PY{p}{)}
-                  \PY{c+c1}{\PYZsh{}return self.liste.pop()}
-                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{defiler}\PY{p}{(}\PY{p}{)}
-                  \PY{k}{return} \PY{n}{element}
-                  
-              
-              \PY{k}{def} \PY{n+nf}{longueur}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
-                  \PY{n}{file2} \PY{o}{=} \PY{n}{File}\PY{p}{(}\PY{p}{[}\PY{p}{]}\PY{p}{)}
-                  \PY{n}{compteur} \PY{o}{=} \PY{l+m+mi}{0}
-                  \PY{c+c1}{\PYZsh{}on utilise est\PYZus{}vide }
-                  \PY{c+c1}{\PYZsh{}donc il ne faut pas utiliser hauteur dans est\PYZus{}vide}
-                  \PY{k}{while} \PY{o+ow}{not} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{est\PYZus{}vide}\PY{p}{(}\PY{p}{)}\PY{p}{:} 
-                      \PY{n}{file2}\PY{o}{.}\PY{n}{enfiler}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{traiter}\PY{p}{(}\PY{p}{)}\PY{p}{)}
-                      \PY{n}{compteur} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
-                  \PY{c+c1}{\PYZsh{}on reconstruit la file}
-                  \PY{k}{while} \PY{o+ow}{not} \PY{n}{file2}\PY{o}{.}\PY{n}{est\PYZus{}vide}\PY{p}{(}\PY{p}{)}\PY{p}{:}
-                      \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{enfiler}\PY{p}{(}\PY{n}{file2}\PY{o}{.}\PY{n}{traiter}\PY{p}{(}\PY{p}{)}\PY{p}{)}
-                  \PY{k}{return} \PY{n}{compteur}
-          
-              \PY{k}{def} \PY{n+nf}{vider}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
-                  \PY{k}{while} \PY{o+ow}{not} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{est\PYZus{}vide}\PY{p}{(}\PY{p}{)}\PY{p}{:}
-                      \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{defiler}\PY{p}{(}\PY{p}{)}
-              
-              \PY{k}{def} \PY{n+nf}{detruire}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
-                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{vider}\PY{p}{(}\PY{p}{)}
-                  \PY{k}{del} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{liste}
+{\color{incolor}In [{\color{incolor}29}]:} \PY{k}{class} \PY{n+nc}{File}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}à partir d\PYZsq{}un tableau dynamique en Python\PYZdq{}\PYZdq{}\PYZdq{}}
+             
+             \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{liste}\PY{p}{)}\PY{p}{:}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{liste} \PY{o}{=} \PY{n}{liste}
+                 
+             \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}str\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{output} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Tếte : }\PY{l+s+s1}{\PYZsq{}}
+                 \PY{k}{for} \PY{n}{e} \PY{o+ow}{in}  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{liste}\PY{p}{:}
+                     \PY{n}{output} \PY{o}{+}\PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+si}{\PYZob{}:\PYZca{}15\PYZcb{}}\PY{l+s+s2}{\PYZlt{}\PYZhy{}\PYZhy{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{e}\PY{p}{)}
+                 \PY{k}{return} \PY{n}{output}\PY{o}{.}\PY{n}{rstrip}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZlt{}\PYZhy{}\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{: Queue}\PY{l+s+s1}{\PYZsq{}}
+             
+             \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}repr\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                 \PY{n+nb}{repr}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{liste}\PY{p}{)}
+                 
+             \PY{k}{def} \PY{n+nf}{defiler}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{assert} \PY{o+ow}{not} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{est\PYZus{}vide}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{La file est vide !}\PY{l+s+s2}{\PYZdq{}}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{liste}\PY{o}{.}\PY{n}{pop}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
+             
+             \PY{k}{def} \PY{n+nf}{enfiler}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{e}\PY{p}{)}\PY{p}{:}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{liste}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{e}\PY{p}{)}
+                 
+             \PY{k}{def} \PY{n+nf}{est\PYZus{}vide}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{return} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{liste} \PY{o}{==} \PY{p}{[}\PY{p}{]}
+                 \PY{c+c1}{\PYZsh{}return len(self.liste) == 0 \PYZsh{}non sinon on utiliserait len pour la hauteur}
+             
+             \PY{k}{def} \PY{n+nf}{premierDeLaFile}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{assert} \PY{o+ow}{not} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{est\PYZus{}vide}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{La file est vide !}\PY{l+s+s2}{\PYZdq{}}
+                 \PY{k}{return} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{liste}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+             
+             \PY{k}{def} \PY{n+nf}{traiter}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{assert} \PY{o+ow}{not} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{est\PYZus{}vide}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{La pile est vide !}\PY{l+s+s2}{\PYZdq{}}
+                 \PY{n}{element} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{premierDeLaFile}\PY{p}{(}\PY{p}{)}
+                 \PY{c+c1}{\PYZsh{}return self.liste.pop()}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{defiler}\PY{p}{(}\PY{p}{)}
+                 \PY{k}{return} \PY{n}{element}
+                 
+             
+             \PY{k}{def} \PY{n+nf}{longueur}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{file2} \PY{o}{=} \PY{n}{File}\PY{p}{(}\PY{p}{[}\PY{p}{]}\PY{p}{)}
+                 \PY{n}{compteur} \PY{o}{=} \PY{l+m+mi}{0}
+                 \PY{c+c1}{\PYZsh{}on utilise est\PYZus{}vide }
+                 \PY{c+c1}{\PYZsh{}donc il ne faut pas utiliser hauteur dans est\PYZus{}vide}
+                 \PY{k}{while} \PY{o+ow}{not} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{est\PYZus{}vide}\PY{p}{(}\PY{p}{)}\PY{p}{:} 
+                     \PY{n}{file2}\PY{o}{.}\PY{n}{enfiler}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{traiter}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+                     \PY{n}{compteur} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+                 \PY{c+c1}{\PYZsh{}on reconstruit la file}
+                 \PY{k}{while} \PY{o+ow}{not} \PY{n}{file2}\PY{o}{.}\PY{n}{est\PYZus{}vide}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+                     \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{enfiler}\PY{p}{(}\PY{n}{file2}\PY{o}{.}\PY{n}{traiter}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+                 \PY{k}{return} \PY{n}{compteur}
+             
+             \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}len\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{return} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{longueur}\PY{p}{(}\PY{p}{)}
+             
+             \PY{k}{def} \PY{n+nf}{vider}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{while} \PY{o+ow}{not} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{est\PYZus{}vide}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+                     \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{defiler}\PY{p}{(}\PY{p}{)}
+             
+             \PY{k}{def} \PY{n+nf}{detruire}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{vider}\PY{p}{(}\PY{p}{)}
+                 \PY{k}{del} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{liste}
 \end{Verbatim}
 
 
@@ -714,35 +785,35 @@ Python}\label{impluxe9mentation-uxe0-laide-dun-tableau-dynamique-en-python}}
 chaînée}\label{impluxe9mentation-uxe0-laide-dune-liste-doublement-chauxeenuxe9e}}
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}180}]:} \PY{c+c1}{\PYZsh{} Exemple d\PYZsq{}utilisation}
-          \PY{n}{queue} \PY{o}{=} \PY{n}{File}\PY{p}{(}\PY{p}{[}\PY{p}{]}\PY{p}{)}
-          \PY{n}{v} \PY{o}{=} \PY{n}{queue}\PY{o}{.}\PY{n}{est\PYZus{}vide}\PY{p}{(}\PY{p}{)}
-          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{File vide ? }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{v}\PY{p}{)}
-          \PY{n}{queue}\PY{o}{.}\PY{n}{enfiler}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}
-          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{On enfile 5 : }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}  \PY{n}{queue}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-          \PY{n}{queue}\PY{o}{.}\PY{n}{enfiler}\PY{p}{(}\PY{l+m+mi}{6}\PY{p}{)}
-          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{On enfile 6 : }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{queue}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-          \PY{n}{queue}\PY{o}{.}\PY{n}{enfiler}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
-          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{On enfile 1 : }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{queue}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-          \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Premier de la file }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{queue.premierDeLaFile()\PYZcb{},longueur: }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{queue.longueur()\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-          \PY{n}{queue}\PY{o}{.}\PY{n}{defiler}\PY{p}{(}\PY{p}{)}
-          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{On défile  : }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{queue}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-          \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Premier de la file }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{queue.premierDeLaFile()\PYZcb{},longueur: }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{queue.longueur()\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-          \PY{n}{queue}\PY{o}{.}\PY{n}{enfiler}\PY{p}{(}\PY{l+m+mi}{7}\PY{p}{)}
-          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{On enfile 7 : }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{queue}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-          \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Premier de la file }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{queue.premierDeLaFile()\PYZcb{},longueur: }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{queue.longueur()\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-          \PY{n}{queue}\PY{o}{.}\PY{n}{defiler}\PY{p}{(}\PY{p}{)}
-          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{On défile  : }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{queue}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-          \PY{n}{v} \PY{o}{=} \PY{n}{queue}\PY{o}{.}\PY{n}{est\PYZus{}vide}\PY{p}{(}\PY{p}{)}
-          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{File vide ? }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{v}\PY{p}{)}
-          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{On enfile 8 : }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{queue}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-          \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Premier de la file }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{queue.premierDeLaFile()\PYZcb{},longueur: }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{queue.longueur()\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Vider la pile}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-          \PY{n}{queue}\PY{o}{.}\PY{n}{vider}\PY{p}{(}\PY{p}{)}
-          \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Attributs de la file : }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{vars(queue)\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Détruire la pile}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-          \PY{n}{queue}\PY{o}{.}\PY{n}{detruire}\PY{p}{(}\PY{p}{)}
-          \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Attributs de la file : }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{vars(queue)\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}12}]:} \PY{c+c1}{\PYZsh{} Exemple d\PYZsq{}utilisation}
+         \PY{n}{queue} \PY{o}{=} \PY{n}{File}\PY{p}{(}\PY{p}{[}\PY{p}{]}\PY{p}{)}
+         \PY{n}{v} \PY{o}{=} \PY{n}{queue}\PY{o}{.}\PY{n}{est\PYZus{}vide}\PY{p}{(}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{File vide ? }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{v}\PY{p}{)}
+         \PY{n}{queue}\PY{o}{.}\PY{n}{enfiler}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{On enfile 5 : }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}  \PY{n}{queue}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{queue}\PY{o}{.}\PY{n}{enfiler}\PY{p}{(}\PY{l+m+mi}{6}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{On enfile 6 : }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{queue}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{queue}\PY{o}{.}\PY{n}{enfiler}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{On enfile 1 : }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{queue}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Premier de la file }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{queue.premierDeLaFile()\PYZcb{},longueur: }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{queue.longueur()\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{queue}\PY{o}{.}\PY{n}{defiler}\PY{p}{(}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{On défile  : }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{queue}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Premier de la file }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{queue.premierDeLaFile()\PYZcb{},longueur: }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{queue.longueur()\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{queue}\PY{o}{.}\PY{n}{enfiler}\PY{p}{(}\PY{l+m+mi}{7}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{On enfile 7 : }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{queue}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Premier de la file }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{queue.premierDeLaFile()\PYZcb{},longueur: }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{queue.longueur()\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{queue}\PY{o}{.}\PY{n}{defiler}\PY{p}{(}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{On défile  : }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{queue}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{v} \PY{o}{=} \PY{n}{queue}\PY{o}{.}\PY{n}{est\PYZus{}vide}\PY{p}{(}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{File vide ? }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{v}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{On enfile 8 : }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{queue}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Premier de la file }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{queue.premierDeLaFile()\PYZcb{},longueur: }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{queue.longueur()\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Vider la pile}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{queue}\PY{o}{.}\PY{n}{vider}\PY{p}{(}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Attributs de la file : }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{vars(queue)\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Détruire la pile}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{queue}\PY{o}{.}\PY{n}{detruire}\PY{p}{(}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Attributs de la file : }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{vars(queue)\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
 \end{Verbatim}
 
 
@@ -782,80 +853,80 @@ Attributs de la file : \{\}
     \end{Verbatim}
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}181}]:} \PY{k}{class} \PY{n+nc}{File2}\PY{p}{(}\PY{n}{Liste}\PY{p}{)}\PY{p}{:}
-              \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}à partir d\PYZsq{}une  liste doublement chaînée, hérite de la classe Liste}
-          \PY{l+s+sd}{    représentant des lites doublement chaînées\PYZdq{}\PYZdq{}\PYZdq{}}
-              
-              \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{liste}\PY{p}{)}\PY{p}{:}
-                  \PY{n}{Liste}\PY{o}{.}\PY{n+nf+fm}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}
-                  \PY{n+nb+bp}{self} \PY{o}{=} \PY{n}{Liste}\PY{o}{.}\PY{n}{doubleChainedList\PYZus{}from\PYZus{}Pythonlist}\PY{p}{(}\PY{n}{liste}\PY{p}{)}
-                  
-              \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}str\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
-                  \PY{n}{pointeur} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{premier}
-                  \PY{n}{output} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Tête : }\PY{l+s+s1}{\PYZsq{}}
-                  \PY{k}{while} \PY{n}{pointeur} \PY{o+ow}{is} \PY{o+ow}{not} \PY{k+kc}{None}\PY{p}{:}
-                      \PY{n}{output} \PY{o}{+}\PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+si}{\PYZob{}:\PYZca{}15\PYZcb{}}\PY{l+s+s2}{\PYZlt{}\PYZhy{}\PYZhy{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{pointeur}\PY{o}{.}\PY{n}{info}\PY{p}{)}
-                      \PY{n}{pointeur} \PY{o}{=} \PY{n}{pointeur}\PY{o}{.}\PY{n}{suivant}
-                  \PY{k}{return} \PY{n}{output}\PY{o}{.}\PY{n}{rstrip}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZlt{}\PYZhy{}\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{: Queue}\PY{l+s+s1}{\PYZsq{}}
-              
-              \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}repr\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
-                  \PY{n+nb}{repr}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{liste}\PY{p}{)}
-                  
-              \PY{k}{def} \PY{n+nf}{defiler}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
-                  \PY{k}{assert} \PY{o+ow}{not} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{est\PYZus{}vide}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{La file est vide !}\PY{l+s+s2}{\PYZdq{}}
-                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{supprimerTete}\PY{p}{(}\PY{p}{)}
-              
-              \PY{k}{def} \PY{n+nf}{enfiler}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{e}\PY{p}{)}\PY{p}{:}
-                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{ajouterEnQueue}\PY{p}{(}\PY{n}{e}\PY{p}{)}
-                  
-              
-              \PY{k}{def} \PY{n+nf}{premierDeLaFile}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
-                  \PY{k}{assert} \PY{o+ow}{not} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{est\PYZus{}vide}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{La file est vide !}\PY{l+s+s2}{\PYZdq{}}
-                  \PY{k}{return} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{iemeElement}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
-              
-              \PY{k}{def} \PY{n+nf}{traiter}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
-                  \PY{k}{assert} \PY{o+ow}{not} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{est\PYZus{}vide}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{La file est vide !}\PY{l+s+s2}{\PYZdq{}}
-                  \PY{n}{element} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{premierDeLaFile}\PY{p}{(}\PY{p}{)}
-                  \PY{c+c1}{\PYZsh{}return self.liste.pop()}
-                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{defiler}\PY{p}{(}\PY{p}{)}
-                  \PY{k}{return} \PY{n}{element}
-                  
-              
-              \PY{k}{def} \PY{n+nf}{longueur}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
-                  \PY{k}{return} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{nb\PYZus{}elements}\PY{p}{(}\PY{p}{)}   
+{\color{incolor}In [{\color{incolor}13}]:} \PY{k}{class} \PY{n+nc}{File2}\PY{p}{(}\PY{n}{Liste}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}à partir d\PYZsq{}une  liste doublement chaînée, hérite de la classe Liste}
+         \PY{l+s+sd}{    représentant des lites doublement chaînées\PYZdq{}\PYZdq{}\PYZdq{}}
+             
+             \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{liste}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{Liste}\PY{o}{.}\PY{n+nf+fm}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}
+                 \PY{n+nb+bp}{self} \PY{o}{=} \PY{n}{Liste}\PY{o}{.}\PY{n}{doubleChainedList\PYZus{}from\PYZus{}Pythonlist}\PY{p}{(}\PY{n}{liste}\PY{p}{)}
+                 
+             \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}str\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{pointeur} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{premier}
+                 \PY{n}{output} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Tête : }\PY{l+s+s1}{\PYZsq{}}
+                 \PY{k}{while} \PY{n}{pointeur} \PY{o+ow}{is} \PY{o+ow}{not} \PY{k+kc}{None}\PY{p}{:}
+                     \PY{n}{output} \PY{o}{+}\PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+si}{\PYZob{}:\PYZca{}15\PYZcb{}}\PY{l+s+s2}{\PYZlt{}\PYZhy{}\PYZhy{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{pointeur}\PY{o}{.}\PY{n}{info}\PY{p}{)}
+                     \PY{n}{pointeur} \PY{o}{=} \PY{n}{pointeur}\PY{o}{.}\PY{n}{suivant}
+                 \PY{k}{return} \PY{n}{output}\PY{o}{.}\PY{n}{rstrip}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZlt{}\PYZhy{}\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{: Queue}\PY{l+s+s1}{\PYZsq{}}
+             
+             \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}repr\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                 \PY{n+nb}{repr}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{liste}\PY{p}{)}
+                 
+             \PY{k}{def} \PY{n+nf}{defiler}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{assert} \PY{o+ow}{not} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{est\PYZus{}vide}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{La file est vide !}\PY{l+s+s2}{\PYZdq{}}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{supprimerTete}\PY{p}{(}\PY{p}{)}
+             
+             \PY{k}{def} \PY{n+nf}{enfiler}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{e}\PY{p}{)}\PY{p}{:}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{ajouterEnQueue}\PY{p}{(}\PY{n}{e}\PY{p}{)}
+                 
+             
+             \PY{k}{def} \PY{n+nf}{premierDeLaFile}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{assert} \PY{o+ow}{not} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{est\PYZus{}vide}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{La file est vide !}\PY{l+s+s2}{\PYZdq{}}
+                 \PY{k}{return} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{iemeElement}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
+             
+             \PY{k}{def} \PY{n+nf}{traiter}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{assert} \PY{o+ow}{not} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{est\PYZus{}vide}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{La file est vide !}\PY{l+s+s2}{\PYZdq{}}
+                 \PY{n}{element} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{premierDeLaFile}\PY{p}{(}\PY{p}{)}
+                 \PY{c+c1}{\PYZsh{}return self.liste.pop()}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{defiler}\PY{p}{(}\PY{p}{)}
+                 \PY{k}{return} \PY{n}{element}
+                 
+             
+             \PY{k}{def} \PY{n+nf}{longueur}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{return} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{nb\PYZus{}elements}\PY{p}{(}\PY{p}{)}   
 \end{Verbatim}
 
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}182}]:} \PY{c+c1}{\PYZsh{} Exemple d\PYZsq{}utilisation}
-          \PY{n}{queue} \PY{o}{=} \PY{n}{File2}\PY{p}{(}\PY{p}{[}\PY{p}{]}\PY{p}{)}
-          \PY{n}{v} \PY{o}{=} \PY{n}{queue}\PY{o}{.}\PY{n}{est\PYZus{}vide}\PY{p}{(}\PY{p}{)}
-          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{File vide ? }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{v}\PY{p}{)}
-          \PY{n}{queue}\PY{o}{.}\PY{n}{enfiler}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}
-          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{On enfile 5 : }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}  \PY{n}{queue}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-          \PY{n}{queue}\PY{o}{.}\PY{n}{enfiler}\PY{p}{(}\PY{l+m+mi}{6}\PY{p}{)}
-          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{On enfile 6 : }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{queue}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-          \PY{n}{queue}\PY{o}{.}\PY{n}{enfiler}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
-          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{On enfile 1 : }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{queue}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-          \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Premier de la file }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{queue.premierDeLaFile()\PYZcb{},longueur: }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{queue.longueur()\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-          \PY{n}{queue}\PY{o}{.}\PY{n}{defiler}\PY{p}{(}\PY{p}{)}
-          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{On défile  : }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{queue}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-          \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Premier de la file }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{queue.premierDeLaFile()\PYZcb{},longueur: }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{queue.longueur()\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-          \PY{n}{queue}\PY{o}{.}\PY{n}{enfiler}\PY{p}{(}\PY{l+m+mi}{7}\PY{p}{)}
-          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{On enfile 7 : }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{queue}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-          \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Premier de la file }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{queue.premierDeLaFile()\PYZcb{},longueur: }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{queue.longueur()\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-          \PY{n}{queue}\PY{o}{.}\PY{n}{defiler}\PY{p}{(}\PY{p}{)}
-          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{On défile  : }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{queue}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-          \PY{n}{v} \PY{o}{=} \PY{n}{queue}\PY{o}{.}\PY{n}{est\PYZus{}vide}\PY{p}{(}\PY{p}{)}
-          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{File vide ? }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{v}\PY{p}{)}
-          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{On enfile 8 : }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{queue}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-          \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Premier de la file }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{queue.premierDeLaFile()\PYZcb{},longueur: }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{queue.longueur()\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Vider la pile}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-          \PY{n}{queue}\PY{o}{.}\PY{n}{vider}\PY{p}{(}\PY{p}{)}
-          \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Attributs de la file : }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{vars(queue)\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Détruire la pile}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-          \PY{n}{queue}\PY{o}{.}\PY{n}{detruire}\PY{p}{(}\PY{p}{)}
-          \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Attributs de la file : }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{vars(queue)\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}14}]:} \PY{c+c1}{\PYZsh{} Exemple d\PYZsq{}utilisation}
+         \PY{n}{queue} \PY{o}{=} \PY{n}{File2}\PY{p}{(}\PY{p}{[}\PY{p}{]}\PY{p}{)}
+         \PY{n}{v} \PY{o}{=} \PY{n}{queue}\PY{o}{.}\PY{n}{est\PYZus{}vide}\PY{p}{(}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{File vide ? }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{v}\PY{p}{)}
+         \PY{n}{queue}\PY{o}{.}\PY{n}{enfiler}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{On enfile 5 : }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}  \PY{n}{queue}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{queue}\PY{o}{.}\PY{n}{enfiler}\PY{p}{(}\PY{l+m+mi}{6}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{On enfile 6 : }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{queue}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{queue}\PY{o}{.}\PY{n}{enfiler}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{On enfile 1 : }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{queue}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Premier de la file }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{queue.premierDeLaFile()\PYZcb{},longueur: }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{queue.longueur()\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{queue}\PY{o}{.}\PY{n}{defiler}\PY{p}{(}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{On défile  : }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{queue}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Premier de la file }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{queue.premierDeLaFile()\PYZcb{},longueur: }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{queue.longueur()\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{queue}\PY{o}{.}\PY{n}{enfiler}\PY{p}{(}\PY{l+m+mi}{7}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{On enfile 7 : }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{queue}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Premier de la file }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{queue.premierDeLaFile()\PYZcb{},longueur: }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{queue.longueur()\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{queue}\PY{o}{.}\PY{n}{defiler}\PY{p}{(}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{On défile  : }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{queue}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{v} \PY{o}{=} \PY{n}{queue}\PY{o}{.}\PY{n}{est\PYZus{}vide}\PY{p}{(}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{File vide ? }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{v}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{On enfile 8 : }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{queue}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Premier de la file }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{queue.premierDeLaFile()\PYZcb{},longueur: }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{queue.longueur()\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Vider la pile}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{queue}\PY{o}{.}\PY{n}{vider}\PY{p}{(}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Attributs de la file : }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{vars(queue)\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Détruire la pile}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{queue}\PY{o}{.}\PY{n}{detruire}\PY{p}{(}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Attributs de la file : }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{vars(queue)\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
 \end{Verbatim}
 
 
@@ -907,20 +978,20 @@ effet une méthode très simple pour inverser une file en utilisant une
 pile.
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}183}]:} \PY{k}{def} \PY{n+nf}{inverserFile}\PY{p}{(}\PY{n}{queue}\PY{p}{)}\PY{p}{:}
-              \PY{n}{stack} \PY{o}{=} \PY{n}{Pile}\PY{p}{(}\PY{p}{[}\PY{p}{]}\PY{p}{)}
-              \PY{k}{while} \PY{o+ow}{not} \PY{n}{queue}\PY{o}{.}\PY{n}{est\PYZus{}vide}\PY{p}{(}\PY{p}{)}\PY{p}{:}
-                  \PY{n}{stack}\PY{o}{.}\PY{n}{empiler}\PY{p}{(}\PY{n}{queue}\PY{o}{.}\PY{n}{traiter}\PY{p}{(}\PY{p}{)}\PY{p}{)}
-              \PY{k}{while} \PY{o+ow}{not} \PY{n}{stack}\PY{o}{.}\PY{n}{est\PYZus{}vide}\PY{p}{(}\PY{p}{)}\PY{p}{:}
-                  \PY{n}{queue}\PY{o}{.}\PY{n}{enfiler}\PY{p}{(}\PY{n}{stack}\PY{o}{.}\PY{n}{traiter}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}15}]:} \PY{k}{def} \PY{n+nf}{inverserFile}\PY{p}{(}\PY{n}{queue}\PY{p}{)}\PY{p}{:}
+             \PY{n}{stack} \PY{o}{=} \PY{n}{Pile}\PY{p}{(}\PY{p}{[}\PY{p}{]}\PY{p}{)}
+             \PY{k}{while} \PY{o+ow}{not} \PY{n}{queue}\PY{o}{.}\PY{n}{est\PYZus{}vide}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{stack}\PY{o}{.}\PY{n}{empiler}\PY{p}{(}\PY{n}{queue}\PY{o}{.}\PY{n}{traiter}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+             \PY{k}{while} \PY{o+ow}{not} \PY{n}{stack}\PY{o}{.}\PY{n}{est\PYZus{}vide}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{queue}\PY{o}{.}\PY{n}{enfiler}\PY{p}{(}\PY{n}{stack}\PY{o}{.}\PY{n}{traiter}\PY{p}{(}\PY{p}{)}\PY{p}{)}
 \end{Verbatim}
 
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}184}]:} \PY{n}{queue} \PY{o}{=}  \PY{n}{File}\PY{p}{(}\PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}\PY{p}{)}
-          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{File initiale : }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{queue}\PY{p}{)}
-          \PY{n}{inverserFile}\PY{p}{(}\PY{n}{queue}\PY{p}{)}
-          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{File inversée : }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{queue}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}16}]:} \PY{n}{queue} \PY{o}{=}  \PY{n}{File}\PY{p}{(}\PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{File initiale : }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{queue}\PY{p}{)}
+         \PY{n}{inverserFile}\PY{p}{(}\PY{n}{queue}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{File inversée : }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{queue}\PY{p}{)}
 \end{Verbatim}
 
 
@@ -960,85 +1031,67 @@ en Python la fonction valide qui renvoie vrai si l'expression passée en
 paramètre est valide, faux sinon.
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}185}]:} \PY{k}{def} \PY{n+nf}{parenthesage\PYZus{}valide}\PY{p}{(}\PY{n}{expression}\PY{p}{)}\PY{p}{:}
-              \PY{n}{target} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{()[]}\PY{l+s+s1}{\PYZsq{}}
-              \PY{n}{stack} \PY{o}{=} \PY{n}{Pile}\PY{p}{(}\PY{p}{[}\PY{p}{]}\PY{p}{)}
-              \PY{n}{fermante} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{(}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{]}\PY{l+s+s1}{\PYZsq{}} \PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{[}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}
-              \PY{n}{ouvrante} \PY{o}{=} \PY{p}{\PYZob{}} \PY{n}{valeur} \PY{p}{:} \PY{n}{clef} \PY{k}{for} \PY{p}{(}\PY{n}{clef}\PY{p}{,} \PY{n}{valeur}\PY{p}{)} \PY{o+ow}{in} \PY{n}{fermante}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)}\PY{p}{\PYZcb{}}
-              \PY{c+c1}{\PYZsh{}construction de la pile de parenthèses/crochets}
-              \PY{k}{for} \PY{n}{token} \PY{o+ow}{in} \PY{n}{expression}\PY{p}{:}
-                  \PY{k}{if} \PY{n}{token} \PY{o+ow}{in} \PY{n}{target}\PY{p}{:}
-                      \PY{n}{stack}\PY{o}{.}\PY{n}{empiler}\PY{p}{(}\PY{n}{token}\PY{p}{)}
-              \PY{c+c1}{\PYZsh{}dépilement}
-              \PY{n}{stack2} \PY{o}{=} \PY{n}{Pile}\PY{p}{(}\PY{p}{[}\PY{p}{]}\PY{p}{)}
-              \PY{k}{while} \PY{o+ow}{not} \PY{n}{stack}\PY{o}{.}\PY{n}{est\PYZus{}vide}\PY{p}{(}\PY{p}{)}\PY{p}{:}
-                  \PY{n}{token} \PY{o}{=} \PY{n}{stack}\PY{o}{.}\PY{n}{traiter}\PY{p}{(}\PY{p}{)}
-                  \PY{k}{if} \PY{n}{token}  \PY{o+ow}{in} \PY{n}{fermante}\PY{p}{:}
-                       \PY{n}{stack2}\PY{o}{.}\PY{n}{empiler}\PY{p}{(}\PY{n}{token}\PY{p}{)}
-                  \PY{k}{elif} \PY{n}{stack2}\PY{o}{.}\PY{n}{est\PYZus{}vide}\PY{p}{(}\PY{p}{)}\PY{p}{:}
-                      \PY{k}{return} \PY{k+kc}{False}
-                  \PY{k}{elif} \PY{n}{stack2}\PY{o}{.}\PY{n}{sommet}\PY{p}{(}\PY{p}{)} \PY{o}{==} \PY{n}{ouvrante}\PY{p}{[}\PY{n}{token}\PY{p}{]}\PY{p}{:}
-                      \PY{n}{stack2}\PY{o}{.}\PY{n}{depiler}\PY{p}{(}\PY{p}{)}
-                  \PY{k}{else}\PY{p}{:}
-                      \PY{k}{return} \PY{k+kc}{False}
-              \PY{k}{return} \PY{n}{stack2}\PY{o}{.}\PY{n}{est\PYZus{}vide}\PY{p}{(}\PY{p}{)}     
+{\color{incolor}In [{\color{incolor}17}]:} \PY{k}{def} \PY{n+nf}{parenthesage\PYZus{}valide}\PY{p}{(}\PY{n}{expression}\PY{p}{)}\PY{p}{:}
+             \PY{n}{target} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{()[]}\PY{l+s+s1}{\PYZsq{}}
+             \PY{n}{stack} \PY{o}{=} \PY{n}{Pile}\PY{p}{(}\PY{p}{[}\PY{p}{]}\PY{p}{)}
+             \PY{n}{fermante} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{(}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{]}\PY{l+s+s1}{\PYZsq{}} \PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{[}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}
+             \PY{n}{ouvrante} \PY{o}{=} \PY{p}{\PYZob{}} \PY{n}{valeur} \PY{p}{:} \PY{n}{clef} \PY{k}{for} \PY{p}{(}\PY{n}{clef}\PY{p}{,} \PY{n}{valeur}\PY{p}{)} \PY{o+ow}{in} \PY{n}{fermante}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)}\PY{p}{\PYZcb{}}
+             \PY{c+c1}{\PYZsh{}construction de la pile de parenthèses/crochets}
+             \PY{k}{for} \PY{n}{token} \PY{o+ow}{in} \PY{n}{expression}\PY{p}{:}
+                 \PY{k}{if} \PY{n}{token} \PY{o+ow}{in} \PY{n}{target}\PY{p}{:}
+                     \PY{n}{stack}\PY{o}{.}\PY{n}{empiler}\PY{p}{(}\PY{n}{token}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{}dépilement}
+             \PY{n}{stack2} \PY{o}{=} \PY{n}{Pile}\PY{p}{(}\PY{p}{[}\PY{p}{]}\PY{p}{)}
+             \PY{k}{while} \PY{o+ow}{not} \PY{n}{stack}\PY{o}{.}\PY{n}{est\PYZus{}vide}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{token} \PY{o}{=} \PY{n}{stack}\PY{o}{.}\PY{n}{traiter}\PY{p}{(}\PY{p}{)}
+                 \PY{k}{if} \PY{n}{token}  \PY{o+ow}{in} \PY{n}{fermante}\PY{p}{:}
+                      \PY{n}{stack2}\PY{o}{.}\PY{n}{empiler}\PY{p}{(}\PY{n}{token}\PY{p}{)}
+                 \PY{k}{elif} \PY{n}{stack2}\PY{o}{.}\PY{n}{est\PYZus{}vide}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+                     \PY{k}{return} \PY{k+kc}{False}
+                 \PY{k}{elif} \PY{n}{stack2}\PY{o}{.}\PY{n}{sommet}\PY{p}{(}\PY{p}{)} \PY{o}{==} \PY{n}{ouvrante}\PY{p}{[}\PY{n}{token}\PY{p}{]}\PY{p}{:}
+                     \PY{n}{stack2}\PY{o}{.}\PY{n}{depiler}\PY{p}{(}\PY{p}{)}
+                 \PY{k}{else}\PY{p}{:}
+                     \PY{k}{return} \PY{k+kc}{False}
+             \PY{k}{return} \PY{n}{stack2}\PY{o}{.}\PY{n}{est\PYZus{}vide}\PY{p}{(}\PY{p}{)}     
 \end{Verbatim}
 
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}186}]:} \PY{n}{parenthesage\PYZus{}valide}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{()}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}38}]:} \PY{k}{def} \PY{n+nf}{parenthesage\PYZus{}valide2}\PY{p}{(}\PY{n}{expression}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}meilleure version\PYZdq{}\PYZdq{}\PYZdq{}}
+             \PY{n}{ouvrante} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{([}\PY{l+s+s1}{\PYZsq{}}
+             \PY{n}{stack} \PY{o}{=} \PY{n}{Pile}\PY{p}{(}\PY{p}{[}\PY{p}{]}\PY{p}{)}
+             \PY{n}{fermante} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{(}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{]}\PY{l+s+s1}{\PYZsq{}} \PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{[}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}
+             \PY{c+c1}{\PYZsh{}construction de la pile de parenthèses/crochets}
+             \PY{k}{for} \PY{n}{token} \PY{o+ow}{in} \PY{n}{expression}\PY{p}{:}
+                 \PY{k}{if} \PY{n}{token} \PY{o+ow}{in} \PY{n}{ouvrante}\PY{p}{:}
+                     \PY{n}{stack}\PY{o}{.}\PY{n}{empiler}\PY{p}{(}\PY{n}{token}\PY{p}{)}
+                 \PY{k}{elif} \PY{n}{token} \PY{o+ow}{in} \PY{n}{fermante}\PY{p}{:}
+                     \PY{k}{if} \PY{n}{stack}\PY{o}{.}\PY{n}{est\PYZus{}vide}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+                         \PY{k}{return} \PY{k+kc}{False}
+                     \PY{k}{elif} \PY{n}{stack}\PY{o}{.}\PY{n}{sommet}\PY{p}{(}\PY{p}{)} \PY{o}{==} \PY{n}{fermante}\PY{p}{[}\PY{n}{token}\PY{p}{]}\PY{p}{:}
+                         \PY{n}{stack}\PY{o}{.}\PY{n}{depiler}\PY{p}{(}\PY{p}{)}
+             \PY{k}{return} \PY{n}{stack}\PY{o}{.}\PY{n}{est\PYZus{}vide}\PY{p}{(}\PY{p}{)}     
 \end{Verbatim}
 
 
-\begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}186}]:} True
-\end{Verbatim}
-            
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}187}]:} \PY{n}{parenthesage\PYZus{}valide}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{)(}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}40}]:} \PY{c+c1}{\PYZsh{} Test}
+         \PY{k}{for} \PY{n}{exp} \PY{o+ow}{in} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{()}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{)(}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{[)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{[([bonjour+]essai)7plus\PYZhy{} ];}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{(}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{4(essai]}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{:}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{parenthesage\PYZus{}valide}\PY{p}{(}\PY{n}{exp}\PY{p}{)}\PY{p}{,} \PY{n}{parenthesage\PYZus{}valide2}\PY{p}{(}\PY{n}{exp}\PY{p}{)}\PY{p}{)}
 \end{Verbatim}
 
 
-\begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}187}]:} False
-\end{Verbatim}
-            
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}188}]:} \PY{n}{parenthesage\PYZus{}valide}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{[)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-\end{Verbatim}
+True True
+False False
+False False
+True True
+False False
+False False
 
+    \end{Verbatim}
 
-\begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}188}]:} False
-\end{Verbatim}
-            
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}189}]:} \PY{n}{parenthesage\PYZus{}valide}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{[([bonjour+]essai)7plus\PYZhy{} ];}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-\end{Verbatim}
-
-
-\begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}189}]:} True
-\end{Verbatim}
-            
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}190}]:} \PY{n}{parenthesage\PYZus{}valide}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{(}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-\end{Verbatim}
-
-
-\begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}190}]:} False
-\end{Verbatim}
-            
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}191}]:} \PY{n}{parenthesage\PYZus{}valide}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{4(essai]}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-\end{Verbatim}
-
-
-\begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}191}]:} False
-\end{Verbatim}
-            
 
     % Add a bibliography block to the postdoc
     

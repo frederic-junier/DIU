@@ -30,7 +30,7 @@ class Pile:
     def depiler(self):
         '''Procédure qui dépile le sommet de la pile.
         Précondition : la pile n’est pas vide'''
-        if len(self) == 0:
+        if len(self.pile) == 0:
              print("On ne dépile pas une pile vide !")
         else :
             self.pile.pop()
@@ -38,14 +38,14 @@ class Pile:
     def traiter(self):
         '''Fonction qui dépile le sommet de la pile et renvoie ce sommet.
         Précondition : la pile n’est pas vide'''
-        if len(self) == 0:
+        if len(self.pile) == 0:
              return "La pile est vide !"
         return self.pile.pop()
     
     def sommet(self):
         '''Fonction qui retourne le sommet de la pile
         Précondition : la pile n’est pas vide'''
-        if len(self) == 0:
+        if len(self.pile) == 0:
              return "On ne dépile pas une pile vide !"
         return self.pile[-1]
     
@@ -165,6 +165,7 @@ class Pile:
 def valide(expression) :
     parenth = Pile([])
     for car in expression :
+        print(parenth.sommet())
         if car in '([' :
             parenth.empiler(car)
             #print(parenth)
