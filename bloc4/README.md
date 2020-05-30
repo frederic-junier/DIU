@@ -10,10 +10,10 @@
 
 1. Introduction aux bases de données :
 
-  * [Consignes](bloc4/BDD/README.md)
-  * [Bac à sable](bloc4/BDD/sandbox)
-  * [Codi TP Etudiant](https://codi-lyon.beta.education.fr/s/Wvc59evTu#)
-  * [Codi memento SQL](https://codi-lyon.beta.education.fr/GMedgMDXQBaXHMhlErJLPw#)
+   * [Consignes](bloc4/BDD/README.md)
+   * [Bac à sable](bloc4/BDD/sandbox)
+   * [Codi TP Etudiant](https://codi-lyon.beta.education.fr/s/Wvc59evTu#)
+   * [Codi memento SQL](https://codi-lyon.beta.education.fr/GMedgMDXQBaXHMhlErJLPw#)
   
 2.   Normalisation et conception de bases de données :
 
