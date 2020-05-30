@@ -15,7 +15,8 @@
    * [Codi memento SQL](https://codi-lyon.beta.education.fr/GMedgMDXQBaXHMhlErJLPw#)
 
 2.   Normalisation et conception de bases de données :
-    * [Consignes](bloc4/BDD_Conception_Normalisation/README.md)
+
+   * [Consignes](bloc4/BDD_Conception_Normalisation/README.md)
 
 3.  Paradigmes de programmation :
     * [Consignes](bloc4/Paradigmes/README.md)
