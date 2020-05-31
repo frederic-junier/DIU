@@ -1,0 +1,84 @@
+<html>
+<head>
+<meta charset='utf-8'>
+<style>
+  #mld .relation { font-variant: small-caps; font-weight: bold }
+  #mld .primary { text-decoration: underline }
+  #mld .foreign { font-style: oblique }
+  #mld .normal { }
+</style>
+</head>
+<body>
+<div id='mld'>
+<div>
+  <span class='relation'>Cuvée</span> (
+    <span class='primary'>idCuvée</span>,
+    <span class='normal'>nomCuvée</span>
+  )
+</div>
+<div>
+  <span class='relation'>Commentaires</span> (
+    <span class='primary'>idCommentaires</span>,
+    <span class='normal'>prix</span>,
+    <span class='normal'>descriptionDégustation</span>,
+    <span class='foreign'>idLotBouteille</span>
+  )
+</div>
+<div>
+  <span class='relation'>Dégustation</span> (
+    <span class='primary'>idDégustation</span>,
+    <span class='normal'>idStockage</span>,
+    <span class='normal'>dateDégustation</span>,
+    <span class='normal'>commentairesDégustation</span>,
+    <span class='foreign'>idStockage.1</span>
+  )
+</div>
+<div>
+  <span class='relation'>Domaine</span> (
+    <span class='primary'>idDomaine</span>,
+    <span class='normal'>idRegion</span>,
+    <span class='normal'>idCuvée</span>,
+    <span class='normal'>nomDomaine</span>,
+    <span class='foreign'>idCuvée.1</span>,
+    <span class='foreign'>idRégion</span>
+  )
+</div>
+<div>
+  <span class='relation'>Stockage</span> (
+    <span class='primary'>idStockage</span>,
+    <span class='normal'>idLotBouteille</span>,
+    <span class='normal'>idSite</span>,
+    <span class='normal'>nombre</span>,
+    <span class='foreign'>idLotBouteille.1</span>,
+    <span class='foreign'>idSite.1</span>
+  )
+</div>
+<div>
+  <span class='relation'>Région</span> (
+    <span class='primary'>idRégion</span>,
+    <span class='normal'>nomRégion</span>,
+    <span class='normal'>appellation</span>
+  )
+</div>
+<div>
+  <span class='relation'>LotBouteille</span> (
+    <span class='primary'>idLotBouteille</span>,
+    <span class='normal'>idCommentaires</span>,
+    <span class='normal'>idDomaine</span>,
+    <span class='normal'>couleur</span>,
+    <span class='normal'>volume</span>,
+    <span class='normal'>millésime</span>,
+    <span class='normal'>degré</span>,
+    <span class='foreign'>idDomaine.1</span>
+  )
+</div>
+<div>
+  <span class='relation'>Site</span> (
+    <span class='primary'>idSite</span>,
+    <span class='normal'>lieuStockage</span>,
+    <span class='normal'>précision</span>
+  )
+</div>
+</div>
+</body>
+</html>

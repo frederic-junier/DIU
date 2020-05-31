@@ -1,0 +1,17 @@
+Cuvée: idCuvée, nomCuvée
+De la cuvée, 01 Domaine, 0N Cuvée
+Commentaires: idCommentaires, prix, descriptionDégustation
+A été dégustée, 11 Dégustation, 0N Stockage
+Dégustation: idDégustation, idStockage, dateDégustation, commentairesDégustation
+
+Dans la région, 11 Domaine, 0N Région
+Domaine: idDomaine, idRegion, idCuvée, nomDomaine
+Commentaires lors de l'achat, 01 LotBouteille, 11 Commentaires
+Stockage: idStockage, idLotBouteille, idSite, nombre
+Stocké à, 0N Site, 11 Stockage
+
+Région: idRégion, nomRégion, appellation
+Du domaine, 0N Domaine, 11 LotBouteille
+LotBouteille: idLotBouteille, idCommentaires, idDomaine, couleur, volume, millésime, degré
+Admet pour stockage, 1N LotBouteille, 11 Stockage
+Site: idSite, lieuStockage, précision
