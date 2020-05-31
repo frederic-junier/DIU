@@ -27,24 +27,10 @@ def join_algorithms_versus_sqlite3():
         logging.debug(tuple(record))
 
         def join_python():
-            #UNCOMMENT pass
-            #BEGIN CUT
-            # On récupère tout le contenu de table1
-            cursor.execute("SELECT * FROM table1")
-            table1 = cursor.fetchall()
-            # On récupère tout le contenu de table2
-            cursor.execute("SELECT * FROM table2")
-            table2 = cursor.fetchall()
-            return join_hash(table1, 1, table2, 0)
-            #END CUT
+            pass
 
         def join_sqlite():
-            #UNCOMMENT pass
-            #BEGIN CUT
-            # On récupère tout le contenu de table1
-            cursor.execute("SELECT * FROM table1 JOIN table2 ON table1.val == table2.val")
-            return cursor.fetchall()
-            #END CUT
+            pass
 
         time_join_python = timeit(join_python, number=100)
         logging.info('Temps pour une jointure côté Python : %f', time_join_python)
