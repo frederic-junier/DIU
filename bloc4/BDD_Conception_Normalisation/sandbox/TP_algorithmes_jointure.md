@@ -43,26 +43,35 @@ En effet, cette étape peut-être _amortie_ car elle est utile pour d'autre opé
 Avec les paramètres par défaut de `benchmark`, on obtient les résultats suivants sur une machine portable (Dual Core Intel i7-5600U CPU @ 2.60GHz, 8GB RAM).
 
 ```
-Temps pour une exécution de join_nested_loop : 4.8441446340002585
-Temps pour une exécution de join_hash        : 0.1884105869976338
-Temps pour une exécution des tris            : 0.018489982991013676
-Temps pour une exécution de join_merge       : 0.3174076739960583
+Temps pour une exécution de join_nested_loop : 5.667077586998857
+Temps pour une exécution de join_hash        : 0.16769228500015743
+Temps pour une exécution des tris            : 0.023378620000585215
+Temps pour une exécution de join_merge       : 0.37380244500127446
 ```
 
 **EXERCICE (POUR ALLER PLUS LOIN)** : jouer avec les paramètres pour trouver un cas qui soit défavorable à `join_hash` mais favorable à `join_merge`. Sans tenir compte du temps de tri, on peut trouver des cas avec un facteur 10x en faveur de `join_merge`. _Indice_ : remarquez que les rôles de `table1` et `table2` sont asymétriques faire en sorte de passer du temps dans l'étape de construction d'index de `join_hash`.
+
+**EXERCICE (POUR ALLER PLUS LOIN)** : même question que précédement, mais cette fois si il faut trouver un cas qui est favorable à `join_nested_loop` et dévaforable aux deux autres. _Indice_ faites en sorte que la jointure soit aussi grosse que le produit cartésien.
 
 Comparer l'exécution dans Python à celle native dans SQLite
 -------------------------------------------------------------
 
 Maintenant, on va comparer la performance de ces implantations Python face aux algorithmes jointures de SQLite (qui est écrit en C). Pour cela on va comparer les deux approches suivantes :
 
-* **Approche A : jointure en SQLite**, on exécute la requête `SELECT * FROM table1 JOIN table2 ON table1.val == table2.val` puis (depuis Python) on récupère l'intégralité du résultat, c'est la fonction `join_python()`
-* **Approche B : jointure en Python**, on exécute la requête `SELECT * FROM table1` et on stocke son résultat dans un tableau, de même pour `SELECT * FROM table2` puis on utilise un des algorithmes précedents pour faire le calcul de jointure et enfin on renvoie le résultat, c'est la fonction `join_sqlite()`
+* **Approche A : jointure en SQLite**, on exécute la requête `SELECT * FROM table1 JOIN table2 ON table1.val == table2.val` puis (depuis Python) on récupère l'intégralité du résultat, c'est la fonction `join_sqlite()`
+* **Approche B : jointure en Python**, on exécute la requête `SELECT * FROM table1` et on stocke son résultat dans un tableau, de même pour `SELECT * FROM table2` puis on utilise un des algorithmes précedents pour faire le calcul de jointure et enfin on renvoie le résultat, c'est la fonction `join_python()`
 
 
 **EXERCICE** : créer une nouvelle base de données nommée `join_algorithms_versus_sqlite3.db` et exécuter le script SQL `join_algorithms_schema.sql` pour créer le schéma *et* peupler la base avec un jeu de données similaire à celui du benchmark de l'exercice précédent.
 
 **EXERCICE** : en vous inspirant du code fourni, compléter les fonctions `join_python()` et `join_sqlite()` du programme [`join_algorithms_versus_sqlite3.py`](join_algorithms_versus_sqlite3.py) et observer les temps d'exécution.
+
+Sur ma machine, j'obtiens cet ordre de grandeur :
+
+```
+INFO:root:Temps pour une jointure côté Python : 4.161198
+INFO:root:Temps pour une jointure côté Sqlite3 : 13.681437
+```
 
  **EXERCICE** : ensuite, exécuter la requête de jointure directement dans `SQLite3` en activant activant le chronométrage avec `.timer on` depuis l'interpréteur ligne de commande ou depuis _DB Browser for SQLite_ (le temps est affiché en bas de la fenêtre d'exécution). Vous devriez avoir une différence _de plusieurs ordre de magnitude entre les deux_ : comment l'expliquer ?
 
