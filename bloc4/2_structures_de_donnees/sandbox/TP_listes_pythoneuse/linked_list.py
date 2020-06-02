@@ -134,7 +134,7 @@ class DoublyLinkedList(Collection, Reversible):
         self.length = 0
         for value in iterable:
             self.push(value)
-            self.length += 1
+
 
 
     def __len__(self):
@@ -156,15 +156,17 @@ class DoublyLinkedList(Collection, Reversible):
         if self.end is  None:
             raise IndexError("List is already empty")
         out = self.end
+        retour = out.value
         if self.length == 1:
             self.start = self.end =  None
         else:
             self.end.prev.next = None        
             self.end = self.end.prev
+        del out
         self.length -= 1
-        return out.value 
+        return retour
     
-    def clear(self):
+    def clear2(self):
         """Empty the list"""
         while self.start is not None:
             out = self.start
@@ -172,7 +174,13 @@ class DoublyLinkedList(Collection, Reversible):
             del out
         self.end = None
         self.length = 0
-            
+    
+    def clear(self):
+        """Empty the list"""
+        while self.start is not None:
+            self.pop()
+        self.end = None
+        self.length = 0
 
     def __iter__(self):
         return DoublyLinkedListIterator(self.start)
