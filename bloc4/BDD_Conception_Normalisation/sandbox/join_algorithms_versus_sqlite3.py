@@ -4,13 +4,15 @@
 import sqlite3
 import logging
 from timeit import timeit
-from join_algorithms import join_nested_loop, join_hash, join_merge
+from join_algorithms import join_hash # join_nested_loop, join_hash, join_merge
 
+# mettre level=logging.DEBUG pour avoir plus d'information
 logging.basicConfig(level=logging.INFO)
 
 DB_FILE = 'join_algorithms_versus_sqlite3.db'
 
-def join_algorithms_versus_sqlite3():
+
+def join_algorithms_versus_sqlite3(nb_repeat=100):
     """Fonction de comparaison"""
     try:
         connection = sqlite3.connect(DB_FILE)
@@ -26,17 +28,28 @@ def join_algorithms_versus_sqlite3():
         record = cursor.fetchone()
         logging.debug(tuple(record))
 
-        def join_python():
-            pass
+        def join_and_transfer_python():
+            # On récupère tout le contenu de table1
+            cursor.execute("SELECT * FROM table1")
+            table1 = cursor.fetchall()
+            # On récupère tout le contenu de table2
+            cursor.execute("SELECT * FROM table2")
+            table2 = cursor.fetchall()
+            return join_hash(table1, 1, table2, 0)
 
-        def join_sqlite():
-            pass
+        def join_and_transfer_sqlite():
+            # On récupère tout le contenu de la jointure de table1 et table2
+            cursor.execute(
+                "SELECT * FROM table1 JOIN table2 ON table1.val == table2.val")
+            return cursor.fetchall()
 
-        time_join_python = timeit(join_python, number=100)
-        logging.info('Temps pour une jointure côté Python : %f', time_join_python)
+        time_python = timeit(join_and_transfer_python, number=nb_repeat)
+        logging.info('Temps de transfert et de jointure côté Python  : %fms',
+                     1000*time_python/nb_repeat)
 
-        time_join_sqlite = timeit(join_sqlite, number=100)
-        logging.info('Temps pour une jointure côté Sqlite3 : %f', time_join_sqlite)
+        time_sqlite = timeit(join_and_transfer_sqlite, number=nb_repeat)
+        logging.info('Temps de transfert et de jointure côté Sqlite3 : %fms',
+                     1000*time_sqlite/nb_repeat)
 
     except (sqlite3.Error) as error:
         logging.error("Error while connecting to sqlite3: %s", error)

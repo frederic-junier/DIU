@@ -43,10 +43,10 @@ En effet, cette étape peut-être _amortie_ car elle est utile pour d'autre opé
 Avec les paramètres par défaut de `benchmark`, on obtient les résultats suivants sur une machine portable (Dual Core Intel i7-5600U CPU @ 2.60GHz, 8GB RAM).
 
 ```
-Temps pour une exécution de join_nested_loop : 5.667077586998857
-Temps pour une exécution de join_hash        : 0.16769228500015743
-Temps pour une exécution des tris            : 0.023378620000585215
-Temps pour une exécution de join_merge       : 0.37380244500127446
+Temps pour une exécution de join_nested_loop : 47.21451419973164 ms
+Temps pour une exécution de join_hash        : 0.8530486993549857 ms
+Temps pour une exécution des tris            : 0.3733556004590355 ms
+Temps pour une exécution de join_merge       : 0.49316930017084815 ms
 ```
 
 **EXERCICE (POUR ALLER PLUS LOIN)** : jouer avec les paramètres pour trouver un cas qui soit défavorable à `join_hash` mais favorable à `join_merge`. Sans tenir compte du temps de tri, on peut trouver des cas avec un facteur 10x en faveur de `join_merge`. _Indice_ : remarquez que les rôles de `table1` et `table2` sont asymétriques faire en sorte de passer du temps dans l'étape de construction d'index de `join_hash`.
@@ -64,17 +64,22 @@ Maintenant, on va comparer la performance de ces implantations Python face aux a
 
 **EXERCICE** : créer une nouvelle base de données nommée `join_algorithms_versus_sqlite3.db` et exécuter le script SQL `join_algorithms_schema.sql` pour créer le schéma *et* peupler la base avec un jeu de données similaire à celui du benchmark de l'exercice précédent.
 
-**EXERCICE** : en vous inspirant du code fourni, compléter les fonctions `join_python()` et `join_sqlite()` du programme [`join_algorithms_versus_sqlite3.py`](join_algorithms_versus_sqlite3.py) et observer les temps d'exécution.
+**EXERCICE** :  avec la fonction `join_algorithms_versus_sqlite3()` du programme [`join_algorithms_versus_sqlite3.py`](join_algorithms_versus_sqlite3.py) comparer les temps d'exécution des deux méthodes.
 
 Sur ma machine, j'obtiens cet ordre de grandeur :
 
 ```
-INFO:root:Temps pour une jointure côté Python : 4.161198
-INFO:root:Temps pour une jointure côté Sqlite3 : 13.681437
+INFO:root:Temps de transfert et de jointure côté Python  : 36.440872ms
+INFO:root:Temps de transfert et de jointure côté Sqlite3 : 108.951388ms
 ```
 
- **EXERCICE** : ensuite, exécuter la requête de jointure directement dans `SQLite3` en activant activant le chronométrage avec `.timer on` depuis l'interpréteur ligne de commande ou depuis _DB Browser for SQLite_ (le temps est affiché en bas de la fenêtre d'exécution). Vous devriez avoir une différence _de plusieurs ordre de magnitude entre les deux_ : comment l'expliquer ?
+ **EXERCICE** : reprendre la comparaison mais cette fois avec la requête `SELECT COUNT(*) FROM table1 JOIN table2 ON table1.val == table2.val`. Ici, `join_python()` renverra _la longueur du tableau_ avec  `len(join_hash(table1, 1, table2, 0))` pour l'algorithme de jointure par hash. Une différence _importante doit les séparer_  : comment l'expliquer ?
 
- **EXERCICE** : reprendre la comparaison mais cette fois avec la requête `SELECT COUNT(*) FROM table1 JOIN table2 ON table1.val == table2.val`. Ici, `join_python()` renverra _la longueur du tableau_, comme par exemple `len(join_hash(table1, 1, table2, 0))` pour l'algorithme de jointure par hash. Comparer les temps d'exécution, une différence _de plusieurs ordre de magnitude doit les séparer_  : comment l'expliquer ?
+Sur ma machine, j'obtiens cet ordre de grandeur :
+
+```
+INFO:root:Temps de transfert et de jointure côté Python : 36.784499ms
+INFO:root:Temps de transfert et de jointure côté Sqlite3 : 6.756878ms
+```
 
  **EXERCICE (FACULTATIF ET OUVERT)** : conclure en formulant quelques bonnes pratiques de l'accès à une base de données via un programme (Python).
