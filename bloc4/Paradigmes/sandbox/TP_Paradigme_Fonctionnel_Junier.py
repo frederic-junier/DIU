@@ -1,7 +1,7 @@
 
 # coding: utf-8
 
-# In[24]:
+# In[2]:
 
 
 # %%
@@ -29,7 +29,7 @@ import time
 ###############################################################################
 
 
-# In[25]:
+# In[3]:
 
 
 def gen_examples(f, n=10):
@@ -39,7 +39,7 @@ def gen_examples(f, n=10):
 
 # ## Exercice 1 : différentes implémentations de la suite de `fibonacci`
 
-# In[26]:
+# In[4]:
 
 
 # On donne la fonction fibo_rec (suite de Fibonacci) suivante
@@ -51,6 +51,12 @@ def fibo_rec(n):
         return n
     else:
         return fibo_rec(n-1) + fibo_rec(n-2)
+    
+    
+def fibo_rec_acc(n, acc = [0, 1]):
+    if n <= 1:
+        return acc[n]
+    return fibo_rec_acc(n - 1, [acc[1], acc[0] + acc[1]])
 
 ########################################
 # EXERCICE : donner une version itérative de fibo_rec
@@ -66,12 +72,13 @@ def fibo_iter(n):
 
 print("Les premiers termes de fibonacci")
 print(f"fibo_rec  = {gen_examples(fibo_rec)}")
+print(f"fibo_rec_acc  = {gen_examples(fibo_rec_acc)}")
 print(f"fibo_iter = {gen_examples(fibo_iter)}")
 
 
 # ## Exercice 2 : différentes implémentations de `factorielle`
 
-# In[27]:
+# In[5]:
 
 
 # On donne la fonction factorielle suivante :
@@ -98,7 +105,7 @@ print(f"fact_rec  = {gen_examples(fact_rec)}")
 
 # ## Exercice 3 : différentes implémentations de `all`
 
-# In[28]:
+# In[6]:
 
 
 ###############################################################################
@@ -132,7 +139,7 @@ print(f"forall_for(pair, ex2)={forall_for(pair, ex2)}")
 print(f"forall_for(pair, ex3)={forall_for(pair, ex3)}")
 
 
-# In[29]:
+# In[7]:
 
 
 # Pour un style plus fonctionnel, on se dote des fonctions suivantes
@@ -174,7 +181,7 @@ print(f"forall_funct(pair, ex2)={forall_funct(pair, ex2)}")
 print(f"forall_funct(pair, ex3)={forall_funct(pair, ex3)}")
 
 
-# In[30]:
+# In[8]:
 
 
 ########################################
@@ -193,7 +200,7 @@ print(f"forall_map_all(pair, ex2)={forall_map_all(pair, ex2)}")
 print(f"forall_map_all(pair, ex3)={forall_map_all(pair, ex3)}")
 
 
-# In[31]:
+# In[9]:
 
 
 ########################################
@@ -211,7 +218,13 @@ print(f"forall_filter(pair, ex2)={forall_filter(pair, ex2)}")
 print(f"forall_filter(pair, ex3)={forall_filter(pair, ex3)}")
 
 
-# In[32]:
+# In[10]:
+
+
+list(filter(pair, ex1))
+
+
+# In[11]:
 
 
 # La fonction standard reduce du module functools (appellée aussi fold) prend trois paramètre
@@ -243,7 +256,11 @@ print(f"forall_reduce(pair, ex3)={forall_reduce(pair, ex3)}")
 
 # ## Décorateurs en Python
 
-# In[33]:
+# * Voir l'article [https://towardsdatascience.com/closures-and-decorators-in-python-2551abbc6eb6](https://towardsdatascience.com/closures-and-decorators-in-python-2551abbc6eb6)
+# 
+# * Voir aussi Python Fluent
+
+# In[12]:
 
 
 ###############################################################################
@@ -273,7 +290,7 @@ print(timer(fibo_rec)(32))
 
 # ## Exercice 4 : décorateurs `maybe`
 
-# In[34]:
+# In[13]:
 
 
 # %%
@@ -308,7 +325,14 @@ print(f"positive_or_zero(42)={positive_or_zero(42)}")
 print(f"positive_or_zero(-1)={positive_or_zero(-1)}")
 
 
-# In[35]:
+# Remarque sur les fonctions `lambda` :
+# 
+# * si la fonction est pure, on peut la remplacer par une fonction `lambda`
+# * si la fonction comporte une boucle c'est plus compliqué (ou on ne peut pas)
+# 
+# Le `lambda calcul` est équivalent à la machine de Turing, il est apparu dans les années 30 puis il est tombé dans l'oubli et il revenu à la mode dans les années 60.
+
+# In[14]:
 
 
 # Même question que précédemment, mais écrire maybe UNIQUEMENT avec des lambdas et
@@ -329,7 +353,7 @@ print(f"positive_or_zero_lambda(42)={positive_or_zero_lambda(42)}")
 print(f"positive_or_zero_lambda(-1)={positive_or_zero_lambda(-1)}")
 
 
-# In[36]:
+# In[15]:
 
 
 ########################################
@@ -338,21 +362,43 @@ print(f"positive_or_zero_lambda(-1)={positive_or_zero_lambda(-1)}")
 
 # même chose que précédement un décorateur uniquement avec des lambdas 
 #mais en faisant attention à n'appeler f QU'UNE SEULE FOIS
+
+
+#On peut essayer de le faire sans fonction lambda puis avec des fonction lambda
+#C'est intéressant si la fonction f a un effet de bord (par exemple avec un print)
+
+
+def maybe_lambda0(f, v):
+    def f2(x):
+        def f3(v):
+            return v if value is None else value
+        return f3(f(x))
+    return f2
+
+#Tout en lambda
 
 maybe_lambda_better = lambda f,v : lambda x : (lambda value : v if value is None else value)(f(x))      
 
-positive_or_zero_lambda_better = maybe_lambda_better(positive_or_none, 0)
+positive_or_zero_lambda_better0 = maybe_lambda0(positive_or_none, 0)
+
+positive_or_zero_lambda_better = maybe_lambda(positive_or_none, 0)
 
 print(
     f"positive_or_zero_lambda_better(42)={positive_or_zero_lambda_better(42)}")
 print(
     f"positive_or_zero_lambda_better(-1)={positive_or_zero_lambda_better(-1)}")
+
+print(
+    f"positive_or_zero_lambda_better0(42)={positive_or_zero_lambda_better(42)}")
+print(
+    f"positive_or_zero_lambda_better0(-1)={positive_or_zero_lambda_better(-1)}")
+# ATTENDU
 # ATTENDU
 # positive_or_zero_lambda_better(42)=42
 # positive_or_zero_lambda_better(-1)=0
 
 
-# In[37]:
+# In[16]:
 
 
 ########################################
@@ -362,9 +408,9 @@ print(
 # même chose que précédement un décorateur uniquement avec des lambdas 
 #mais en faisant attention à n'appeler f QU'UNE SEULE FOIS
 
-maybe_lambda_better = lambda f,v : lambda x : (lambda y=f(x) :  v if y is None else y)()  
+maybe_lambda = lambda f,v : lambda x : (lambda y=f(x) :  v if y is None else y)()  
 
-positive_or_zero_lambda_better = maybe_lambda_better(positive_or_none, 0)
+positive_or_zero_lambda_better = maybe_lambda(positive_or_none, 0)
 
 print(
     f"positive_or_zero_lambda_better(42)={positive_or_zero_lambda_better(42)}")
@@ -375,7 +421,7 @@ print(
 # positive_or_zero_lambda_better(-1)=0
 
 
-# In[38]:
+# In[17]:
 
 
 ########################################
@@ -419,7 +465,7 @@ print(f"any_positive_or_zero(1,2,3)={any_positive_or_zero(1,2,3)}")
 
 # ## Exercice 5 : décorateur `memoize`
 
-# In[39]:
+# In[18]:
 
 
 # %%
@@ -476,16 +522,20 @@ print(f"fonction_de_test_memo(0)={fonction_de_test_memo(0)}")
 # fonction_de_test_memo(0)=0
 
 
-# In[40]:
+# In[19]:
 
 
 ########################################
-# EXERCICE  (POUR ALLER PLUS LOIN) : définir le décorateur memoize qui gère le cas des fonction n-aires (sans arguments de type keywords, autrement dit, on gère juste *args, pas **kwargs)
+# EXERCICE  (POUR ALLER PLUS LOIN) : 
+#définir le décorateur memoize qui gère le cas des fonction n-aires
+#(sans arguments de type keywords, autrement dit, on gère juste *args, pas **kwargs)
 ########################################
 
 
 def memoize_nary(f):
-    """Pour cette version, """
+    """Pour cette version, on devra convertir une "liste" de plusieurs paramètres (*args) en
+       une structure qui soit hashable pour pouvoir servir de clef dans le dictionnaire
+       Les listes ne le sont pas, mais les tuples le sont en revanche."""
     memo = dict()
     def wraped(*args):
         if args in memo:
@@ -517,9 +567,11 @@ print(f"fonction_de_test_nary_memo(0,1,2)={fonction_de_test_nary_memo(0,1,2)}")
 
 # # LES DÉCORATEURS PYTHON DANS LA BIBLIOTHÈQUE STANDARD : UNE APPLICATION POUR LA CLASSE
 # 
-# À ce sujet voir [https://towardsdatascience.com/closures-and-decorators-in-python-2551abbc6eb6](https://towardsdatascience.com/closures-and-decorators-in-python-2551abbc6eb6)
+# * À ce sujet voir [https://towardsdatascience.com/closures-and-decorators-in-python-2551abbc6eb6](https://towardsdatascience.com/closures-and-decorators-in-python-2551abbc6eb6)
+# * Décorateurs de la bibliothèque standard : [https://docs.python.org/3/library/functools.html](https://docs.python.org/3/library/functools.html)   ou   Python Fluent page 226  : deux sont utilisés ci-dessous `@wraps` pour enregistrer la signature de la fonction enveloppée dans la fonction enveloppante  et `@lru_cache` pour mémoizer
+# 
 
-# In[41]:
+# In[20]:
 
 
 
@@ -543,7 +595,7 @@ def tracer(func):
     # pour ne pas changer __name__ en 'wrapped' après wrapping, voir functools
     @wraps(func)
     def wrapped(*args, **kwargs):
-        print(f'Calling {func.__name__}({args}, {kwargs})')
+        print(f'Calling {wrapped.__name__}({args}, {kwargs})')
         return func(*args, **kwargs)
     return wrapped
 
@@ -584,7 +636,7 @@ print(f"fibo_tracee(5)={fibo_tracee(5)}")
 
 # ## Exercice : écrire le décorateur @visualise
 
-# In[42]:
+# In[21]:
 
 
 ########################################
@@ -618,7 +670,7 @@ def fibo_indent(n):
         return fibo_indent(n-1) + fibo_indent(n-2)
 
 
-print(f"fibo_indent(8)={fibo_indent(8)}")
+print(f"fibo_indent(5)={fibo_indent(5)}")
 
 # on doit obtenir quelque chose de semblable à la trace suivante
 # fibo_indent((5,), {})
@@ -639,7 +691,7 @@ print(f"fibo_indent(8)={fibo_indent(8)}")
 # fibo_indent(5)=5
 
 
-# In[43]:
+# In[22]:
 
 
 @memoize
@@ -655,7 +707,7 @@ def fibo_viz_memo(n):
 print(f"fibo_viz_memo(5)={fibo_viz_memo(5)}")
 
 
-# In[44]:
+# In[23]:
 
 
 @lru_cache(maxsize=32)
@@ -671,7 +723,7 @@ def fibo_viz_memo(n):
 print(f"fibo_viz_memo(32)={fibo_viz_memo(32)} , {fibo_viz_memo.cache_info()} ")
 
 
-# In[45]:
+# In[24]:
 
 
 @lru_cache(maxsize=2)
@@ -687,17 +739,85 @@ def fibo_viz_memo(n):
 print(f"fibo_viz_memo(8)={fibo_viz_memo(8)} , {fibo_viz_memo.cache_info()} ")
 
 
-# In[46]:
+# In[25]:
 
 
-# Une autre version de viusalise
+# Une autre version de visualise
+
+def visualise(func):
+    """Décorateur qui trace les appels comme @tracer mais en indentant à chaque appel récursif"""
+    visualise.level = 0
+    visualise.preced = float('inf')
+    # pour ne pas changer __name__ en 'wrapped' après wrapping, voir functools
+    @wraps(func)
+    def wrapped(*args, **kwargs):       
+        print(f'{visualise.level * "  "} Calling {func.__name__}({args}, {kwargs})')     
+        visualise.level += 1
+        res = func(*args, **kwargs)  
+        visualise.level -= 1
+        return res
+    return wrapped
+
+
+@visualise
+def fibo_indent(n):
+    """Suite de Fibonacci, version récursive avec les appels tracés ET indentés"""
+    if n <= 1:
+        return n
+    else:
+        return fibo_indent(n-1) + fibo_indent(n-2)
+
+
+print(f"fibo_indent(5)={fibo_indent(5)}")
+
+# on doit obtenir quelque chose de semblable à la trace suivante
+# fibo_indent((5,), {})
+#     fibo_indent((4,), {})
+#         fibo_indent((3,), {})
+#             fibo_indent((2,), {})
+#                 fibo_indent((1,), {})
+#                 fibo_indent((0,), {})
+#             fibo_indent((1,), {})
+#         fibo_indent((2,), {})
+#             fibo_indent((1,), {})
+#             fibo_indent((0,), {})
+#     fibo_indent((3,), {})
+#         fibo_indent((2,), {})
+#             fibo_indent((1,), {})
+#             fibo_indent((0,), {})
+#         fibo_indent((1,), {})
+# fibo_indent(5)=5
+
+
+# In[26]:
+
+
+# Encore une autre version de viusalise
 ########################################
 # EXERCICE : écrire le décorateur @visualise
 ########################################
 
+def visualise2(func):
+    """Décorateur qui trace les appels comme @tracer mais en indentant à chaque appel récursif"""
+    visualise2.visualise_level = 1
+    # pour ne pas changer __name__ en 'wrapped' après wrapping, voir functools
+    @wraps(func)
+    def wrapped(*args, **kwargs):        
+        print(f'{(visualise2.visualise_level - 1) * "  |"}  ┌ Appel de {func.__name__}({args}, {kwargs})')  
+        visualise2.visualise_level += 1
+        result = func(*args, **kwargs)
+        visualise2.visualise_level -= 1
+        print(f'{(visualise2.visualise_level - 1) * "  |"}  └ Résultat de {func.__name__}({args}, {kwargs}), {result}')
+        return result        
+    return wrapped
+
+#les deux suivantes implémentent un compteur local
+
 
 def visualise(func):
     """Décorateur qui trace les appels comme @tracer mais en indentant à chaque appel récursif"""
+    #avec un attribut de fonction englobante mais le compteur est partagé par toutes les fonctions décorées
+    #compteur global, on compte tous les appels à visualise
     visualise_level = 1
     # pour ne pas changer __name__ en 'wrapped' après wrapping, voir functools
     @wraps(func)
@@ -712,7 +832,25 @@ def visualise(func):
     return wrapped
 
 
-@visualise
+def visualise3(func):
+    """Décorateur qui trace les appels comme @tracer mais en indentant à chaque appel récursif"""
+    # pour ne pas changer __name__ en 'wrapped' après wrapping, voir functools
+    @wraps(func)
+    def wrapped(*args, **kwargs):        
+        print(f'{(wrapped.visualise_level - 1) * "  |"}  ┌ Appel de {func.__name__}({args}, {kwargs})')  
+        wrapped.visualise_level += 1
+        result = func(*args, **kwargs)
+        wrapped.visualise_level -= 1
+        print(f'{(wrapped.visualise_level - 1) * "  |"}  └ Résultat de {func.__name__}({args}, {kwargs}), {result}')
+        return result   
+    wrapped.visualise_level = 1
+    return wrapped
+
+
+
+
+
+@visualise2
 def fibo_indent(n):
     """Suite de Fibonacci, version récursive avec les appels tracés ET indentés"""
     if n <= 1:
@@ -742,7 +880,7 @@ print(f"fibo_indent(8)={fibo_indent(8)}")
 # fibo_indent(5)=5
 
 
-# In[47]:
+# In[27]:
 
 
 @memoize
