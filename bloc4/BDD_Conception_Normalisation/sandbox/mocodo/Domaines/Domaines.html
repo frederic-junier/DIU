@@ -1,0 +1,72 @@
+<html>
+<head>
+<meta charset='utf-8'>
+<style>
+  #mld .relation { font-variant: small-caps; font-weight: bold }
+  #mld .primary { text-decoration: underline }
+  #mld .foreign { font-style: oblique }
+  #mld .normal { }
+</style>
+</head>
+<body>
+<div id='mld'>
+<div>
+  <span class='relation'>Stocké à</span> (
+    <span class='foreign primary'>idLotBouteille</span>,
+    <span class='foreign primary'>idSite</span>
+  )
+</div>
+<div>
+  <span class='relation'>Site</span> (
+    <span class='primary'>idSite</span>,
+    <span class='normal'>description</span>
+  )
+</div>
+<div>
+  <span class='relation'>Appellation</span> (
+    <span class='primary'>idAppellation</span>,
+    <span class='normal'>type</span>,
+    <span class='normal'>nom</span>
+  )
+</div>
+<div>
+  <span class='relation'>LotBouteille</span> (
+    <span class='primary'>idLotBouteille</span>,
+    <span class='normal'>volume</span>,
+    <span class='normal'>degré</span>,
+    <span class='normal'>prix</span>,
+    <span class='normal'>couleur</span>,
+    <span class='normal'>commentaire</span>,
+    <span class='normal'>millésime</span>,
+    <span class='foreign'>idDomaine</span>
+  )
+</div>
+<div>
+  <span class='relation'>Domaine</span> (
+    <span class='primary'>idDomaine</span>,
+    <span class='normal'>nom</span>,
+    <span class='foreign'>idAppellation</span>,
+    <span class='foreign'>idRégion</span>
+  )
+</div>
+<div>
+  <span class='relation'>De la cuvée</span> (
+    <span class='foreign primary'>idDomaine</span>,
+    <span class='foreign primary'>idCuvée</span>
+  )
+</div>
+<div>
+  <span class='relation'>Région</span> (
+    <span class='primary'>idRégion</span>,
+    <span class='normal'>nom</span>
+  )
+</div>
+<div>
+  <span class='relation'>Cuvée</span> (
+    <span class='primary'>idCuvée</span>,
+    <span class='normal'>nom</span>
+  )
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,14 @@
+Stocké à, 1N LotBouteille, 0N Site
+Site:idSite, description
+De l'appellation, 11 Domaine, 0N Appellation:
+Appellation: idAppellation, type, nom
+
+LotBouteille: idLotBouteille, volume, degré,  prix, couleur, commentaire, millésime
+Du domaine, 11 LotBouteille, 0N Domaine:
+Domaine: idDomaine, nom
+De la cuvée, 0N Domaine, 0N Cuvée:
+
+:
+Région: idRégion, nom
+Dans la région, 11 Domaine, 0N Région:
+Cuvée: idCuvée, nom

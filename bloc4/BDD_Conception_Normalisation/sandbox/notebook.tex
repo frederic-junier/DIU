@@ -141,7 +141,7 @@
     \def\gt{>}
     \def\lt{<}
     % Document parameters
-    \title{TP\_BDD\_Conception}
+    \title{TP\_Modelisation}
     
     
     
@@ -281,2711 +281,926 @@
 
     
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor} }]:} \PY{o}{\PYZpc{}}\PY{k}{reload\PYZus{}ext} sql
+{\color{incolor}In [{\color{incolor}1}]:} \PY{o}{\PYZpc{}}\PY{k}{reload\PYZus{}ext} sql
         \PY{o}{\PYZpc{}}\PY{k}{config} SqlMagic.displaycon = False
         \PY{o}{\PYZpc{}}\PY{k}{config} SqlMagic.autolimit = 100
 \end{Verbatim}
 
 
-    \hypertarget{travaux-pratiques-bases-de-donnuxe9es-conception}{%
-\section{Travaux pratiques bases de données :
-conception}\label{travaux-pratiques-bases-de-donnuxe9es-conception}}
-
-\textbf{IMPORTANT} : par défaut, la vérification des clefs étrangère
-n'est pas activée dans SQLite
-\url{https://www.sqlite.org/foreignkeys.html}, activez là avec la
-commande :
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{PRAGMA foreign\_keys}\OperatorTok{=}\DecValTok{1}\NormalTok{;}
-\end{Highlighting}
-\end{Shaded}
-
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}89}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{sql}
-         
-         PRAGMA foreign\PYZus{}keys=1;
+{\color{incolor}In [{\color{incolor}2}]:} \PY{o}{\PYZpc{}}\PY{k}{sql} sqlite:///bon\PYZhy{}vivant8.db
 \end{Verbatim}
 
 
     \begin{Verbatim}[commandchars=\\\{\}]
-Done.
-
-    \end{Verbatim}
-
-\begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}89}]:} []
-\end{Verbatim}
-            
-    \hypertarget{exercice-variations-sur-le-thuxe8me-de-la-clef-primaire}{%
-\subsection{Exercice : variations sur le thème de la clef
-primaire}\label{exercice-variations-sur-le-thuxe8me-de-la-clef-primaire}}
-
-On considère le script SQL suivant :
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{CREATE} \KeywordTok{TABLE}\NormalTok{ Classe(}
-  \KeywordTok{id} \DataTypeTok{INTEGER} \KeywordTok{PRIMARY} \KeywordTok{KEY}\NormalTok{,}
-\NormalTok{  description TEXT}
-\NormalTok{);}
-
-\KeywordTok{CREATE} \KeywordTok{TABLE}\NormalTok{ Herite(}
-\NormalTok{  enfant }\DataTypeTok{INT} \KeywordTok{REFERENCES}\NormalTok{ Classe(}\KeywordTok{id}\NormalTok{),}
-  \KeywordTok{parent} \DataTypeTok{INT} \KeywordTok{REFERENCES}\NormalTok{ Classe(}\KeywordTok{id}\NormalTok{),}
-  \KeywordTok{PRIMARY} \KeywordTok{KEY}\NormalTok{ (enfant, }\KeywordTok{parent}\NormalTok{)}
-\NormalTok{);}
-
-\KeywordTok{INSERT} \KeywordTok{INTO}\NormalTok{ Classe }\KeywordTok{VALUES}\NormalTok{(}\DecValTok{0}\NormalTok{, }\StringTok{\textquotesingle{}chose\textquotesingle{}}\NormalTok{);}
-\KeywordTok{INSERT} \KeywordTok{INTO}\NormalTok{ Classe }\KeywordTok{VALUES}\NormalTok{(}\DecValTok{1}\NormalTok{, }\StringTok{\textquotesingle{}animal\textquotesingle{}}\NormalTok{);}
-\KeywordTok{INSERT} \KeywordTok{INTO}\NormalTok{ Classe }\KeywordTok{VALUES}\NormalTok{(}\DecValTok{2}\NormalTok{, }\StringTok{\textquotesingle{}humain\textquotesingle{}}\NormalTok{);}
-\KeywordTok{INSERT} \KeywordTok{INTO}\NormalTok{ Classe }\KeywordTok{VALUES}\NormalTok{(}\DecValTok{3}\NormalTok{, }\StringTok{\textquotesingle{}enseignant\textquotesingle{}}\NormalTok{);}
-\KeywordTok{INSERT} \KeywordTok{INTO}\NormalTok{ Classe }\KeywordTok{VALUES}\NormalTok{(}\DecValTok{4}\NormalTok{, }\StringTok{\textquotesingle{}chat\textquotesingle{}}\NormalTok{);}
-\KeywordTok{INSERT} \KeywordTok{INTO}\NormalTok{ Classe }\KeywordTok{VALUES}\NormalTok{(}\DecValTok{5}\NormalTok{, }\StringTok{\textquotesingle{}science\textquotesingle{}}\NormalTok{);}
-
-\KeywordTok{INSERT} \KeywordTok{INTO}\NormalTok{ Herite }\KeywordTok{VALUES}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{0}\NormalTok{);}
-\KeywordTok{INSERT} \KeywordTok{INTO}\NormalTok{ Herite }\KeywordTok{VALUES}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DecValTok{1}\NormalTok{);}
-\KeywordTok{INSERT} \KeywordTok{INTO}\NormalTok{ Herite }\KeywordTok{VALUES}\NormalTok{(}\DecValTok{3}\NormalTok{, }\DecValTok{2}\NormalTok{);}
-\KeywordTok{INSERT} \KeywordTok{INTO}\NormalTok{ Herite }\KeywordTok{VALUES}\NormalTok{(}\DecValTok{4}\NormalTok{, }\DecValTok{1}\NormalTok{);}
-\KeywordTok{INSERT} \KeywordTok{INTO}\NormalTok{ Herite }\KeywordTok{VALUES}\NormalTok{(}\DecValTok{3}\NormalTok{, }\DecValTok{5}\NormalTok{);}
-\end{Highlighting}
-\end{Shaded}
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}125}]:} \PY{o}{\PYZpc{}}\PY{k}{sql} sqlite:///exo1\PYZhy{}q1.db
-\end{Verbatim}
-
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}126}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{sql}
-          
-          CREATE TABLE Classe(
-            id INTEGER PRIMARY KEY,
-            description TEXT
-          );
-          
-          CREATE TABLE Herite(
-            enfant INT REFERENCES Classe(id),
-            parent INT REFERENCES Classe(id),
-            PRIMARY KEY (enfant, parent)
-          );
-          
-          INSERT INTO Classe VALUES(0, \PYZsq{}chose\PYZsq{});
-          INSERT INTO Classe VALUES(1, \PYZsq{}animal\PYZsq{});
-          INSERT INTO Classe VALUES(2, \PYZsq{}humain\PYZsq{});
-          INSERT INTO Classe VALUES(3, \PYZsq{}enseignant\PYZsq{});
-          INSERT INTO Classe VALUES(4, \PYZsq{}chat\PYZsq{});
-          INSERT INTO Classe VALUES(5, \PYZsq{}science\PYZsq{});
-          
-          INSERT INTO Herite VALUES(1, 0);
-          INSERT INTO Herite VALUES(2, 1);
-          INSERT INTO Herite VALUES(3, 2);
-          INSERT INTO Herite VALUES(4, 1);
-          INSERT INTO Herite VALUES(3, 5);
-\end{Verbatim}
-
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-(sqlite3.OperationalError) table Classe already exists
-[SQL: CREATE TABLE Classe( id INTEGER PRIMARY KEY,
-  description TEXT
-);]
-(Background on this error at: http://sqlalche.me/e/e3q8)
-
-    \end{Verbatim}
-
-    \textbf{Exercice} : on veut s'habituer aux messages d'erreurs standards
-:
-
-\begin{itemize}
-\tightlist
-\item
-  insérez un nouveau tuple avec
-  \texttt{INSERT\ INTO\ Classe\ VALUES(0,\ \textquotesingle{}patate\textquotesingle{});}.
-  Quel est le message d'erreur ? Idem avec
-  \texttt{INSERT\ INTO\ Herite\ VALUES(1,\ 0);}
-\item
-  insérez un nouveau tuple avec
-  \texttt{INSERT\ INTO\ Herite\ VALUES(0,\ 42);}. Quel est le message
-  d'erreur ? (\emph{NB} : si vous n'en avez pas, c'est que les clefs
-  étrangères ne sont pas activées !)
-\end{itemize}
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}127}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{sql} 
-          
-          INSERT INTO Classe VALUES(0, \PYZsq{}patate\PYZsq{});
-          
-          \PYZhy{}\PYZhy{}IntegrityError: (sqlite3.IntegrityError) UNIQUE constraint failed: Classe.id
-          [SQL: INSERT INTO Classe VALUES(0, \PYZsq{}patate\PYZsq{});]
-\end{Verbatim}
-
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-
-        ---------------------------------------------------------------------------
-
-        IntegrityError                            Traceback (most recent call last)
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/sqlalchemy/engine/base.py in \_execute\_context(self, dialect, constructor, statement, parameters, *args)
-       1283                     self.dialect.do\_execute(
-    -> 1284                         cursor, statement, parameters, context
-       1285                     )
-
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/sqlalchemy/engine/default.py in do\_execute(self, cursor, statement, parameters, context)
-        589     def do\_execute(self, cursor, statement, parameters, context=None):
-    --> 590         cursor.execute(statement, parameters)
-        591 
-
-
-        IntegrityError: UNIQUE constraint failed: Classe.id
-
-        
-    The above exception was the direct cause of the following exception:
-
-
-        IntegrityError                            Traceback (most recent call last)
-
-        <ipython-input-127-ff608e20959d> in <module>
-    ----> 1 get\_ipython().run\_cell\_magic('sql', '', "\textbackslash{}nINSERT INTO Classe VALUES(0, 'patate');\textbackslash{}n\textbackslash{}n--IntegrityError: (sqlite3.IntegrityError) UNIQUE constraint failed: Classe.id\textbackslash{}n[SQL: INSERT INTO Classe VALUES(0, 'patate');]\textbackslash{}n")
-    
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/IPython/core/interactiveshell.py in run\_cell\_magic(self, magic\_name, line, cell)
-       2360     def system\_raw(self, cmd):
-       2361         """Call the given cmd in a subprocess using os.system on Windows or
-    -> 2362         subprocess.call using the system shell on other platforms.
-       2363 
-       2364         Parameters
-
-
-        <decorator-gen-157> in execute(self, line, cell, local\_ns)
-
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/IPython/core/magic.py in <lambda>(f, *a, **k)
-        185     """Decorator factory for methods in Magics subclasses.
-        186     """
-    --> 187 
-        188     validate\_type(magic\_kind)
-        189 
-
-
-        <decorator-gen-156> in execute(self, line, cell, local\_ns)
-
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/IPython/core/magic.py in <lambda>(f, *a, **k)
-        185     """Decorator factory for methods in Magics subclasses.
-        186     """
-    --> 187 
-        188     validate\_type(magic\_kind)
-        189 
-
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/sql/magic.py in execute(self, line, cell, local\_ns)
-        215 
-        216         try:
-    --> 217             result = sql.run.run(conn, parsed["sql"], self, user\_ns)
-        218 
-        219             if (
-
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/sql/run.py in run(conn, sql, config, user\_namespace)
-        365             else:
-        366                 txt = sqlalchemy.sql.text(statement)
-    --> 367                 result = conn.session.execute(txt, user\_namespace)
-        368             \_commit(conn=conn, config=config)
-        369             if result and config.feedback:
-
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/sqlalchemy/engine/base.py in execute(self, object\_, *multiparams, **params)
-       1018             )
-       1019         else:
-    -> 1020             return meth(self, multiparams, params)
-       1021 
-       1022     def \_execute\_function(self, func, multiparams, params):
-
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/sqlalchemy/sql/elements.py in \_execute\_on\_connection(self, connection, multiparams, params)
-        296     def \_execute\_on\_connection(self, connection, multiparams, params):
-        297         if self.supports\_execution:
-    --> 298             return connection.\_execute\_clauseelement(self, multiparams, params)
-        299         else:
-        300             raise exc.ObjectNotExecutableError(self)
-
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/sqlalchemy/engine/base.py in \_execute\_clauseelement(self, elem, multiparams, params)
-       1137             distilled\_params,
-       1138             compiled\_sql,
-    -> 1139             distilled\_params,
-       1140         )
-       1141         if self.\_has\_events or self.engine.\_has\_events:
-
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/sqlalchemy/engine/base.py in \_execute\_context(self, dialect, constructor, statement, parameters, *args)
-       1322         except BaseException as e:
-       1323             self.\_handle\_dbapi\_exception(
-    -> 1324                 e, statement, parameters, cursor, context
-       1325             )
-       1326 
-
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/sqlalchemy/engine/base.py in \_handle\_dbapi\_exception(self, e, statement, parameters, cursor, context)
-       1516             elif should\_wrap:
-       1517                 util.raise\_(
-    -> 1518                     sqlalchemy\_exception, with\_traceback=exc\_info[2], from\_=e
-       1519                 )
-       1520             else:
-
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/sqlalchemy/util/compat.py in raise\_(***failed resolving arguments***)
-        176 
-        177         try:
-    --> 178             raise exception
-        179         finally:
-        180             \# credit to
-
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/sqlalchemy/engine/base.py in \_execute\_context(self, dialect, constructor, statement, parameters, *args)
-       1282                 if not evt\_handled:
-       1283                     self.dialect.do\_execute(
-    -> 1284                         cursor, statement, parameters, context
-       1285                     )
-       1286 
-
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/sqlalchemy/engine/default.py in do\_execute(self, cursor, statement, parameters, context)
-        588 
-        589     def do\_execute(self, cursor, statement, parameters, context=None):
-    --> 590         cursor.execute(statement, parameters)
-        591 
-        592     def do\_execute\_no\_params(self, cursor, statement, context=None):
-
-
-        IntegrityError: (sqlite3.IntegrityError) UNIQUE constraint failed: Classe.id
-    [SQL: INSERT INTO Classe VALUES(0, 'patate');]
-    (Background on this error at: http://sqlalche.me/e/gkpj)
-
-    \end{Verbatim}
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}128}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{sql} 
-          
-          INSERT INTO Herite VALUES(1, 0);
-          
-          \PYZhy{}\PYZhy{}IntegrityError: (sqlite3.IntegrityError) UNIQUE constraint failed: Herite.enfant, Herite.parent
-          [SQL: INSERT INTO Herite VALUES(1, 0);]
-\end{Verbatim}
-
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-
-        ---------------------------------------------------------------------------
-
-        IntegrityError                            Traceback (most recent call last)
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/sqlalchemy/engine/base.py in \_execute\_context(self, dialect, constructor, statement, parameters, *args)
-       1283                     self.dialect.do\_execute(
-    -> 1284                         cursor, statement, parameters, context
-       1285                     )
-
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/sqlalchemy/engine/default.py in do\_execute(self, cursor, statement, parameters, context)
-        589     def do\_execute(self, cursor, statement, parameters, context=None):
-    --> 590         cursor.execute(statement, parameters)
-        591 
-
-
-        IntegrityError: UNIQUE constraint failed: Herite.enfant, Herite.parent
-
-        
-    The above exception was the direct cause of the following exception:
-
-
-        IntegrityError                            Traceback (most recent call last)
-
-        <ipython-input-128-aea883e35b1c> in <module>
-    ----> 1 get\_ipython().run\_cell\_magic('sql', '', '\textbackslash{}nINSERT INTO Herite VALUES(1, 0);\textbackslash{}n\textbackslash{}n--IntegrityError: (sqlite3.IntegrityError) UNIQUE constraint failed: Herite.enfant, Herite.parent\textbackslash{}n[SQL: INSERT INTO Herite VALUES(1, 0);]\textbackslash{}n')
-    
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/IPython/core/interactiveshell.py in run\_cell\_magic(self, magic\_name, line, cell)
-       2360     def system\_raw(self, cmd):
-       2361         """Call the given cmd in a subprocess using os.system on Windows or
-    -> 2362         subprocess.call using the system shell on other platforms.
-       2363 
-       2364         Parameters
-
-
-        <decorator-gen-157> in execute(self, line, cell, local\_ns)
-
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/IPython/core/magic.py in <lambda>(f, *a, **k)
-        185     """Decorator factory for methods in Magics subclasses.
-        186     """
-    --> 187 
-        188     validate\_type(magic\_kind)
-        189 
-
-
-        <decorator-gen-156> in execute(self, line, cell, local\_ns)
-
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/IPython/core/magic.py in <lambda>(f, *a, **k)
-        185     """Decorator factory for methods in Magics subclasses.
-        186     """
-    --> 187 
-        188     validate\_type(magic\_kind)
-        189 
-
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/sql/magic.py in execute(self, line, cell, local\_ns)
-        215 
-        216         try:
-    --> 217             result = sql.run.run(conn, parsed["sql"], self, user\_ns)
-        218 
-        219             if (
-
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/sql/run.py in run(conn, sql, config, user\_namespace)
-        365             else:
-        366                 txt = sqlalchemy.sql.text(statement)
-    --> 367                 result = conn.session.execute(txt, user\_namespace)
-        368             \_commit(conn=conn, config=config)
-        369             if result and config.feedback:
-
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/sqlalchemy/engine/base.py in execute(self, object\_, *multiparams, **params)
-       1018             )
-       1019         else:
-    -> 1020             return meth(self, multiparams, params)
-       1021 
-       1022     def \_execute\_function(self, func, multiparams, params):
-
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/sqlalchemy/sql/elements.py in \_execute\_on\_connection(self, connection, multiparams, params)
-        296     def \_execute\_on\_connection(self, connection, multiparams, params):
-        297         if self.supports\_execution:
-    --> 298             return connection.\_execute\_clauseelement(self, multiparams, params)
-        299         else:
-        300             raise exc.ObjectNotExecutableError(self)
-
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/sqlalchemy/engine/base.py in \_execute\_clauseelement(self, elem, multiparams, params)
-       1137             distilled\_params,
-       1138             compiled\_sql,
-    -> 1139             distilled\_params,
-       1140         )
-       1141         if self.\_has\_events or self.engine.\_has\_events:
-
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/sqlalchemy/engine/base.py in \_execute\_context(self, dialect, constructor, statement, parameters, *args)
-       1322         except BaseException as e:
-       1323             self.\_handle\_dbapi\_exception(
-    -> 1324                 e, statement, parameters, cursor, context
-       1325             )
-       1326 
-
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/sqlalchemy/engine/base.py in \_handle\_dbapi\_exception(self, e, statement, parameters, cursor, context)
-       1516             elif should\_wrap:
-       1517                 util.raise\_(
-    -> 1518                     sqlalchemy\_exception, with\_traceback=exc\_info[2], from\_=e
-       1519                 )
-       1520             else:
-
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/sqlalchemy/util/compat.py in raise\_(***failed resolving arguments***)
-        176 
-        177         try:
-    --> 178             raise exception
-        179         finally:
-        180             \# credit to
-
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/sqlalchemy/engine/base.py in \_execute\_context(self, dialect, constructor, statement, parameters, *args)
-       1282                 if not evt\_handled:
-       1283                     self.dialect.do\_execute(
-    -> 1284                         cursor, statement, parameters, context
-       1285                     )
-       1286 
-
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/sqlalchemy/engine/default.py in do\_execute(self, cursor, statement, parameters, context)
-        588 
-        589     def do\_execute(self, cursor, statement, parameters, context=None):
-    --> 590         cursor.execute(statement, parameters)
-        591 
-        592     def do\_execute\_no\_params(self, cursor, statement, context=None):
-
-
-        IntegrityError: (sqlite3.IntegrityError) UNIQUE constraint failed: Herite.enfant, Herite.parent
-    [SQL: INSERT INTO Herite VALUES(1, 0);]
-    (Background on this error at: http://sqlalche.me/e/gkpj)
-
-    \end{Verbatim}
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}130}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{sql} 
-          
-          INSERT INTO Herite VALUES(0, 42);
-          
-          \PYZhy{}\PYZhy{}IntegrityError: (sqlite3.IntegrityError) FOREIGN KEY constraint failed
-          [SQL: INSERT INTO Herite VALUES(0, 42);]
-\end{Verbatim}
-
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-
-        ---------------------------------------------------------------------------
-
-        IntegrityError                            Traceback (most recent call last)
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/sqlalchemy/engine/base.py in \_execute\_context(self, dialect, constructor, statement, parameters, *args)
-       1283                     self.dialect.do\_execute(
-    -> 1284                         cursor, statement, parameters, context
-       1285                     )
-
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/sqlalchemy/engine/default.py in do\_execute(self, cursor, statement, parameters, context)
-        589     def do\_execute(self, cursor, statement, parameters, context=None):
-    --> 590         cursor.execute(statement, parameters)
-        591 
-
-
-        IntegrityError: UNIQUE constraint failed: Herite.enfant, Herite.parent
-
-        
-    The above exception was the direct cause of the following exception:
-
-
-        IntegrityError                            Traceback (most recent call last)
-
-        <ipython-input-130-66b1f41292c5> in <module>
-    ----> 1 get\_ipython().run\_cell\_magic('sql', '', '\textbackslash{}nINSERT INTO Herite VALUES(0, 42);\textbackslash{}n\textbackslash{}n--IntegrityError: (sqlite3.IntegrityError) FOREIGN KEY constraint failed\textbackslash{}n[SQL: INSERT INTO Herite VALUES(0, 42);]\textbackslash{}n')
-    
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/IPython/core/interactiveshell.py in run\_cell\_magic(self, magic\_name, line, cell)
-       2360     def system\_raw(self, cmd):
-       2361         """Call the given cmd in a subprocess using os.system on Windows or
-    -> 2362         subprocess.call using the system shell on other platforms.
-       2363 
-       2364         Parameters
-
-
-        <decorator-gen-157> in execute(self, line, cell, local\_ns)
-
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/IPython/core/magic.py in <lambda>(f, *a, **k)
-        185     """Decorator factory for methods in Magics subclasses.
-        186     """
-    --> 187 
-        188     validate\_type(magic\_kind)
-        189 
-
-
-        <decorator-gen-156> in execute(self, line, cell, local\_ns)
-
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/IPython/core/magic.py in <lambda>(f, *a, **k)
-        185     """Decorator factory for methods in Magics subclasses.
-        186     """
-    --> 187 
-        188     validate\_type(magic\_kind)
-        189 
-
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/sql/magic.py in execute(self, line, cell, local\_ns)
-        215 
-        216         try:
-    --> 217             result = sql.run.run(conn, parsed["sql"], self, user\_ns)
-        218 
-        219             if (
-
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/sql/run.py in run(conn, sql, config, user\_namespace)
-        365             else:
-        366                 txt = sqlalchemy.sql.text(statement)
-    --> 367                 result = conn.session.execute(txt, user\_namespace)
-        368             \_commit(conn=conn, config=config)
-        369             if result and config.feedback:
-
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/sqlalchemy/engine/base.py in execute(self, object\_, *multiparams, **params)
-       1018             )
-       1019         else:
-    -> 1020             return meth(self, multiparams, params)
-       1021 
-       1022     def \_execute\_function(self, func, multiparams, params):
-
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/sqlalchemy/sql/elements.py in \_execute\_on\_connection(self, connection, multiparams, params)
-        296     def \_execute\_on\_connection(self, connection, multiparams, params):
-        297         if self.supports\_execution:
-    --> 298             return connection.\_execute\_clauseelement(self, multiparams, params)
-        299         else:
-        300             raise exc.ObjectNotExecutableError(self)
-
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/sqlalchemy/engine/base.py in \_execute\_clauseelement(self, elem, multiparams, params)
-       1137             distilled\_params,
-       1138             compiled\_sql,
-    -> 1139             distilled\_params,
-       1140         )
-       1141         if self.\_has\_events or self.engine.\_has\_events:
-
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/sqlalchemy/engine/base.py in \_execute\_context(self, dialect, constructor, statement, parameters, *args)
-       1322         except BaseException as e:
-       1323             self.\_handle\_dbapi\_exception(
-    -> 1324                 e, statement, parameters, cursor, context
-       1325             )
-       1326 
-
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/sqlalchemy/engine/base.py in \_handle\_dbapi\_exception(self, e, statement, parameters, cursor, context)
-       1516             elif should\_wrap:
-       1517                 util.raise\_(
-    -> 1518                     sqlalchemy\_exception, with\_traceback=exc\_info[2], from\_=e
-       1519                 )
-       1520             else:
-
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/sqlalchemy/util/compat.py in raise\_(***failed resolving arguments***)
-        176 
-        177         try:
-    --> 178             raise exception
-        179         finally:
-        180             \# credit to
-
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/sqlalchemy/engine/base.py in \_execute\_context(self, dialect, constructor, statement, parameters, *args)
-       1282                 if not evt\_handled:
-       1283                     self.dialect.do\_execute(
-    -> 1284                         cursor, statement, parameters, context
-       1285                     )
-       1286 
-
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/sqlalchemy/engine/default.py in do\_execute(self, cursor, statement, parameters, context)
-        588 
-        589     def do\_execute(self, cursor, statement, parameters, context=None):
-    --> 590         cursor.execute(statement, parameters)
-        591 
-        592     def do\_execute\_no\_params(self, cursor, statement, context=None):
-
-
-        IntegrityError: (sqlite3.IntegrityError) UNIQUE constraint failed: Herite.enfant, Herite.parent
-    [SQL: INSERT INTO Herite VALUES(0, 42);]
-    (Background on this error at: http://sqlalche.me/e/gkpj)
-
-    \end{Verbatim}
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}131}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{sql} 
-          
-          INSERT INTO Herite VALUES(0, 1);
-\end{Verbatim}
-
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-1 rows affected.
-
-    \end{Verbatim}
-
-\begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}131}]:} []
-\end{Verbatim}
-            
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}132}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{sql}
-          
-          SELECT * FROM Herite;
-\end{Verbatim}
-
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-Done.
-
-    \end{Verbatim}
-
-\begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}132}]:} [(1, 0), (2, 1), (3, 2), (4, 1), (3, 5), (0, 42), (0, 1)]
-\end{Verbatim}
-            
-    \textbf{Exercice} : dessinez un diagramme Entité-Association du schéma
-de cette base. Ensuite, représentez graphiquement \emph{le contenu} de
-cette base par une hiérarchie entre les classes.
-
-    \begin{itemize}
-\tightlist
-\item
-  Premier diagramme :
-\end{itemize}
-
-\begin{figure}
-\centering
-\includegraphics{mocodo/Classe_enfants/Classe_enfants.png}
-\caption{Classe\_enfants.png}
-\end{figure}
-
-\begin{itemize}
-\item
-  Avec une entité-association réflexive :
-  \includegraphics{mocodo/Classes/Classes.png}
-\item
-  Avec \href{https://mermaid-js.github.io/mermaid-live-editor/}{Mermaid}
-  (je n'arrive pas à insérerer les attibuts pour l'entité) :
-\end{itemize}
-
-\href{https://mermaid-js.github.io/mermaid-live-editor/\#/edit/eyJjb2RlIjoiZXJEaWFncmFtXG4gICAgICAgIENsYXNzZSB9by0tb3sgQ2xhc3NlIDogSGVyaXRlXG4gICAgICAgIFxuXHRcdFx0XHRcdCIsIm1lcm1haWQiOnsidGhlbWUiOiJkZWZhdWx0In0sInVwZGF0ZUVkaXRvciI6ZmFsc2V9}{\includegraphics{https://mermaid.ink/img/eyJjb2RlIjoiZXJEaWFncmFtXG4gICAgICAgIENsYXNzZSB9by0tb3sgQ2xhc3NlIDogSGVyaXRlXG4gICAgICAgIFxuXHRcdFx0XHRcdCIsIm1lcm1haWQiOnsidGhlbWUiOiJkZWZhdWx0In0sInVwZGF0ZUVkaXRvciI6ZmFsc2V9}}
-
-    \begin{itemize}
-\tightlist
-\item
-  Diagramme de classes :
-\end{itemize}
-
-\href{https://mermaid-js.github.io/mermaid-live-editor/\#/edit/eyJjb2RlIjoiY2xhc3NEaWFncmFtXG5cdENob3NlIDx8LS0gQW5pbWFsXG5cdEFuaW1hbCA8fC0tIEh1bWFpblxuXHRIdW1haW4gPHwtLSBFbnNlaWduYW50XG5cdEFuaW1hbCA8fC0tIENoYXRcblx0U2NpZW5jZSA8fC0tIEVuc2VpZ25hbnRcblx0XG5cdFxuXHRcdFx0XHRcdCIsIm1lcm1haWQiOnsidGhlbWUiOiJkZWZhdWx0In0sInVwZGF0ZUVkaXRvciI6ZmFsc2V9}{\includegraphics{https://mermaid.ink/img/eyJjb2RlIjoiY2xhc3NEaWFncmFtXG5cdENob3NlIDx8LS0gQW5pbWFsXG5cdEFuaW1hbCA8fC0tIEh1bWFpblxuXHRIdW1haW4gPHwtLSBFbnNlaWduYW50XG5cdEFuaW1hbCA8fC0tIENoYXRcblx0U2NpZW5jZSA8fC0tIEVuc2VpZ25hbnRcblx0XG5cdFxuXHRcdFx0XHRcdCIsIm1lcm1haWQiOnsidGhlbWUiOiJkZWZhdWx0In0sInVwZGF0ZUVkaXRvciI6ZmFsc2V9}}
-
-    \textbf{Exercice} : si on remplace
-\texttt{PRIMARY\ KEY\ (enfant,\ parent)} par la contrainte
-\texttt{PRIMARY\ KEY\ (enfant)} dans la définition de \texttt{Herite} :
-
-\begin{itemize}
-\tightlist
-\item
-  quelle restriction est imposée sur les hiérarchies de classes que
-  cette base peut représenter ?
-\end{itemize}
-
-\begin{quote}
-Voir ci-dessous, on ne peut pas insérer dans la table \texttt{Herite}
-deux relations d'héritage avec le même identifiant \texttt{enfant} et
-des identifiants \texttt{parent} distincts. Autrement dit, un enfant ne
-peut avoir qu'un parent, une classe enfant ne peut hériter que d'une
-seule classe mère.
-\end{quote}
-
-\begin{itemize}
-\tightlist
-\item
-  quel est le changement correspondant dans le diagramme E/A ?
-  \textgreater{} Changement de cardinalité sur l'une des pattes de
-  l'association \texttt{Herite}, et séparation de l'entité
-  \texttt{Classe} en deux entités \texttt{Classe\_parent} et
-  \texttt{Classe\_enfant}. L'entité association est une relation
-  fonctionnelle entre \texttt{Classe\_enfant} et
-  \texttt{Classe\_parent}.
-\end{itemize}
-
-\begin{figure}
-\centering
-\includegraphics{mocodo/Classe_parents/Classe_parents.png}
-\caption{Classe\_parents.png}
-\end{figure}
-
-\begin{itemize}
-\tightlist
-\item
-  si on retraduit le diagramme E/A en schéma SQL, quel schéma
-  obtiendra-t'on ?
-\end{itemize}
-
-\begin{quote}
-Avec \href{http://mocodo.wingi.net/}{Mocodo}, on obtient un schéma avec
-deux classes \texttt{Classe\_Enfant} et \texttt{Classe\_Parent} :
-\end{quote}
-
-{Classe\_Enfant} ( {id}, {description}, {id.1} )
-
-Le champ id constitue la clef primaire de la table. C'était déjà un
-identifiant de l'entité Classe\_Enfant.
-
-Le champ description était déjà un simple attribut de l'entité
-Classe\_Enfant.
-
-Le champ id.1 est une clef étrangère. Il a migré à partir de l'entité
-Classe\_Parent par l'association de dépendance fonctionnelle Herite en
-perdant son caractère identifiant.
-
-{Classe\_Parent} ( {id}, {description} )
-
-Le champ id constitue la clef primaire de la table. C'était déjà un
-identifiant de l'entité Classe\_Parent.
-
-Le champ description était déjà un simple attribut de l'entité
-Classe\_Parent.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{.}\KeywordTok{open} \OtherTok{"CLASSE\_ENFANTS"}\NormalTok{;}
-
-\KeywordTok{CREATE} \KeywordTok{TABLE} \OtherTok{"CLASSE\_ENFANT"}\NormalTok{ (}
-  \OtherTok{"id"} \DataTypeTok{VARCHAR}\NormalTok{(}\DecValTok{42}\NormalTok{),}
-  \OtherTok{"description"} \DataTypeTok{VARCHAR}\NormalTok{(}\DecValTok{42}\NormalTok{),}
-  \OtherTok{"id\_1"} \DataTypeTok{VARCHAR}\NormalTok{(}\DecValTok{42}\NormalTok{),}
-  \KeywordTok{PRIMARY} \KeywordTok{KEY}\NormalTok{ (}\OtherTok{"id"}\NormalTok{),}
-  \KeywordTok{FOREIGN} \KeywordTok{KEY}\NormalTok{ (}\OtherTok{"id\_1"}\NormalTok{) }\KeywordTok{REFERENCES} \OtherTok{"CLASSE\_PARENT"}\NormalTok{ (}\OtherTok{"id"}\NormalTok{)}
-\NormalTok{);}
-
-\KeywordTok{CREATE} \KeywordTok{TABLE} \OtherTok{"CLASSE\_PARENT"}\NormalTok{ (}
-  \OtherTok{"id"} \DataTypeTok{VARCHAR}\NormalTok{(}\DecValTok{42}\NormalTok{),}
-  \OtherTok{"description"} \DataTypeTok{VARCHAR}\NormalTok{(}\DecValTok{42}\NormalTok{),}
-  \KeywordTok{PRIMARY} \KeywordTok{KEY}\NormalTok{ (}\OtherTok{"id"}\NormalTok{)}
-\NormalTok{);}
-\end{Highlighting}
-\end{Shaded}
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}49}]:} \PY{o}{\PYZpc{}}\PY{k}{sql} sqlite:///exo1\PYZhy{}q2.db
-\end{Verbatim}
-
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor} }]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{sql}
+{\color{incolor}In [{\color{incolor}3}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{sql}
         
         PRAGMA foreign\PYZus{}keys=1;
 \end{Verbatim}
 
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}50}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{sql}
-         
-         CREATE TABLE Classe(
-           id INTEGER PRIMARY KEY,
-           description TEXT
-         );
-         
-         CREATE TABLE Herite(
-           enfant INT REFERENCES Classe(id),
-           parent INT REFERENCES Classe(id),
-           PRIMARY KEY (enfant)
-         );
-         
-         INSERT INTO Classe VALUES(0, \PYZsq{}chose\PYZsq{});
-         INSERT INTO Classe VALUES(1, \PYZsq{}animal\PYZsq{});
-         INSERT INTO Classe VALUES(2, \PYZsq{}humain\PYZsq{});
-         INSERT INTO Classe VALUES(3, \PYZsq{}enseignant\PYZsq{});
-         INSERT INTO Classe VALUES(4, \PYZsq{}chat\PYZsq{});
-         INSERT INTO Classe VALUES(5, \PYZsq{}science\PYZsq{});
-         
-         INSERT INTO Herite VALUES(1, 0);
-         INSERT INTO Herite VALUES(2, 1);
-         INSERT INTO Herite VALUES(3, 2);
-         INSERT INTO Herite VALUES(4, 1);
-         INSERT INTO Herite VALUES(3, 5);
+Done.
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}3}]:} []
 \end{Verbatim}
-
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-Done.
-Done.
-1 rows affected.
-1 rows affected.
-1 rows affected.
-1 rows affected.
-1 rows affected.
-1 rows affected.
-1 rows affected.
-1 rows affected.
-1 rows affected.
-1 rows affected.
-
-    \end{Verbatim}
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-
-        ---------------------------------------------------------------------------
-
-        IntegrityError                            Traceback (most recent call last)
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/sqlalchemy/engine/base.py in \_execute\_context(self, dialect, constructor, statement, parameters, *args)
-       1283                     self.dialect.do\_execute(
-    -> 1284                         cursor, statement, parameters, context
-       1285                     )
-
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/sqlalchemy/engine/default.py in do\_execute(self, cursor, statement, parameters, context)
-        589     def do\_execute(self, cursor, statement, parameters, context=None):
-    --> 590         cursor.execute(statement, parameters)
-        591 
-
-
-        IntegrityError: UNIQUE constraint failed: Herite.enfant
-
-        
-    The above exception was the direct cause of the following exception:
-
-
-        IntegrityError                            Traceback (most recent call last)
-
-        <ipython-input-50-d034daf404cb> in <module>
-    ----> 1 get\_ipython().run\_cell\_magic('sql', '', "\textbackslash{}nCREATE TABLE Classe(\textbackslash{}n  id INTEGER PRIMARY KEY,\textbackslash{}n  description TEXT\textbackslash{}n);\textbackslash{}n\textbackslash{}nCREATE TABLE Herite(\textbackslash{}n  enfant INT REFERENCES Classe(id),\textbackslash{}n  parent INT REFERENCES Classe(id),\textbackslash{}n  PRIMARY KEY (enfant)\textbackslash{}n);\textbackslash{}n\textbackslash{}nINSERT INTO Classe VALUES(0, 'chose');\textbackslash{}nINSERT INTO Classe VALUES(1, 'animal');\textbackslash{}nINSERT INTO Classe VALUES(2, 'humain');\textbackslash{}nINSERT INTO Classe VALUES(3, 'enseignant');\textbackslash{}nINSERT INTO Classe VALUES(4, 'chat');\textbackslash{}nINSERT INTO Classe VALUES(5, 'science');\textbackslash{}n\textbackslash{}nINSERT INTO Herite VALUES(1, 0);\textbackslash{}nINSERT INTO Herite VALUES(2, 1);\textbackslash{}nINSERT INTO Herite VALUES(3, 2);\textbackslash{}nINSERT INTO Herite VALUES(4, 1);\textbackslash{}nINSERT INTO Herite VALUES(3, 5);\textbackslash{}n")
-    
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/IPython/core/interactiveshell.py in run\_cell\_magic(self, magic\_name, line, cell)
-       2360     def system\_raw(self, cmd):
-       2361         """Call the given cmd in a subprocess using os.system on Windows or
-    -> 2362         subprocess.call using the system shell on other platforms.
-       2363 
-       2364         Parameters
-
-
-        <decorator-gen-157> in execute(self, line, cell, local\_ns)
-
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/IPython/core/magic.py in <lambda>(f, *a, **k)
-        185     """Decorator factory for methods in Magics subclasses.
-        186     """
-    --> 187 
-        188     validate\_type(magic\_kind)
-        189 
-
-
-        <decorator-gen-156> in execute(self, line, cell, local\_ns)
-
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/IPython/core/magic.py in <lambda>(f, *a, **k)
-        185     """Decorator factory for methods in Magics subclasses.
-        186     """
-    --> 187 
-        188     validate\_type(magic\_kind)
-        189 
-
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/sql/magic.py in execute(self, line, cell, local\_ns)
-        215 
-        216         try:
-    --> 217             result = sql.run.run(conn, parsed["sql"], self, user\_ns)
-        218 
-        219             if (
-
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/sql/run.py in run(conn, sql, config, user\_namespace)
-        365             else:
-        366                 txt = sqlalchemy.sql.text(statement)
-    --> 367                 result = conn.session.execute(txt, user\_namespace)
-        368             \_commit(conn=conn, config=config)
-        369             if result and config.feedback:
-
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/sqlalchemy/engine/base.py in execute(self, object\_, *multiparams, **params)
-       1018             )
-       1019         else:
-    -> 1020             return meth(self, multiparams, params)
-       1021 
-       1022     def \_execute\_function(self, func, multiparams, params):
-
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/sqlalchemy/sql/elements.py in \_execute\_on\_connection(self, connection, multiparams, params)
-        296     def \_execute\_on\_connection(self, connection, multiparams, params):
-        297         if self.supports\_execution:
-    --> 298             return connection.\_execute\_clauseelement(self, multiparams, params)
-        299         else:
-        300             raise exc.ObjectNotExecutableError(self)
-
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/sqlalchemy/engine/base.py in \_execute\_clauseelement(self, elem, multiparams, params)
-       1137             distilled\_params,
-       1138             compiled\_sql,
-    -> 1139             distilled\_params,
-       1140         )
-       1141         if self.\_has\_events or self.engine.\_has\_events:
-
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/sqlalchemy/engine/base.py in \_execute\_context(self, dialect, constructor, statement, parameters, *args)
-       1322         except BaseException as e:
-       1323             self.\_handle\_dbapi\_exception(
-    -> 1324                 e, statement, parameters, cursor, context
-       1325             )
-       1326 
-
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/sqlalchemy/engine/base.py in \_handle\_dbapi\_exception(self, e, statement, parameters, cursor, context)
-       1516             elif should\_wrap:
-       1517                 util.raise\_(
-    -> 1518                     sqlalchemy\_exception, with\_traceback=exc\_info[2], from\_=e
-       1519                 )
-       1520             else:
-
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/sqlalchemy/util/compat.py in raise\_(***failed resolving arguments***)
-        176 
-        177         try:
-    --> 178             raise exception
-        179         finally:
-        180             \# credit to
-
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/sqlalchemy/engine/base.py in \_execute\_context(self, dialect, constructor, statement, parameters, *args)
-       1282                 if not evt\_handled:
-       1283                     self.dialect.do\_execute(
-    -> 1284                         cursor, statement, parameters, context
-       1285                     )
-       1286 
-
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/sqlalchemy/engine/default.py in do\_execute(self, cursor, statement, parameters, context)
-        588 
-        589     def do\_execute(self, cursor, statement, parameters, context=None):
-    --> 590         cursor.execute(statement, parameters)
-        591 
-        592     def do\_execute\_no\_params(self, cursor, statement, context=None):
-
-
-        IntegrityError: (sqlite3.IntegrityError) UNIQUE constraint failed: Herite.enfant
-    [SQL: INSERT INTO Herite VALUES(3, 5);]
-    (Background on this error at: http://sqlalche.me/e/gkpj)
-
-    \end{Verbatim}
-
-    \textbf{Exercice} : mêmes questions que précédemment si on remplace
-\texttt{PRIMARY\ KEY\ (enfant,\ parent)} par la contrainte
-\texttt{PRIMARY\ KEY\ (parent)} .
-
-\begin{itemize}
-\tightlist
-\item
-  quelle restriction est imposée sur les hiérarchies de classes que
-  cette base peut représenter ?
-\end{itemize}
-
-\begin{quote}
-Voir ci-dessous, on ne peut pas insérer dans la table \texttt{Herite}
-deux relations d'héritage avec le même identifiant \texttt{parent} et
-des identifiants \texttt{enfant} distincts. Autrement dit, un parent ne
-peut avoir qu'un enfant.
-\end{quote}
-
-\begin{verbatim}
-IntegrityError: (sqlite3.IntegrityError) UNIQUE constraint failed: Herite.parent
-[SQL: INSERT INTO Herite VALUES(4, 1);]
-\end{verbatim}
-
-\begin{itemize}
-\tightlist
-\item
-  quel est le changement correspondant dans le diagramme E/A ?
-  \textgreater{} Changement de cardinalité sur l'une des pattes de
-  l'association \texttt{Herite}, et séparation de l'entité
-  \texttt{Classe} en deux entités \texttt{Classe\_parent} et
-  \texttt{Classe\_enfant}. L'entité association estune relation
-  fonctionnelle entre \texttt{Classe\_parent} et
-  \texttt{Classe\_enfant}.
-\end{itemize}
+            
+    \hypertarget{luxe9noncuxe9}{%
+\subsection{L'énoncé :}\label{luxe9noncuxe9}}
 
 \begin{figure}
 \centering
-\includegraphics{mocodo/Classe_enfants2/Classe_enfants2.png}
-\caption{Classe\_parents.png}
+\includegraphics{images/tp_modelisation.png}
+\caption{énoncé}
 \end{figure}
 
-\begin{itemize}
-\tightlist
-\item
-  si on retraduit le diagramme E/A en schéma SQL, quel schéma
-  obtiendra-t'on ?
-\end{itemize}
+\begin{figure}
+\centering
+\includegraphics{images/tp_modelisation2.png}
+\caption{énoncé}
+\end{figure}
 
-\begin{quote}
-Avec \href{http://mocodo.wingi.net/}{Mocodo}, on obtient un schéma deux
-classes \texttt{Classe\_Enfant} et \texttt{Classe\_Parent} :
-\end{quote}
+    \hypertarget{premier-diagramme-entituxe9sassociations-ruxe9alisuxe9-avec-mocodo}{%
+\section{Premier Diagramme Entités/Associations réalisé avec
+Mocodo}\label{premier-diagramme-entituxe9sassociations-ruxe9alisuxe9-avec-mocodo}}
 
-{Classe\_Enfant} ( {id}, {description}, {id.1} )
+\begin{figure}
+\centering
+\includegraphics{mocodo/Lotbouteilles/Lotbouteilles.png}
+\caption{diagramme E/A}
+\end{figure}
 
-Le champ id constitue la clef primaire de la table. C'était déjà un
-identifiant de l'entité Classe\_Enfant.
-
-Le champ description était déjà un simple attribut de l'entité
-Classe\_Enfant.
-
-Le champ id.1 est une clef étrangère. Il a migré à partir de l'entité
-Classe\_Parent par l'association de dépendance fonctionnelle Herite en
-perdant son caractère identifiant.
-
-{Classe\_Parent} ( {id}, {description} )
-
-Le champ id constitue la clef primaire de la table. C'était déjà un
-identifiant de l'entité Classe\_Parent.
-
-Le champ description était déjà un simple attribut de l'entité
-Classe\_Parent.
+    \hypertarget{schuxe9ma-sql-proposuxe9-par-mocodo}{%
+\subsection{Schéma SQL proposé par
+Mocodo}\label{schuxe9ma-sql-proposuxe9-par-mocodo}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{.}\KeywordTok{open} \OtherTok{"CLASSE\_ENFANTS"}\NormalTok{;}
-
-\KeywordTok{CREATE} \KeywordTok{TABLE} \OtherTok{"CLASSE\_ENFANT"}\NormalTok{ (}
-  \OtherTok{"id"} \DataTypeTok{VARCHAR}\NormalTok{(}\DecValTok{42}\NormalTok{),}
-  \OtherTok{"description"} \DataTypeTok{VARCHAR}\NormalTok{(}\DecValTok{42}\NormalTok{),}
-  \OtherTok{"id\_1"} \DataTypeTok{VARCHAR}\NormalTok{(}\DecValTok{42}\NormalTok{),}
-  \KeywordTok{PRIMARY} \KeywordTok{KEY}\NormalTok{ (}\OtherTok{"id"}\NormalTok{),}
-  \KeywordTok{FOREIGN} \KeywordTok{KEY}\NormalTok{ (}\OtherTok{"id\_1"}\NormalTok{) }\KeywordTok{REFERENCES} \OtherTok{"CLASSE\_PARENT"}\NormalTok{ (}\OtherTok{"id"}\NormalTok{)}
+\KeywordTok{CREATE} \KeywordTok{TABLE} \OtherTok{"APPELLATION"}\NormalTok{ (}
+  \OtherTok{"idappellation"} \DataTypeTok{VARCHAR}\NormalTok{(}\DecValTok{42}\NormalTok{),}
+  \OtherTok{"type"} \DataTypeTok{VARCHAR}\NormalTok{(}\DecValTok{42}\NormalTok{),}
+  \OtherTok{"nom"} \DataTypeTok{VARCHAR}\NormalTok{(}\DecValTok{42}\NormalTok{),}
+  \KeywordTok{PRIMARY} \KeywordTok{KEY}\NormalTok{ (}\OtherTok{"idappellation"}\NormalTok{)}
 \NormalTok{);}
 
-\KeywordTok{CREATE} \KeywordTok{TABLE} \OtherTok{"CLASSE\_PARENT"}\NormalTok{ (}
-  \OtherTok{"id"} \DataTypeTok{VARCHAR}\NormalTok{(}\DecValTok{42}\NormalTok{),}
+\KeywordTok{CREATE} \KeywordTok{TABLE} \OtherTok{"DOMAINE"}\NormalTok{ (}
+  \OtherTok{"iddomaine"} \DataTypeTok{VARCHAR}\NormalTok{(}\DecValTok{42}\NormalTok{),}
+  \OtherTok{"nom"} \DataTypeTok{VARCHAR}\NormalTok{(}\DecValTok{42}\NormalTok{),}
+  \KeywordTok{PRIMARY} \KeywordTok{KEY}\NormalTok{ (}\OtherTok{"iddomaine"}\NormalTok{)}
+\NormalTok{);}
+
+\KeywordTok{CREATE} \KeywordTok{TABLE} \OtherTok{"STOCKAGE"}\NormalTok{ (}
+  \OtherTok{"idlotbouteille"} \DataTypeTok{VARCHAR}\NormalTok{(}\DecValTok{42}\NormalTok{),}
+  \OtherTok{"idsite"} \DataTypeTok{VARCHAR}\NormalTok{(}\DecValTok{42}\NormalTok{),}
+  \OtherTok{"nombre"} \DataTypeTok{VARCHAR}\NormalTok{(}\DecValTok{42}\NormalTok{),}
+  \OtherTok{"idlotbouteille\_1"} \DataTypeTok{VARCHAR}\NormalTok{(}\DecValTok{42}\NormalTok{),}
+  \OtherTok{"idsite\_1"} \DataTypeTok{VARCHAR}\NormalTok{(}\DecValTok{42}\NormalTok{),}
+  \KeywordTok{PRIMARY} \KeywordTok{KEY}\NormalTok{ (}\OtherTok{"idlotbouteille"}\NormalTok{, }\OtherTok{"idsite"}\NormalTok{),}
+  \KeywordTok{FOREIGN} \KeywordTok{KEY}\NormalTok{ (}\OtherTok{"idlotbouteille\_1"}\NormalTok{) }\KeywordTok{REFERENCES} \OtherTok{"LOTBOUTEILLE"}\NormalTok{ (}\OtherTok{"idlotbouteille"}\NormalTok{),}
+  \KeywordTok{FOREIGN} \KeywordTok{KEY}\NormalTok{ (}\OtherTok{"idsite\_1"}\NormalTok{) }\KeywordTok{REFERENCES} \OtherTok{"SITE"}\NormalTok{ (}\OtherTok{"idsite"}\NormalTok{)}
+\NormalTok{);}
+
+\KeywordTok{CREATE} \KeywordTok{TABLE} \OtherTok{"LOTBOUTEILLE"}\NormalTok{ (}
+  \OtherTok{"idlotbouteille"} \DataTypeTok{VARCHAR}\NormalTok{(}\DecValTok{42}\NormalTok{),}
+  \OtherTok{"volume"} \DataTypeTok{VARCHAR}\NormalTok{(}\DecValTok{42}\NormalTok{),}
+  \OtherTok{"degré"} \DataTypeTok{VARCHAR}\NormalTok{(}\DecValTok{42}\NormalTok{),}
+  \OtherTok{"total"} \DataTypeTok{VARCHAR}\NormalTok{(}\DecValTok{42}\NormalTok{),}
+  \OtherTok{"prix"} \DataTypeTok{VARCHAR}\NormalTok{(}\DecValTok{42}\NormalTok{),}
+  \OtherTok{"commentaire"} \DataTypeTok{VARCHAR}\NormalTok{(}\DecValTok{42}\NormalTok{),}
+  \OtherTok{"millésime"} \DataTypeTok{VARCHAR}\NormalTok{(}\DecValTok{42}\NormalTok{),}
+  \OtherTok{"idrégion"} \DataTypeTok{VARCHAR}\NormalTok{(}\DecValTok{42}\NormalTok{),}
+  \OtherTok{"idappellation"} \DataTypeTok{VARCHAR}\NormalTok{(}\DecValTok{42}\NormalTok{),}
+  \OtherTok{"idcuvée"} \DataTypeTok{VARCHAR}\NormalTok{(}\DecValTok{42}\NormalTok{),}
+  \OtherTok{"iddomaine"} \DataTypeTok{VARCHAR}\NormalTok{(}\DecValTok{42}\NormalTok{),}
+  \OtherTok{"idcouleur"} \DataTypeTok{VARCHAR}\NormalTok{(}\DecValTok{42}\NormalTok{),}
+  \KeywordTok{PRIMARY} \KeywordTok{KEY}\NormalTok{ (}\OtherTok{"idlotbouteille"}\NormalTok{),}
+  \KeywordTok{FOREIGN} \KeywordTok{KEY}\NormalTok{ (}\OtherTok{"idrégion"}\NormalTok{) }\KeywordTok{REFERENCES} \OtherTok{"RÉGION"}\NormalTok{ (}\OtherTok{"idrégion"}\NormalTok{),}
+  \KeywordTok{FOREIGN} \KeywordTok{KEY}\NormalTok{ (}\OtherTok{"idappellation"}\NormalTok{) }\KeywordTok{REFERENCES} \OtherTok{"APPELLATION"}\NormalTok{ (}\OtherTok{"idappellation"}\NormalTok{),}
+  \KeywordTok{FOREIGN} \KeywordTok{KEY}\NormalTok{ (}\OtherTok{"idcuvée"}\NormalTok{) }\KeywordTok{REFERENCES} \OtherTok{"CUVÉE"}\NormalTok{ (}\OtherTok{"idcuvée"}\NormalTok{),}
+  \KeywordTok{FOREIGN} \KeywordTok{KEY}\NormalTok{ (}\OtherTok{"iddomaine"}\NormalTok{) }\KeywordTok{REFERENCES} \OtherTok{"DOMAINE"}\NormalTok{ (}\OtherTok{"iddomaine"}\NormalTok{),}
+  \KeywordTok{FOREIGN} \KeywordTok{KEY}\NormalTok{ (}\OtherTok{"idcouleur"}\NormalTok{) }\KeywordTok{REFERENCES} \OtherTok{"COULEUR"}\NormalTok{ (}\OtherTok{"idcouleur"}\NormalTok{)}
+\NormalTok{);}
+
+\KeywordTok{CREATE} \KeywordTok{TABLE} \OtherTok{"COULEUR"}\NormalTok{ (}
+  \OtherTok{"idcouleur"} \DataTypeTok{VARCHAR}\NormalTok{(}\DecValTok{42}\NormalTok{),}
+  \OtherTok{"type"} \DataTypeTok{VARCHAR}\NormalTok{(}\DecValTok{42}\NormalTok{),}
+  \KeywordTok{PRIMARY} \KeywordTok{KEY}\NormalTok{ (}\OtherTok{"idcouleur"}\NormalTok{)}
+\NormalTok{);}
+
+\KeywordTok{CREATE} \KeywordTok{TABLE} \OtherTok{"RÉGION"}\NormalTok{ (}
+  \OtherTok{"idrégion"} \DataTypeTok{VARCHAR}\NormalTok{(}\DecValTok{42}\NormalTok{),}
+  \OtherTok{"nom"} \DataTypeTok{VARCHAR}\NormalTok{(}\DecValTok{42}\NormalTok{),}
+  \KeywordTok{PRIMARY} \KeywordTok{KEY}\NormalTok{ (}\OtherTok{"idrégion"}\NormalTok{)}
+\NormalTok{);}
+
+\KeywordTok{CREATE} \KeywordTok{TABLE} \OtherTok{"CUVÉE"}\NormalTok{ (}
+  \OtherTok{"idcuvée"} \DataTypeTok{VARCHAR}\NormalTok{(}\DecValTok{42}\NormalTok{),}
+  \OtherTok{"nom"} \DataTypeTok{VARCHAR}\NormalTok{(}\DecValTok{42}\NormalTok{),}
+  \KeywordTok{PRIMARY} \KeywordTok{KEY}\NormalTok{ (}\OtherTok{"idcuvée"}\NormalTok{)}
+\NormalTok{);}
+
+\KeywordTok{CREATE} \KeywordTok{TABLE} \OtherTok{"SITE"}\NormalTok{ (}
+  \OtherTok{"idsite"} \DataTypeTok{VARCHAR}\NormalTok{(}\DecValTok{42}\NormalTok{),}
   \OtherTok{"description"} \DataTypeTok{VARCHAR}\NormalTok{(}\DecValTok{42}\NormalTok{),}
-  \KeywordTok{PRIMARY} \KeywordTok{KEY}\NormalTok{ (}\OtherTok{"id"}\NormalTok{)}
+  \KeywordTok{PRIMARY} \KeywordTok{KEY}\NormalTok{ (}\OtherTok{"idsite"}\NormalTok{)}
+\NormalTok{);}
+\end{Highlighting}
+\end{Shaded}
+
+    \hypertarget{description-du-schuxe9ma-sql}{%
+\subsection{Description du schéma
+SQL}\label{description-du-schuxe9ma-sql}}
+
+{Appellation} ( {idAppellation}, {type}, {nom} )
+
+Le champ idAppellation constitue la clef primaire de la table. C'était
+déjà un identifiant de l'entité Appellation.
+
+Les champs type et nom étaient déjà de simples attributs de l'entité
+Appellation.
+
+{Domaine} ( {idDomaine}, {nom} )
+
+Le champ idDomaine constitue la clef primaire de la table. C'était déjà
+un identifiant de l'entité Domaine.
+
+Le champ nom était déjà un simple attribut de l'entité Domaine.
+
+{Stockage} ( {idLotBouteille}, {idSite}, {nombre}, {idLotBouteille.1},
+{idSite.1} )
+
+Les champs idLotBouteille et idSite constituent la clef primaire de la
+table. C'était déjà des identifiants de l'entité Stockage.
+
+Le champ nombre était déjà un simple attribut de l'entité Stockage.
+
+Le champ idLotBouteille.1 est une clef étrangère. Il a migré à partir de
+l'entité LotBouteille par l'association de dépendance fonctionnelle
+Admet pour stockage en perdant son caractère identifiant.
+
+Le champ idSite.1 est une clef étrangère. Il a migré à partir de
+l'entité Site par l'association de dépendance fonctionnelle Stocké à en
+perdant son caractère identifiant.
+
+{LotBouteille} ( {idLotBouteille}, {volume}, {degré}, {total}, {prix},
+{commentaire}, {millésime}, {idRégion}, {idAppellation}, {idCuvée},
+{idDomaine}, {idCouleur} )
+
+Le champ idLotBouteille constitue la clef primaire de la table. C'était
+déjà un identifiant de l'entité LotBouteille.
+
+Les champs volume, degré, total, prix, commentaire et millésime étaient
+déjà de simples attributs de l'entité LotBouteille.
+
+Le champ idRégion est une clef étrangère. Il a migré à partir de
+l'entité Région par l'association de dépendance fonctionnelle De la
+région en perdant son caractère identifiant.
+
+Le champ idAppellation est une clef étrangère. Il a migré à partir de
+l'entité Appellation par l'association de dépendance fonctionnelle De
+l'appellation en perdant son caractère identifiant.
+
+Le champ idCuvée est une clef étrangère. Il a migré à partir de l'entité
+Cuvée par l'association de dépendance fonctionnelle De la cuvée en
+perdant son caractère identifiant.
+
+Le champ idDomaine est une clef étrangère. Il a migré à partir de
+l'entité Domaine par l'association de dépendance fonctionnelle Du
+domaine en perdant son caractère identifiant.
+
+Le champ idCouleur est une clef étrangère. Il a migré à partir de
+l'entité Couleur par l'association de dépendance fonctionnelle De la
+couleur en perdant son caractère identifiant.
+
+{Couleur} ( {idCouleur}, {type} )
+
+Le champ idCouleur constitue la clef primaire de la table. C'était déjà
+un identifiant de l'entité Couleur.
+
+Le champ type était déjà un simple attribut de l'entité Couleur.
+
+{Région} ( {idRégion}, {nom} )
+
+Le champ idRégion constitue la clef primaire de la table. C'était déjà
+un identifiant de l'entité Région.
+
+Le champ nom était déjà un simple attribut de l'entité Région.
+
+{Cuvée} ( {idCuvée}, {nom} )
+
+Le champ idCuvée constitue la clef primaire de la table. C'était déjà un
+identifiant de l'entité Cuvée.
+
+Le champ nom était déjà un simple attribut de l'entité Cuvée.
+
+{Site} ( {idSite}, {description} )
+
+Le champ idSite constitue la clef primaire de la table. C'était déjà un
+identifiant de l'entité Site.
+
+Le champ description était déjà un simple attribut de l'entité Site.
+
+    \hypertarget{affinement-du-schuxe9ma-sql-types-et-contraintes}{%
+\subsection{Affinement du schéma SQL (types et
+contraintes)}\label{affinement-du-schuxe9ma-sql-types-et-contraintes}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{CREATE} \KeywordTok{TABLE} \OtherTok{"APPELLATION"}\NormalTok{ (}
+  \OtherTok{"idappellation"} \DataTypeTok{INTEGER} \KeywordTok{NOT} \KeywordTok{NULL} \KeywordTok{PRIMARY} \KeywordTok{KEY}\NormalTok{,}
+  \OtherTok{"type"} \DataTypeTok{VARCHAR}\NormalTok{(}\DecValTok{42}\NormalTok{) }\KeywordTok{CHECK}\NormalTok{( }\OtherTok{"type"} \KeywordTok{IN}\NormalTok{ (}\OtherTok{"AOC"}\NormalTok{, }\OtherTok{"VDP"}\NormalTok{, }\OtherTok{"IGP"}\NormalTok{)), }\CommentTok{{-}{-}NULL représenterait AOC}
+  \OtherTok{"nom"} \DataTypeTok{VARCHAR}\NormalTok{(}\DecValTok{42}\NormalTok{) }\KeywordTok{NOT} \KeywordTok{NULL}
+\NormalTok{);}
+
+\KeywordTok{CREATE} \KeywordTok{TABLE} \OtherTok{"DOMAINE"}\NormalTok{ (}
+  \OtherTok{"iddomaine"} \DataTypeTok{INTEGER} \KeywordTok{NOT} \KeywordTok{NULL} \KeywordTok{PRIMARY} \KeywordTok{KEY}\NormalTok{,}
+  \OtherTok{"nom"} \DataTypeTok{VARCHAR}\NormalTok{(}\DecValTok{42}\NormalTok{)  }\KeywordTok{NOT} \KeywordTok{NULL} \KeywordTok{UNIQUE}         \CommentTok{{-}{-} un nom de domaine est unique                        }
+\NormalTok{);}
+
+\KeywordTok{CREATE} \KeywordTok{TABLE} \OtherTok{"STOCKAGE"}\NormalTok{ (}
+  \OtherTok{"idlotbouteille"} \DataTypeTok{INTEGER} \KeywordTok{NOT} \KeywordTok{NULL}
+  \OtherTok{"idsite"} \DataTypeTok{INTEGER} \KeywordTok{NOT} \KeywordTok{NULL}\NormalTok{,}
+  \OtherTok{"nombre"} \DataTypeTok{INTEGER} \KeywordTok{NOT} \KeywordTok{NULL}\NormalTok{,}
+  \KeywordTok{PRIMARY} \KeywordTok{KEY}\NormalTok{ (}\OtherTok{"idlotbouteille"}\NormalTok{, }\OtherTok{"idsite"}\NormalTok{),}
+  \KeywordTok{FOREIGN} \KeywordTok{KEY}\NormalTok{ (}\OtherTok{"idlotbouteille"}\NormalTok{) }\KeywordTok{REFERENCES} \OtherTok{"LOTBOUTEILLE"}\NormalTok{ (}\OtherTok{"idlotbouteille"}\NormalTok{),}
+  \KeywordTok{FOREIGN} \KeywordTok{KEY}\NormalTok{ (}\OtherTok{"idsite"}\NormalTok{) }\KeywordTok{REFERENCES} \OtherTok{"SITE"}\NormalTok{ (}\OtherTok{"idsite"}\NormalTok{)}
+\NormalTok{);}
+
+\KeywordTok{CREATE} \KeywordTok{TABLE} \OtherTok{"LOTBOUTEILLE"}\NormalTok{ (}
+  \OtherTok{"idlotbouteille"} \DataTypeTok{INTEGER} \KeywordTok{NOT} \KeywordTok{NULL} \KeywordTok{PRIMARY} \KeywordTok{KEY}\NormalTok{,}
+  \OtherTok{"volume"} \DataTypeTok{REAL} \KeywordTok{NOT} \KeywordTok{NULL} \KeywordTok{CHECK}\NormalTok{(volume }\OperatorTok{>=} \DecValTok{0}\NormalTok{),}
+  \OtherTok{"degré"} \DataTypeTok{REAL} \KeywordTok{NOT} \KeywordTok{NULL} \KeywordTok{CHECK}\NormalTok{(degré }\OperatorTok{>=} \DecValTok{0}\NormalTok{),}
+  \OtherTok{"total"} \DataTypeTok{INTEGER} \KeywordTok{NOT} \KeywordTok{NULL} \KeywordTok{CHECK}\NormalTok{(total }\OperatorTok{>=} \DecValTok{0}\NormalTok{),}
+  \OtherTok{"prix"} \DataTypeTok{REAL} \KeywordTok{NOT} \KeywordTok{NULL} \KeywordTok{CHECK}\NormalTok{(prix }\OperatorTok{>=} \DecValTok{0}\NormalTok{),}
+  \OtherTok{"commentaire"} \DataTypeTok{VARCHAR}\NormalTok{(}\DecValTok{42}\NormalTok{),}
+  \OtherTok{"millésime"} \DataTypeTok{INTEGER} \KeywordTok{CHECK}\NormalTok{(millésime }\OperatorTok{>=} \DecValTok{0}\NormalTok{),}
+  \OtherTok{"idrégion"} \DataTypeTok{INTEGER} \KeywordTok{NOT} \KeywordTok{NULL}\NormalTok{,}
+  \OtherTok{"idappellation"} \DataTypeTok{INTEGER} \KeywordTok{NOT} \KeywordTok{NULL}\NormalTok{,}
+  \OtherTok{"idcuvée"} \DataTypeTok{INTEGER} \KeywordTok{NOT} \KeywordTok{NULL}\NormalTok{,}
+  \OtherTok{"iddomaine"} \DataTypeTok{INTEGER} \KeywordTok{NOT} \KeywordTok{NULL}\NormalTok{,}
+  \OtherTok{"idcouleur"} \DataTypeTok{INTEGER} \KeywordTok{NOT} \KeywordTok{NULL}\NormalTok{,}
+  \KeywordTok{PRIMARY} \KeywordTok{KEY}\NormalTok{ (}\OtherTok{"idlotbouteille"}\NormalTok{),}
+  \KeywordTok{FOREIGN} \KeywordTok{KEY}\NormalTok{ (}\OtherTok{"idrégion"}\NormalTok{) }\KeywordTok{REFERENCES} \OtherTok{"RÉGION"}\NormalTok{ (}\OtherTok{"idrégion"}\NormalTok{),}
+  \KeywordTok{FOREIGN} \KeywordTok{KEY}\NormalTok{ (}\OtherTok{"idappellation"}\NormalTok{) }\KeywordTok{REFERENCES} \OtherTok{"APPELLATION"}\NormalTok{ (}\OtherTok{"idappellation"}\NormalTok{),}
+  \KeywordTok{FOREIGN} \KeywordTok{KEY}\NormalTok{ (}\OtherTok{"idcuvée"}\NormalTok{) }\KeywordTok{REFERENCES} \OtherTok{"CUVÉE"}\NormalTok{ (}\OtherTok{"idcuvée"}\NormalTok{),}
+  \KeywordTok{FOREIGN} \KeywordTok{KEY}\NormalTok{ (}\OtherTok{"iddomaine"}\NormalTok{) }\KeywordTok{REFERENCES} \OtherTok{"DOMAINE"}\NormalTok{ (}\OtherTok{"iddomaine"}\NormalTok{),}
+  \KeywordTok{FOREIGN} \KeywordTok{KEY}\NormalTok{ (}\OtherTok{"idcouleur"}\NormalTok{) }\KeywordTok{REFERENCES} \OtherTok{"COULEUR"}\NormalTok{ (}\OtherTok{"idcouleur"}\NormalTok{)}
+\NormalTok{);}
+
+\KeywordTok{CREATE} \KeywordTok{TABLE} \OtherTok{"COULEUR"}\NormalTok{ (}
+  \OtherTok{"idcouleur"} \DataTypeTok{INTEGER} \KeywordTok{NOT} \KeywordTok{NULL} \KeywordTok{PRIMARY} \KeywordTok{KEY}\NormalTok{,}
+  \OtherTok{"type"} \DataTypeTok{VARCHAR}\NormalTok{(}\DecValTok{42}\NormalTok{)}\KeywordTok{NOT} \KeywordTok{NULL}  \KeywordTok{UNIQUE}
+\NormalTok{);}
+
+\KeywordTok{CREATE} \KeywordTok{TABLE} \OtherTok{"RÉGION"}\NormalTok{ (}
+  \OtherTok{"idrégion"}  \DataTypeTok{INTEGER} \KeywordTok{NOT} \KeywordTok{NULL} \KeywordTok{PRIMARY} \KeywordTok{KEY}\NormalTok{,}
+  \OtherTok{"nom"} \KeywordTok{NOT} \KeywordTok{NULL}  \KeywordTok{UNIQUE}
+\NormalTok{);}
+
+\KeywordTok{CREATE} \KeywordTok{TABLE} \OtherTok{"CUVÉE"}\NormalTok{ (}
+  \OtherTok{"idcuvée"}  \DataTypeTok{INTEGER} \KeywordTok{NOT} \KeywordTok{NULL} \KeywordTok{PRIMARY} \KeywordTok{KEY}\NormalTok{,}
+  \OtherTok{"nom"} \DataTypeTok{VARCHAR}\NormalTok{(}\DecValTok{42}\NormalTok{) }\KeywordTok{NOT} \KeywordTok{NULL}  \KeywordTok{UNIQUE}                \CommentTok{{-}{-}un nom de cuvée est unique}
+\NormalTok{);}
+
+\KeywordTok{CREATE} \KeywordTok{TABLE} \OtherTok{"SITE"}\NormalTok{ (}
+  \OtherTok{"idsite"} \DataTypeTok{INTEGER} \KeywordTok{NOT} \KeywordTok{NULL} \KeywordTok{PRIMARY} \KeywordTok{KEY}\NormalTok{,}
+  \OtherTok{"description"} \DataTypeTok{VARCHAR}\NormalTok{(}\DecValTok{42}\NormalTok{) }\KeywordTok{NOT} \KeywordTok{NULL} \KeywordTok{UNIQUE}  
+\NormalTok{);}
+\end{Highlighting}
+\end{Shaded}
+
+    \hypertarget{second-diagramme-entituxe9sassociations-ruxe9alisuxe9-avec-mocodo}{%
+\subsection{Second Diagramme Entités/Associations réalisé avec
+Mocodo}\label{second-diagramme-entituxe9sassociations-ruxe9alisuxe9-avec-mocodo}}
+
+\begin{figure}
+\centering
+\includegraphics{mocodo/Domaines/Domaines.png}
+\caption{diagramme E/A}
+\end{figure}
+
+    {Stocké à} ( {idLotBouteille}, {idSite} )
+
+Le champ idLotBouteille fait partie de la clef primaire de la table.
+C'est une clef étrangère qui a migré directement à partir de l'entité
+LotBouteille.
+
+Le champ idSite fait partie de la clef primaire de la table. C'est une
+clef étrangère qui a migré directement à partir de l'entité Site.
+
+{Site} ( {idSite}, {description} )
+
+Le champ idSite constitue la clef primaire de la table. C'était déjà un
+identifiant de l'entité Site.
+
+Le champ description était déjà un simple attribut de l'entité Site.
+
+{Appellation} ( {idAppellation}, {type}, {nom} )
+
+Le champ idAppellation constitue la clef primaire de la table. C'était
+déjà un identifiant de l'entité Appellation.
+
+Les champs type et nom étaient déjà de simples attributs de l'entité
+Appellation.
+
+{LotBouteille} ( {idLotBouteille}, {volume}, {degré}, {prix}, {couleur},
+{commentaire}, {millésime}, {idDomaine} )
+
+Le champ idLotBouteille constitue la clef primaire de la table. C'était
+déjà un identifiant de l'entité LotBouteille.
+
+Les champs volume, degré, prix, couleur, commentaire et millésime
+étaient déjà de simples attributs de l'entité LotBouteille.
+
+Le champ idDomaine est une clef étrangère. Il a migré à partir de
+l'entité Domaine par l'association de dépendance fonctionnelle Du
+domaine en perdant son caractère identifiant.
+
+{Domaine} ( {idDomaine}, {nom}, {idAppellation}, {idRégion} )
+
+Le champ idDomaine constitue la clef primaire de la table. C'était déjà
+un identifiant de l'entité Domaine.
+
+Le champ nom était déjà un simple attribut de l'entité Domaine.
+
+Le champ idAppellation est une clef étrangère. Il a migré à partir de
+l'entité Appellation par l'association de dépendance fonctionnelle De
+l'appellation en perdant son caractère identifiant.
+
+Le champ idRégion est une clef étrangère. Il a migré à partir de
+l'entité Région par l'association de dépendance fonctionnelle Dans la
+région en perdant son caractère identifiant.
+
+{De la cuvée} ( {idDomaine}, {idCuvée} )
+
+Le champ idDomaine fait partie de la clef primaire de la table. C'est
+une clef étrangère qui a migré directement à partir de l'entité Domaine.
+
+Le champ idCuvée fait partie de la clef primaire de la table. C'est une
+clef étrangère qui a migré directement à partir de l'entité Cuvée.
+
+{Région} ( {idRégion}, {nom} )
+
+Le champ idRégion constitue la clef primaire de la table. C'était déjà
+un identifiant de l'entité Région.
+
+Le champ nom était déjà un simple attribut de l'entité Région.
+
+{Cuvée} ( {idCuvée}, {nom} )
+
+Le champ idCuvée constitue la clef primaire de la table. C'était déjà un
+identifiant de l'entité Cuvée.
+
+Le champ nom était déjà un simple attribut de l'entité Cuvée.
+
+\hypertarget{schuxe9ma-sql-avec-contraintes}{%
+\section{Schéma SQL avec
+contraintes}\label{schuxe9ma-sql-avec-contraintes}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{CREATE} \KeywordTok{TABLE} \OtherTok{"APPELLATION"}\NormalTok{ (}
+  \OtherTok{"idappellation"} \DataTypeTok{INTEGER} \KeywordTok{NOT} \KeywordTok{NULL} \KeywordTok{PRIMARY} \KeywordTok{KEY}\NormalTok{,}
+  \OtherTok{"type"} \DataTypeTok{VARCHAR}\NormalTok{(}\DecValTok{42}\NormalTok{) }\KeywordTok{CHECK}\NormalTok{( }\OtherTok{"type"} \KeywordTok{IN}\NormalTok{ (}\OtherTok{"AOC"}\NormalTok{, }\OtherTok{"VDP"}\NormalTok{, }\OtherTok{"IGP"}\NormalTok{)), }\CommentTok{{-}{-}NULL représenterait AOC}
+  \OtherTok{"nom"} \DataTypeTok{VARCHAR}\NormalTok{(}\DecValTok{42}\NormalTok{) }\KeywordTok{NOT} \KeywordTok{NULL}
+\NormalTok{);}
+
+
+
+
+\KeywordTok{CREATE} \KeywordTok{TABLE} \OtherTok{"STOCKAGE"}\NormalTok{ (}
+  \OtherTok{"idlotbouteille"} \DataTypeTok{INTEGER} \KeywordTok{NOT} \KeywordTok{NULL}\NormalTok{,}
+  \OtherTok{"idsite"} \DataTypeTok{INTEGER} \KeywordTok{NOT} \KeywordTok{NULL}\NormalTok{,}
+  \OtherTok{"nombre"} \DataTypeTok{INTEGER} \KeywordTok{NOT} \KeywordTok{NULL} \KeywordTok{CHECK}\NormalTok{(nombre }\OperatorTok{>=} \DecValTok{0}\NormalTok{),}
+  \KeywordTok{PRIMARY} \KeywordTok{KEY}\NormalTok{ (}\OtherTok{"idlotbouteille"}\NormalTok{, }\OtherTok{"idsite"}\NormalTok{),}
+  \KeywordTok{FOREIGN} \KeywordTok{KEY}\NormalTok{ (}\OtherTok{"idlotbouteille"}\NormalTok{) }\KeywordTok{REFERENCES} \OtherTok{"LOTBOUTEILLE"}\NormalTok{ (}\OtherTok{"idlotbouteille"}\NormalTok{),}
+  \KeywordTok{FOREIGN} \KeywordTok{KEY}\NormalTok{ (}\OtherTok{"idsite"}\NormalTok{) }\KeywordTok{REFERENCES} \OtherTok{"SITE"}\NormalTok{ (}\OtherTok{"idsite"}\NormalTok{)}
+\NormalTok{);}
+
+
+
+
+\KeywordTok{CREATE} \KeywordTok{TABLE} \OtherTok{"DOMAINE"}\NormalTok{ (}
+   \OtherTok{"iddomaine"} \DataTypeTok{INTEGER} \KeywordTok{NOT} \KeywordTok{NULL} \KeywordTok{PRIMARY} \KeywordTok{KEY}\NormalTok{,}
+    \OtherTok{"nom"} \DataTypeTok{VARCHAR}\NormalTok{(}\DecValTok{42}\NormalTok{)  }\KeywordTok{NOT} \KeywordTok{NULL}\NormalTok{,       }\CommentTok{{-}{-} un nom de domaine n\textquotesingle{}est pas forcément unique (des domaines de même nom dans des régions différentes)  }
+  \OtherTok{"idrégion"} \DataTypeTok{INTEGER} \KeywordTok{NOT} \KeywordTok{NULL}\NormalTok{,}
+  \OtherTok{"idcuvée"} \DataTypeTok{INTEGER} \KeywordTok{NOT} \KeywordTok{NULL}\NormalTok{,}
+  \OtherTok{"idappellation"} \DataTypeTok{INTEGER} \KeywordTok{NOT} \KeywordTok{NULL}\NormalTok{,}
+  \KeywordTok{FOREIGN} \KeywordTok{KEY}\NormalTok{ (}\OtherTok{"idappellation"}\NormalTok{) }\KeywordTok{REFERENCES} \OtherTok{"APPELLATION"}\NormalTok{ (}\OtherTok{"idappellation"}\NormalTok{),}
+  \KeywordTok{FOREIGN} \KeywordTok{KEY}\NormalTok{ (}\OtherTok{"idcuvée"}\NormalTok{) }\KeywordTok{REFERENCES} \OtherTok{"CUVÉE"}\NormalTok{ (}\OtherTok{"idcuvée"}\NormalTok{),}
+  \KeywordTok{FOREIGN} \KeywordTok{KEY}\NormalTok{ (}\OtherTok{"idrégion"}\NormalTok{) }\KeywordTok{REFERENCES} \OtherTok{"RÉGION"}\NormalTok{ (}\OtherTok{"idrégion"}\NormalTok{)}
+\NormalTok{);}
+
+
+\KeywordTok{CREATE} \KeywordTok{TABLE} \OtherTok{"LOTBOUTEILLE"}\NormalTok{ (}
+  \OtherTok{"idlotbouteille"} \DataTypeTok{INTEGER} \KeywordTok{NOT} \KeywordTok{NULL} \KeywordTok{PRIMARY} \KeywordTok{KEY}\NormalTok{,}
+  \OtherTok{"volume"} \DataTypeTok{REAL} \KeywordTok{NOT} \KeywordTok{NULL} \KeywordTok{CHECK}\NormalTok{(volume }\OperatorTok{>=} \DecValTok{0}\NormalTok{),}
+  \OtherTok{"degré"} \DataTypeTok{REAL} \KeywordTok{NOT} \KeywordTok{NULL} \KeywordTok{CHECK}\NormalTok{(degré }\OperatorTok{>=} \DecValTok{0}\NormalTok{),}
+  \OtherTok{"prix"} \DataTypeTok{REAL} \KeywordTok{NOT} \KeywordTok{NULL} \KeywordTok{CHECK}\NormalTok{(prix }\OperatorTok{>=} \DecValTok{0}\NormalTok{),}
+  \OtherTok{"commentaire"} \DataTypeTok{VARCHAR}\NormalTok{(}\DecValTok{42}\NormalTok{),  }\CommentTok{{-}{-}peut être NULL}
+  \OtherTok{"millésime"} \DataTypeTok{INTEGER} \KeywordTok{CHECK}\NormalTok{(millésime }\OperatorTok{>=} \DecValTok{0}\NormalTok{),}
+  \OtherTok{"couleur"} \DataTypeTok{VARCHAR}\NormalTok{(}\DecValTok{42}\NormalTok{) }\KeywordTok{NOT} \KeywordTok{NULL} \KeywordTok{CHECK}\NormalTok{(}\FunctionTok{lower}\NormalTok{(couleur) }\KeywordTok{in}\NormalTok{ (}\OtherTok{"blanc"}\NormalTok{, }\OtherTok{"rosé"}\NormalTok{, }\OtherTok{"rouge"}\NormalTok{)),}
+  \OtherTok{"iddomaine"} \DataTypeTok{INTEGER} \KeywordTok{NOT} \KeywordTok{NULL}\NormalTok{,}
+  \KeywordTok{FOREIGN} \KeywordTok{KEY}\NormalTok{ (}\OtherTok{"iddomaine"}\NormalTok{) }\KeywordTok{REFERENCES} \OtherTok{"DOMAINE"}\NormalTok{ (}\OtherTok{"iddomaine"}\NormalTok{)}
+\NormalTok{);}
+
+
+\KeywordTok{CREATE} \KeywordTok{TABLE} \OtherTok{"RÉGION"}\NormalTok{ (}
+  \OtherTok{"idrégion"}  \DataTypeTok{INTEGER} \KeywordTok{NOT} \KeywordTok{NULL} \KeywordTok{PRIMARY} \KeywordTok{KEY}\NormalTok{,}
+  \OtherTok{"nom"} \KeywordTok{NOT} \KeywordTok{NULL}  \KeywordTok{UNIQUE}
+\NormalTok{);}
+
+\KeywordTok{CREATE} \KeywordTok{TABLE} \OtherTok{"CUVÉE"}\NormalTok{ (}
+  \OtherTok{"idcuvée"}  \DataTypeTok{INTEGER} \KeywordTok{NOT} \KeywordTok{NULL} \KeywordTok{PRIMARY} \KeywordTok{KEY}\NormalTok{,}
+  \OtherTok{"nom"} \DataTypeTok{VARCHAR}\NormalTok{(}\DecValTok{42}\NormalTok{)   }\KeywordTok{UNIQUE}                \CommentTok{{-}{-}un nom de cuvée est unique mais peut être vide}
+\NormalTok{);}
+
+\KeywordTok{CREATE} \KeywordTok{TABLE} \OtherTok{"SITE"}\NormalTok{ (}
+  \OtherTok{"idsite"} \DataTypeTok{INTEGER} \KeywordTok{NOT} \KeywordTok{NULL} \KeywordTok{PRIMARY} \KeywordTok{KEY}\NormalTok{,}
+  \OtherTok{"description"} \DataTypeTok{VARCHAR}\NormalTok{(}\DecValTok{42}\NormalTok{) }\KeywordTok{NOT} \KeywordTok{NULL} \KeywordTok{UNIQUE}  
+\NormalTok{);}
+
+
+\KeywordTok{CREATE} \KeywordTok{TABLE} \OtherTok{"DE\_LA\_CUVÉE"}\NormalTok{ (}
+  \OtherTok{"iddomaine"} \DataTypeTok{VARCHAR}\NormalTok{(}\DecValTok{42}\NormalTok{),}
+  \OtherTok{"idcuvée"} \DataTypeTok{VARCHAR}\NormalTok{(}\DecValTok{42}\NormalTok{),}
+  \KeywordTok{PRIMARY} \KeywordTok{KEY}\NormalTok{ (}\OtherTok{"iddomaine"}\NormalTok{, }\OtherTok{"idcuvée"}\NormalTok{),}
+  \KeywordTok{FOREIGN} \KeywordTok{KEY}\NormalTok{ (}\OtherTok{"iddomaine"}\NormalTok{) }\KeywordTok{REFERENCES} \OtherTok{"DOMAINE"}\NormalTok{ (}\OtherTok{"iddomaine"}\NormalTok{),}
+  \KeywordTok{FOREIGN} \KeywordTok{KEY}\NormalTok{ (}\OtherTok{"idcuvée"}\NormalTok{) }\KeywordTok{REFERENCES} \OtherTok{"CUVÉE"}\NormalTok{ (}\OtherTok{"idcuvée"}\NormalTok{)}
 \NormalTok{);}
 \end{Highlighting}
 \end{Shaded}
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}51}]:} \PY{o}{\PYZpc{}}\PY{k}{sql} sqlite:///exo1\PYZhy{}q3.db
-\end{Verbatim}
-
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}90}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{sql}
+{\color{incolor}In [{\color{incolor}29}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{sql}
          
-         PRAGMA foreign\PYZus{}keys=1;
-\end{Verbatim}
-
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-Done.
-
-    \end{Verbatim}
-
-\begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}90}]:} []
-\end{Verbatim}
-            
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}52}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{sql}
-         
-         CREATE TABLE Classe(
-           id INTEGER PRIMARY KEY,
-           description TEXT
+         CREATE TABLE \PYZdq{}APPELLATION\PYZdq{} (
+           \PYZdq{}idappellation\PYZdq{} INTEGER NOT NULL PRIMARY KEY,
+           \PYZdq{}type\PYZdq{} VARCHAR(42) CHECK( \PYZdq{}type\PYZdq{} IN (\PYZdq{}AOC\PYZdq{}, \PYZdq{}VDP\PYZdq{}, \PYZdq{}IGP\PYZdq{})), \PYZhy{}\PYZhy{}NULL représenterait AOC
+           \PYZdq{}nom\PYZdq{} VARCHAR(42) NOT NULL
          );
          
-         CREATE TABLE Herite(
-           enfant INT REFERENCES Classe(id),
-           parent INT REFERENCES Classe(id),
-           PRIMARY KEY (parent)
+         
+         
+         CREATE TABLE \PYZdq{}STOCKAGE\PYZdq{} (
+           \PYZdq{}idlotbouteille\PYZdq{} INTEGER NOT NULL,
+           \PYZdq{}idsite\PYZdq{} INTEGER NOT NULL,
+           \PYZdq{}nombre\PYZdq{} INTEGER NOT NULL CHECK(nombre \PYZgt{}= 0),
+           PRIMARY KEY (\PYZdq{}idlotbouteille\PYZdq{}, \PYZdq{}idsite\PYZdq{}),
+           FOREIGN KEY (\PYZdq{}idlotbouteille\PYZdq{}) REFERENCES \PYZdq{}LOTBOUTEILLE\PYZdq{} (\PYZdq{}idlotbouteille\PYZdq{}),
+           FOREIGN KEY (\PYZdq{}idsite\PYZdq{}) REFERENCES \PYZdq{}SITE\PYZdq{} (\PYZdq{}idsite\PYZdq{})
          );
          
-         INSERT INTO Classe VALUES(0, \PYZsq{}chose\PYZsq{});
-         INSERT INTO Classe VALUES(1, \PYZsq{}animal\PYZsq{});
-         INSERT INTO Classe VALUES(2, \PYZsq{}humain\PYZsq{});
-         INSERT INTO Classe VALUES(3, \PYZsq{}enseignant\PYZsq{});
-         INSERT INTO Classe VALUES(4, \PYZsq{}chat\PYZsq{});
-         INSERT INTO Classe VALUES(5, \PYZsq{}science\PYZsq{});
          
-         INSERT INTO Herite VALUES(1, 0);
-         INSERT INTO Herite VALUES(2, 1);
-         INSERT INTO Herite VALUES(3, 2);
-         INSERT INTO Herite VALUES(4, 1);
-         INSERT INTO Herite VALUES(3, 5);
-\end{Verbatim}
-
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-Done.
-Done.
-1 rows affected.
-1 rows affected.
-1 rows affected.
-1 rows affected.
-1 rows affected.
-1 rows affected.
-1 rows affected.
-1 rows affected.
-1 rows affected.
-
-    \end{Verbatim}
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-
-        ---------------------------------------------------------------------------
-
-        IntegrityError                            Traceback (most recent call last)
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/sqlalchemy/engine/base.py in \_execute\_context(self, dialect, constructor, statement, parameters, *args)
-       1283                     self.dialect.do\_execute(
-    -> 1284                         cursor, statement, parameters, context
-       1285                     )
-
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/sqlalchemy/engine/default.py in do\_execute(self, cursor, statement, parameters, context)
-        589     def do\_execute(self, cursor, statement, parameters, context=None):
-    --> 590         cursor.execute(statement, parameters)
-        591 
-
-
-        IntegrityError: UNIQUE constraint failed: Herite.parent
-
-        
-    The above exception was the direct cause of the following exception:
-
-
-        IntegrityError                            Traceback (most recent call last)
-
-        <ipython-input-52-e73c42513e64> in <module>
-    ----> 1 get\_ipython().run\_cell\_magic('sql', '', "\textbackslash{}nCREATE TABLE Classe(\textbackslash{}n  id INTEGER PRIMARY KEY,\textbackslash{}n  description TEXT\textbackslash{}n);\textbackslash{}n\textbackslash{}nCREATE TABLE Herite(\textbackslash{}n  enfant INT REFERENCES Classe(id),\textbackslash{}n  parent INT REFERENCES Classe(id),\textbackslash{}n  PRIMARY KEY (parent)\textbackslash{}n);\textbackslash{}n\textbackslash{}nINSERT INTO Classe VALUES(0, 'chose');\textbackslash{}nINSERT INTO Classe VALUES(1, 'animal');\textbackslash{}nINSERT INTO Classe VALUES(2, 'humain');\textbackslash{}nINSERT INTO Classe VALUES(3, 'enseignant');\textbackslash{}nINSERT INTO Classe VALUES(4, 'chat');\textbackslash{}nINSERT INTO Classe VALUES(5, 'science');\textbackslash{}n\textbackslash{}nINSERT INTO Herite VALUES(1, 0);\textbackslash{}nINSERT INTO Herite VALUES(2, 1);\textbackslash{}nINSERT INTO Herite VALUES(3, 2);\textbackslash{}nINSERT INTO Herite VALUES(4, 1);\textbackslash{}nINSERT INTO Herite VALUES(3, 5);\textbackslash{}n")
-    
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/IPython/core/interactiveshell.py in run\_cell\_magic(self, magic\_name, line, cell)
-       2360     def system\_raw(self, cmd):
-       2361         """Call the given cmd in a subprocess using os.system on Windows or
-    -> 2362         subprocess.call using the system shell on other platforms.
-       2363 
-       2364         Parameters
-
-
-        <decorator-gen-157> in execute(self, line, cell, local\_ns)
-
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/IPython/core/magic.py in <lambda>(f, *a, **k)
-        185     """Decorator factory for methods in Magics subclasses.
-        186     """
-    --> 187 
-        188     validate\_type(magic\_kind)
-        189 
-
-
-        <decorator-gen-156> in execute(self, line, cell, local\_ns)
-
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/IPython/core/magic.py in <lambda>(f, *a, **k)
-        185     """Decorator factory for methods in Magics subclasses.
-        186     """
-    --> 187 
-        188     validate\_type(magic\_kind)
-        189 
-
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/sql/magic.py in execute(self, line, cell, local\_ns)
-        215 
-        216         try:
-    --> 217             result = sql.run.run(conn, parsed["sql"], self, user\_ns)
-        218 
-        219             if (
-
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/sql/run.py in run(conn, sql, config, user\_namespace)
-        365             else:
-        366                 txt = sqlalchemy.sql.text(statement)
-    --> 367                 result = conn.session.execute(txt, user\_namespace)
-        368             \_commit(conn=conn, config=config)
-        369             if result and config.feedback:
-
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/sqlalchemy/engine/base.py in execute(self, object\_, *multiparams, **params)
-       1018             )
-       1019         else:
-    -> 1020             return meth(self, multiparams, params)
-       1021 
-       1022     def \_execute\_function(self, func, multiparams, params):
-
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/sqlalchemy/sql/elements.py in \_execute\_on\_connection(self, connection, multiparams, params)
-        296     def \_execute\_on\_connection(self, connection, multiparams, params):
-        297         if self.supports\_execution:
-    --> 298             return connection.\_execute\_clauseelement(self, multiparams, params)
-        299         else:
-        300             raise exc.ObjectNotExecutableError(self)
-
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/sqlalchemy/engine/base.py in \_execute\_clauseelement(self, elem, multiparams, params)
-       1137             distilled\_params,
-       1138             compiled\_sql,
-    -> 1139             distilled\_params,
-       1140         )
-       1141         if self.\_has\_events or self.engine.\_has\_events:
-
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/sqlalchemy/engine/base.py in \_execute\_context(self, dialect, constructor, statement, parameters, *args)
-       1322         except BaseException as e:
-       1323             self.\_handle\_dbapi\_exception(
-    -> 1324                 e, statement, parameters, cursor, context
-       1325             )
-       1326 
-
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/sqlalchemy/engine/base.py in \_handle\_dbapi\_exception(self, e, statement, parameters, cursor, context)
-       1516             elif should\_wrap:
-       1517                 util.raise\_(
-    -> 1518                     sqlalchemy\_exception, with\_traceback=exc\_info[2], from\_=e
-       1519                 )
-       1520             else:
-
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/sqlalchemy/util/compat.py in raise\_(***failed resolving arguments***)
-        176 
-        177         try:
-    --> 178             raise exception
-        179         finally:
-        180             \# credit to
-
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/sqlalchemy/engine/base.py in \_execute\_context(self, dialect, constructor, statement, parameters, *args)
-       1282                 if not evt\_handled:
-       1283                     self.dialect.do\_execute(
-    -> 1284                         cursor, statement, parameters, context
-       1285                     )
-       1286 
-
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/sqlalchemy/engine/default.py in do\_execute(self, cursor, statement, parameters, context)
-        588 
-        589     def do\_execute(self, cursor, statement, parameters, context=None):
-    --> 590         cursor.execute(statement, parameters)
-        591 
-        592     def do\_execute\_no\_params(self, cursor, statement, context=None):
-
-
-        IntegrityError: (sqlite3.IntegrityError) UNIQUE constraint failed: Herite.parent
-    [SQL: INSERT INTO Herite VALUES(4, 1);]
-    (Background on this error at: http://sqlalche.me/e/gkpj)
-
-    \end{Verbatim}
-
-    \textbf{Exercice} : mêmes questions que précédemment si on enlève
-simplement la contrainte \texttt{PRIMARY\ KEY\ (enfant,\ parent)}.
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}106}]:} \PY{o}{\PYZpc{}}\PY{k}{sql} sqlite:///exo1\PYZhy{}q10.db
-\end{Verbatim}
-
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}107}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{sql}
-          
-          PRAGMA foreign\PYZus{}keys=1;
-\end{Verbatim}
-
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-Done.
-
-    \end{Verbatim}
-
-\begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}107}]:} []
-\end{Verbatim}
-            
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}108}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{sql}
-          
-          CREATE TABLE Classe(
-            id INTEGER PRIMARY KEY,
-            description TEXT
-          );
-          
-          CREATE TABLE Herite(
-            enfant INT REFERENCES Classe(id),
-            parent INT REFERENCES Classe(id)
-              )
-          ;
-          
-          INSERT INTO Classe VALUES(0, \PYZsq{}chose\PYZsq{});
-          INSERT INTO Classe VALUES(1, \PYZsq{}animal\PYZsq{});
-          INSERT INTO Classe VALUES(2, \PYZsq{}humain\PYZsq{});
-          INSERT INTO Classe VALUES(3, \PYZsq{}enseignant\PYZsq{});
-          INSERT INTO Classe VALUES(4, \PYZsq{}chat\PYZsq{});
-          INSERT INTO Classe VALUES(5, \PYZsq{}science\PYZsq{});
-          
-          INSERT INTO Herite VALUES(1, 0);
-          INSERT INTO Herite VALUES(2, 1);
-          INSERT INTO Herite VALUES(3, 2);
-          INSERT INTO Herite VALUES(4, 1);
-          INSERT INTO Herite VALUES(3, 5);
-\end{Verbatim}
-
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-Done.
-Done.
-1 rows affected.
-1 rows affected.
-1 rows affected.
-1 rows affected.
-1 rows affected.
-1 rows affected.
-1 rows affected.
-1 rows affected.
-1 rows affected.
-1 rows affected.
-1 rows affected.
-
-    \end{Verbatim}
-
-\begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}108}]:} []
-\end{Verbatim}
-            
-    On a toujours une contrainte d'intégrité avec la clef \texttt{id} dans
-la table \texttt{Classe}, on ne peut pas insérer un tuple avec un
-\texttt{id} déjà attibué
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}109}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{sql}
-          
-          INSERT INTO Classe VALUES(0, \PYZsq{}patate\PYZsq{});
-          
-          \PYZhy{}\PYZhy{} IntegrityError: (sqlite3.IntegrityError) UNIQUE constraint failed: Classe.id
-          [SQL: INSERT INTO Classe VALUES(0, \PYZsq{}patate\PYZsq{});]
-\end{Verbatim}
-
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-
-        ---------------------------------------------------------------------------
-
-        IntegrityError                            Traceback (most recent call last)
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/sqlalchemy/engine/base.py in \_execute\_context(self, dialect, constructor, statement, parameters, *args)
-       1283                     self.dialect.do\_execute(
-    -> 1284                         cursor, statement, parameters, context
-       1285                     )
-
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/sqlalchemy/engine/default.py in do\_execute(self, cursor, statement, parameters, context)
-        589     def do\_execute(self, cursor, statement, parameters, context=None):
-    --> 590         cursor.execute(statement, parameters)
-        591 
-
-
-        IntegrityError: UNIQUE constraint failed: Classe.id
-
-        
-    The above exception was the direct cause of the following exception:
-
-
-        IntegrityError                            Traceback (most recent call last)
-
-        <ipython-input-109-13f5cdc438b7> in <module>
-    ----> 1 get\_ipython().run\_cell\_magic('sql', '', "\textbackslash{}nINSERT INTO Classe VALUES(0, 'patate');\textbackslash{}n\textbackslash{}n-- IntegrityError: (sqlite3.IntegrityError) UNIQUE constraint failed: Classe.id\textbackslash{}n[SQL: INSERT INTO Classe VALUES(0, 'patate');]\textbackslash{}n")
-    
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/IPython/core/interactiveshell.py in run\_cell\_magic(self, magic\_name, line, cell)
-       2360     def system\_raw(self, cmd):
-       2361         """Call the given cmd in a subprocess using os.system on Windows or
-    -> 2362         subprocess.call using the system shell on other platforms.
-       2363 
-       2364         Parameters
-
-
-        <decorator-gen-157> in execute(self, line, cell, local\_ns)
-
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/IPython/core/magic.py in <lambda>(f, *a, **k)
-        185     """Decorator factory for methods in Magics subclasses.
-        186     """
-    --> 187 
-        188     validate\_type(magic\_kind)
-        189 
-
-
-        <decorator-gen-156> in execute(self, line, cell, local\_ns)
-
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/IPython/core/magic.py in <lambda>(f, *a, **k)
-        185     """Decorator factory for methods in Magics subclasses.
-        186     """
-    --> 187 
-        188     validate\_type(magic\_kind)
-        189 
-
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/sql/magic.py in execute(self, line, cell, local\_ns)
-        215 
-        216         try:
-    --> 217             result = sql.run.run(conn, parsed["sql"], self, user\_ns)
-        218 
-        219             if (
-
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/sql/run.py in run(conn, sql, config, user\_namespace)
-        365             else:
-        366                 txt = sqlalchemy.sql.text(statement)
-    --> 367                 result = conn.session.execute(txt, user\_namespace)
-        368             \_commit(conn=conn, config=config)
-        369             if result and config.feedback:
-
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/sqlalchemy/engine/base.py in execute(self, object\_, *multiparams, **params)
-       1018             )
-       1019         else:
-    -> 1020             return meth(self, multiparams, params)
-       1021 
-       1022     def \_execute\_function(self, func, multiparams, params):
-
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/sqlalchemy/sql/elements.py in \_execute\_on\_connection(self, connection, multiparams, params)
-        296     def \_execute\_on\_connection(self, connection, multiparams, params):
-        297         if self.supports\_execution:
-    --> 298             return connection.\_execute\_clauseelement(self, multiparams, params)
-        299         else:
-        300             raise exc.ObjectNotExecutableError(self)
-
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/sqlalchemy/engine/base.py in \_execute\_clauseelement(self, elem, multiparams, params)
-       1137             distilled\_params,
-       1138             compiled\_sql,
-    -> 1139             distilled\_params,
-       1140         )
-       1141         if self.\_has\_events or self.engine.\_has\_events:
-
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/sqlalchemy/engine/base.py in \_execute\_context(self, dialect, constructor, statement, parameters, *args)
-       1322         except BaseException as e:
-       1323             self.\_handle\_dbapi\_exception(
-    -> 1324                 e, statement, parameters, cursor, context
-       1325             )
-       1326 
-
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/sqlalchemy/engine/base.py in \_handle\_dbapi\_exception(self, e, statement, parameters, cursor, context)
-       1516             elif should\_wrap:
-       1517                 util.raise\_(
-    -> 1518                     sqlalchemy\_exception, with\_traceback=exc\_info[2], from\_=e
-       1519                 )
-       1520             else:
-
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/sqlalchemy/util/compat.py in raise\_(***failed resolving arguments***)
-        176 
-        177         try:
-    --> 178             raise exception
-        179         finally:
-        180             \# credit to
-
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/sqlalchemy/engine/base.py in \_execute\_context(self, dialect, constructor, statement, parameters, *args)
-       1282                 if not evt\_handled:
-       1283                     self.dialect.do\_execute(
-    -> 1284                         cursor, statement, parameters, context
-       1285                     )
-       1286 
-
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/sqlalchemy/engine/default.py in do\_execute(self, cursor, statement, parameters, context)
-        588 
-        589     def do\_execute(self, cursor, statement, parameters, context=None):
-    --> 590         cursor.execute(statement, parameters)
-        591 
-        592     def do\_execute\_no\_params(self, cursor, statement, context=None):
-
-
-        IntegrityError: (sqlite3.IntegrityError) UNIQUE constraint failed: Classe.id
-    [SQL: INSERT INTO Classe VALUES(0, 'patate');]
-    (Background on this error at: http://sqlalche.me/e/gkpj)
-
-    \end{Verbatim}
-
-    En revanche, on n'a plus de contrainte d'intégrité sur l'unicité dans la
-table \texttt{Herite} (qui n'a plus de clef prmimaire).
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}112}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{sql}
-          
-          INSERT INTO Herite VALUES(1, 0);
-\end{Verbatim}
-
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-1 rows affected.
-
-    \end{Verbatim}
-
-\begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}112}]:} []
-\end{Verbatim}
-            
-    On a toujours la contrainte d'intégrité référentielle entre les colonnes
-\texttt{enfant} et \texttt{parent} de la table \texttt{Herite} et la
-colonne \texttt{id} de la table \texttt{Classe} (contrainte de clef
-étangère).
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}110}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{sql}
-          
-          INSERT INTO Herite VALUES(1, 7);
-          
-          \PYZhy{}\PYZhy{}IntegrityError: (sqlite3.IntegrityError) FOREIGN KEY constraint failed
-          [SQL: INSERT INTO Herite VALUES(1, 7);]
-\end{Verbatim}
-
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-
-        ---------------------------------------------------------------------------
-
-        IntegrityError                            Traceback (most recent call last)
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/sqlalchemy/engine/base.py in \_execute\_context(self, dialect, constructor, statement, parameters, *args)
-       1283                     self.dialect.do\_execute(
-    -> 1284                         cursor, statement, parameters, context
-       1285                     )
-
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/sqlalchemy/engine/default.py in do\_execute(self, cursor, statement, parameters, context)
-        589     def do\_execute(self, cursor, statement, parameters, context=None):
-    --> 590         cursor.execute(statement, parameters)
-        591 
-
-
-        IntegrityError: FOREIGN KEY constraint failed
-
-        
-    The above exception was the direct cause of the following exception:
-
-
-        IntegrityError                            Traceback (most recent call last)
-
-        <ipython-input-110-b5eb68a35a96> in <module>
-    ----> 1 get\_ipython().run\_cell\_magic('sql', '', '\textbackslash{}nINSERT INTO Herite VALUES(1, 7);\textbackslash{}n')
-    
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/IPython/core/interactiveshell.py in run\_cell\_magic(self, magic\_name, line, cell)
-       2360     def system\_raw(self, cmd):
-       2361         """Call the given cmd in a subprocess using os.system on Windows or
-    -> 2362         subprocess.call using the system shell on other platforms.
-       2363 
-       2364         Parameters
-
-
-        <decorator-gen-157> in execute(self, line, cell, local\_ns)
-
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/IPython/core/magic.py in <lambda>(f, *a, **k)
-        185     """Decorator factory for methods in Magics subclasses.
-        186     """
-    --> 187 
-        188     validate\_type(magic\_kind)
-        189 
-
-
-        <decorator-gen-156> in execute(self, line, cell, local\_ns)
-
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/IPython/core/magic.py in <lambda>(f, *a, **k)
-        185     """Decorator factory for methods in Magics subclasses.
-        186     """
-    --> 187 
-        188     validate\_type(magic\_kind)
-        189 
-
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/sql/magic.py in execute(self, line, cell, local\_ns)
-        215 
-        216         try:
-    --> 217             result = sql.run.run(conn, parsed["sql"], self, user\_ns)
-        218 
-        219             if (
-
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/sql/run.py in run(conn, sql, config, user\_namespace)
-        365             else:
-        366                 txt = sqlalchemy.sql.text(statement)
-    --> 367                 result = conn.session.execute(txt, user\_namespace)
-        368             \_commit(conn=conn, config=config)
-        369             if result and config.feedback:
-
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/sqlalchemy/engine/base.py in execute(self, object\_, *multiparams, **params)
-       1018             )
-       1019         else:
-    -> 1020             return meth(self, multiparams, params)
-       1021 
-       1022     def \_execute\_function(self, func, multiparams, params):
-
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/sqlalchemy/sql/elements.py in \_execute\_on\_connection(self, connection, multiparams, params)
-        296     def \_execute\_on\_connection(self, connection, multiparams, params):
-        297         if self.supports\_execution:
-    --> 298             return connection.\_execute\_clauseelement(self, multiparams, params)
-        299         else:
-        300             raise exc.ObjectNotExecutableError(self)
-
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/sqlalchemy/engine/base.py in \_execute\_clauseelement(self, elem, multiparams, params)
-       1137             distilled\_params,
-       1138             compiled\_sql,
-    -> 1139             distilled\_params,
-       1140         )
-       1141         if self.\_has\_events or self.engine.\_has\_events:
-
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/sqlalchemy/engine/base.py in \_execute\_context(self, dialect, constructor, statement, parameters, *args)
-       1322         except BaseException as e:
-       1323             self.\_handle\_dbapi\_exception(
-    -> 1324                 e, statement, parameters, cursor, context
-       1325             )
-       1326 
-
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/sqlalchemy/engine/base.py in \_handle\_dbapi\_exception(self, e, statement, parameters, cursor, context)
-       1516             elif should\_wrap:
-       1517                 util.raise\_(
-    -> 1518                     sqlalchemy\_exception, with\_traceback=exc\_info[2], from\_=e
-       1519                 )
-       1520             else:
-
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/sqlalchemy/util/compat.py in raise\_(***failed resolving arguments***)
-        176 
-        177         try:
-    --> 178             raise exception
-        179         finally:
-        180             \# credit to
-
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/sqlalchemy/engine/base.py in \_execute\_context(self, dialect, constructor, statement, parameters, *args)
-       1282                 if not evt\_handled:
-       1283                     self.dialect.do\_execute(
-    -> 1284                         cursor, statement, parameters, context
-       1285                     )
-       1286 
-
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/sqlalchemy/engine/default.py in do\_execute(self, cursor, statement, parameters, context)
-        588 
-        589     def do\_execute(self, cursor, statement, parameters, context=None):
-    --> 590         cursor.execute(statement, parameters)
-        591 
-        592     def do\_execute\_no\_params(self, cursor, statement, context=None):
-
-
-        IntegrityError: (sqlite3.IntegrityError) FOREIGN KEY constraint failed
-    [SQL: INSERT INTO Herite VALUES(1, 7);]
-    (Background on this error at: http://sqlalche.me/e/gkpj)
-
-    \end{Verbatim}
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}96}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{sql}
          
-         INSERT INTO Herite VALUES(1, 7);
-\end{Verbatim}
-
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-1 rows affected.
-
-    \end{Verbatim}
-
-\begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}96}]:} []
-\end{Verbatim}
-            
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}113}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{sql} 
-          
-          SELECT * FROM Herite;
+         
+         CREATE TABLE \PYZdq{}DOMAINE\PYZdq{} (
+            \PYZdq{}iddomaine\PYZdq{} INTEGER NOT NULL PRIMARY KEY,
+             \PYZdq{}nom\PYZdq{} VARCHAR(42)  NOT NULL,       \PYZhy{}\PYZhy{} un nom de domaine n\PYZsq{}est pas forcément unique (des domaines de même nom dans des régions différentes)  
+           \PYZdq{}idrégion\PYZdq{} INTEGER NOT NULL,
+           \PYZdq{}idcuvée\PYZdq{} INTEGER NOT NULL,
+           \PYZdq{}idappellation\PYZdq{} INTEGER NOT NULL,
+           FOREIGN KEY (\PYZdq{}idappellation\PYZdq{}) REFERENCES \PYZdq{}APPELLATION\PYZdq{} (\PYZdq{}idappellation\PYZdq{}),
+           FOREIGN KEY (\PYZdq{}idcuvée\PYZdq{}) REFERENCES \PYZdq{}CUVÉE\PYZdq{} (\PYZdq{}idcuvée\PYZdq{}),
+           FOREIGN KEY (\PYZdq{}idrégion\PYZdq{}) REFERENCES \PYZdq{}RÉGION\PYZdq{} (\PYZdq{}idrégion\PYZdq{})
+         );
+         
+         
+         CREATE TABLE \PYZdq{}LOTBOUTEILLE\PYZdq{} (
+           \PYZdq{}idlotbouteille\PYZdq{} INTEGER NOT NULL PRIMARY KEY,
+           \PYZdq{}volume\PYZdq{} REAL NOT NULL CHECK(volume \PYZgt{}= 0),
+           \PYZdq{}degré\PYZdq{} REAL  CHECK(degré \PYZgt{}= 0),
+           \PYZdq{}prix\PYZdq{} REAL  CHECK(prix \PYZgt{}= 0),
+           \PYZdq{}commentaire\PYZdq{} TEXT,  \PYZhy{}\PYZhy{}peut être NULL
+           \PYZdq{}millésime\PYZdq{} INTEGER CHECK(millésime \PYZgt{}= 0),
+           \PYZdq{}couleur\PYZdq{} VARCHAR(5) NOT NULL CHECK(lower(couleur) in (\PYZdq{}blanc\PYZdq{}, \PYZdq{}rosé\PYZdq{}, \PYZdq{}rouge\PYZdq{})),
+           \PYZdq{}iddomaine\PYZdq{} INTEGER NOT NULL,
+           FOREIGN KEY (\PYZdq{}iddomaine\PYZdq{}) REFERENCES \PYZdq{}DOMAINE\PYZdq{} (\PYZdq{}iddomaine\PYZdq{})
+         );
+         
+         
+         CREATE TABLE \PYZdq{}RÉGION\PYZdq{} (
+           \PYZdq{}idrégion\PYZdq{}  INTEGER NOT NULL PRIMARY KEY,
+           \PYZdq{}nom\PYZdq{} NOT NULL  UNIQUE
+         );
+         
+         CREATE TABLE \PYZdq{}CUVÉE\PYZdq{} (
+           \PYZdq{}idcuvée\PYZdq{}  INTEGER NOT NULL PRIMARY KEY,
+           \PYZdq{}nom\PYZdq{} VARCHAR(42)   UNIQUE                \PYZhy{}\PYZhy{}un nom de cuvée est unique mais peut être vide
+         );
+         
+         CREATE TABLE \PYZdq{}SITE\PYZdq{} (
+           \PYZdq{}idsite\PYZdq{} INTEGER NOT NULL PRIMARY KEY,
+           \PYZdq{}description\PYZdq{} VARCHAR(42) NOT NULL UNIQUE  
+         );
 \end{Verbatim}
 
 
     \begin{Verbatim}[commandchars=\\\{\}]
 Done.
-
-    \end{Verbatim}
-
-\begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}113}]:} [(1, 0), (2, 1), (3, 2), (4, 1), (3, 5), (1, 0)]
-\end{Verbatim}
-            
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}114}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{sql} 
-          
-          SELECT * FROM Classe;
-\end{Verbatim}
-
-
-    \begin{Verbatim}[commandchars=\\\{\}]
+Done.
+Done.
+Done.
+Done.
+Done.
 Done.
 
     \end{Verbatim}
 
 \begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}114}]:} [(0, 'chose'),
-           (1, 'animal'),
-           (2, 'humain'),
-           (3, 'enseignant'),
-           (4, 'chat'),
-           (5, 'science')]
+{\color{outcolor}Out[{\color{outcolor}29}]:} []
 \end{Verbatim}
             
-    \begin{itemize}
-\tightlist
-\item
-  Diagramme entité relation dans ce cas :
-\end{itemize}
-
-\begin{figure}
-\centering
-\includegraphics{mocodo/Classes/Classes.png}
-\caption{Classe\_parents2.png}
-\end{figure}
+    \hypertarget{probluxe8mes-de-qualituxe9-des-donnuxe9es-que-nous-risquons-de-rencontrer-lors-du-peuplement-de-la-table}{%
+\subsection{Problèmes de qualité des données que nous risquons de
+rencontrer lors du peuplement de la
+table}\label{probluxe8mes-de-qualituxe9-des-donnuxe9es-que-nous-risquons-de-rencontrer-lors-du-peuplement-de-la-table}}
 
 \begin{itemize}
 \tightlist
 \item
-  Schéma SQL :
+  Le deuxième schéma propose un meilleur découpage des données entre
+  stockage, lot de bouteille et terroir (domaine, région, appellation)
+\item
+  Un même lot de bouteilles peut être stocké dans plusieurs sites grace
+  à la table stockage : on distinguera par exemple dans la table site
+  les deux sites de stockage sur Lyon. On a supprimé l'attribut total
+  pour un lot de bouteilles, on peut le retrouver en faisant la somme
+  des nombres de bouteilles de tous les stockages associés à un lot.
+\item
+  avec ce modèle on ne peut pas distinguer des achats du même millés
+\item
+  Les orthographes de certains attibuts (régions, appellations) sont
+  variables
+\item
+  Les formats des titrages en degrés sont variables
+\item
 \end{itemize}
 
-{Classe} ( {id}, {description} )
+    \hypertarget{rajout-dun-table-duxe9gustation-pour-historiser-les-duxe9gustations}{%
+\subsection{Rajout d'un table Dégustation pour historiser les
+dégustations}\label{rajout-dun-table-duxe9gustation-pour-historiser-les-duxe9gustations}}
 
-Le champ id constitue la clef primaire de la table. C'était déjà un
-identifiant de l'entité Classe.
+\begin{figure}
+\centering
+\includegraphics{mocodo/Stockages/Stockages.png}
+\caption{diagramme E/A}
+\end{figure}
 
-Le champ description était déjà un simple attribut de l'entité Classe.
+{Site} ( {idSite}, {description} )
 
-{Herite} ( {id}, {id.1} )
+Le champ idSite constitue la clef primaire de la table. C'était déjà un
+identifiant de l'entité Site.
 
-Les champs id et id.1 constituent la clef primaire de la table. Ce sont
-des clefs étrangères qui ont migré directement à partir de l'entité
-Classe.
+Le champ description était déjà un simple attribut de l'entité Site.
+
+{Région} ( {idRégion}, {nom} )
+
+Le champ idRégion constitue la clef primaire de la table. C'était déjà
+un identifiant de l'entité Région.
+
+Le champ nom était déjà un simple attribut de l'entité Région.
+
+{Cuvée} ( {idCuvée}, {nom} )
+
+Le champ idCuvée constitue la clef primaire de la table. C'était déjà un
+identifiant de l'entité Cuvée.
+
+Le champ nom était déjà un simple attribut de l'entité Cuvée.
+
+{Stockage} ( {idStockage}, {idLotBouteille}, {idSite}, {nombre},
+{idLotBouteille.1}, {idSite.1} )
+
+Les champs idStockage, idLotBouteille et idSite constituent la clef
+primaire de la table. C'était déjà des identifiants de l'entité
+Stockage.
+
+Le champ nombre était déjà un simple attribut de l'entité Stockage.
+
+Le champ idLotBouteille.1 est une clef étrangère. Il a migré à partir de
+l'entité LotBouteille par l'association de dépendance fonctionnelle
+Admet pour stockage en perdant son caractère identifiant.
+
+Le champ idSite.1 est une clef étrangère. Il a migré à partir de
+l'entité Site par l'association de dépendance fonctionnelle Stocké à en
+perdant son caractère identifiant.
+
+{Domaine} ( {idDomaine}, {nom}, {idRégion}, {idCuvée}, {idAppellation},
+{idAppellation.1}, {idCuvée.1}, {idRégion.1} )
+
+Le champ idDomaine constitue la clef primaire de la table. C'était déjà
+un identifiant de l'entité Domaine.
+
+Les champs nom, idRégion, idCuvée et idAppellation étaient déjà de
+simples attributs de l'entité Domaine.
+
+Le champ idAppellation.1 est une clef étrangère. Il a migré à partir de
+l'entité Appellation par l'association de dépendance fonctionnelle De
+l'appellation en perdant son caractère identifiant.
+
+Le champ idCuvée.1 est une clef étrangère. Il a migré à partir de
+l'entité Cuvée par l'association de dépendance fonctionnelle De la cuvée
+en perdant son caractère identifiant.
+
+Le champ idRégion.1 est une clef étrangère. Il a migré à partir de
+l'entité Région par l'association de dépendance fonctionnelle Dans la
+région en perdant son caractère identifiant.
+
+{Dégustation} ( {idDégustation}, {date}, {idStockage}, {idStockage.1},
+{idLotBouteille}, {idSite} )
+
+Le champ idDégustation constitue la clef primaire de la table. C'était
+déjà un identifiant de l'entité Dégustation.
+
+Les champs date et idStockage étaient déjà de simples attributs de
+l'entité Dégustation.
+
+Le champ idStockage.1 est une clef étrangère. Il a migré à partir de
+l'entité Stockage par l'association de dépendance fonctionnelle A été
+dégustée en perdant son caractère identifiant.
+
+Le champ idLotBouteille est une clef étrangère. Il a migré à partir de
+l'entité Stockage par l'association de dépendance fonctionnelle A été
+dégustée en perdant son caractère identifiant.
+
+Le champ idSite est une clef étrangère. Il a migré à partir de l'entité
+Stockage par l'association de dépendance fonctionnelle A été dégustée en
+perdant son caractère identifiant.
+
+{LotBouteille} ( {idLotBouteille}, {volume}, {degré}, {prix}, {couleur},
+{commentaire}, {millésime}, {idDomaine}, {idDomaine.1} )
+
+Le champ idLotBouteille constitue la clef primaire de la table. C'était
+déjà un identifiant de l'entité LotBouteille.
+
+Les champs volume, degré, prix, couleur, commentaire, millésime et
+idDomaine étaient déjà de simples attributs de l'entité LotBouteille.
+
+Le champ idDomaine.1 est une clef étrangère. Il a migré à partir de
+l'entité Domaine par l'association de dépendance fonctionnelle Du
+domaine en perdant son caractère identifiant.
+
+{Appellation} ( {idAppellation}, {type}, {nom} )
+
+Le champ idAppellation constitue la clef primaire de la table. C'était
+déjà un identifiant de l'entité Appellation.
+
+Les champs type et nom étaient déjà de simples attributs de l'entité
+Appellation.
+
+\textbf{Schéma SQL}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{.}\KeywordTok{open} \OtherTok{"CLASSES"}\NormalTok{;}
-
-\KeywordTok{CREATE} \KeywordTok{TABLE} \OtherTok{"CLASSE"}\NormalTok{ (}
-  \OtherTok{"id"} \DataTypeTok{VARCHAR}\NormalTok{(}\DecValTok{42}\NormalTok{),}
-  \OtherTok{"description"} \DataTypeTok{VARCHAR}\NormalTok{(}\DecValTok{42}\NormalTok{),}
-  \KeywordTok{PRIMARY} \KeywordTok{KEY}\NormalTok{ (}\OtherTok{"id"}\NormalTok{)}
+\KeywordTok{CREATE} \KeywordTok{TABLE} \OtherTok{"RÉGION"}\NormalTok{ (}
+  \OtherTok{"idrégion"}  \DataTypeTok{INTEGER} \KeywordTok{NOT} \KeywordTok{NULL} \KeywordTok{PRIMARY} \KeywordTok{KEY}\NormalTok{,}
+  \OtherTok{"nom"} \KeywordTok{NOT} \KeywordTok{NULL}  \KeywordTok{UNIQUE}
 \NormalTok{);}
 
-\KeywordTok{CREATE} \KeywordTok{TABLE} \OtherTok{"HERITE"}\NormalTok{ (}
-  \OtherTok{"id"} \DataTypeTok{VARCHAR}\NormalTok{(}\DecValTok{42}\NormalTok{),}
-  \OtherTok{"id\_1"} \DataTypeTok{VARCHAR}\NormalTok{(}\DecValTok{42}\NormalTok{),}
-  \KeywordTok{PRIMARY} \KeywordTok{KEY}\NormalTok{ (}\OtherTok{"id"}\NormalTok{, }\OtherTok{"id\_1"}\NormalTok{),}
-  \KeywordTok{FOREIGN} \KeywordTok{KEY}\NormalTok{ (}\OtherTok{"id"}\NormalTok{) }\KeywordTok{REFERENCES} \OtherTok{"CLASSE"}\NormalTok{ (}\OtherTok{"id"}\NormalTok{),}
-  \KeywordTok{FOREIGN} \KeywordTok{KEY}\NormalTok{ (}\OtherTok{"id\_1"}\NormalTok{) }\KeywordTok{REFERENCES} \OtherTok{"CLASSE"}\NormalTok{ (}\OtherTok{"id"}\NormalTok{)}
+\KeywordTok{CREATE} \KeywordTok{TABLE} \OtherTok{"CUVÉE"}\NormalTok{ (}
+  \OtherTok{"idcuvée"}  \DataTypeTok{INTEGER} \KeywordTok{NOT} \KeywordTok{NULL} \KeywordTok{PRIMARY} \KeywordTok{KEY}\NormalTok{,}
+  \OtherTok{"nom"} \DataTypeTok{VARCHAR}\NormalTok{(}\DecValTok{42}\NormalTok{)   }\KeywordTok{UNIQUE}                \CommentTok{{-}{-}un nom de cuvée est unique mais peut être vide}
+\NormalTok{);}
+
+\KeywordTok{CREATE} \KeywordTok{TABLE} \OtherTok{"SITE"}\NormalTok{ (}
+  \OtherTok{"idsite"} \DataTypeTok{INTEGER} \KeywordTok{NOT} \KeywordTok{NULL} \KeywordTok{PRIMARY} \KeywordTok{KEY}\NormalTok{,}
+  \OtherTok{"description"} \DataTypeTok{VARCHAR}\NormalTok{(}\DecValTok{42}\NormalTok{) }\KeywordTok{NOT} \KeywordTok{NULL} \KeywordTok{UNIQUE}  
+\NormalTok{);}
+
+\KeywordTok{CREATE} \KeywordTok{TABLE} \OtherTok{"STOCKAGE"}\NormalTok{ (}
+  \OtherTok{"idstockage"} \DataTypeTok{INTEGER} \KeywordTok{NOT} \KeywordTok{NULL} \KeywordTok{PRIMARY} \KeywordTok{KEY}\NormalTok{,}
+  \OtherTok{"idlotbouteille"} \DataTypeTok{INTEGER} \KeywordTok{NOT} \KeywordTok{NULL}\NormalTok{,}
+  \OtherTok{"idsite"} \DataTypeTok{INTEGER} \KeywordTok{NOT} \KeywordTok{NULL}\NormalTok{,}
+  \OtherTok{"nombre"} \DataTypeTok{INTEGER} \KeywordTok{NOT} \KeywordTok{NULL}\NormalTok{,}
+ \CommentTok{{-}{-} PRIMARY KEY ("idstockage", "idlotbouteille"),}
+  \KeywordTok{FOREIGN} \KeywordTok{KEY}\NormalTok{ (}\OtherTok{"idlotbouteille"}\NormalTok{) }\KeywordTok{REFERENCES} \OtherTok{"LOTBOUTEILLE"}\NormalTok{ (}\OtherTok{"idlotbouteille"}\NormalTok{),}
+  \KeywordTok{FOREIGN} \KeywordTok{KEY}\NormalTok{ (}\OtherTok{"idsite"}\NormalTok{) }\KeywordTok{REFERENCES} \OtherTok{"SITE"}\NormalTok{ (}\OtherTok{"idsite"}\NormalTok{)}
+\NormalTok{);}
+
+
+
+\KeywordTok{CREATE} \KeywordTok{TABLE} \OtherTok{"DOMAINE"}\NormalTok{ (}
+   \OtherTok{"iddomaine"} \DataTypeTok{INTEGER} \KeywordTok{NOT} \KeywordTok{NULL} \KeywordTok{PRIMARY} \KeywordTok{KEY}\NormalTok{,}
+    \OtherTok{"nom"} \DataTypeTok{VARCHAR}\NormalTok{(}\DecValTok{42}\NormalTok{)  }\KeywordTok{NOT} \KeywordTok{NULL}\NormalTok{,       }\CommentTok{{-}{-} un nom de domaine n\textquotesingle{}est pas forcément unique (des domaines de même nom dans des régions différentes)  }
+  \OtherTok{"idrégion"} \DataTypeTok{INTEGER} \KeywordTok{NOT} \KeywordTok{NULL}\NormalTok{,}
+  \OtherTok{"idcuvée"} \DataTypeTok{INTEGER} \KeywordTok{NOT} \KeywordTok{NULL}\NormalTok{,}
+  \OtherTok{"idappellation"} \DataTypeTok{INTEGER} \KeywordTok{NOT} \KeywordTok{NULL}\NormalTok{,}
+  \KeywordTok{FOREIGN} \KeywordTok{KEY}\NormalTok{ (}\OtherTok{"idappellation"}\NormalTok{) }\KeywordTok{REFERENCES} \OtherTok{"APPELLATION"}\NormalTok{ (}\OtherTok{"idappellation"}\NormalTok{),}
+  \KeywordTok{FOREIGN} \KeywordTok{KEY}\NormalTok{ (}\OtherTok{"idcuvée"}\NormalTok{) }\KeywordTok{REFERENCES} \OtherTok{"CUVÉE"}\NormalTok{ (}\OtherTok{"idcuvée"}\NormalTok{),}
+  \KeywordTok{FOREIGN} \KeywordTok{KEY}\NormalTok{ (}\OtherTok{"idrégion"}\NormalTok{) }\KeywordTok{REFERENCES} \OtherTok{"RÉGION"}\NormalTok{ (}\OtherTok{"idrégion"}\NormalTok{)}
+\NormalTok{);}
+
+\KeywordTok{CREATE} \KeywordTok{TABLE} \OtherTok{"DÉGUSTATION"}\NormalTok{ (}
+  \OtherTok{"iddégustation"} \DataTypeTok{INTEGER} \KeywordTok{NOT} \KeywordTok{NULL} \KeywordTok{PRIMARY} \KeywordTok{KEY}\NormalTok{,}
+  \OtherTok{"date"} \DataTypeTok{VARCHAR}\NormalTok{(}\DecValTok{42}\NormalTok{),}
+  \OtherTok{"idstockage"} \DataTypeTok{INTEGER} \KeywordTok{NOT} \KeywordTok{NULL}\NormalTok{,}
+  \KeywordTok{FOREIGN} \KeywordTok{KEY}\NormalTok{ (}\OtherTok{"idstockage"}\NormalTok{) }\KeywordTok{REFERENCES} \OtherTok{"STOCKAGE"}\NormalTok{ (}\OtherTok{"idstockage"}\NormalTok{)}
+\NormalTok{);}
+
+
+\KeywordTok{CREATE} \KeywordTok{TABLE} \OtherTok{"LOTBOUTEILLE"}\NormalTok{ (}
+  \OtherTok{"idlotbouteille"} \DataTypeTok{INTEGER} \KeywordTok{NOT} \KeywordTok{NULL} \KeywordTok{PRIMARY} \KeywordTok{KEY}\NormalTok{,}
+  \OtherTok{"volume"} \DataTypeTok{REAL} \KeywordTok{NOT} \KeywordTok{NULL} \KeywordTok{CHECK}\NormalTok{(volume }\OperatorTok{>=} \DecValTok{0}\NormalTok{),}
+  \OtherTok{"degré"} \DataTypeTok{REAL}  \KeywordTok{CHECK}\NormalTok{(degré }\OperatorTok{>=} \DecValTok{0}\NormalTok{),}
+  \OtherTok{"prix"} \DataTypeTok{REAL}  \KeywordTok{CHECK}\NormalTok{(prix }\OperatorTok{>=} \DecValTok{0}\NormalTok{),}
+  \OtherTok{"commentaire"} \DataTypeTok{VARCHAR}\NormalTok{(}\DecValTok{42}\NormalTok{),  }\CommentTok{{-}{-}peut être NULL}
+  \OtherTok{"millésime"} \DataTypeTok{INTEGER} \KeywordTok{CHECK}\NormalTok{(millésime }\OperatorTok{>=} \DecValTok{0}\NormalTok{),}
+  \OtherTok{"couleur"} \DataTypeTok{VARCHAR}\NormalTok{(}\DecValTok{42}\NormalTok{) }\KeywordTok{NOT} \KeywordTok{NULL} \KeywordTok{CHECK}\NormalTok{(}\FunctionTok{lower}\NormalTok{(couleur) }\KeywordTok{in}\NormalTok{ (}\OtherTok{"blanc"}\NormalTok{, }\OtherTok{"rosé"}\NormalTok{, }\OtherTok{"rouge"}\NormalTok{)),}
+  \OtherTok{"iddomaine"} \DataTypeTok{INTEGER} \KeywordTok{NOT} \KeywordTok{NULL}\NormalTok{,}
+  \KeywordTok{FOREIGN} \KeywordTok{KEY}\NormalTok{ (}\OtherTok{"iddomaine"}\NormalTok{) }\KeywordTok{REFERENCES} \OtherTok{"DOMAINE"}\NormalTok{ (}\OtherTok{"iddomaine"}\NormalTok{)}
+\NormalTok{);}
+
+
+
+\KeywordTok{CREATE} \KeywordTok{TABLE} \OtherTok{"APPELLATION"}\NormalTok{ (}
+  \OtherTok{"idappellation"} \DataTypeTok{INTEGER} \KeywordTok{NOT} \KeywordTok{NULL} \KeywordTok{PRIMARY} \KeywordTok{KEY}\NormalTok{,}
+  \OtherTok{"type"} \DataTypeTok{VARCHAR}\NormalTok{(}\DecValTok{42}\NormalTok{) }\KeywordTok{CHECK}\NormalTok{( }\OtherTok{"type"} \KeywordTok{IN}\NormalTok{ (}\OtherTok{"AOC"}\NormalTok{, }\OtherTok{"VDP"}\NormalTok{, }\OtherTok{"IGP"}\NormalTok{)), }\CommentTok{{-}{-}NULL représenterait AOC}
+  \OtherTok{"nom"} \DataTypeTok{VARCHAR}\NormalTok{(}\DecValTok{42}\NormalTok{) }\KeywordTok{NOT} \KeywordTok{NULL}
 \NormalTok{);}
 \end{Highlighting}
 \end{Shaded}
 
-    \hypertarget{exercice-2-reprise-de-la-base-stanford}{%
-\subsection{\texorpdfstring{Exercice 2 : reprise de la base
-\emph{Stanford}}{Exercice 2 : reprise de la base Stanford}}\label{exercice-2-reprise-de-la-base-stanford}}
+    \hypertarget{version-de-brigitte}{%
+\subsection{Version de Brigitte}\label{version-de-brigitte}}
 
-On reprend la base \emph{Stanford} d'exemple de la première partie. Le
-script de création de table est le suivant.
+    \begin{figure}
+\centering
+\includegraphics{Brigitte/Tp2_CaveVin/Tp2_CaveVin.png}
+\caption{diagramme Brigitte}
+\end{figure}
+
+Description du schéma SQL :
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{create} \KeywordTok{table}\NormalTok{ College(}
-\NormalTok{    cName }\DataTypeTok{varchar}\NormalTok{(}\DecValTok{255}\NormalTok{),}
-\NormalTok{    state }\DataTypeTok{varchar}\NormalTok{(}\DecValTok{255}\NormalTok{),}
-\NormalTok{    enrollment }\DataTypeTok{int}\NormalTok{);}
-    
-\KeywordTok{create} \KeywordTok{table}\NormalTok{ Student(}
-\NormalTok{    sID }\DataTypeTok{int}\NormalTok{,}
-\NormalTok{    sName }\DataTypeTok{varchar}\NormalTok{(}\DecValTok{255}\NormalTok{),}
-\NormalTok{    GPA }\DataTypeTok{real}\NormalTok{, }\CommentTok{{-}{-} Grade Point Average, out of 4}
-\NormalTok{    sizeHS }\DataTypeTok{int}\NormalTok{);}
+\NormalTok{PRAGMA foreign\_keys}\OperatorTok{=}\DecValTok{1}\NormalTok{;}
 
-\KeywordTok{create} \KeywordTok{table}\NormalTok{ Apply(}
-\NormalTok{  sID }\DataTypeTok{int}\NormalTok{,}
-\NormalTok{  cName }\DataTypeTok{varchar}\NormalTok{(}\DecValTok{255}\NormalTok{),}
-\NormalTok{  major }\DataTypeTok{varchar}\NormalTok{(}\DecValTok{255}\NormalTok{),}
-\NormalTok{  decision }\DataTypeTok{char}\NormalTok{(}\DecValTok{1}\NormalTok{));}
+\KeywordTok{DROP} \KeywordTok{TABLE} \ControlFlowTok{if} \KeywordTok{EXISTS}\NormalTok{ Site;}
+\KeywordTok{DROP} \KeywordTok{TABLE} \ControlFlowTok{if} \KeywordTok{EXISTS}\NormalTok{ Stockage;}
+\KeywordTok{DROP} \KeywordTok{TABLE} \ControlFlowTok{if} \KeywordTok{EXISTS}\NormalTok{ Dégustation;}
+\KeywordTok{DROP} \KeywordTok{TABLE} \ControlFlowTok{if} \KeywordTok{EXISTS}\NormalTok{ LotBouteille;}
+\KeywordTok{DROP} \KeywordTok{TABLE} \ControlFlowTok{if} \KeywordTok{EXISTS}\NormalTok{ Région;}
+\KeywordTok{DROP} \KeywordTok{TABLE} \ControlFlowTok{if} \KeywordTok{EXISTS}\NormalTok{ Domaine;}
+\KeywordTok{DROP} \KeywordTok{TABLE} \ControlFlowTok{if} \KeywordTok{EXISTS}\NormalTok{ Cuvée; }
+\KeywordTok{DROP} \KeywordTok{TABLE} \ControlFlowTok{if} \KeywordTok{EXISTS}\NormalTok{ Commentaires;}
+
+\KeywordTok{CREATE} \KeywordTok{TABLE}\NormalTok{ Site(}
+\NormalTok{    idSite }\DataTypeTok{INTEGER} \KeywordTok{NOT} \KeywordTok{NULL} \KeywordTok{PRIMARY} \KeywordTok{KEY}\NormalTok{,}
+\NormalTok{    lieuStockage TXT,}
+\NormalTok{    précision Stockage }\DataTypeTok{VARCHAR}\NormalTok{(}\DecValTok{1}\NormalTok{) }\KeywordTok{CHECK}\NormalTok{ (précision }\KeywordTok{IN}\NormalTok{ (}\StringTok{\textquotesingle{}H\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}B\textquotesingle{}}\NormalTok{))}
+\NormalTok{    );}
+
+\KeywordTok{CREATE} \KeywordTok{TABLE}\NormalTok{ Stockage (}
+\NormalTok{    idStockage }\DataTypeTok{INTEGER} \KeywordTok{NOT} \KeywordTok{NULL} \KeywordTok{PRIMARY} \KeywordTok{KEY}\NormalTok{,}
+\NormalTok{    idLotBouteille }\DataTypeTok{INTEGER} \KeywordTok{NOT} \KeywordTok{NULL} \KeywordTok{REFERENCES}\NormalTok{ LotBouteille (idLotBouteille),}
+\NormalTok{    idSite }\DataTypeTok{INTEGER} \KeywordTok{NOT} \KeywordTok{NULL} \KeywordTok{REFERENCES}\NormalTok{ SITE (idSite),}
+\NormalTok{    nombre }\DataTypeTok{INTEGER} \KeywordTok{NOT} \KeywordTok{NULL}   \CommentTok{{-}{-} faire une somme sur différents sites contenant même bouteilles...}
+\NormalTok{    );}
+
+\KeywordTok{CREATE} \KeywordTok{TABLE}\NormalTok{ LotBouteille(}
+\NormalTok{    idLotBouteille }\DataTypeTok{INTEGER} \KeywordTok{NOT} \KeywordTok{NULL} \KeywordTok{PRIMARY} \KeywordTok{KEY}\NormalTok{,}
+\NormalTok{    idCommentaires }\DataTypeTok{INTEGER} \KeywordTok{NOT} \KeywordTok{NULL} \KeywordTok{REFERENCES}\NormalTok{ Commentaires(idCommentaires),}
+\NormalTok{    idDomaine }\DataTypeTok{INTEGER} \KeywordTok{NOT} \KeywordTok{NULL} \KeywordTok{REFERENCES}\NormalTok{ Domaine(idDomaine),}
+\NormalTok{    couleur }\DataTypeTok{VARCHAR}\NormalTok{(}\DecValTok{5}\NormalTok{) }\KeywordTok{CHECK}\NormalTok{(}\FunctionTok{LOWER}\NormalTok{(couleur) }\KeywordTok{IN}\NormalTok{ (}\StringTok{\textquotesingle{}rouge\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}rose\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}blanc\textquotesingle{}}\NormalTok{)),}
+\NormalTok{    volume }\DataTypeTok{REAL} \KeywordTok{NOT} \KeywordTok{NULL} \KeywordTok{CHECK}\NormalTok{(volume }\OperatorTok{>=} \DecValTok{0}\NormalTok{),}
+\NormalTok{    millésime }\DataTypeTok{INTEGER} \KeywordTok{CHECK}\NormalTok{(millésime }\OperatorTok{>=} \DecValTok{0}\NormalTok{),}
+\NormalTok{    degré }\DataTypeTok{REAL} \KeywordTok{CHECK}\NormalTok{(degré }\OperatorTok{>=} \DecValTok{0}\NormalTok{)  }\CommentTok{{-}{-} Attention il faudra nettoyer \% °}
+\NormalTok{    );}
+
+\KeywordTok{CREATE} \KeywordTok{TABLE}\NormalTok{ Dégustation (}
+\NormalTok{    idDégustation }\DataTypeTok{INTEGER} \KeywordTok{NOT} \KeywordTok{NULL} \KeywordTok{PRIMARY} \KeywordTok{KEY}\NormalTok{,}
+\NormalTok{    idStockage }\DataTypeTok{INTEGER} \KeywordTok{NOT} \KeywordTok{NULL} \KeywordTok{REFERENCES}\NormalTok{ Stockage(idStockage),}
+\NormalTok{    dateDégustation TXT,}
+\NormalTok{    commentairesDégustation TXT }
+\NormalTok{    );}
+
+\KeywordTok{CREATE} \KeywordTok{TABLE}\NormalTok{ Région (}
+\NormalTok{    idRégion }\DataTypeTok{INTEGER} \KeywordTok{NOT} \KeywordTok{NULL} \KeywordTok{PRIMARY} \KeywordTok{KEY}\NormalTok{,}
+\NormalTok{    nomRégion TXT }\KeywordTok{NOT} \KeywordTok{NULL} \KeywordTok{UNIQUE}\NormalTok{,}
+\NormalTok{    appellation TXT}
+\NormalTok{    );}
+
+\KeywordTok{CREATE} \KeywordTok{TABLE}\NormalTok{ Domaine (}
+\NormalTok{    idDomaine }\DataTypeTok{INTEGER} \KeywordTok{NOT} \KeywordTok{NULL} \KeywordTok{PRIMARY} \KeywordTok{KEY}\NormalTok{,}
+\NormalTok{    idRegion }\DataTypeTok{INTEGER} \KeywordTok{NOT} \KeywordTok{NULL} \KeywordTok{REFERENCES}\NormalTok{ Région(idRégion),}
+\NormalTok{    idCuvée }\DataTypeTok{INTEGER} \KeywordTok{NOT} \KeywordTok{NULL} \KeywordTok{REFERENCES}\NormalTok{ Cuvée(idCuvée),}
+\NormalTok{    nomDomaine TXT    }\CommentTok{{-}{-} un nom de domaine n\textquotesingle{}est pas forcément unique }
+\NormalTok{    );}
+
+\KeywordTok{CREATE} \KeywordTok{TABLE}\NormalTok{ Cuvée (}
+\NormalTok{    idCuvée }\DataTypeTok{INTEGER} \KeywordTok{NOT} \KeywordTok{NULL} \KeywordTok{PRIMARY} \KeywordTok{KEY}\NormalTok{,}
+\NormalTok{    nomCuvée TXT }\KeywordTok{UNIQUE}   \CommentTok{{-}{-}un nom de cuvée est unique mais peut être vide}
+\NormalTok{    );}
+
+\KeywordTok{CREATE} \KeywordTok{TABLE}\NormalTok{ Commentaires (}
+\NormalTok{    idCommentaires }\DataTypeTok{INTEGER} \KeywordTok{NOT} \KeywordTok{NULL} \KeywordTok{PRIMARY} \KeywordTok{KEY}\NormalTok{,}
+\NormalTok{    prix }\DataTypeTok{REAL} \KeywordTok{CHECK}\NormalTok{(prix }\OperatorTok{>=} \DecValTok{0}\NormalTok{),}
+\NormalTok{    descriptionDégustation TXT}
+\NormalTok{    );}
 \end{Highlighting}
 \end{Shaded}
 
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}151}]:} \PY{o}{\PYZpc{}}\PY{k}{sql} sqlite:///stanford5.db
-\end{Verbatim}
+    \hypertarget{correction}{%
+\subsection{Correction}\label{correction}}
 
+\textbf{ATTENTION : la proposition suivante est une base de discussion,
+pas une correction absolue (s'il en existe une).}
 
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}152}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{sql}
-          
-          PRAGMA foreign\PYZus{}keys=1;
-\end{Verbatim}
+\emph{Ce qui est peut-être le plus important sur cet exemple ou sur
+votre proposition c'est d'être capable de comprendre et critiquer le
+modèle, de déterminer les impacts de tel ou tel choix de modélisation.
+Concrètement, cela signifie être capable de répondre à des questions
+comme : un domaine peut-il produire plusieurs vins ? un vin peut t'il
+être acheté plusieurs fois à des prix différents ? peut-on stocker un
+même vin à différent endroits ? etc.}
 
+\emph{Des choix faits dans cette proposition peuvent être discutés ad
+nauseam et pour mettre fin aux discussions et avancer il faudra trancher
+en accord avec le client. Une question d'apparence simple comme ``qu'est
+ce qui permet d'identifier un vin'' n'est en fait pas évidente, donc que
+le client nous le précise !}
 
-    \begin{Verbatim}[commandchars=\\\{\}]
-Done.
-
-    \end{Verbatim}
-
-\begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}152}]:} []
-\end{Verbatim}
-            
-    \textbf{Exercice} : Reprenez le fichier \texttt{base-stanford.sql} du
-TP1 et modifiez le schéma pour y ajouter les contraintes d'intégrité
-(clef primaire et clef étrangères) attendues. Après modification,
-\emph{toutes} les données d'exemple de la base doivent pouvoir être
-insérées sans erreurs.
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}150}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{sql}
-          
-          \PYZhy{}\PYZhy{}drop table if exists Apply;
-          \PYZhy{}\PYZhy{}drop table if exists College;
-          \PYZhy{}\PYZhy{}drop table if exists Student;
-          
-          CREATE TABLE College(
-              cName varchar(255), 
-              state varchar(255), 
-              enrollment int,
-              PRIMARY KEY (cName)    
-          );
-          
-          CREATE TABLE  Student(
-              sID int, 
-              sName varchar(255), 
-               GPA real, 
-               sizeHS int,
-              PRIMARY KEY (sID)
-          );
-          
-          create table Apply(
-              sID int REFERENCES Student(sID),                    
-              cName varchar(255) REFERENCES College(cName),
-              major varchar(255),  
-              decision char(1),
-              PRIMARY KEY (sID, cName, major)    
-          );
-          
-          
-          insert into Student values (123, \PYZsq{}Amy\PYZsq{}, 3.9, 1000);
-          insert into Student values (234, \PYZsq{}Bob\PYZsq{}, 3.6, 1500);
-          insert into Student values (345, \PYZsq{}Craig\PYZsq{}, 3.5, 500);
-          insert into Student values (456, \PYZsq{}Doris\PYZsq{}, 3.9, 1000);
-          insert into Student values (567, \PYZsq{}Edward\PYZsq{}, 2.9, 2000);
-          insert into Student values (678, \PYZsq{}Fay\PYZsq{}, 3.8, 200);
-          insert into Student values (789, \PYZsq{}Gary\PYZsq{}, 3.4, 800);
-          insert into Student values (987, \PYZsq{}Helen\PYZsq{}, 3.7, 800);
-          insert into Student values (876, \PYZsq{}Irene\PYZsq{}, 3.9, 400);
-          insert into Student values (765, \PYZsq{}Jay\PYZsq{}, 2.9, 1500);
-          insert into Student values (654, \PYZsq{}Amy\PYZsq{}, 3.9, 1000);
-          insert into Student values (543, \PYZsq{}Craig\PYZsq{}, 3.4, 2000);
-          
-          insert into College values (\PYZsq{}Stanford\PYZsq{}, \PYZsq{}CA\PYZsq{}, 15000);
-          insert into College values (\PYZsq{}Berkeley\PYZsq{}, \PYZsq{}CA\PYZsq{}, 36000);
-          insert into College values (\PYZsq{}MIT\PYZsq{}, \PYZsq{}MA\PYZsq{}, 10000);
-          insert into College values (\PYZsq{}Cornell\PYZsq{}, \PYZsq{}NY\PYZsq{}, 21000);
-          
-          insert into Apply values (123, \PYZsq{}Stanford\PYZsq{}, \PYZsq{}CS\PYZsq{}, \PYZsq{}Y\PYZsq{});
-          insert into Apply values (123, \PYZsq{}Stanford\PYZsq{}, \PYZsq{}EE\PYZsq{}, \PYZsq{}N\PYZsq{});
-          insert into Apply values (123, \PYZsq{}Berkeley\PYZsq{}, \PYZsq{}CS\PYZsq{}, \PYZsq{}Y\PYZsq{});
-          insert into Apply values (123, \PYZsq{}Cornell\PYZsq{}, \PYZsq{}EE\PYZsq{}, \PYZsq{}Y\PYZsq{});
-          insert into Apply values (234, \PYZsq{}Berkeley\PYZsq{}, \PYZsq{}biology\PYZsq{}, \PYZsq{}N\PYZsq{});
-          insert into Apply values (345, \PYZsq{}MIT\PYZsq{}, \PYZsq{}bioengineering\PYZsq{}, \PYZsq{}Y\PYZsq{});
-          insert into Apply values (345, \PYZsq{}Cornell\PYZsq{}, \PYZsq{}bioengineering\PYZsq{}, \PYZsq{}N\PYZsq{});
-          insert into Apply values (345, \PYZsq{}Cornell\PYZsq{}, \PYZsq{}CS\PYZsq{}, \PYZsq{}Y\PYZsq{});
-          insert into Apply values (345, \PYZsq{}Cornell\PYZsq{}, \PYZsq{}EE\PYZsq{}, \PYZsq{}N\PYZsq{});
-          insert into Apply values (678, \PYZsq{}Stanford\PYZsq{}, \PYZsq{}history\PYZsq{}, \PYZsq{}Y\PYZsq{});
-          insert into Apply values (987, \PYZsq{}Stanford\PYZsq{}, \PYZsq{}CS\PYZsq{}, \PYZsq{}Y\PYZsq{});
-          insert into Apply values (987, \PYZsq{}Berkeley\PYZsq{}, \PYZsq{}CS\PYZsq{}, \PYZsq{}Y\PYZsq{});
-          insert into Apply values (876, \PYZsq{}Stanford\PYZsq{}, \PYZsq{}CS\PYZsq{}, \PYZsq{}N\PYZsq{});
-          insert into Apply values (876, \PYZsq{}MIT\PYZsq{}, \PYZsq{}biology\PYZsq{}, \PYZsq{}Y\PYZsq{});
-          insert into Apply values (876, \PYZsq{}MIT\PYZsq{}, \PYZsq{}marine biology\PYZsq{}, \PYZsq{}N\PYZsq{});
-          insert into Apply values (765, \PYZsq{}Stanford\PYZsq{}, \PYZsq{}history\PYZsq{}, \PYZsq{}Y\PYZsq{});
-          insert into Apply values (765, \PYZsq{}Cornell\PYZsq{}, \PYZsq{}history\PYZsq{}, \PYZsq{}N\PYZsq{});
-          insert into Apply values (765, \PYZsq{}Cornell\PYZsq{}, \PYZsq{}psychology\PYZsq{}, \PYZsq{}Y\PYZsq{});
-          insert into Apply values (543, \PYZsq{}MIT\PYZsq{}, \PYZsq{}CS\PYZsq{}, \PYZsq{}N\PYZsq{});
-\end{Verbatim}
-
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-Done.
-Done.
-Done.
-1 rows affected.
-1 rows affected.
-1 rows affected.
-1 rows affected.
-1 rows affected.
-1 rows affected.
-1 rows affected.
-1 rows affected.
-1 rows affected.
-1 rows affected.
-1 rows affected.
-1 rows affected.
-1 rows affected.
-1 rows affected.
-1 rows affected.
-1 rows affected.
-1 rows affected.
-1 rows affected.
-1 rows affected.
-1 rows affected.
-1 rows affected.
-1 rows affected.
-1 rows affected.
-1 rows affected.
-1 rows affected.
-1 rows affected.
-1 rows affected.
-1 rows affected.
-1 rows affected.
-1 rows affected.
-1 rows affected.
-1 rows affected.
-1 rows affected.
-1 rows affected.
-1 rows affected.
-
-    \end{Verbatim}
-
-\begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}150}]:} []
-\end{Verbatim}
-            
-    \begin{itemize}
-\tightlist
-\item
-  Diagramme entité relation dans ce cas (j'ai rajouté une clef primaire
-  \texttt{id} dans la table \texttt{Apply}) :
-\end{itemize}
+Voir \href{cas_d_etude_modelisation.mcd}{le diagramme E/A JMerise} de la
+proposition, \href{correction/cas_d_etude_modelisation.png}{sa
+screenshot \texttt{png}}, et
+\href{correction/cas_d_etude_modelisation.sql}{sa contrepartie SQL}. Le
+SQL a été généré par JMerise et légèrement repris à la main.
 
 \begin{figure}
 \centering
-\includegraphics{mocodo/Stanford/Students.png}
-\caption{Students.png}
+\includegraphics{correction/cas_d_etude_modelisation.png}
+\caption{schéma}
 \end{figure}
 
-{Apply} ( {id}, {sID}, {cName}, {major}, {decision}, {cName.1}, {sID.1}
-)
+Quelques remarques :
 
-Le champ id constitue la clef primaire de la table. C'était déjà un
-identifiant de l'entité Apply.
-
-Les champs sID, cName, major et decision étaient déjà de simples
-attributs de l'entité Apply.
-
-Le champ cName.1 est une clef étrangère. Il a migré à partir de l'entité
-College par l'association de dépendance fonctionnelle Dossier en perdant
-son caractère identifiant.
-
-Le champ sID.1 est une clef étrangère. Il a migré à partir de l'entité
-Student par l'association de dépendance fonctionnelle Candidature en
-perdant son caractère identifiant.
-
-{Student} ( {sID}, {sName}, {GPA}, {sizeHS} )
-
-Le champ sID constitue la clef primaire de la table. C'était déjà un
-identifiant de l'entité Student.
-
-Les champs sName, GPA et sizeHS étaient déjà de simples attributs de
-l'entité Student.
-
-{College} ( {cName}, {state}, {enrollment} )
-
-Le champ cName constitue la clef primaire de la table. C'était déjà un
-identifiant de l'entité College.
-
-Les champs state et enrollment étaient déjà de simples attributs de
-l'entité College.
-
-    \textbf{Exercice} : SQL propose un type de contrainte assez générique
-appelée \texttt{CHECK}, définissez en pour les attributs
-\href{https://en.wikipedia.org/wiki/Academic_grading_in_the_United_States\#Numerical_and_letter_grades}{\emph{GPA}}
-et \emph{decision}. Là encore, toutes les données doivent pouvoir
-s'importer correctement après ajout des contraintes supplémentaires.
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}154}]:} \PY{o}{\PYZpc{}}\PY{k}{sql} sqlite:///stanford6.db
-\end{Verbatim}
-
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}155}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{sql}
-          
-          PRAGMA foreign\PYZus{}keys=1;
-\end{Verbatim}
-
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-Done.
-
-    \end{Verbatim}
-
-\begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}155}]:} []
-\end{Verbatim}
-            
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}156}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{sql}
-          
-          \PYZhy{}\PYZhy{}drop table if exists Apply;
-          \PYZhy{}\PYZhy{}drop table if exists College;
-          \PYZhy{}\PYZhy{}drop table if exists Student;
-          
-          CREATE TABLE College(
-              cName varchar(255), 
-              state varchar(255), 
-              enrollment int,
-              PRIMARY KEY (cName)    
-          );
-          
-          CREATE TABLE  Student(
-              sID int, 
-              sName varchar(255), 
-              GPA real CHECK(GPA \PYZgt{}= 0), 
-              sizeHS int,
-              PRIMARY KEY (sID)
-          );
-          
-          create table Apply(
-              sID int REFERENCES Student(sID),                    
-              cName varchar(255) REFERENCES College(cName),
-              major varchar(255),  
-              decision char(1) CHECK(decision IN(\PYZsq{}Y\PYZsq{}, \PYZsq{}N\PYZsq{})),
-              PRIMARY KEY (sID, cName, major)    
-          );
-          
-          
-          insert into Student values (123, \PYZsq{}Amy\PYZsq{}, 3.9, 1000);
-          insert into Student values (234, \PYZsq{}Bob\PYZsq{}, 3.6, 1500);
-          insert into Student values (345, \PYZsq{}Craig\PYZsq{}, 3.5, 500);
-          insert into Student values (456, \PYZsq{}Doris\PYZsq{}, 3.9, 1000);
-          insert into Student values (567, \PYZsq{}Edward\PYZsq{}, 2.9, 2000);
-          insert into Student values (678, \PYZsq{}Fay\PYZsq{}, 3.8, 200);
-          insert into Student values (789, \PYZsq{}Gary\PYZsq{}, 3.4, 800);
-          insert into Student values (987, \PYZsq{}Helen\PYZsq{}, 3.7, 800);
-          insert into Student values (876, \PYZsq{}Irene\PYZsq{}, 3.9, 400);
-          insert into Student values (765, \PYZsq{}Jay\PYZsq{}, 2.9, 1500);
-          insert into Student values (654, \PYZsq{}Amy\PYZsq{}, 3.9, 1000);
-          insert into Student values (543, \PYZsq{}Craig\PYZsq{}, 3.4, 2000);
-          
-          insert into College values (\PYZsq{}Stanford\PYZsq{}, \PYZsq{}CA\PYZsq{}, 15000);
-          insert into College values (\PYZsq{}Berkeley\PYZsq{}, \PYZsq{}CA\PYZsq{}, 36000);
-          insert into College values (\PYZsq{}MIT\PYZsq{}, \PYZsq{}MA\PYZsq{}, 10000);
-          insert into College values (\PYZsq{}Cornell\PYZsq{}, \PYZsq{}NY\PYZsq{}, 21000);
-          
-          insert into Apply values (123, \PYZsq{}Stanford\PYZsq{}, \PYZsq{}CS\PYZsq{}, \PYZsq{}Y\PYZsq{});
-          insert into Apply values (123, \PYZsq{}Stanford\PYZsq{}, \PYZsq{}EE\PYZsq{}, \PYZsq{}N\PYZsq{});
-          insert into Apply values (123, \PYZsq{}Berkeley\PYZsq{}, \PYZsq{}CS\PYZsq{}, \PYZsq{}Y\PYZsq{});
-          insert into Apply values (123, \PYZsq{}Cornell\PYZsq{}, \PYZsq{}EE\PYZsq{}, \PYZsq{}Y\PYZsq{});
-          insert into Apply values (234, \PYZsq{}Berkeley\PYZsq{}, \PYZsq{}biology\PYZsq{}, \PYZsq{}N\PYZsq{});
-          insert into Apply values (345, \PYZsq{}MIT\PYZsq{}, \PYZsq{}bioengineering\PYZsq{}, \PYZsq{}Y\PYZsq{});
-          insert into Apply values (345, \PYZsq{}Cornell\PYZsq{}, \PYZsq{}bioengineering\PYZsq{}, \PYZsq{}N\PYZsq{});
-          insert into Apply values (345, \PYZsq{}Cornell\PYZsq{}, \PYZsq{}CS\PYZsq{}, \PYZsq{}Y\PYZsq{});
-          insert into Apply values (345, \PYZsq{}Cornell\PYZsq{}, \PYZsq{}EE\PYZsq{}, \PYZsq{}N\PYZsq{});
-          insert into Apply values (678, \PYZsq{}Stanford\PYZsq{}, \PYZsq{}history\PYZsq{}, \PYZsq{}Y\PYZsq{});
-          insert into Apply values (987, \PYZsq{}Stanford\PYZsq{}, \PYZsq{}CS\PYZsq{}, \PYZsq{}Y\PYZsq{});
-          insert into Apply values (987, \PYZsq{}Berkeley\PYZsq{}, \PYZsq{}CS\PYZsq{}, \PYZsq{}Y\PYZsq{});
-          insert into Apply values (876, \PYZsq{}Stanford\PYZsq{}, \PYZsq{}CS\PYZsq{}, \PYZsq{}N\PYZsq{});
-          insert into Apply values (876, \PYZsq{}MIT\PYZsq{}, \PYZsq{}biology\PYZsq{}, \PYZsq{}Y\PYZsq{});
-          insert into Apply values (876, \PYZsq{}MIT\PYZsq{}, \PYZsq{}marine biology\PYZsq{}, \PYZsq{}N\PYZsq{});
-          insert into Apply values (765, \PYZsq{}Stanford\PYZsq{}, \PYZsq{}history\PYZsq{}, \PYZsq{}Y\PYZsq{});
-          insert into Apply values (765, \PYZsq{}Cornell\PYZsq{}, \PYZsq{}history\PYZsq{}, \PYZsq{}N\PYZsq{});
-          insert into Apply values (765, \PYZsq{}Cornell\PYZsq{}, \PYZsq{}psychology\PYZsq{}, \PYZsq{}Y\PYZsq{});
-          insert into Apply values (543, \PYZsq{}MIT\PYZsq{}, \PYZsq{}CS\PYZsq{}, \PYZsq{}N\PYZsq{});
-\end{Verbatim}
-
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-Done.
-Done.
-Done.
-1 rows affected.
-1 rows affected.
-1 rows affected.
-1 rows affected.
-1 rows affected.
-1 rows affected.
-1 rows affected.
-1 rows affected.
-1 rows affected.
-1 rows affected.
-1 rows affected.
-1 rows affected.
-1 rows affected.
-1 rows affected.
-1 rows affected.
-1 rows affected.
-1 rows affected.
-1 rows affected.
-1 rows affected.
-1 rows affected.
-1 rows affected.
-1 rows affected.
-1 rows affected.
-1 rows affected.
-1 rows affected.
-1 rows affected.
-1 rows affected.
-1 rows affected.
-1 rows affected.
-1 rows affected.
-1 rows affected.
-1 rows affected.
-1 rows affected.
-1 rows affected.
-1 rows affected.
-
-    \end{Verbatim}
-
-\begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}156}]:} []
-\end{Verbatim}
-            
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}159}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{sql}
-          
-          insert into Student values (843, \PYZsq{}Craig\PYZsq{}, \PYZhy{}3.4, 2000);
-          
-          \PYZhy{}\PYZhy{}IntegrityError: (sqlite3.IntegrityError) CHECK constraint failed: Student
-          [SQL: insert into Student values (843, \PYZsq{}Craig\PYZsq{}, \PYZhy{}3.4, 2000);]
-\end{Verbatim}
-
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-
-        ---------------------------------------------------------------------------
-
-        IntegrityError                            Traceback (most recent call last)
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/sqlalchemy/engine/base.py in \_execute\_context(self, dialect, constructor, statement, parameters, *args)
-       1283                     self.dialect.do\_execute(
-    -> 1284                         cursor, statement, parameters, context
-       1285                     )
-
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/sqlalchemy/engine/default.py in do\_execute(self, cursor, statement, parameters, context)
-        589     def do\_execute(self, cursor, statement, parameters, context=None):
-    --> 590         cursor.execute(statement, parameters)
-        591 
-
-
-        IntegrityError: CHECK constraint failed: Student
-
-        
-    The above exception was the direct cause of the following exception:
-
-
-        IntegrityError                            Traceback (most recent call last)
-
-        <ipython-input-159-d9253df466aa> in <module>
-    ----> 1 get\_ipython().run\_cell\_magic('sql', '', "\textbackslash{}ninsert into Student values (843, 'Craig', -3.4, 2000);\textbackslash{}n\textbackslash{}n--IntegrityError: (sqlite3.IntegrityError) CHECK constraint failed: Student\textbackslash{}n[SQL: insert into Student values (843, 'Craig', -3.4, 2000);]\textbackslash{}n")
-    
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/IPython/core/interactiveshell.py in run\_cell\_magic(self, magic\_name, line, cell)
-       2360     def system\_raw(self, cmd):
-       2361         """Call the given cmd in a subprocess using os.system on Windows or
-    -> 2362         subprocess.call using the system shell on other platforms.
-       2363 
-       2364         Parameters
-
-
-        <decorator-gen-157> in execute(self, line, cell, local\_ns)
-
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/IPython/core/magic.py in <lambda>(f, *a, **k)
-        185     """Decorator factory for methods in Magics subclasses.
-        186     """
-    --> 187 
-        188     validate\_type(magic\_kind)
-        189 
-
-
-        <decorator-gen-156> in execute(self, line, cell, local\_ns)
-
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/IPython/core/magic.py in <lambda>(f, *a, **k)
-        185     """Decorator factory for methods in Magics subclasses.
-        186     """
-    --> 187 
-        188     validate\_type(magic\_kind)
-        189 
-
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/sql/magic.py in execute(self, line, cell, local\_ns)
-        215 
-        216         try:
-    --> 217             result = sql.run.run(conn, parsed["sql"], self, user\_ns)
-        218 
-        219             if (
-
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/sql/run.py in run(conn, sql, config, user\_namespace)
-        365             else:
-        366                 txt = sqlalchemy.sql.text(statement)
-    --> 367                 result = conn.session.execute(txt, user\_namespace)
-        368             \_commit(conn=conn, config=config)
-        369             if result and config.feedback:
-
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/sqlalchemy/engine/base.py in execute(self, object\_, *multiparams, **params)
-       1018             )
-       1019         else:
-    -> 1020             return meth(self, multiparams, params)
-       1021 
-       1022     def \_execute\_function(self, func, multiparams, params):
-
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/sqlalchemy/sql/elements.py in \_execute\_on\_connection(self, connection, multiparams, params)
-        296     def \_execute\_on\_connection(self, connection, multiparams, params):
-        297         if self.supports\_execution:
-    --> 298             return connection.\_execute\_clauseelement(self, multiparams, params)
-        299         else:
-        300             raise exc.ObjectNotExecutableError(self)
-
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/sqlalchemy/engine/base.py in \_execute\_clauseelement(self, elem, multiparams, params)
-       1137             distilled\_params,
-       1138             compiled\_sql,
-    -> 1139             distilled\_params,
-       1140         )
-       1141         if self.\_has\_events or self.engine.\_has\_events:
-
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/sqlalchemy/engine/base.py in \_execute\_context(self, dialect, constructor, statement, parameters, *args)
-       1322         except BaseException as e:
-       1323             self.\_handle\_dbapi\_exception(
-    -> 1324                 e, statement, parameters, cursor, context
-       1325             )
-       1326 
-
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/sqlalchemy/engine/base.py in \_handle\_dbapi\_exception(self, e, statement, parameters, cursor, context)
-       1516             elif should\_wrap:
-       1517                 util.raise\_(
-    -> 1518                     sqlalchemy\_exception, with\_traceback=exc\_info[2], from\_=e
-       1519                 )
-       1520             else:
-
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/sqlalchemy/util/compat.py in raise\_(***failed resolving arguments***)
-        176 
-        177         try:
-    --> 178             raise exception
-        179         finally:
-        180             \# credit to
-
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/sqlalchemy/engine/base.py in \_execute\_context(self, dialect, constructor, statement, parameters, *args)
-       1282                 if not evt\_handled:
-       1283                     self.dialect.do\_execute(
-    -> 1284                         cursor, statement, parameters, context
-       1285                     )
-       1286 
-
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/sqlalchemy/engine/default.py in do\_execute(self, cursor, statement, parameters, context)
-        588 
-        589     def do\_execute(self, cursor, statement, parameters, context=None):
-    --> 590         cursor.execute(statement, parameters)
-        591 
-        592     def do\_execute\_no\_params(self, cursor, statement, context=None):
-
-
-        IntegrityError: (sqlite3.IntegrityError) CHECK constraint failed: Student
-    [SQL: insert into Student values (843, 'Craig', -3.4, 2000);]
-    (Background on this error at: http://sqlalche.me/e/gkpj)
-
-    \end{Verbatim}
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}162}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{sql}
-          
-          insert into Apply values (765, \PYZsq{}Cornell\PYZsq{}, \PYZsq{}CS\PYZsq{}, \PYZsq{}y\PYZsq{});
-          
-          \PYZhy{}\PYZhy{}IntegrityError: (sqlite3.IntegrityError) CHECK constraint failed: Apply
-          [SQL: insert into Apply values (765, \PYZsq{}Cornell\PYZsq{}, \PYZsq{}CS\PYZsq{}, \PYZsq{}y\PYZsq{});]
-\end{Verbatim}
-
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-
-        ---------------------------------------------------------------------------
-
-        IntegrityError                            Traceback (most recent call last)
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/sqlalchemy/engine/base.py in \_execute\_context(self, dialect, constructor, statement, parameters, *args)
-       1283                     self.dialect.do\_execute(
-    -> 1284                         cursor, statement, parameters, context
-       1285                     )
-
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/sqlalchemy/engine/default.py in do\_execute(self, cursor, statement, parameters, context)
-        589     def do\_execute(self, cursor, statement, parameters, context=None):
-    --> 590         cursor.execute(statement, parameters)
-        591 
-
-
-        IntegrityError: CHECK constraint failed: Apply
-
-        
-    The above exception was the direct cause of the following exception:
-
-
-        IntegrityError                            Traceback (most recent call last)
-
-        <ipython-input-162-70c1a376196b> in <module>
-    ----> 1 get\_ipython().run\_cell\_magic('sql', '', "\textbackslash{}ninsert into Apply values (765, 'Cornell', 'CS', 'y');\textbackslash{}n\textbackslash{}n--IntegrityError: (sqlite3.IntegrityError) CHECK constraint failed: Apply\textbackslash{}n[SQL: insert into Apply values (765, 'Cornell', 'CS', 'y');]\textbackslash{}n")
-    
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/IPython/core/interactiveshell.py in run\_cell\_magic(self, magic\_name, line, cell)
-       2360     def system\_raw(self, cmd):
-       2361         """Call the given cmd in a subprocess using os.system on Windows or
-    -> 2362         subprocess.call using the system shell on other platforms.
-       2363 
-       2364         Parameters
-
-
-        <decorator-gen-157> in execute(self, line, cell, local\_ns)
-
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/IPython/core/magic.py in <lambda>(f, *a, **k)
-        185     """Decorator factory for methods in Magics subclasses.
-        186     """
-    --> 187 
-        188     validate\_type(magic\_kind)
-        189 
-
-
-        <decorator-gen-156> in execute(self, line, cell, local\_ns)
-
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/IPython/core/magic.py in <lambda>(f, *a, **k)
-        185     """Decorator factory for methods in Magics subclasses.
-        186     """
-    --> 187 
-        188     validate\_type(magic\_kind)
-        189 
-
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/sql/magic.py in execute(self, line, cell, local\_ns)
-        215 
-        216         try:
-    --> 217             result = sql.run.run(conn, parsed["sql"], self, user\_ns)
-        218 
-        219             if (
-
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/sql/run.py in run(conn, sql, config, user\_namespace)
-        365             else:
-        366                 txt = sqlalchemy.sql.text(statement)
-    --> 367                 result = conn.session.execute(txt, user\_namespace)
-        368             \_commit(conn=conn, config=config)
-        369             if result and config.feedback:
-
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/sqlalchemy/engine/base.py in execute(self, object\_, *multiparams, **params)
-       1018             )
-       1019         else:
-    -> 1020             return meth(self, multiparams, params)
-       1021 
-       1022     def \_execute\_function(self, func, multiparams, params):
-
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/sqlalchemy/sql/elements.py in \_execute\_on\_connection(self, connection, multiparams, params)
-        296     def \_execute\_on\_connection(self, connection, multiparams, params):
-        297         if self.supports\_execution:
-    --> 298             return connection.\_execute\_clauseelement(self, multiparams, params)
-        299         else:
-        300             raise exc.ObjectNotExecutableError(self)
-
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/sqlalchemy/engine/base.py in \_execute\_clauseelement(self, elem, multiparams, params)
-       1137             distilled\_params,
-       1138             compiled\_sql,
-    -> 1139             distilled\_params,
-       1140         )
-       1141         if self.\_has\_events or self.engine.\_has\_events:
-
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/sqlalchemy/engine/base.py in \_execute\_context(self, dialect, constructor, statement, parameters, *args)
-       1322         except BaseException as e:
-       1323             self.\_handle\_dbapi\_exception(
-    -> 1324                 e, statement, parameters, cursor, context
-       1325             )
-       1326 
-
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/sqlalchemy/engine/base.py in \_handle\_dbapi\_exception(self, e, statement, parameters, cursor, context)
-       1516             elif should\_wrap:
-       1517                 util.raise\_(
-    -> 1518                     sqlalchemy\_exception, with\_traceback=exc\_info[2], from\_=e
-       1519                 )
-       1520             else:
-
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/sqlalchemy/util/compat.py in raise\_(***failed resolving arguments***)
-        176 
-        177         try:
-    --> 178             raise exception
-        179         finally:
-        180             \# credit to
-
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/sqlalchemy/engine/base.py in \_execute\_context(self, dialect, constructor, statement, parameters, *args)
-       1282                 if not evt\_handled:
-       1283                     self.dialect.do\_execute(
-    -> 1284                         cursor, statement, parameters, context
-       1285                     )
-       1286 
-
-
-        \textasciitilde{}/.local/lib/python3.6/site-packages/sqlalchemy/engine/default.py in do\_execute(self, cursor, statement, parameters, context)
-        588 
-        589     def do\_execute(self, cursor, statement, parameters, context=None):
-    --> 590         cursor.execute(statement, parameters)
-        591 
-        592     def do\_execute\_no\_params(self, cursor, statement, context=None):
-
-
-        IntegrityError: (sqlite3.IntegrityError) CHECK constraint failed: Apply
-    [SQL: insert into Apply values (765, 'Cornell', 'CS', 'y');]
-    (Background on this error at: http://sqlalche.me/e/gkpj)
-
-    \end{Verbatim}
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}163}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{sql}
-          
-          insert into Apply values (765, \PYZsq{}Cornell\PYZsq{}, \PYZsq{}CS\PYZsq{}, \PYZsq{}Y\PYZsq{});
-\end{Verbatim}
-
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-1 rows affected.
-
-    \end{Verbatim}
-
-\begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}163}]:} []
-\end{Verbatim}
-            
-    \textbf{Exercice} : avec une requête, déterminez la valeur de
-\emph{major} la plus longue. Il faudra un agrégat et trouver la bonne
-fonction sur les chaînes dans la documentation
-\url{https://www.sqlite.org/lang_corefunc.html}.
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}165}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{sql} 
-          
-          SELECT major
-              FROM Apply
-              GROUP BY major
-              HAVING 
-              LENGTH(major) = (SELECT MAX(LENGTH(major))
-                               FROM Apply
-                              ) 
-              ;
-\end{Verbatim}
-
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-Done.
-
-    \end{Verbatim}
-
-\begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}165}]:} [('bioengineering',), ('marine biology',)]
-\end{Verbatim}
-            
-    \textbf{Exercice} : définir une nouvelle table \texttt{Major} avec comme
-attributs \emph{code} qui est clef et un autre attribut
-\emph{description}. Peuplez ensuite cette table en utilisant l'attribut
-\emph{major} de \texttt{Apply} (avec une requête
-\texttt{INSERT\ INTO\ Apply\ SELECT\ ...}). Lors de l'import, normalisez
-l'attribut \emph{code} pour que toutes ses valeurs soient en majuscule.
-Pour la description, vous pouvez remplir avec le code dans un premier
-temps puis éditer à la main (e.g., pour \emph{EE} on voudrait lire
-\emph{Electrical Engineering}).
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}169}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{sql}
-\end{Verbatim}
-
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-Done.
-
-    \end{Verbatim}
-
-\begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}169}]:} []
-\end{Verbatim}
-            
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}172}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{sql}
-          
-          DROP TABLE IF EXISTS Major;
-          
-          CREATE TABLE Major(
-              code varchar(255), 
-              description varchar(255), 
-              PRIMARY KEY (code)    
-          );
-          
-          INSERT INTO Major SELECT DISTINCT upper(substr(major, 1, 2)), upper(substr(major, 1, 2)) FROM Apply ;
-\end{Verbatim}
-
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-Done.
-Done.
-6 rows affected.
-
-    \end{Verbatim}
-
-\begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}172}]:} []
-\end{Verbatim}
-            
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}173}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{sql}
-          
-          SELECT * FROM Major;
-\end{Verbatim}
-
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-Done.
-
-    \end{Verbatim}
-
-\begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}173}]:} [('CS', 'CS'),
-           ('EE', 'EE'),
-           ('BI', 'BI'),
-           ('HI', 'HI'),
-           ('MA', 'MA'),
-           ('PS', 'PS')]
-\end{Verbatim}
-            
-    \textbf{Exercice} : on souhaite mettre à jour la table \texttt{Apply} et
-ajouter la contrainte de clef étrangère vers la table \texttt{Major}
-nouvellement créée. Malheureusement, SQLite ne permet pas les opérations
-(\url{https://www.sqlite.org/omitted.html}) nécessaires. Voir aussi
-\url{https://www.sqlitetutorial.net/sqlite-check-constraint/} Ainsi à la
-place
-
-. créez une table \texttt{Apply2} avec toutes les contraintes, . insérez
-le contenu de \texttt{Apply} dans \texttt{Apply2}, . supprimez
-\texttt{Apply} (commande \texttt{DROP\ TABLE\ ...}), . enfin renommez
-\texttt{Apply2} en \texttt{Apply} (commande
-\texttt{ALTER\ TABLE\ ....}).
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}175}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{sql}
-          
-          CREATE TABLE Apply2(        
-              sID int REFERENCES Student(sID),                    
-              cName varchar(255) REFERENCES College(cName),
-              codeMajor varchar(255) REFERENCES Major(code),  
-              decision char(1) CHECK(decision IN(\PYZsq{}Y\PYZsq{}, \PYZsq{}N\PYZsq{})),
-              PRIMARY KEY (sID, cName, codeMajor)      
-          );
-          
-          INSERT INTO Apply2 SELECT sID, cName,upper(substr(major, 1, 2)), decision   FROM Apply ;
-          
-          DROP TABLE Apply;
-          
-          ALTER TABLE Apply2 RENAME TO Apply;
-\end{Verbatim}
-
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-Done.
-20 rows affected.
-Done.
-Done.
-
-    \end{Verbatim}
-
-\begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}175}]:} []
-\end{Verbatim}
-            
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}178}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{sql}
-          
-          SELECT * FROM
-          Apply JOIN Major
-          ON Apply.codeMajor=Major.Code;
-\end{Verbatim}
-
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-Done.
-
-    \end{Verbatim}
-
-\begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}178}]:} [(123, 'Stanford', 'CS', 'Y', 'CS', 'CS'),
-           (123, 'Stanford', 'EE', 'N', 'EE', 'EE'),
-           (123, 'Berkeley', 'CS', 'Y', 'CS', 'CS'),
-           (123, 'Cornell', 'EE', 'Y', 'EE', 'EE'),
-           (234, 'Berkeley', 'BI', 'N', 'BI', 'BI'),
-           (345, 'MIT', 'BI', 'Y', 'BI', 'BI'),
-           (345, 'Cornell', 'BI', 'N', 'BI', 'BI'),
-           (345, 'Cornell', 'CS', 'Y', 'CS', 'CS'),
-           (345, 'Cornell', 'EE', 'N', 'EE', 'EE'),
-           (678, 'Stanford', 'HI', 'Y', 'HI', 'HI'),
-           (987, 'Stanford', 'CS', 'Y', 'CS', 'CS'),
-           (987, 'Berkeley', 'CS', 'Y', 'CS', 'CS'),
-           (876, 'Stanford', 'CS', 'N', 'CS', 'CS'),
-           (876, 'MIT', 'BI', 'Y', 'BI', 'BI'),
-           (876, 'MIT', 'MA', 'N', 'MA', 'MA'),
-           (765, 'Stanford', 'HI', 'Y', 'HI', 'HI'),
-           (765, 'Cornell', 'HI', 'N', 'HI', 'HI'),
-           (765, 'Cornell', 'PS', 'Y', 'PS', 'PS'),
-           (543, 'MIT', 'CS', 'N', 'CS', 'CS'),
-           (765, 'Cornell', 'CS', 'Y', 'CS', 'CS')]
-\end{Verbatim}
-            
-    \begin{itemize}
+\begin{itemize}
 \tightlist
 \item
-  Diagramme entité relation dans ce cas :
+  la région bénéficie de sa propre \emph{entité} mais \emph{couleur}
+  n'est qu'un attribut (avec une contrainte \texttt{CHECK} dans le
+  schéma SQL). En effet, on peut imaginer qu'on ait plus de choses à
+  dire sur une région viticole (e.g., sa définition géographique) que
+  sur la couleur du vin
+\item
+  le type de l'appellation (IGP, VdP, AOP) n'est souvent pas explicitée
+  (e.g., ``Collinnes rhodaniennes'' est une IGP, ``Condrieu'' une AOP),
+  il faudra compléter la base.
 \end{itemize}
 
-\begin{figure}
-\centering
-\includegraphics{mocodo/Stanford2/Students.png}
-\caption{Students.png}
-\end{figure}
+Le plus discutable est le choix \textbf{d'une cuvée millesimée} pour
+représenter ``une bouteille'', ``un vin''. Ici, la \emph{cuvée} est une
+\emph{entité faible} (dite aussi relative), c'est-à-dire que le
+\emph{domaine} et \emph{l'appellation} \textbf{font partie de la clef}
+de la \emph{cuvée} qui devient ainsi un quadruple :
 
-{Student} ( {sID}, {sName}, {GPA}, {sizeHS} )
+\begin{itemize}
+\tightlist
+\item
+  cela n'apparait pas dans l'exemple mais un producteur peut bien avoir
+  plusieurs cuvées dont il a plusieurs millésimes pour une même
+  appellation,
+\item
+  certaines bouteilles n'ont pas de cuvée spécifiée car le producteur ne
+  produit qu'un seul vin par appellation, il faudra donc un nom par
+  défaut (e.g., le nom de l'appellation, la chaine vide),
+\item
+  pour le champagne non millésimé, comme l'année fait partie de la clef,
+  elle ne peut pas être nulle et il faudra faire un choix (e.g., l'année
+  d'achat ou 1900), on aura le même problème si on souhaitait étendre
+  aux alcools distillés
+\end{itemize}
 
-Le champ sID constitue la clef primaire de la table. C'était déjà un
-identifiant de l'entité Student.
+\textbf{Cette proposition de schéma a donc un \emph{impact} sur les
+données car il faut, d'une façon ou d'une autre, remplir les colonnes où
+il y a des trous dans la feuille de calcul avant d'importer dans la
+base. Une autre proposition qui aurait comme postulat \emph{on ne doit
+pas toucher aux données d'origine} aboutirait à un modèle
+substentiellement différent, moins contraint.}
 
-Les champs sName, GPA et sizeHS étaient déjà de simples attributs de
-l'entité Student.
+Une alternative à l'entité faible serait de tirer un identifiant qui
+servirait de clef. C'est très prisé par les developpeurs, si ça
+simplifie un peu la gestion de la clef (ici un quadruple), ça ne résoud
+rien. Une autre prossibilité serait de distinguer \emph{cuvée} de
+\emph{cuvée millésimée}, dans l'idée que la cuvée reste et que le
+vigneron la produit, ou pas, d'une année sur l'autre.
 
-{Major} ( {code}, {description} )
+\hypertarget{autres-questions}{%
+\subsubsection{Autres questions}\label{autres-questions}}
 
-Le champ code constitue la clef primaire de la table. C'était déjà un
-identifiant de l'entité Major.
+Pour la qualité des données, on va s'attendre à des problèmes typiques
+de données mal typées et saisies par des utilisateurs : unités variables
+ou absentes dans les cases, cellules vides, erreur de saisies. Le plus
+difficile étant le champs de \emph{l'appellation} où la variété des
+saisies est importante (abbréviation, casse, orthographe etc.)
 
-Le champ description était déjà un simple attribut de l'entité Major.
-
-{Apply} ( {id}, {sID}, {cName}, {code}, {decision}, {code.1}, {cName.1},
-{sID.1} )
-
-Le champ id constitue la clef primaire de la table. C'était déjà un
-identifiant de l'entité Apply.
-
-Les champs sID, cName, code et decision étaient déjà de simples
-attributs de l'entité Apply.
-
-Le champ code.1 est une clef étrangère. Il a migré à partir de l'entité
-Major par l'association de dépendance fonctionnelle Discipline en
-perdant son caractère identifiant.
-
-Le champ cName.1 est une clef étrangère. Il a migré à partir de l'entité
-College par l'association de dépendance fonctionnelle Dossier en perdant
-son caractère identifiant.
-
-Le champ sID.1 est une clef étrangère. Il a migré à partir de l'entité
-Student par l'association de dépendance fonctionnelle Candidature en
-perdant son caractère identifiant.
-
-{College} ( {cName}, {state}, {enrollment} )
-
-Le champ cName constitue la clef primaire de la table. C'était déjà un
-identifiant de l'entité College.
-
-Les champs state et enrollment étaient déjà de simples attributs de
-l'entité College.
+Pour l'historisation, il faut préciser ce que l'on veut, mais on
+pourrait par exemple ajouter une nouvelle association \emph{degustation}
+entre \emph{date} et \emph{cuvée} avec comme attribut un commentaire.
+L'idée serait de remplir la table associée après destockage.
 
 
     % Add a bibliography block to the postdoc
