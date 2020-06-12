@@ -27,7 +27,8 @@
 
 5. Prise de notes :
 
-  * [Structures de données](https://codi-lyon.beta.education.fr/bCN88q6CSKGFh8K_TnI8Kg)
+  * [Dossier prise de notes](https://github.com/frederic-junier/DIU-Junier/tree/master/bloc4/Visios)
+  * [Structures de données vendredi 12/06](https://codi-lyon.beta.education.fr/bCN88q6CSKGFh8K_TnI8Kg)
   * [Debriefing vendredi 12/06](https://codi-lyon.beta.education.fr/bCN88q6CSKGFh8K_TnI8Kg#)
 
 Références
