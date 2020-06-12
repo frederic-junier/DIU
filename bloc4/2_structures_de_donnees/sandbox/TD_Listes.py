@@ -7,6 +7,266 @@
 import sys
 
 
+# # Classe liste simplement chaînée circulaire
+# 
+# 
+# ![Liste simplement chainée](ListeSimplementChaineeCirculaire.png)
+
+# In[137]:
+
+
+class Cellule:
+    
+    def __init__(self, info, suivant):
+        self.info = info
+        self.suivant = suivant    
+
+
+class  ListeSimplementChaineeCirculaire:
+    
+    def __init__(self):
+        self.premier = None
+        #on rajoute un accès au dernier élément pour faciliter l'ajout en tete
+        self.dernier = None  
+        self.taille = 0
+    
+    def est_vide(self):
+        #return self.premier is None and self.dernier is None
+        return self.premier is None
+    
+    def __len__(self):
+        #return self.taille
+        if self.est_vide():
+            return 0
+        n = 1
+        debut = self.premier
+        pointeur = self.premier
+        while pointeur.suivant is not debut:
+            pointeur = pointeur.suivant
+            n += 1
+        return n
+    
+    def nbElements(self):
+        return len(self)
+    
+    
+    def ajouterEnTete(self, e):   
+        elt =  Cellule(e, self.premier)        
+        if self.est_vide():               
+            elt.suivant = elt
+            self.dernier = elt
+        self.premier = elt
+        self.dernier.suivant = self.premier
+        self.taille += 1
+
+    def ajouterEnQueue(self, e):
+        if self.est_vide():
+            self.ajouterEnTete(e)
+        else:
+            self.dernier.suivant = Cellule(e, self.premier)
+            self.dernier = self.dernier.suivant
+        self.taille += 1
+        
+    def supprimerTete(self):
+        assert not self.est_vide(), "liste vide !"
+        poubelle = self.premier 
+        #cas particulier : liste réduite à un élément 
+        #car  premier = dernier et premier.suivant = premier
+        if len(self) == 1:
+            #self.premier = self.dernier = self.dernier.suivant = None  => non
+            self.dernier.suivant = None
+            self.premier = None
+            self.dernier = None
+        else:
+            self.premier = self.premier.suivant
+            self.dernier.suivant = self.premier
+        self.taille -= 1
+        del poubelle
+       
+    
+    def vider(self):
+        while not self.est_vide():
+            self.supprimerTete()
+        
+    def __del__(self):
+        print(f"Destruction de {repr(self)}")        
+      
+    
+    def __str__(self):
+        if self.est_vide():
+            return '[]'
+        debut = self.premier
+        output = "[" + str(debut.info) + ','
+        element = debut.suivant
+        while element is not debut:
+            output += str(element.info) + ','
+            element = element.suivant
+        return output.rstrip(',') + ']'
+      
+    def afficher(self):
+        print(self)
+    
+    def __eq__(self, other):
+        assert isinstance(other, type(self)), "éléments de types différents"
+        debut1 = self.premier
+        debut2 = other.premier
+        pointeur1 = self.premier
+        pointeur2 = other.premier
+        while pointeur1 is not None and pointeur2 is not None               and pointeur1.info == pointeur2.info and pointeur1.suivant is not debut1               and pointeur2.suivant is not debut2:
+            pointeur1 = pointeur1.suivant
+            pointeur2 = pointeur2.suivant
+        #listes égales ssi elles sont vides ou si elles sont de même taille avec toutes les valeurs égales
+        return pointeur1 is None and pointeur2 is None or pointeur1.info == pointeur2.info                 and pointeur1.suivant is debut1  and pointeur2.suivant is  debut2
+        
+       
+        
+    def iemeElement(self, i):
+        assert not self.est_vide(), "liste vide !"
+        pointeur = self.premier
+        index = 0
+        while index < i:
+            pointeur = pointeur.suivant
+            index += 1
+        return pointeur.info
+        
+    def modifierIemeElement(self, i, e):
+        assert not self.est_vide(), "liste vide !"
+        pointeur = self.premier
+        index = 0
+        while index < i:
+            pointeur = pointeur.suivant
+            index += 1
+        pointeur.info = e
+            
+    
+    def rechercherElement(self, e):
+        """Retourne la position de l'élément ou -1 s'il n'est pas dans """
+        assert not self.est_vide(), "liste vide !"
+        debut = self.premier
+        pointeur = self.premier
+        index = 0
+        while pointeur.info != e and pointeur.suivant is not debut:
+            pointeur = pointeur.suivant
+            index += 1
+        if pointeur.info == e:
+            return index
+        return -1
+    
+    def insererElement(self, i, e):
+        if self.est_vide():
+            self.ajouterEnTete(e)
+        precedent = self.premier
+        pointeur = self.premier.suivant
+        index = 1
+        while index != i:
+            precedent = precedent.suivant
+            pointeur = pointeur.suivant
+            index += 1
+        precedent.suivant = Cellule(e, pointeur)
+        self.taille += 1
+    
+    def importerTableau(self, tab):
+        for e in tab:
+            self.ajouterEnTete(e)
+            
+    def permutationCirculaire(self):
+        assert not self.est_vide(), "liste vide !"
+        elt = self.premier
+        self.premier = self.premier.suivant
+        self.dernier = elt
+  
+
+
+# In[138]:
+
+
+lcc = ListeSimplementChaineeCirculaire()
+lcc.importerTableau([1,2])
+print(lcc.premier.suivant.suivant.suivant.info)
+print(lcc)
+lcc.supprimerTete()
+print(lcc)
+
+
+# In[140]:
+
+
+lc = ListeSimplementChaineeCirculaire()
+print("Ajout en tete de 5 '2' 4 : ", end='')
+lc.ajouterEnTete(5)
+lc.ajouterEnTete("2")
+lc.ajouterEnTete(4)
+lc.afficher()
+
+print("Valeur de l'element a l'indice 1 : ", lc.iemeElement(1))
+
+print("Modification de l'element a l'indice 1 (1.6) : ", end='')
+lc.modifierIemeElement(1, 1.6)
+lc.afficher()
+
+print("Nombre d'elements : ", lc.nbElements())
+
+print("Suppression de l'element de tete : ", end='')
+lc.supprimerTete()
+lc.afficher()
+
+print("Ajout en queue de 7 et 'test' : ", end='')
+lc.ajouterEnQueue(7)
+lc.ajouterEnQueue("test")
+lc.afficher()
+
+print("Recherche de la valeur 5 : ", lc.rechercherElement(5))
+print("Recherche de la valeur 'coucou' : ", lc.rechercherElement("coucou"))
+
+print("Insertion de la valeur 10 a l'indice 3 : ", end='')
+lc.insererElement(3, 10)
+lc.afficher()
+
+print("Après suppression de tous les elements : ", end='')
+lc.vider()
+lc.afficher()
+
+tab = [5,4,'a',-1]
+print("Ajout en tete de 5, 4, 'a' et -1 : ", end='')
+lc.importerTableau(tab)
+lc.afficher()
+
+lc.vider()
+lc.ajouterEnTete(5)
+lc.ajouterEnTete(2)
+lc.ajouterEnTete(4)
+lc.ajouterEnTete(-1)
+lc.ajouterEnTete(0)
+lc.ajouterEnTete(8)
+print("Liste : ", end='')
+lc.afficher()
+lc.vider()
+
+tab = [5,4,'a',-1]
+print("Ajout en tete de 5, 4, 'a' et -1 : ", end='')
+lc.importerTableau(tab)
+lc.afficher()
+
+
+print("Création d'une liste lc2 avec les mêmes éléments")
+lc2 = ListeSimplementChaineeCirculaire()
+lc2.importerTableau(tab)
+lc2.afficher()
+print("lc == lc2")
+print(lc.__eq__(lc2))
+print("Modification du premier élément de lc2")
+lc2.modifierIemeElement(1, 7)
+print("lc == lc2")
+print(lc.__eq__(lc2))
+
+
+print('Permutation circulaire')
+lc.afficher()
+for k in range(len(lc)):
+    lc.permutationCirculaire()
+    lc.afficher()
+
+
 # # Classe liste simplement chaînée
 # 
 # ![Liste simplement chaînée](simplement_chainee.png)
