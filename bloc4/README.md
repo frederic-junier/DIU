@@ -25,7 +25,10 @@
   
   ![youtube](https://cloud-lyon.beta.education.fr/s/q9eZFEWtDoR5aBG/preview)
 
- 
+5. Prise de notes :
+
+  * [Structures de données](https://codi-lyon.beta.education.fr/bCN88q6CSKGFh8K_TnI8Kg)
+  * [Debriefing vendredi 12/06](https://codi-lyon.beta.education.fr/bCN88q6CSKGFh8K_TnI8Kg#)
 
 Références
 ----------
