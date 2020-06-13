@@ -1,7 +1,7 @@
 
 # coding: utf-8
 
-# In[47]:
+# In[162]:
 
 
 import sys
@@ -12,7 +12,7 @@ import sys
 # 
 # ![Liste simplement chainée](ListeSimplementChaineeCirculaire.png)
 
-# In[137]:
+# In[163]:
 
 
 class Cellule:
@@ -122,6 +122,9 @@ class  ListeSimplementChaineeCirculaire:
         
     def iemeElement(self, i):
         assert not self.est_vide(), "liste vide !"
+        assert i >= 0, "i négatif"
+        n = len(self)
+        i = i % n      
         pointeur = self.premier
         index = 0
         while index < i:
@@ -130,7 +133,7 @@ class  ListeSimplementChaineeCirculaire:
         return pointeur.info
         
     def modifierIemeElement(self, i, e):
-        assert not self.est_vide(), "liste vide !"
+        assert i >= 0 and  not self.est_vide(), "liste vide !"
         pointeur = self.premier
         index = 0
         while index < i:
@@ -155,6 +158,8 @@ class  ListeSimplementChaineeCirculaire:
     def insererElement(self, i, e):
         if self.est_vide():
             self.ajouterEnTete(e)
+        n = len(self)
+        i = i % n
         precedent = self.premier
         pointeur = self.premier.suivant
         index = 1
@@ -169,15 +174,11 @@ class  ListeSimplementChaineeCirculaire:
         for e in tab:
             self.ajouterEnTete(e)
             
-    def permutationCirculaire(self):
-        assert not self.est_vide(), "liste vide !"
-        elt = self.premier
-        self.premier = self.premier.suivant
-        self.dernier = elt
-  
+    def permutationCirculaireDirecte(self):
+        self.dernier, self.premier = self.premier, self.premier.suivant 
 
 
-# In[138]:
+# In[164]:
 
 
 lcc = ListeSimplementChaineeCirculaire()
@@ -188,7 +189,7 @@ lcc.supprimerTete()
 print(lcc)
 
 
-# In[140]:
+# In[165]:
 
 
 lc = ListeSimplementChaineeCirculaire()
@@ -254,26 +255,27 @@ lc2.importerTableau(tab)
 lc2.afficher()
 print("lc == lc2")
 print(lc.__eq__(lc2))
-print("Modification du premier élément de lc2")
+print("Modification du second élément de lc2")
 lc2.modifierIemeElement(1, 7)
 print("lc == lc2")
 print(lc.__eq__(lc2))
 
 
-print('Permutation circulaire')
+print('Permutation circulaire directe')
 lc.afficher()
 for k in range(len(lc)):
-    lc.permutationCirculaire()
+    lc.permutationCirculaireDirecte()
     lc.afficher()
+    
 
 
-# # Classe liste simplement chaînée
+# # Classe liste simplement chaînée non circulaire
 # 
 # ![Liste simplement chaînée](simplement_chainee.png)
 # 
 # 
 
-# In[76]:
+# In[166]:
 
 
 class Cellule:
@@ -469,7 +471,7 @@ class  ListeSimplementChainee:
                 precedent = precedent.suivant
 
 
-# In[49]:
+# In[167]:
 
 
 if __name__ == "__main__":
@@ -556,7 +558,7 @@ if __name__ == "__main__":
     print(f'L1={L1} et L2={L2} et L1 == L2 : {L1.__eq__(L2)}')
 
 
-# In[50]:
+# In[168]:
 
 
 # Test de triInsertion
@@ -570,7 +572,7 @@ print(ListeSimplementChainee.simpleChainedList_from_Pythonlist(sorted(sample, re
 print(f"Après tri L = {L}, liste triée : {ListeSimplementChainee.simpleChainedList_from_Pythonlist(sorted(sample, reverse = True)) == L}")
 
 
-# In[51]:
+# In[169]:
 
 
 # Test de triInsertion2
@@ -607,7 +609,7 @@ print(f"Après tri L = {L}, liste triée : {ListeSimplementChainee.simpleChained
 # 
 # ![Fonctionnalités listes 2](fonctionnalites_listes2.png)
 
-# In[113]:
+# In[170]:
 
 
 class Cellule:
@@ -645,7 +647,7 @@ class  Liste:
             #print(self.premier.info)
             self.supprimerTete()
             self.taille -= 1
-        self.dernier = self.premier
+        #self.dernier = self.premier  => non géré par supprimerTete
         
         
     def detruire(self):
@@ -857,7 +859,7 @@ class  Liste:
         
 
 
-# In[115]:
+# In[171]:
 
 
 if __name__ == "__main__":
@@ -941,7 +943,7 @@ if __name__ == "__main__":
     L.afficher()
 
 
-# In[91]:
+# In[172]:
 
 
 L = Liste()
@@ -972,25 +974,25 @@ L.afficher()
 # 
 # Écrire une procédure de la classe Liste qui, à partir d’un tableau d’éléments (liste Python), crée la liste chaînée contenant les mêmes éléments dans le même ordre. Donnez un exemple d’appel à cette procédure.
 
-# In[55]:
+# In[173]:
 
 
 L = Liste.doubleChainedList_from_Pythonlist([1,2,3])
 
 
-# In[56]:
+# In[174]:
 
 
 L.afficher()
 
 
-# In[57]:
+# In[175]:
 
 
 from random import randint
 
 
-# In[58]:
+# In[176]:
 
 
 L = Liste.doubleChainedList_from_Pythonlist([randint(1, 100) for _ in range(10)])
@@ -999,7 +1001,7 @@ L.triInsertion()
 print("Après tri ",L)
 
 
-# In[59]:
+# In[177]:
 
 
 #Test du tri par insertion sur les permutations de {0,1,2,3,4,5}
@@ -1012,5 +1014,375 @@ for p in permutations(range(6)):
     t = Liste.doubleChainedList_from_Pythonlist(list(p))
     t.triInsertion()
     collector.append(str(t) == base)
+print(all(collector))
+
+
+# # Classe liste doublement chaînée circulaire
+# 
+# ![liste doublement chaînée](liste_doublement_chainee_circulaire.png)
+
+# In[182]:
+
+
+class Cellule:
+    
+    def __init__(self, info, precedent= None, suivant = None):
+        self.info = info
+        self.precedent = precedent
+        self.suivant = suivant    
+
+
+class  ListeDoublementChaineeCirculaire:
+    
+    def __init__(self):
+        self.premier = None
+        self.dernier = None
+        self.taille = 0
+        
+    def est_vide(self):
+        return self.premier is None
+    
+    def __len__(self):
+        #return self.taille
+        if self.est_vide():
+            return 0
+        n = 1
+        debut = self.premier
+        suivant = debut.suivant
+        while suivant is not debut:
+            n += 1
+            suivant = suivant.suivant
+        return n
+    
+    def nbElements(self):
+        return len(self)
+        
+    
+    
+    def supprimerTete(self):
+        assert not self.est_vide(), "liste vide !"
+        poubelle = self.premier
+        #si la liste n'est pas réduite à un élément
+        #on détache le premier et on met à jour les liens
+        if self.premier.suivant is not self.premier:
+            self.premier = self.premier.suivant  #lien d'accès au premier
+            self.premier.precedent = self.dernier  #lien du premier vers le dernier
+            self.dernier.suivant = self.premier    #lien du dernier vers le premier
+        #sinon on revient à une liste vide
+        else:
+            self.premier = self.dernier = None
+        #on a supprimé tous les liens vers poubelle
+        #on détruit poubelle
+        del poubelle
+        #on met à jour la taille
+        self.taille -= 1
+        
+    def supprimerQueue(self):
+        assert not self.est_vide(), "liste vide !"
+        poubelle = self.dernier
+        #si la liste n'est pas réduite à un élément
+        #on détache le dernier et on met à jour les liens
+        if self.dernier.precedent is not self.dernier:
+            self.dernier = self.dernier.precedent #lien d'accès au drnir
+            self.premier.precedent = self.dernier  #lien du premier vers le dernier
+            self.dernier.suivant = self.premier    #lien du dernier vers le premier
+        #sinon on revient à une liste vide
+        else:
+            self.premier = self.dernier = None
+        #on a supprimé tous les liens vers poubelle
+        #on détruit poubelle
+        del poubelle
+        #on met à jour la taille
+        self.taille -= 1
+        
+            
+    def vider(self):
+        while self.premier is not None:
+            self.supprimerTete()
+            self.taille -= 1
+    
+    def __del__(self):
+        #print(f"La liste d'identifiant {id(self)} va être détruite")
+        pass
+        
+        
+    def ajouterEnTete(self, e):
+        elt = Cellule(e, self.dernier, self.premier)
+        if self.est_vide():
+            self.premier = elt
+            self.dernier = self.premier
+            self.premier.precedent =  elt
+            self.premier.suivant =  elt
+        else:
+            self.premier.precedent = elt
+            self.premier = elt
+            self.dernier.suivant = self.premier
+        self.taille += 1
+        
+    def ajouterEnQueue(self, e):        
+        if self.est_vide():
+            self.ajouterEnTete(e)
+        else:
+            elt = Cellule(e, self.dernier, self.premier)
+            self.dernier.suivant = elt
+            self.dernier = elt
+            self.premier.precedent = self.dernier
+        self.taille += 1
+        
+        
+    def __str__(self):
+        if self.est_vide():
+            return '[]'        
+        debut = self.premier
+        output = '[' + str(debut.info)
+        suivant = debut.suivant
+        while suivant is not debut:
+            output += ',' + str(suivant.info)
+            suivant = suivant.suivant
+        return output + ']'
+    
+    def afficher(self):
+        print(str(self))   
+       
+        
+        
+    def iemeElement(self, i):
+        n = self.nbElements()
+        assert 0 <= i 
+        i = i % n        
+        index = 0
+        element = self.premier
+        while index < i:
+            element= element.suivant
+            index += 1
+        return element.info
+
+        
+    def modifierIemeElement(self, i, e):
+        n = len(self)
+        assert 0 <= i 
+        i = i % n        
+        index = 0
+        element = self.premier
+        while index < i:
+            element= element.suivant
+            index += 1
+        element.info = e
+  
+       
+    def rechercherElement(self, e):
+        assert not self.est_vide(), "Liste vide !"
+        debut = self.premier
+        element = self.premier
+        index = 0
+        while element.info != e and element.suivant is not debut:
+            element = element.suivant
+            index += 1
+        if element.info == e:
+            return index
+        return -1
+            
+    def insererElement(self, e, i):        
+        if self.est_vide():
+            self.ajouterEnTete(e)
+        n = len(self)
+        i = i % n
+        if i == 0:
+            self.ajouterEnQueue(e)
+        element = self.premier
+        index = 0
+        while index < i:
+            element = element.suivant
+            index += 1
+        elt = Cellule(e, element.precedent, element)
+        element.precedent.suivant = elt
+        element.precedent = elt
+        self.taille += 1
+    
+    def __eq__(self, other):
+        assert isinstance(other, type(self)), "objets de types différents"
+        debut1  = self.premier
+        debut2 = other.premier
+        element1 = self.premier
+        element2 = other.premier
+        while element1 is not None and element2 is not None              and element1.suivant is not debut1 and element2.suivant is not debut2             and element1.info == element2.info:
+                element1 = element1.suivant
+                element2 = element2.suivant
+        return (element1 is None and element2 is None                 or (element1.info == element2.info                     and element1.suivant is debut1                     and element2.suivant is debut2 ))
+        
+        
+    def importerTableau(self, tab):
+        for e in tab:
+            self.ajouterEnQueue(e)
+    
+    def permutationCirculaireDirecte(self):
+        self.dernier, self.premier = self.premier, self.premier.suivant
+        
+    def permutationCirculaireIndirecte(self):
+        self.dernier, self.premier = self.dernier.precedent, self.dernier
+        
+    def triInsertion(self):
+        debut = self.premier
+        aPlacer = self.premier.suivant
+        #boucle sur les éléments non classés
+        while aPlacer is not debut:
+            dernierTri = aPlacer.precedent
+            courant = self.premier
+            val = aPlacer.info
+            #boucle interne sur les éléments classés
+            #pour déterminer le point d'insertion
+            while courant is not aPlacer and courant.info < val:                
+                courant = courant.suivant
+                #print("Courant", courant.info)
+            #3 cas d'insertion
+            #il faut déplacer aPlacer
+            if courant is not aPlacer:
+                #mise à jour des liens entre dernierTri et aPlacer.suivant
+                dernierTri.suivant = aPlacer.suivant
+                aPlacer.suivant.precedent = dernierTri
+                #attention sous-cas : 
+                #si aPlacer est le dernier élément
+                #mettre à jour self.dernier car on déplace aPlacer
+                if aPlacer is self.dernier:
+                    self.dernier = dernierTri
+                #insertion en tête de liste
+                if courant is self.premier: 
+                    #on change les liens partant de aPlacer                    
+                    aPlacer.precedent = self.dernier
+                    aPlacer.suivant = self.premier
+                    #on change le lien partant de aPlacer
+                    self.premier.precedent = aPlacer                
+                    self.premier = aPlacer
+                    self.dernier.suivant = self.premier
+                #insertion entre la tête de liste et dernierTri
+                else:
+                    #on a 4 liens à changer
+                    aPlacer.precedent = courant.precedent
+                    aPlacer.suivant = courant
+                    courant.precedent = aPlacer                
+                    aPlacer.precedent.suivant = aPlacer    
+            #cas où on ne déplace pas aPlacer qui devient dernierTri
+            else: 
+                dernierTri = aPlacer
+            #print(self)
+            aPlacer = dernierTri.suivant            
+
+
+# In[179]:
+
+
+lc = ListeDoublementChaineeCirculaire()
+print("Ajout en tete de 5 '2' 4 : ", end='')
+lc.ajouterEnTete(5)
+lc.ajouterEnTete("2")
+lc.ajouterEnTete(4)
+lc.afficher()
+
+print("Valeur de l'element a l'indice 1 : ", lc.iemeElement(1))
+
+print("Modification de l'element a l'indice 1 (1.6) : ", end='')
+lc.modifierIemeElement(1, 1.6)
+lc.afficher()
+
+print("Nombre d'elements : ", lc.nbElements())
+
+print("Suppression de l'element de tete : ", end='')
+lc.supprimerTete()
+lc.afficher()
+
+print("Ajout en queue de 7 et 'test' : ", end='')
+lc.ajouterEnQueue(7)
+lc.ajouterEnQueue("test")
+lc.afficher()
+
+print("Recherche de la valeur 5 : ", lc.rechercherElement(5))
+print("Recherche de la valeur 'coucou' : ", lc.rechercherElement("coucou"))
+
+print("Insertion de la valeur 10 a l'indice 3 : ", end='')
+lc.insererElement(3, 10)
+lc.afficher()
+
+print("Après suppression de tous les elements : ", end='')
+lc.vider()
+lc.afficher()
+
+tab = [5,4,'a',-1]
+print("Ajout en tete de 5, 4, 'a' et -1 : ", end='')
+lc.importerTableau(tab)
+lc.afficher()
+
+lc.vider()
+lc.ajouterEnTete(5)
+lc.ajouterEnTete(2)
+lc.ajouterEnTete(4)
+lc.ajouterEnTete(-1)
+lc.ajouterEnTete(0)
+lc.ajouterEnTete(8)
+print("Liste : ", end='')
+lc.afficher()
+lc.vider()
+
+tab = [5,4,'a',-1]
+print("Ajout en tete de 5, 4, 'a' et -1 : ", end='')
+lc.importerTableau(tab)
+lc.afficher()
+
+
+print("Création d'une liste lc2 avec les mêmes éléments")
+lc2 = ListeDoublementChaineeCirculaire()
+lc2.importerTableau(tab)
+lc2.afficher()
+print("lc == lc2")
+print(lc.__eq__(lc2))
+print("Modification du second élément de lc2")
+lc2.modifierIemeElement(1, 7)
+print("lc == lc2")
+print(lc.__eq__(lc2))
+print("On remet le même second élément mais on rallonge lc2")
+lc2.modifierIemeElement(1, lc.iemeElement(1))
+lc2.ajouterEnQueue(lc.iemeElement(1))
+print("lc == lc2")
+print(lc.__eq__(lc2))
+
+
+print('Permutation circulaire directe')
+lc.afficher()
+for k in range(len(lc)):
+    lc.permutationCirculaireDirecte()
+    lc.afficher()
+    
+print('Permutation circulaire indirecte')
+lc.afficher()
+for k in range(len(lc)):
+    lc.permutationCirculaireIndirecte()
+    lc.afficher()
+
+
+# In[180]:
+
+
+#Un exemple de tri 
+L = ListeDoublementChaineeCirculaire()
+L.importerTableau(list(range(6, -1, -1)))
+print('Avant tri')
+L.afficher()
+print('Après tri')
+L.triInsertion()
+L.afficher()
+
+
+# In[181]:
+
+
+# Test de triInsertion
+from itertools import permutations
+
+collector = []
+base = '[' + ','.join(map(str, list(range(6)))) + ']'
+for p in permutations(range(6)):
+    L = ListeDoublementChaineeCirculaire()
+    L.importerTableau(list(p))
+    L.triInsertion()
+    collector.append(str(L) == base)
 print(all(collector))
 
