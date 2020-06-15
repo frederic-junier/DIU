@@ -318,7 +318,7 @@ class  ListeSimplementChainee:
     def vider(self):
         while self.premier is not None:
             self.supprimerTete()
-            self.taille -= 1
+         
         
         
     def detruire(self):
@@ -1099,8 +1099,7 @@ class  ListeDoublementChaineeCirculaire:
     def vider(self):
         while self.premier is not None:
             self.supprimerTete()
-            self.taille -= 1
-    
+            
     def __del__(self):
         #print(f"La liste d'identifiant {id(self)} va être détruite")
         pass
