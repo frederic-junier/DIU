@@ -27,6 +27,7 @@ class Arbre :
                     self.fd= Arbre(elmt)
             # rien à faire si égal, déjà présent, arrêt de la récursion
 
+    #proposition de Pascal Salliot
     def affichage(self, niveau=0, c=132):
         if self.fd:
             self.fd.affichage( niveau+1, 47 )
@@ -134,11 +135,17 @@ class Arbre :
 
     def __eq__(self, other) : 
         assert isinstance(other, type(self)), "éléments de types différents"
+        #si les noeuds n'ont pas la même valeur ou pas la même structure de filiation
         if self.info != other.info or (self.fg and not other.fg) or (not self.fg and other.fg) \
                                    or (self.fd and not other.fd) or (not self.fd and other.fd) :
             return False
+        #ici on a l'égalité et la même structure de filiation
+        #premier sous-cas :si les deux noeuds sont vides alors ils sont égaux
+        #si self.info à None, on a forcement other.info à None sinon on aurait retourner False précédemment
+        #de plus on a forcément self.fd et self.fg à None (noeud vide dont on renvoie Vrai)
         if self.info is None :
             return True
+        #deuxième sous-cas si les noeuds ont même valeur alors les arbres sont égaux ssi les fils g et d égaux
         return self.fg == other.fg and self.fd == other.fd
 
     def estBinaireDeRecherche(self) :
@@ -212,71 +219,114 @@ class Arbre :
                 parent = self
                 self = self.fg
         print('pps ',self.info,'parent ', parent.info)
-        return self, parent        
-    
-    def liberer(self, parent = None):
-        #suppression du fils et du lien pere/fils
-        if parent.fg is self :
-            parent.fg = None
-        else:
-            parent.fd = None
-        self.info = None
-        self.fd = None
-        self.fg = None        
+        return self, parent               
     
     def supprimerElement(self, elmt, parent = None) :
-        if not self :  
+        if not self.info :  
             return
         # si elmt est inférieur à la valeur du self, rechercher dans le sous-arbre gauche
-        if elmt < self.info and self.fg :
+        if elmt < self.info and self.fg :         #à mettre sinon supprime elmt non present ne marche pas ???
             self.fg.supprimerElement(elmt, self)
         # si elmt est sépérieur à la valeur du self, rechercher dans le sous-arbre droit
-        elif elmt > self.info and self.fd:
+        elif elmt > self.info and self.fd  :
             self.fd.supprimerElement(elmt, self)
         elif elmt == self.info : #On a trouvé l'élément à supprimer
             # ne pas mettre else car element peut etre pas present !!
             # si self est une feuille (n'a pas d'enfant !)
             if not self.fg and not self.fd :
-                 self.liberer(parent)               
+                #si ce n'est pas le noeud racine, son parent doit pointer sur None
+                if parent :
+                    if parent.fg is self:
+                        parent.fg = None
+                    else:
+                        parent.fd = None
+                #si c'est le noeud racine, pa de parent : mettre juste sa valeur à self.
+                else :
+                    self.info = None               
             # self a un fils unique à doite
-            elif not self.fg :
-                if parent.fg is self:
-                    parent.fg = self.fd
-                else:
-                    parent.fd = self.fd
+            elif not self.fg :  #donc self.fd is not Nune...
+                #si ce n'est pas le noeud racine, son parent doit pointer sur le fils unique fd
+                if parent :
+                    if parent.fg is self:
+                        parent.fg = self.fd
+                    else:
+                        parent.fd = self.fd
+                #cas du noeud racine
+                else: 
+                    self.info = self.fd.info
+                    self.fd = self.fd.fd
+                    self.fg = self.fd.fg
             # self a un fils unique à gauche
-            elif not self.fd :
-                if parent.fg is self:
-                    parent.fg = self.fg
-                else:
-                    parent.fd = self.fg
+            elif not self.fd :  #donc self.fg is not None...
+                #si ce n'est pas le noeud racine, son parent doit pointer sur le fils unique fg
+                if parent :
+                    if parent.fg is self:
+                        parent.fg = self.fg
+                    else:
+                        parent.fd = self.fg
+                #cas du noeud racine
+                else: 
+                    self.info = self.fg.info
+                    self.fd = self.fg.fd
+                    self.fg = self.fg.fg
             # self a deux fils
             else :
-                # il faut remplacer la valeur de self par celle de son plus proche predecesseur/successeur ppp/pps
-                 
-                #on alterne pour équilibrer ???
-                if randint(0, 1) == 1:
+                # il faut remplacer la valeur de self par celle de son plus proche predecesseur/successeur ppp/pps  
+                # on alterne pour équilibrer ???
+                if randint(0,1) == 1:
                     #remplacement par le plus proche prédécesseur
                     print('plus proche predécésseur')
                     (pred, parentpred) = self.plusGrandPredecesseur()
-                    self.info = pred.info
-                    #si le ppprédécesseur a un fils gauche, il ne peut pas avoir de fils droit : + gd pred !!
-                    #on fait pointer le parent de pppredecesseur sur ce fils gauche, et c'est necessairement parent.fd !!
-                    if pred.fg :
-                        parentpred.fd  = pred.fg
-                    #on libère le noeud
-                    pred.liberer(parentpred)
+                    #si le ppprédécesseur a un fils gauche (au pire None)
+                    #de toute manière, il ne peut pas avoir de fils droit : + gd pred !!
+                    #le parent de ce pppredecesseur doit pointer sur fils gauche, et c'est souvent parent.fd
+                    #mais si on est tt de suite après la racine, c'est le parent.fg !!
+                    if parentpred.fg is pred :
+                        parentpred.fg = pred.fg                        
+                    else:
+                        parentpred.fd = pred.fg 
+                    #on insère le plus proche prédécesseur à la place du noeud
+                    
+                    #cas où self est le noeud racine
+                    if parent is None:
+                        self.info = pred.info
+                    #si ce n'est pas le noeud racine, son parent doit pointer sur le fils unique fg
+                    else:
+                        #sinon si self est un fils gauche
+                        if parent.fg is self :
+                            parent.fg = pred                        
+                        else:
+                            parent.fd = pred
+                        #le  plus proche prédécesseur hérite des fils de self
+                        pred.fg = self.fg
+                        pred.fd = self.fd                        
                 else :
                     #remplacement par le plus proche successeur
                     print('plus proche successeur')
                     (succ, parentsucc) = self.plusPetitSuccesseur()
-                    self.info = succ.info
-                    #si le pps a un fils droit, il ne peut pas avoir de fils gauche : + petit succ !!
-                    #on fait pointer le parent de pps (qui est necessairement parent.fg) sur ce fils droit !!
-                    if succ.fd :
-                        parentpred.fg  = succ.fd
-                    #on libère le noeud
-                    succ.liberer(parentsucc)
+                    #si le ppsuccesseur a un fils droit (au pire None)
+                    #de toute manière, il ne peut pas avoir de fils gauche : + petit succ !!
+                    #le parent de ce ppsuccesseur doit pointer sur fils droit, et c'est souvent parent.fg
+                    #mais si on est tt de suite après la racine, c'est le parent.fd !!
+                    if parentsucc.fg is succ :
+                        parentsucc.fg = succ.fd                        
+                    else:
+                        parentsucc.fd = succ.fd
+                    #on insère le plus proche prédécesseur à la place du noeud
+                    
+                    #cas où self est le noeud racine
+                    if parent is None :
+                        self.info = succ.info
+                    #si ce n'est pas le noeud racine, son parent doit pointer sur le fils unique fg
+                    else:
+                        #sinon si self est un fils gauche
+                        if parent.fg is self :
+                            parent.fg = succ                        
+                        else:
+                            parent.fd = succ
+                        #le  plus proche prédécesseur hérite des fils de self
+                        succ.fg = self.fg
+                        succ.fd = self.fd                     
 
     def vider(self) :
         pass
@@ -478,3 +528,57 @@ print("Suppression d'un élément avec deux fils")
 arbre4.supprimerElement(3, None)
 print("Affichage parcours préfixe")
 arbre4.afficherParcoursPrefixe()
+
+arbre5 = Arbre()
+for k in [5,3,4,1,7,6,2]:
+    print('-'*20)
+    print(f"Insertion de {k}")
+    arbre5.insererElement(k)
+arbre5.affichage()
+print()
+print("Branche maximale glouton d'arbre non optimale")
+print(arbre5.brancheMaxGloutonne())
+print("Branche maximale dynamique d'arbre (optimale)")
+print(arbre5.brancheMaxOptimale())
+print("Suppression d'éléments")
+print("Suppression d'une feuille", 2)
+arbre5.supprimerElement(2, None)
+print("Affichage parcours préfixe")
+arbre5.affichage()
+print("Suppression d'un élément avec un fils", 7)
+arbre5.supprimerElement(7, None)
+print("Affichage parcours préfixe")
+arbre5.affichage()
+print("Réinsertion des éléments supprimés")
+arbre5.insererElement(2)
+arbre5.insererElement(7)
+print("Affichage parcours préfixe")
+arbre5.affichage()
+print("Suppression d'un élément avec deux fils", 3)
+arbre5.supprimerElement(3, None)
+print("Affichage parcours préfixe")
+arbre5.affichage()
+print("Suppression de la racine ", 5)
+arbre5.supprimerElement(5, None)
+print("Affichage parcours préfixe")
+arbre5.affichage()
+print("Suppression du noeud", 2)
+arbre5.supprimerElement(2, None)
+print("Affichage parcours préfixe")
+arbre5.affichage()
+print("Suppression du noeud", 4)
+arbre5.supprimerElement(4, None)
+print("Affichage parcours préfixe")
+arbre5.affichage()
+print("Suppression du noeud", 1)
+arbre5.supprimerElement(1, None)
+print("Affichage parcours préfixe")
+arbre5.affichage()
+print("Suppression du noeud", 7)
+arbre5.supprimerElement(7, None)
+print("Affichage parcours préfixe")
+arbre5.affichage()
+print("Suppression du noeud", 6)
+arbre5.supprimerElement(6, None)
+print("Affichage parcours préfixe")
+arbre5.affichage()

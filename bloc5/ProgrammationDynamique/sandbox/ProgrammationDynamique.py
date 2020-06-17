@@ -15,6 +15,10 @@
 # problème initial. Mais la méthode diviser-pour-régner est inefficace si on doit résoudre plusieurs fois le même
 # sous-problème. En programmation dynamique, on se rappelle des sous-problèmes que l’on a résolus et de leurs
 # solutions.
+# 
+# 
+# 
+# Les algorithmes utilisant le principe de mémoïsation forment un sous-ensemble des algorithmes dit de programmation dynamique. La programmation dynamique consiste à résoudre un problème soit à l'aide d'un algorithme (souvent itératif) ascendant (ou bottom-up) en stockant des données déjà calculées (souvent dans un tableau) et utilise directement la sous-structure optimale du problème, soit à l'aide d'un algorithme (souvent récursif) descendant (ou top-down) qui utilise le principe de mémoïsation de ces données (c-à-d qui teste si on a déjà calculé les données et ne le refait pas le cas échéant).
 
 # # Termes de la suite de Fibonacci
 
@@ -34,7 +38,7 @@
 # du n ème terme, etc. Il y a donc beaucoup de calculs dupliqués qui pourraient être évités. La solution est de ne les
 # calculer que s’ils ne l’ont pas encore été.
 
-# In[43]:
+# In[62]:
 
 
 def fibonacci (n):
@@ -57,7 +61,7 @@ def fiboDyna(n):
     return aux(n, [0,1] + [-1] * n)        
 
 
-# In[39]:
+# In[63]:
 
 
 [fiboDyna(n) == fibonacci(n) for n in range(10)]
@@ -65,25 +69,30 @@ def fiboDyna(n):
 
 # ### Comparaison de performances
 
-# In[41]:
+# In[64]:
 
 
 import timeit
 
 
-# In[53]:
+# In[65]:
 
 
 timeit.timeit(lambda : [fibonacci(n) for n in range(30)], number = 10)/10
 
 
-# In[52]:
+# In[66]:
 
 
 timeit.timeit(lambda : [fiboDyna(n) for n in range(30)], number = 10)/10
 
 
 # ## Rendu de pièces de monnaire
+
+# Sitographie :
+#     
+# * Voir cet article [https://tryalgo.org/fr/2016/12/11/rendudemonnaie/](https://tryalgo.org/fr/2016/12/11/rendudemonnaie/)
+# * Voir le document d'accompagnement [https://cache.media.eduscol.education.fr/file/NSI/76/4/RA_Lycee_G_NSI_algo-gloutons_1170764.pdf](https://cache.media.eduscol.education.fr/file/NSI/76/4/RA_Lycee_G_NSI_algo-gloutons_1170764.pdf)
 
 # Nous avons vu précédement un algorithme glouton pour résoudre le problème du rendu de pièces de monnaie. La
 # méthode employée était de toujours choisir la pièce de valeur la plus grande possible (afin de se rapprocher de
@@ -114,7 +123,7 @@ timeit.timeit(lambda : [fiboDyna(n) for n in range(30)], number = 10)/10
 # pieces_min tel que pieces_min[i][j] contient le nombre minimal de pièces pour un rendu de j centimes avec des
 # pièces de valeur inférieure ou égale à celle de la i ème plus petite pièce du système monétaire.
 
-# In[148]:
+# In[67]:
 
 
 #Glouton
@@ -133,32 +142,41 @@ def renduMonnaieRecurGlouton(montant,systemeMonetaire, rendu,indPiece) :
     return renduMonnaieRecurGlouton(montant,systemeMonetaire, rendu,indPiece-1)
 
 
-# In[159]:
+# In[68]:
 
 
 #Rendu dynamique version itérative
 
-def renduMonnaieDynaIter(montant, systeme):
+def renduMonnaieDynaIter(montant, systeme, verbose = False):
     pieces_min = [ [0] * len(systeme) for _ in range(montant + 1)]
     for m in range(1, montant + 1):
-        pieces_min[m][0] = m
+        if m % systeme[0] == 0:
+            pieces_min[m][0] = m // systeme[0]
+        else:
+            pieces_min[m][0] = 0
         for indexpiece in range(1, len(systeme), systeme[0]):
             if systeme[indexpiece] <= m:
                 pieces_min[m][indexpiece] = min(1 + pieces_min[m - systeme[indexpiece]][indexpiece], pieces_min[m][indexpiece - 1])
             else:
                 pieces_min[m][indexpiece] = pieces_min[m][indexpiece - 1]
+    if verbose:
+        print(pieces_min)
     return pieces_min[montant][-1]
 
 
-# In[161]:
+# In[69]:
 
 
 #Rendu dynamique version itérative avec traçage des pièces rendues
 
-def renduMonnaieDynaIterDetail(montant, systeme):
+def renduMonnaieDynaIterDetail(montant, systeme, verbose = False):
+    """Une version Bottom -> Top"""
     pieces_min = [ [[0, 0] for _ in range(len(systeme))] for _ in range(montant + 1)]
     for m in range(1, montant + 1, systeme[0]):
-        pieces_min[m][0] = [m, systeme[0]]
+        if m % systeme[0] == 0:
+            pieces_min[m][0] = [m // systeme[0], systeme[0]]
+        else:
+            pieces_min[m][0] = [0, systeme[0]]
         for indexpiece in range(1, len(systeme)):
             if systeme[indexpiece] <= m:
                 p = m - systeme[indexpiece]
@@ -168,9 +186,11 @@ def renduMonnaieDynaIterDetail(montant, systeme):
                     #valeur de la dernière pièce rendue
                     pieces_min[m][indexpiece][1] = systeme[indexpiece]
                 else:
-                    pieces_min[m][indexpiece] = pieces_min[m][indexpiece - 1][:]
+                    pieces_min[m][indexpiece] = pieces_min[m][indexpiece - 1]
             else:
-                pieces_min[m][indexpiece] = pieces_min[m][indexpiece - 1][:]
+                pieces_min[m][indexpiece] = pieces_min[m][indexpiece - 1]
+    if verbose:
+        print(pieces_min)
     nbpieceMin = pieces_min[montant][-1][0]    
     dernierePiece = pieces_min[montant][-1][1]
     reste = montant - dernierePiece
@@ -182,7 +202,7 @@ def renduMonnaieDynaIterDetail(montant, systeme):
     return rendu
 
 
-# In[141]:
+# In[70]:
 
 
 systemeMonetaireCanonique = [1,2,5,10,20,50,100,200]  #système canonique, optimal également pour l'algo glouton
@@ -190,26 +210,27 @@ print(renduMonnaieGlouton(263,systemeMonetaireCanonique))
 print(renduMonnaieDynaIterDetail(263, systemeMonetaireCanonique))
 
 
-# In[151]:
+# In[71]:
 
 
-systemeMonetaireNonCanonique = [1,3, 4]  #système canonique, optimal également pour l'algo glouton
+systemeMonetaireNonCanonique = [1,3, 4]  
 print(renduMonnaieGlouton(6,systemeMonetaireNonCanonique))
+print(renduMonnaieDynaIter(6, systemeMonetaireNonCanonique, verbose = True))
 print(renduMonnaieDynaIterDetail(6, systemeMonetaireNonCanonique))
 
 
-# In[150]:
+# In[72]:
 
 
-systemeMonetaireNonCanonique = [1,7, 23]  #système canonique, optimal également pour l'algo glouton
+systemeMonetaireNonCanonique = [1,7, 23]  
 print(renduMonnaieGlouton(28,systemeMonetaireNonCanonique))
 print(renduMonnaieDynaIterDetail(28, systemeMonetaireNonCanonique))
 
 
-# In[2]:
+# In[73]:
 
 
-#rendu de monnaie dynamique version récursive
+#rendu de monnaie version récursive (mais pas dynamique)
 
 def renduMonnaieRec(setReste, systeme,  nbpieces):
     setReste2 = set()
@@ -223,31 +244,167 @@ def renduMonnaieRec(setReste, systeme,  nbpieces):
     return renduMonnaieRec(setReste2, systeme, nbpieces + 1)          
 
 
-# In[3]:
+# In[74]:
 
 
 renduMonnaieRec({263}, [1,2,5,10,20,50,100,200], 0)
 
 
-# In[4]:
+# In[75]:
 
 
 renduMonnaieRec({28}, [1,7, 23], 0)
 
 
-# In[5]:
+# In[76]:
 
 
 renduMonnaieRec({6}, [1,3, 4], 0)
 
 
+# In[77]:
+
+
+#Décorateur pour compter les appels
+
+def counter(f):
+
+    def wrap(*args, **kwargs):
+        wrap.compteur += 1
+        rep = f(*args, **kwargs)         
+        return rep
+    
+    #compteur attaché dans la 'closure' de  la fonction wrap comme attribut
+    #c'est plus facile pour y accéder de l'extérieur
+    wrap.compteur = 0    
+    return wrap
+    
+
+
+# In[78]:
+
+
+def renduMonnaieDynaRec(somme, systeme):
+    
+    """Une version Top-> Bottom, dynamique récursive, avec liste des pièces du rendu"""
+    
+    memo = [[(0, None, None) for _ in range(len(systeme))] for _ in range(somme + 1)]
+    #memo[montant][indexpiece] contiendra le nb de pieces minimal calculé,
+    #la somme restante et le plus grand index de piece utilisé pour le rendu
+  
+    @counter
+    def aux(somme, indexpiece):
+        """Complexite spatiale en O(montant * len(systeme)) la même que pour la version Bottom -> Top"""        
+        if somme == 0:
+            return (0, None, None)
+        if memo[somme][indexpiece][0] > 0:
+            return memo[somme][indexpiece]
+        if indexpiece == 0:
+            if somme % systeme[0] == 0:
+                q = somme // systeme[0]
+                memo[somme][indexpiece] = (q, 0, 0)
+                return (q, 0, 0)
+            memo[somme][indexpiece] = (0, None,None)
+            return (0, None, None)   
+        v1, m1, i1 = aux(somme, indexpiece - 1)
+        if systeme[indexpiece] <= somme:
+            v2, m2, i2 = aux(somme - systeme[indexpiece], indexpiece)
+            v = v2 + 1
+            if v < v1:                
+                memo[somme][indexpiece] = (v, somme - systeme[indexpiece], indexpiece)
+                return (v, somme - systeme[indexpiece], indexpiece)
+        memo[somme][indexpiece] = v1, m1, i1
+        return (v1, m1, i1)
+    
+   
+    
+    #print(memo)
+    indexpiece = len(systeme) - 1
+    aux(somme, indexpiece)
+    print(f"{aux.compteur} appels récursifs")
+    nbpiecemin, reste, indexpiece= memo[somme][indexpiece]
+    dernierepiece = somme - reste
+    rendu = []
+    rendu.append(dernierepiece)
+    somme = reste
+    while somme > 0:
+        _, reste, indexpiece= memo[somme][indexpiece]
+        dernierepiece = somme - reste
+        rendu.append(dernierepiece)
+        somme = reste     
+    return nbpiecemin, rendu
+
+
+# In[79]:
+
+
+renduMonnaieDynaRec(263, [1,2,5,10,20,50,100,200])
+
+
+# In[80]:
+
+
+renduMonnaieDynaRec(6, [1,3, 4])
+
+
+# In[81]:
+
+
+renduMonnaieDynaRec(28, [1,7, 23])
+
+
+# In[82]:
+
+
+renduMonnaieDynaRec(280, [1,7, 23])
+
+
+# In[83]:
+
+
+@counter
+def renduMonnaieRecurDynaBrigitte(montant,mem):
+    """Complexité spatiale en O(montant)"""
+    if montant==0:
+        return 0
+    elif mem[montant]>0:
+        return mem[montant]
+    else:
+        nbPieces = montant//systemeMonetaire[0]
+        for piece in systemeMonetaire :
+            if piece <= montant :
+                nb = 1 + renduMonnaieRecurDynaBrigitte(montant-piece,mem)
+                if nb < nbPieces :
+                    nbPieces = nb 
+        mem[montant] = nbPieces
+    return mem[montant]
+
+systemeMonetaire = [1,2,5,10,20,50,100,200]
+print(f"Rendu min pour 263 avec systeme={systemeMonetaire} en {renduMonnaieRecurDynaBrigitte(263, [0] * (263+1))} pièces")
+print(f"{renduMonnaieRecurDynaBrigitte.compteur} appels récursifs et somme * len(systeme) = {263 * len(systemeMonetaire)}")
+renduMonnaieRecurDynaBrigitte.compteur = 0
+systemeMonetaire = [1,7, 23]
+print(f"Rendu min pour 280 avec systeme={systemeMonetaire} en {renduMonnaieRecurDynaBrigitte(280, [0] * (280+1))} pièces")
+print(f"{renduMonnaieRecurDynaBrigitte.compteur} appels récursifs et somme * len(systeme) = {280 * len(systemeMonetaire)}")
+renduMonnaieRecurDynaBrigitte.compteur = 0
+print(f"Rendu min pour 280 avec systeme={systemeMonetaire} en {renduMonnaieRecurDynaBrigitte(28, [0] * (28+1))} pièces")
+print(f"{renduMonnaieRecurDynaBrigitte.compteur} appels récursifs et somme * len(systeme) = {28 * len(systemeMonetaire)}")
+renduMonnaieRecurDynaBrigitte.compteur = 0
+systemeMonetaire = [1,3, 4]
+print(f"Rendu min pour 6 avec systeme={systemeMonetaire} en {renduMonnaieRecurDynaBrigitte(6, [0] * (6+1))} pièces")
+print(f"{renduMonnaieRecurDynaBrigitte.compteur} appels récursifs et somme * len(systeme) = {6 * len(systemeMonetaire)}")
+
+
 # ## Le sac  à dos
 
-# Voir l'article  de Wikipedia (partie sur la programmation dynamique) : [https://fr.wikipedia.org/wiki/Probl%C3%A8me_du_sac_%C3%A0_dos#Programmation_dynamique](https://fr.wikipedia.org/wiki/Probl%C3%A8me_du_sac_%C3%A0_dos#Programmation_dynamique)
+# Sitographie :
+# 
+# * Voir l'article  de Wikipedia (partie sur la programmation dynamique) : [https://fr.wikipedia.org/wiki/Probl%C3%A8me_du_sac_%C3%A0_dos#Programmation_dynamique](https://fr.wikipedia.org/wiki/Probl%C3%A8me_du_sac_%C3%A0_dos#Programmation_dynamique)
+# * Article plus abordable d'Interstices avec une applet : [https://interstices.info/le-probleme-du-sac-a-dos/](https://interstices.info/le-probleme-du-sac-a-dos/)
 
 # ![sac à dos dynamique](sac_a_dos_dynamique.png)
 
-# In[72]:
+# In[84]:
 
 
 def afficher_tab(tab, message):
@@ -288,13 +445,13 @@ def sacDosDyna(cap_sac, objet):
     return (max_val[nb_objet][cap_sac], liste_objets_max)
 
 
-# In[70]:
+# In[85]:
 
 
 sacDosDyna(9, [[6,5], [3,2], [3,2], [3,2], [1,1]])
 
 
-# In[71]:
+# In[86]:
 
 
 sacDosDyna(12, [[6,5], [3,2], [3,2], [3,2], [1,1]])
