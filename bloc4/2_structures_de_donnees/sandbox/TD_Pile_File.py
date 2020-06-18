@@ -1,7 +1,7 @@
 
 # coding: utf-8
 
-# In[5]:
+# In[1]:
 
 
 from TD_Listes import Liste, Cellule
@@ -20,7 +20,7 @@ from TD_Listes import Liste, Cellule
 
 # ## Classe Pile avec tableau dynamique en Python
 
-# In[30]:
+# In[16]:
 
 
 class Pile:
@@ -37,7 +37,7 @@ class Pile:
         return output
     
     def __repr__(self):
-        repr(self.liste)
+        return repr(self.liste)
         
     def depiler(self):
         assert not self.est_vide(), "La pile est vide !"
@@ -88,7 +88,7 @@ class Pile:
         
 
 
-# In[7]:
+# In[3]:
 
 
 # Exemple d'utilisation
@@ -124,7 +124,7 @@ print(f"Attributs de la pile : {vars(stack)}")
 
 # ## Classe Pile avec liste doublement chaînée
 
-# In[28]:
+# In[4]:
 
 
 class Pile2(Liste):
@@ -145,8 +145,8 @@ class Pile2(Liste):
         return output
         
     
-    def __repr__(self):
-        repr(self)
+    #def __repr__(self):
+    #    repr(self)
         
     def depiler(self):
         assert not self.est_vide(), "La pile est vide !"
@@ -174,14 +174,14 @@ class Pile2(Liste):
     
 
 
-# In[9]:
+# In[5]:
 
 
 stack = Pile2([])
 print(vars(stack))
 
 
-# In[10]:
+# In[6]:
 
 
 # Exemple d'utilisation
@@ -230,7 +230,7 @@ print(f"Attributs de la pile : {vars(stack)}")
 
 # ### Implémentation à l'aide d'un tableau dynamique en Python
 
-# In[29]:
+# In[7]:
 
 
 class File:
@@ -246,7 +246,7 @@ class File:
         return output.rstrip('<--') + ': Queue'
     
     def __repr__(self):
-        repr(self.liste)
+        return repr(self.liste)
         
     def defiler(self):
         assert not self.est_vide(), "La file est vide !"
@@ -298,7 +298,7 @@ class File:
 
 # ## Implémentation à l'aide d'une liste doublement chaînée
 
-# In[12]:
+# In[8]:
 
 
 # Exemple d'utilisation
@@ -332,7 +332,7 @@ queue.detruire()
 print(f"Attributs de la file : {vars(queue)}")
 
 
-# In[13]:
+# In[9]:
 
 
 class File2(Liste):
@@ -351,8 +351,8 @@ class File2(Liste):
             pointeur = pointeur.suivant
         return output.rstrip('<--') + ': Queue'
     
-    def __repr__(self):
-        repr(self.liste)
+    #def __repr__(self):
+    #    repr(self)
         
     def defiler(self):
         assert not self.est_vide(), "La file est vide !"
@@ -378,7 +378,7 @@ class File2(Liste):
         return self.nb_elements()   
 
 
-# In[14]:
+# In[10]:
 
 
 # Exemple d'utilisation
@@ -404,10 +404,10 @@ v = queue.est_vide()
 print("File vide ? ", v)
 print("On enfile 8 : ", queue, sep="\n\n")
 print(f"Premier de la file {queue.premierDeLaFile()},longueur: {queue.longueur()}")
-print("Vider la pile")
+print("Vider la file")
 queue.vider()
 print(f"Attributs de la file : {vars(queue)}")
-print("Détruire la pile")
+print("Détruire la file")
 queue.detruire()
 print(f"Attributs de la file : {vars(queue)}")
 
@@ -418,7 +418,7 @@ print(f"Attributs de la file : {vars(queue)}")
 # 
 # On demande de ne pas utiliser de tableau ou de liste de travail pour effectuer l'inversion, mais d'utiliser plutôt une pile. Il existe en effet une méthode très simple pour inverser une file en utilisant une pile.
 
-# In[15]:
+# In[11]:
 
 
 def inverserFile(queue):
@@ -429,7 +429,7 @@ def inverserFile(queue):
         queue.enfiler(stack.traiter())
 
 
-# In[16]:
+# In[12]:
 
 
 queue =  File(list(range(5)))
@@ -448,7 +448,7 @@ print("File inversée : \n", queue)
 # Notre but est donc d’évaluer la validité d’une expression en ne considérant que ses parenthèses et ses crochets. On suppose que l’expression à tester est dans une chaîne de caractères, dont on peut ignorer tous les caractères autres que ‘(’,
 # ‘[’, ’]’ et ‘)’. Écrire en Python la fonction valide qui renvoie vrai si l’expression passée en paramètre est valide, faux sinon.
 
-# In[17]:
+# In[13]:
 
 
 def parenthesage_valide(expression):
@@ -475,7 +475,7 @@ def parenthesage_valide(expression):
     return stack2.est_vide()     
 
 
-# In[38]:
+# In[14]:
 
 
 def parenthesage_valide2(expression):
@@ -495,10 +495,81 @@ def parenthesage_valide2(expression):
     return stack.est_vide()     
 
 
-# In[40]:
+# In[15]:
 
 
 # Test
 for exp in ["()",")(","[)", "[([bonjour+]essai)7plus- ];", "(", "4(essai]"]:
     print(parenthesage_valide(exp), parenthesage_valide2(exp))
+
+
+# ## Évaluation d'expression arithmétique
+
+# ![infixe à postfixe](infixe_postfixe.png)
+
+# In[31]:
+
+
+def infixe2postfixe(exp):
+    """transformation d'une expression arithmétique de notation infixe
+    en notation postfixe"""
+    priorite = {'(' : 0, '+' : 1, '-' : 1, '*' : 2, '/' : 2, '^' : 3}
+    p = Pile([])
+    t = []
+    for c in exp:
+        #print(p)
+        #print(t)
+        if c == ')':
+            while p.sommet() != '(':
+                t.append(p.traiter())
+            p.depiler()
+        elif c in priorite:
+            while not p.est_vide() and  priorite[p.sommet()] > priorite[c]:
+                t.append(p.traiter())
+            p.empiler(c)
+        else:
+            t.append(c)
+    while  not p.est_vide():
+        t.append(p.traiter())
+    return t
+
+
+# In[30]:
+
+
+infixe2postfixe('(2+5)*3')
+
+
+# In[33]:
+
+
+arithmetique = {
+    '+' : lambda a, b : a + b,
+    '-' : lambda a, b : a - b,
+    '*' : lambda a, b : a * b,
+    '/' : lambda a, b : a / b,
+    '^' : lambda a, b : a ** b
+    }
+
+def evaluation_postfixe(exp,  operations = arithmetique):
+    p = Pile([])
+    for c in exp:
+        if c not in operations:
+            p.empiler(c)
+        else:
+            droite, gauche = map(int, [p.traiter(), p.traiter()])
+            p.empiler(arithmetique[c](gauche, droite))
+    return p.traiter()     
+
+
+# In[28]:
+
+
+evaluation_postfixe(infixe2postfixe('(2+5)*3'))
+
+
+# In[35]:
+
+
+evaluation_postfixe(infixe2postfixe('(2-4)*5^3'))
 
