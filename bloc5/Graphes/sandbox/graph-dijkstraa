@@ -1,0 +1,19 @@
+// My Graph
+digraph {
+	a [label=a color=red]
+	b [label=b color=red]
+	c [label=c color=red]
+	d [label=d color=red]
+	e [label=e color=red]
+	f [label=f color=red]
+		b -> a [label=2 dir=none]
+		c -> a [label=5 dir=none]
+		a -> d [label=1 dir=none]
+		b -> c [label=3 dir=none]
+		b -> d [label=2 dir=none]
+		c -> d [label=3 dir=none]
+		e -> c [label=1 dir=none]
+		c -> f [label=5 dir=none]
+		e -> d [label=1 dir=none]
+		e -> f [label=2 dir=none]
+}
