@@ -6,6 +6,7 @@ adapted from http://www.python-course.eu/graphs_python.php
 from copy import deepcopy
 # for dot output
 from graphviz import Digraph
+from collections import defaultdict
 
 
 class Error(Exception):
@@ -22,7 +23,7 @@ class GraphError(Error):
 
 class Graph(object):
 
-    def __init__(self, graph_dict=None):
+    def __init__(self, graph_dict=None, adj_dict = None):
         """ initializes a graph object
             If no dictionary or None is given,
             an empty dictionary will be used
@@ -30,6 +31,9 @@ class Graph(object):
         if graph_dict is None:
             graph_dict = {}
         self.__graph_dict = graph_dict
+        if adj_dict is None:
+            adj_dict = {}
+        self.__adj_dict = adj_dict
 
     def vertices(self):
         """ returns the vertices of a graph """
@@ -142,7 +146,26 @@ class Graph(object):
                     todo.append(neighbour)                    
         return seen
 
+    def build_adj_dict(self):
+        """Retourne la matrice d'adjacence du graphe.
+        Ici on choisit comme implémentation un dictionnaire de dictionnaire, 
+        très couteux en mémoire
+        """
+        self.__adj_dict = {vertex : dict() for vertex in self.vertices()}
+        for vertex1 in self.__adj_dict:
+            for vertex2 in self.vertices():
+                if vertex2 in self.neighbours(vertex1):
+                    self.__adj_dict[vertex1][vertex2] = 1
+                    self.__adj_dict[vertex2][vertex1] = 1
+                else:
+                    self.__adj_dict[vertex1][vertex2] = 0
+                    self.__adj_dict[vertex2][vertex1] = 0
     
+    def show_adj_dict(self):
+        if len(self.__adj_dict) == 0:
+            self.build_adj_dict()
+        print(self.__adj_dict)
+
     def dfs_traversal_rec(self, root):
 
         seen = []

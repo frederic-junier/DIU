@@ -29,6 +29,9 @@ def main():
     print("Edges of graph:")
     print(graph.edges())
 
+    print("Matrice d'adjacence")
+    graph.show_adj_dict()
+
     print("Add vertex:")
     graph.add_vertex("z")
     
