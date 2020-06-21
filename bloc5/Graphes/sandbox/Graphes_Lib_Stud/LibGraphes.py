@@ -7,6 +7,7 @@ from copy import deepcopy
 # for dot output
 from graphviz import Digraph
 from collections import defaultdict
+import numpy as np
 
 
 class Error(Exception):
@@ -23,7 +24,7 @@ class GraphError(Error):
 
 class Graph(object):
 
-    def __init__(self, graph_dict=None, adj_dict = None):
+    def __init__(self, graph_dict=None):
         """ initializes a graph object
             If no dictionary or None is given,
             an empty dictionary will be used
@@ -31,9 +32,9 @@ class Graph(object):
         if graph_dict is None:
             graph_dict = {}
         self.__graph_dict = graph_dict
-        if adj_dict is None:
-            adj_dict = {}
-        self.__adj_dict = adj_dict
+        self.__mat_adj = None
+        self.__index_vertices = None
+      
 
     def vertices(self):
         """ returns the vertices of a graph """
@@ -79,8 +80,8 @@ class Graph(object):
         (they appear twice in the dictionnary). Returns a list of sets.
         """
         edges = []
-        for vertex in self.__graph_dict:
-            for neighbour in self.__graph_dict[vertex]:
+        for vertex in self.vertices():
+            for neighbour in self.neighbours(vertex):
                 if {neighbour, vertex} not in edges:
                     edges.append({vertex, neighbour})
         return edges
@@ -90,7 +91,7 @@ class Graph(object):
         for k in self.__graph_dict:
             res += str(k) + " "
         res += "\nedges: "
-        for edge in self.generate_edges():
+        for edge in self.__generate_edges():
             res += str(edge) + " "
         return res
 
@@ -105,6 +106,30 @@ class Graph(object):
         (v1, v2) = edge
         self.__graph_dict[v1].remove(v2)
         self.__graph_dict[v2].remove(v1)
+    
+    def set_index_vertices(self):
+        self.__index_vertices = {vertex : k for k, vertex in enumerate(self.vertices())}
+
+    def get_index_vertices(self):
+        if self.__index_vertices is None:
+            self.set_index_vertices()
+        return self.__index_vertices
+
+    def set_mat_adj(self):
+        """Construit la matrice d'adjacence du graphe.
+        """
+        self.set_index_vertices()
+        degree = len(self.vertices())
+        self.__mat_adj = np.array([ [0] * degree for _ in range(degree)])
+        for vertex1 in self.vertices():
+            for vertex2 in self.neighbours(vertex1):
+                self.__mat_adj[self.__index_vertices[vertex1]][self.__index_vertices[vertex2]] = 1
+    
+    def get_mat_adj(self):
+        if self.__mat_adj is None:
+            self.set_mat_adj()
+        return self.__mat_adj
+
 
     def dfs_traversal2(self, root):
         seen = {vertex : False for vertex in self.vertices()}
@@ -146,26 +171,7 @@ class Graph(object):
                     todo.append(neighbour)                    
         return seen
 
-    def build_adj_dict(self):
-        """Retourne la matrice d'adjacence du graphe.
-        Ici on choisit comme implémentation un dictionnaire de dictionnaire, 
-        très couteux en mémoire
-        """
-        self.__adj_dict = {vertex : dict() for vertex in self.vertices()}
-        for vertex1 in self.__adj_dict:
-            for vertex2 in self.vertices():
-                if vertex2 in self.neighbours(vertex1):
-                    self.__adj_dict[vertex1][vertex2] = 1
-                    self.__adj_dict[vertex2][vertex1] = 1
-                else:
-                    self.__adj_dict[vertex1][vertex2] = 0
-                    self.__adj_dict[vertex2][vertex1] = 0
-    
-    def show_adj_dict(self):
-        if len(self.__adj_dict) == 0:
-            self.build_adj_dict()
-        print(self.__adj_dict)
-
+   
     def dfs_traversal_rec(self, root):
 
         seen = []
@@ -300,3 +306,93 @@ class Graph(object):
             dot.edge(v1, v2, dir="none")
         print(dot.source)
         dot.render(name, view=True)        # print in pdf
+
+
+
+class DirectGraph(Graph):
+
+    def __init__(self, graph_dict=None):
+        """ initializes a graph object
+            If no dictionary or None is given,
+            an empty dictionary will be used
+        """
+        super(DirectGraph, self).__init__(graph_dict=graph_dict)
+        self.__transitive_closure = None
+        self.__graph_dict = self._Graph__graph_dict 
+
+
+    def add_edge(self, edge):        
+        if vertex1 in self.__graph_dict:
+            self.__graph_dict[vertex1].append(vertex2)
+        else:
+            self.__graph_dict[vertex1] = [vertex2]
+        
+
+    def __generate_edges(self):
+        """ A static method generating the set of edges
+        (they appear twice in the dictionnary). Returns a list of sets.
+        """
+        edges = []
+        for vertex in self.vertices():
+            for neighbour in self.neighbours(vertex):
+                if (vertex, neighbour) not in edges:
+                    edges.append((vertex, neighbour))
+        return edges
+
+    def delete_vertex(self, vertex):  # delete vertex and all the adjacent edges
+        gdict = self.__graph_dict
+        del gdict[vertex]
+
+    def delete_edge(self, edge):
+        (v1, v2) = edge
+        self.__graph_dict[v1].remove(v2)
+
+    def print_dot(self, name="toto", colors={}):
+        """
+        Use graphviz to print the graph. Colors is optional.
+        """
+        foo = ['red', 'blue', 'green', 'yellow'] + (['black'] * 10)
+        dot = Digraph(comment='My Graph')
+        for k in self.vertices():
+            if not(colors):
+                dot.node(k, k, color="red")
+            else:
+                dot.node(k, k, color=foo[colors[k]])
+        for edge in self.__generate_edges():
+            print(edge)
+            (v1, v2) = list(edge)[0], list(edge)[1]
+            dot.edge(v1, v2)
+        print(dot.source)
+        dot.render(name, view=True)        # print in pdf
+ 
+#voir https://fr.wikipedia.org/wiki/Fermeture_transitive
+#voir https://fr.wikipedia.org/wiki/Matrice_binaire
+#voir https://adrien.poupa.fr/efrei/Th%C3%A9orie%20des%20graphes/FermetureMatrices.pdf
+#voir http://www-igm.univ-mlv.fr/~perrin/Enseignement/X/X98/pc8/pc8Java/pc8Java.html
+    def set_transitive_closure(self):
+        mat = self.get_mat_adj()
+        mat = mat.astype(bool)  #conversion de la matrice d'adjacence en matrice booléenne
+        self.__transitive_closure = mat
+        for k in range(1, len(self.__graph_dict)):
+            mat = mat_boolean_product(mat, self.__transitive_closure)
+            print(f"Matrice d'adjacence binaire à la puissance {k + 1}")
+            print(mat.astype(int))
+            self.__transitive_closure = np.logical_or(self.__transitive_closure, mat)
+        print("Matrice de fermeture transitive du graphe")
+        self.__transitive_closure = self.__transitive_closure.astype(int)
+
+    def get_transitive_closure(self):
+        if self.__transitive_closure is None:
+            self.set_transitive_closure()
+        return self.__transitive_closure
+
+
+
+def mat_boolean_product(mat1, mat2):
+    n, m, p = len(mat1), len(mat2[0]), len(mat1[0])
+    mat3 = np.array([ [False] * m for _ in range(n)])
+    for i in range(n):
+        for j in range(m):
+            for k in range(p):
+                mat3[i][j]= mat3[i][j] or (mat1[i][k] and mat2[k][j])
+    return mat3

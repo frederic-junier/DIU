@@ -30,7 +30,10 @@ def main():
     print(graph.edges())
 
     print("Matrice d'adjacence")
-    graph.show_adj_dict()
+    print(graph.get_mat_adj())
+
+    print("Index des sommets dans la matrice d'adjacence")
+    print(graph.get_index_vertices())
 
     print("Add vertex:")
     graph.add_vertex("z")
@@ -94,5 +97,19 @@ def main():
     graph.color(0)   #False
     graph.color(3)    #{'a': 1, 'c': 1, 'b': 0, 'e': 0, 'd': 0, 'f': 0, 'y': 0, 'x': 1, 'z': 0}
 
+
+    print("Test de graphe orienté")
+    directgraph = DirectGraph(graph_dict={"1" : ["2", "4"], "2" : [], "3" : ["2", "5"],
+                            "4" : ["6"], "5" : ["4", "3"], "6" : [] })
+    print("Affichage du graphe")
+    directgraph.print_dot("directgraph")
+    print(directgraph)
+    print("Index des sommets dans la matrice d'adjacence")
+    print(directgraph.get_index_vertices())
+    print("Matrice d'adjacence ")
+    print(directgraph.get_mat_adj())
+    print("Cloture transitive du graphe")   
+    print(directgraph.get_transitive_closure())
+    
 if __name__ == '__main__':
     main()
