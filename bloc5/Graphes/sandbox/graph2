@@ -6,9 +6,9 @@ digraph {
 	e [label=e color=red]
 	f [label=f color=red]
 	z [label=z color=red]
-	x [label=x color=red]
 	y [label=y color=red]
+	x [label=x color=red]
 		d -> a [dir=none]
 		z -> a [dir=none]
-		x -> y [dir=none]
+		y -> x [dir=none]
 }
