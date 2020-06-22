@@ -241,6 +241,25 @@ class Graph(object):
         return components
 
 
+    def detect_cycle(self):
+
+        seen = []
+        gdict = self.__graph_dict
+        cycle = True
+
+        def aux(vertex, parent = None):
+            nonlocal cycle
+            seen.append(vertex)
+            for neighbour in gdict[vertex]:
+                if neighbour not in seen:
+                    if neighbour == parent:
+                        cycle = True
+                        return
+                    aux(neighbour, vertex)
+
+        return aux(root)
+
+
     def coloration(self, K):
         todo_vertices = []
         gcopy = deepcopy(self)
