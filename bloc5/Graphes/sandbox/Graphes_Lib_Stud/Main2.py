@@ -21,11 +21,20 @@ def main():
         print("attention il manque des poids")
     else:
         print("continuons")
+    print("Recherche de plus court chemin à partir du sommet 'a', algorithme de Dijskstraa")
     graph.print_dot_weight("graph-dijkstraa")
     prev, dist = graph.do_dijkstra("a")
     print(dist)
     print(prev)
 
+
+    print("Index des sommets")
+    print(graph.get_index_vertices())
+    print("Index renversé des sommets")
+    print(graph.get_reverse_index_vertices())
+
+    print("Recherche de plus court chemin toutes origines toutes destinations, algorithme de Floyd-Warshall")
+    print(graph.get_FloydWarshall())
 
 if __name__ == '__main__':
     main()

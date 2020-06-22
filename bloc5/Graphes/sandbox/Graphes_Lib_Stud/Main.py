@@ -108,8 +108,10 @@ def main():
     print(directgraph.get_index_vertices())
     print("Matrice d'adjacence ")
     print(directgraph.get_mat_adj())
-    print("Cloture transitive du graphe")   
+    print("Cloture transitive du graphe avec l'algorithme naif en O(n^4)")   
     print(directgraph.get_transitive_closure())
+    print("Cloture transitive du graphe avec l'algorithme de Floyd-Warshall en O(n^3)")   
+    print(directgraph.get_transitive_closure_floydWarshall())
     
 if __name__ == '__main__':
     main()

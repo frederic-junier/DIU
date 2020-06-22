@@ -30,6 +30,12 @@ class WeightedGraph(Graph):
         if weight_dict is None:
             weight_dict = {}
         self.__weight_dict = weight_dict
+        self.__graph_dict = self._Graph__graph_dict 
+        self.__reverse_index_vertices = None
+        self.__index_vertices = None
+        self.__distmin_floyd_warshall = None
+       
+
 
     def my_weight(self, v1, v2):
         ''' Gives the weight of a given edge'''
@@ -90,3 +96,44 @@ class WeightedGraph(Graph):
                 dot.edge(v1, v2, label= str(w)   ,dir="none")
             print(dot.source)
             dot.render(name, view=True)        # print in pdf
+    
+    def set_reverse_index_vertices(self):
+        self.set_index_vertices()
+        self.__index_vertices = self.get_index_vertices()
+        self.__reverse_index_vertices = {index : vertex for (vertex, index) in self.__index_vertices.items()}
+    
+    def get_reverse_index_vertices(self):
+        if self.__reverse_index_vertices is None:
+            self.set_reverse_index_vertices()
+        return self.__reverse_index_vertices
+
+    def set_FloydWarshall(self):
+        degree = len(self.__graph_dict)
+        dist = [ [float('inf')] * degree  for _ in range(degree)]
+        self.set_index_vertices()
+        self.__index_vertices = self.get_index_vertices()
+        #initialisation de la matrice de distance dist
+        for vertex in self.vertices():
+            for neighbour in self.neighbours(vertex):
+                dist[self.__index_vertices[vertex]][self.__index_vertices[neighbour]] = self.my_weight(vertex, neighbour)
+        for k in range(degree):
+            dist[k][k] = 0
+        print(dist)
+        for k in range(0, degree):
+            for i in range(0, degree):
+                for j in range(0, degree):                    
+                    dist[i][j]  = min(dist[i][j], dist[i][k] + dist[k][j]) 
+        self.__distmin_floyd_warshall = dist 
+        #détection de cycle négatif
+        for k in range(0, degree):
+            if dist[k][k] < 0:
+                return True
+        return False
+    
+    def get_FloydWarshall(self):
+        if self.__distmin_floyd_warshall is None:
+            self.set_FloydWarshall()
+        return self.__distmin_floyd_warshall
+
+
+    def 

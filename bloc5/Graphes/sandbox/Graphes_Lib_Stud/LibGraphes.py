@@ -6,7 +6,6 @@ adapted from http://www.python-course.eu/graphs_python.php
 from copy import deepcopy
 # for dot output
 from graphviz import Digraph
-from collections import defaultdict
 import numpy as np
 
 
@@ -29,12 +28,14 @@ class Graph(object):
             If no dictionary or None is given,
             an empty dictionary will be used
         """
+        #il est préférable de ne pas passer un objet muable
+        #en paramètre
         if graph_dict is None:
             graph_dict = {}
         self.__graph_dict = graph_dict
         self.__mat_adj = None
         self.__index_vertices = None
-      
+        
 
     def vertices(self):
         """ returns the vertices of a graph """
@@ -199,6 +200,22 @@ class Graph(object):
                     todo.append(neighbour)                    
         return seen
 
+
+    def bfs_traversal_correction(self, root): #slide 26 du cours généralités
+        seen = []     # == L
+        todo = [root] # B
+        gdict = self.__graph_dict
+        print(gdict)
+        # TODO : Implement BFS : use .pop(0) to dequeue
+        while len(todo) > 0:
+            current = todo.pop(0)
+            seen.append(current)
+            for neighbour in gdict[current]:
+                if neighbour not in seen and neighbour not in todo:
+                    todo.append(neighbour)                    
+        return seen
+
+
     def bfs_traversal2(self, root):
         seen = {vertex : False for vertex in self.vertices()}
         todo = [root]
@@ -338,6 +355,9 @@ class DirectGraph(Graph):
         super(DirectGraph, self).__init__(graph_dict=graph_dict)
         self.__transitive_closure = None
         self.__graph_dict = self._Graph__graph_dict 
+        self.__distmin_floyd_warshall = None
+        self.__mat_adj = None
+        self.__index_vertices = None
 
 
     def add_edge(self, edge):        
@@ -389,6 +409,7 @@ class DirectGraph(Graph):
 #voir https://adrien.poupa.fr/efrei/Th%C3%A9orie%20des%20graphes/FermetureMatrices.pdf
 #voir http://www-igm.univ-mlv.fr/~perrin/Enseignement/X/X98/pc8/pc8Java/pc8Java.html
     def set_transitive_closure(self):
+        """Complexité en O(n^4)"""
         mat = self.get_mat_adj()
         mat = mat.astype(bool)  #conversion de la matrice d'adjacence en matrice booléenne
         self.__transitive_closure = mat
@@ -404,6 +425,31 @@ class DirectGraph(Graph):
         if self.__transitive_closure is None:
             self.set_transitive_closure()
         return self.__transitive_closure
+
+    def set_transitive_closure_floydWarshall(self):
+        """Complexité en O(n^3)"""
+        degree = len(self.__graph_dict)
+        dist = [ [False] * degree  for _ in range(degree)]
+        self.set_index_vertices()
+        self.__index_vertices = self.get_index_vertices()
+        #initialisation de la matrice de distance dist
+        for vertex in self.vertices():
+            for neighbour in self.neighbours(vertex):
+                dist[self.__index_vertices[vertex]][self.__index_vertices[neighbour]] = True    
+        print(dist)
+        for k in range(0, degree):
+            for i in range(0, degree):
+                for j in range(0, degree):                    
+                    dist[i][j]  = dist[i][j] or  dist[i][k] and dist[k][j]
+        self.__distmin_floyd_warshall = dist 
+    
+    def get_transitive_closure_floydWarshall(self):
+        if self.__distmin_floyd_warshall is None:
+            self.set_transitive_closure_floydWarshall()
+        return self.__distmin_floyd_warshall
+    
+
+
 
 
 
