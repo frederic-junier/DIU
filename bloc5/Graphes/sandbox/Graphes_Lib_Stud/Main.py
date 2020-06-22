@@ -109,19 +109,20 @@ def main():
     print("Détection de cycle dans un graphe non orienté avec cycle")
     graph2 = Graph(graph_dict={"1" : ["2", "3"], "2" : ["1"], "3" : ["1", "4", "5"], "4": ["3", "6"], "5" : ["3", "6"],
                                              "6" : ["4", "5"]})
-    print("Détection de cycle :",graph2.detect_cycle())
-    print("Affichage du graphe non orienté  avec cyle")
+    print("Détection de cycle :",graph2.detect_cycle(), "Détection de Brigitte :",graph2.contientCycle() )
+    print("Affichage du graphe non orienté  avec cycle")
     graph2.print_dot("graph2")
     
 
     print("Détection de cycle dans un graphe non orienté  sans cycle")
     graph3 = Graph(graph_dict={"1" : ["2", "3"], "2" : ["1"], "3" : ["1", "4", "5"], "4": ["3"], "5" : ["3", "6"],
                                              "6" : [ "5"]})
-    print("Détection de cycle :",graph3.detect_cycle())
-    print("Affichage du  graphe  orienté avec cyle")
+    print("Détection de cycle :",graph3.detect_cycle(),"Détection de Brigitte :",graph3.contientCycle() )
+    print("Affichage du  graphe  orienté avec cycle")
     graph3.print_dot("graph3")
-    
 
+
+    
 
 
     print("Test de graphe orienté")
@@ -155,6 +156,16 @@ def main():
     print("Détection de cycle :",directgraph3.detect_cycle())
     print("Affichage du  graphe  orienté avec cyle")
     directgraph3.print_dot("directgraph3")
+
+    print("Tri topologique de directgraph ")
+    print(directgraph.topological_sort())
+
+    print("Tri topologique de directgraph2 ")
+    print(directgraph2.topological_sort())
+
+    print("Tri topologique de directgraph3 ")
+    print(directgraph3.topological_sort())
+
     
 
 

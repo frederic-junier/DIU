@@ -264,6 +264,24 @@ class Graph(object):
                 components.append(list(seen.keys()))
         return components
 
+    def contientCycle(self) : 
+        """Version de Brigitte"""
+        pile = []
+        vus = []
+        sommets = self.vertices()
+        while sommets :
+            sommet = sommets.pop()
+            pile.append(sommet)
+            while pile != [] :
+                sommet = pile.pop()
+                for voisin in self.__graph_dict[sommet] :
+                    if voisin not in vus :
+                        pile.append(voisin)
+                if sommet in vus :        
+                    return True
+                else :
+                    vus.append(sommet)
+        return False
 
     def detect_cycle(self):
         """Détection de cycle pour graphe non orienté 
@@ -376,6 +394,9 @@ class Graph(object):
             dot.edge(v1, v2, dir="none")
         print(dot.source)
         dot.render(name, view=True)        # print in pdf
+
+    
+    
 
 
 
@@ -499,7 +520,9 @@ class DirectGraph(Graph):
         au cours du parcours. En effet, lorsque l'on appelle la fonction récursive
         pour la première fois sur un noeud faisant partie d'un cycle, le parcours en profondeur
         va énumérer tous les noeuds de ce cycle, et retomber sur le premier noeud, 
-        avant que l'appel ne se termine.        
+        avant que l'appel ne se termine.  
+
+        Référence : France IOI Parcours général Niveau 4 "Tourner en rond" http://www.france-ioi.org/algo/task.php?idChapter=533&idTask=260      
         """
         
         gdict = self.__graph_dict
@@ -525,8 +548,33 @@ class DirectGraph(Graph):
                 return True
         return False
     
+    def topological_sort(self):    
+        """Retourne les sommets d'un graphe orienté triés dans l'ordre topologique
+        Référence : France IOI  niveau 4 Fermer le labyrinthe http://www.france-ioi.org/algo/task.php?idChapter=533&idTask=261        
+        """
 
+        PAS_VU = 0
+        VU = 1
+        priority = []
+        vertices = self.vertices()
+        root = vertices[0]
+        marque = {vertex : PAS_VU for vertex in vertices}
 
+        def search_dfs(vertex):
+            marque[vertex] = VU
+            for neighbour in self.neighbours(vertex):
+                if marque[neighbour] == PAS_VU:                    
+                    search_dfs(neighbour)
+            priority.append(vertex)
+        
+        if self.detect_cycle():
+            print("Le graphe contient un cycle, pas de tri topologique !")
+            return (False, [])
+        for vertex in vertices: 
+            if marque[vertex] == PAS_VU:    
+                search_dfs(vertex)
+        #priority dans l'ordre inverse de l'ordre topologique
+        return (True, priority[::-1])    
 
 
 def mat_boolean_product(mat1, mat2):
@@ -538,3 +586,7 @@ def mat_boolean_product(mat1, mat2):
             for k in range(p):
                 mat3[i][j]= mat3[i][j] or (mat1[i][k] and mat2[k][j])
     return mat3
+
+
+
+
