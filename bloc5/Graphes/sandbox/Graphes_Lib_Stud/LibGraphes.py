@@ -522,7 +522,6 @@ class DirectGraph(Graph):
         va énumérer tous les noeuds de ce cycle, et retomber sur le premier noeud, 
         avant que l'appel ne se termine.  
 
-        Référence : France IOI Parcours général Niveau 4 "Tourner en rond" http://www.france-ioi.org/algo/task.php?idChapter=533&idTask=260      
         """
         
         gdict = self.__graph_dict
@@ -550,7 +549,6 @@ class DirectGraph(Graph):
     
     def topological_sort(self):    
         """Retourne les sommets d'un graphe orienté triés dans l'ordre topologique
-        Référence : France IOI  niveau 4 Fermer le labyrinthe http://www.france-ioi.org/algo/task.php?idChapter=533&idTask=261        
         """
 
         PAS_VU = 0
