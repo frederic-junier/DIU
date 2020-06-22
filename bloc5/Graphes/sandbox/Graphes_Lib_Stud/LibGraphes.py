@@ -132,31 +132,35 @@ class Graph(object):
         return self.__mat_adj
 
 
-    def dfs_traversal2(self, root):
+    def dfs_traversal2(self, root, verbose = True):
         seen = {vertex : False for vertex in self.vertices()}
         todo = [root]
         gdict = self.__graph_dict
         # TODO : Implement DFS : use .pop() 
         while todo:
             vertex = todo.pop()
+            if verbose:
+                print(vertex, end = ' , ' )    
             for neighbour in gdict[vertex]:
                 if not seen[neighbour]:
                     todo.append(neighbour)
                     seen[neighbour] = True
-        return seen
+        
 
-    def dfs_traversal_rec2(self, root):
+    def dfs_traversal_rec2(self, roo, verbose = True):
 
         seen = {vertex : False for vertex in self.vertices()}
         gdict = self.__graph_dict
 
         def aux(vertex):
             seen[vertex] = True
+            if verbose:
+                print(vertex, end = ' , ' )
             for neighbour in gdict[vertex]:
                 if not seen[neighbour]:
                     aux(neighbour)
 
-        return aux(root)
+        aux(root)
 
     def dfs_traversal(self, root):
         seen = []   #j'intialiserais avec seen = [root]
@@ -173,13 +177,15 @@ class Graph(object):
         return seen
 
    
-    def dfs_traversal_rec(self, root):
+    def dfs_traversal_rec(self, root, verbose = True):
 
         seen = []
         gdict = self.__graph_dict
 
         def aux(vertex):
             seen.append(vertex)
+            if verbose:
+                print(vertex, end = ' , ' )
             for neighbour in gdict[vertex]:
                 if neighbour not in seen:
                     aux(neighbour)
@@ -190,7 +196,6 @@ class Graph(object):
         seen = []
         todo = [root]
         gdict = self.__graph_dict
-        print(gdict)
         # TODO : Implement BFS : use .pop(0) to dequeue
         while todo:
             vertex = todo.pop(0)
@@ -216,18 +221,20 @@ class Graph(object):
         return seen
 
 
-    def bfs_traversal2(self, root):
+    def bfs_traversal2(self, root, verbose = True):
         seen = {vertex : False for vertex in self.vertices()}
         todo = [root]
         gdict = self.__graph_dict
         # TODO : Implement BFS : use .pop(0) to dequeue
-        while todo:
+        while todo:            
             vertex = todo.pop(0)
+            if verbose:
+                print(vertex, end = ' , ' )
             for neighbour in gdict[vertex]:
                 if not seen[neighbour]:
                     todo.append(neighbour)
                     seen[neighbour] = True
-        return seen
+
 
     def is_reachable_from(self, v1, v2):
         # Could be better implemented
@@ -259,23 +266,50 @@ class Graph(object):
 
 
     def detect_cycle(self):
+        """Détection de cycle pour graphe non orienté 
+         Au départ, tous les noeuds sont marqués comme n'ayant pas été visités. 
+         Lors du parcours en profondeur, on marque comme étant "en cours de visite" 
+         les noeuds pour lesquels un appel récursif est en cours 
+         et comme "déjà visités"
+         les noeuds pour lesquels l'appel récursif s'est terminé. 
+         Si un appel récursif est fait sur un noeud qui est dans l'état "en cours de visite", 
+         cela signifie que l'ensemble des noeuds en cours de visite forment un cycle, 
+         donc qu'il y a un cycle dans le graphe. Si cela ne se produit jamais, 
+         c'est que le graphe ne contient pas de cycle.
 
-        seen = []
+        Lorsque le graphe contient un cycle, on est certain de retomber 
+        sur un noeud dans l'état "en cours de visite"
+        au cours du parcours. En effet, lorsque l'on appelle la fonction récursive
+        pour la première fois sur un noeud faisant partie d'un cycle, le parcours en profondeur
+        va énumérer tous les noeuds de ce cycle, et retomber sur le premier noeud, 
+        avant que l'appel ne se termine.  
+        Pour un graphe non orienté on vérifie également qu'on ne revient pas au noeud parent
+        ce qui reviendrait à emprunter 2 fois de suite la même arête (on aurait alors toujours un cycle)      
+        """
+        
         gdict = self.__graph_dict
-        cycle = True
+        TRAITE = 2
+        EN_COURS = 1
+        PAS_VU = 0
+        marque = {vertex : PAS_VU for vertex in self.vertices()}
 
-        def aux(vertex, parent = None):
-            nonlocal cycle
-            seen.append(vertex)
+        def search_dfs(vertex, parent = None):
+            marque[vertex] = EN_COURS
+            rep = False
             for neighbour in gdict[vertex]:
-                if neighbour not in seen:
-                    if neighbour == parent:
-                        cycle = True
-                        return
-                    aux(neighbour, vertex)
-
-        return aux(root)
-
+                if marque[neighbour] == PAS_VU:
+                    marque[neighbour] = EN_COURS
+                    rep = rep or search_dfs(neighbour, parent = vertex)
+                #pour un graphe non orienté on vérifie qu'on n'emprunte pas 2 fois de suite la même arête
+                elif marque[neighbour] == EN_COURS and neighbour != parent:  
+                    return True
+            marque[vertex] = TRAITE
+            return rep
+        
+        for vertex in self.vertices():
+            if marque[vertex] == PAS_VU and search_dfs(vertex):
+                return True
+        return False
 
     def coloration(self, K):
         todo_vertices = []
@@ -447,13 +481,56 @@ class DirectGraph(Graph):
         if self.__distmin_floyd_warshall is None:
             self.set_transitive_closure_floydWarshall()
         return self.__distmin_floyd_warshall
+
+    def detect_cycle(self):
+        """Détection de cycle pour graphe orienté 
+         Au départ, tous les noeuds sont marqués comme n'ayant pas été visités. 
+         Lors du parcours en profondeur, on marque comme étant "en cours de visite" 
+         les noeuds pour lesquels un appel récursif est en cours 
+         et comme "déjà visités"
+         les noeuds pour lesquels l'appel récursif s'est terminé. 
+         Si un appel récursif est fait sur un noeud qui est dans l'état "en cours de visite", 
+         cela signifie que l'ensemble des noeuds en cours de visite forment un cycle, 
+         donc qu'il y a un cycle dans le graphe. Si cela ne se produit jamais, 
+         c'est que le graphe ne contient pas de cycle.
+
+        Lorsque le graphe contient un cycle, on est certain de retomber 
+        sur un noeud dans l'état "en cours de visite"
+        au cours du parcours. En effet, lorsque l'on appelle la fonction récursive
+        pour la première fois sur un noeud faisant partie d'un cycle, le parcours en profondeur
+        va énumérer tous les noeuds de ce cycle, et retomber sur le premier noeud, 
+        avant que l'appel ne se termine.        
+        """
+        
+        gdict = self.__graph_dict
+        TRAITE = 2
+        EN_COURS = 1
+        PAS_VU = 0
+        marque = {vertex : PAS_VU for vertex in self.vertices()}
+
+        def search_dfs(vertex):
+            marque[vertex] = EN_COURS
+            rep = False
+            for neighbour in gdict[vertex]:
+                if marque[neighbour] == PAS_VU:
+                    marque[neighbour] = EN_COURS
+                    rep = rep or search_dfs(neighbour)
+                elif marque[neighbour] == EN_COURS:
+                    return True
+            marque[vertex] = TRAITE
+            return rep
+        
+        for vertex in self.vertices():
+            if marque[vertex] == PAS_VU and search_dfs(vertex):
+                return True
+        return False
     
 
 
 
 
-
 def mat_boolean_product(mat1, mat2):
+    """Fonction pour faire le produit de 2 matrices binaires / booléeennes"""
     n, m, p = len(mat1), len(mat2[0]), len(mat1[0])
     mat3 = np.array([ [False] * m for _ in range(n)])
     for i in range(n):

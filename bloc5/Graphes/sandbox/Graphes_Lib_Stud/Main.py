@@ -59,11 +59,19 @@ def main():
     print("Edges of graph:")
     print(graph.edges())
     print("Dfs traversal from 'a'")
-    print(graph.dfs_traversal('a')) #['a', 'z', 'd', 'c', 'e', 'b']
+    print(graph.dfs_traversal.__name__, graph.dfs_traversal('a')) #['a', 'z', 'd', 'c', 'e', 'b']
+    print(graph.dfs_traversal2.__name__, graph.dfs_traversal2('a'))
+    print(graph.dfs_traversal_rec.__name__, graph.dfs_traversal2('a'))
+    print(graph.dfs_traversal_rec2.__name__, graph.dfs_traversal2('a'))
     print("Dfs traversal from 'd'")
     print(graph.dfs_traversal('d')) #['d', 'c', 'e', 'b', 'a', 'z']
+    print(graph.dfs_traversal2.__name__, graph.dfs_traversal2('d'))
+    print(graph.dfs_traversal_rec.__name__, graph.dfs_traversal2('d'))
+    print(graph.dfs_traversal_rec2.__name__, graph.dfs_traversal2('d'))
     print("bfs traversal from 'd'")
-    print(graph.bfs_traversal('d')) #['d', 'a', 'c', 'z', 'b', 'e']
+    print(graph.bfs_traversal.__name__, graph.bfs_traversal('d')) #['d', 'a', 'c', 'z', 'b', 'e']
+    print(graph.bfs_traversal2.__name__, graph.bfs_traversal2('d')) #['d', 'a', 'c', 'z', 'b', 'e']
+    print(graph.bfs_traversal_correction.__name__, graph.bfs_traversal_correction('d')) #['d', 'a', 'c', 'z', 'b', 'e']
     print("Composantes connexes")
     print(graph.connex_components())
     print("Coloration Laure Gonnord, générer graphe avec graphviz")
@@ -75,11 +83,11 @@ def main():
     print(coloring)
     graph.print_dot("graph1-coloration-FJ", colors = coloring)
 
-
     
 
     print("Delete vertex 'c'")
     graph.delete_vertex('c')
+
     print("Vertices of graph:")
     print(graph.vertices())
     print("Edges of graph:")
@@ -98,6 +106,24 @@ def main():
     graph.color(3)    #{'a': 1, 'c': 1, 'b': 0, 'e': 0, 'd': 0, 'f': 0, 'y': 0, 'x': 1, 'z': 0}
 
 
+    print("Détection de cycle dans un graphe non orienté avec cycle")
+    graph2 = Graph(graph_dict={"1" : ["2", "3"], "2" : ["1"], "3" : ["1", "4", "5"], "4": ["3", "6"], "5" : ["3", "6"],
+                                             "6" : ["4", "5"]})
+    print("Détection de cycle :",graph2.detect_cycle())
+    print("Affichage du graphe non orienté  avec cyle")
+    graph2.print_dot("graph2")
+    
+
+    print("Détection de cycle dans un graphe non orienté  sans cycle")
+    graph3 = Graph(graph_dict={"1" : ["2", "3"], "2" : ["1"], "3" : ["1", "4", "5"], "4": ["3"], "5" : ["3", "6"],
+                                             "6" : [ "5"]})
+    print("Détection de cycle :",graph3.detect_cycle())
+    print("Affichage du  graphe  orienté avec cyle")
+    graph3.print_dot("graph3")
+    
+
+
+
     print("Test de graphe orienté")
     directgraph = DirectGraph(graph_dict={"1" : ["2", "4"], "2" : [], "3" : ["2", "5"],
                             "4" : ["6"], "5" : ["4", "3"], "6" : [] })
@@ -112,6 +138,26 @@ def main():
     print(directgraph.get_transitive_closure())
     print("Cloture transitive du graphe avec l'algorithme de Floyd-Warshall en O(n^3)")   
     print(directgraph.get_transitive_closure_floydWarshall())
+
+
+
+    print("Détection de cycle dans un graphe orienté sans cycle")
+    directgraph2 = DirectGraph(graph_dict={"1" : ["2", "3"], "2" : ["4", "5"], "3" : ["7", "5"], "4": ["6"], "5" : ["6"],
+                                             "6" : ["10", "11"], "7" : [], "8" : ["7"], "9" : ["8"], "10" : ["11","9"], "11" : ["12"], "12":[]})
+    print("Détection de cycle :",directgraph2.detect_cycle())
+    print("Affichage du graphe orienté  sans cyle")
+    directgraph2.print_dot("directgraph2")
+    
+
+    print("Détection de cycle dans un graphe orienté  avec cycle")
+    directgraph3 = DirectGraph(graph_dict={"1" : ["2", "3"], "2" : ["4", "5"], "3" : ["5"], "4": ["6"], "5" : ["6"],
+                                             "6" : ["10", "11"], "7" : ["3"], "8" : ["7"], "9" : ["8"], "10" : ["11","9"], "11" : ["12"], "12":[]})
+    print("Détection de cycle :",directgraph3.detect_cycle())
+    print("Affichage du  graphe  orienté avec cyle")
+    directgraph3.print_dot("directgraph3")
+    
+
+
     
 if __name__ == '__main__':
     main()

@@ -135,5 +135,3 @@ class WeightedGraph(Graph):
             self.set_FloydWarshall()
         return self.__distmin_floyd_warshall
 
-
-    def 
