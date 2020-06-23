@@ -266,25 +266,78 @@ class Graph(object):
 
     def contientCycle(self) : 
         """Version de Brigitte"""
-        pile = []
-        vus = []
+        pile = []        
         sommets = self.vertices()
         while sommets :
+            vus = []
             sommet = sommets.pop()
             pile.append(sommet)
-            while pile != [] :
+            while pile != [] :                
                 sommet = pile.pop()
-                for voisin in self.__graph_dict[sommet] :
-                    if voisin not in vus :
-                        pile.append(voisin)
+                #si le sommet est déjà dans vus quand on doit  le traitee
+                #c'est qu'il a déjà été taité/vu avant et qu'on a un cycle
                 if sommet in vus :        
                     return True
                 else :
                     vus.append(sommet)
+                for voisin in self.__graph_dict[sommet] :
+                    if voisin not in vus :
+                        pile.append(voisin)
+                        #on ajoute voisin dans la pile des sommets à traiter
+                        #si on retournait True parce que voisin dans vus ?
+                        #ce serait faux si on ne vérifie pas si voisin est le parent de sommt
+                        #voir version 2 ci-dessous
         return False
 
+
+    def contientCycle2(self) : 
+        """Version de Brigitte2"""
+        pile = []        
+        sommets = self.vertices()
+        while sommets :
+            vus = []
+            sommet = sommets.pop()
+            pile.append((sommet, None))
+            while pile != [] :                
+                sommet, parent = pile.pop()
+                vus.append(sommet)
+                for voisin in self.__graph_dict[sommet] :
+                    if voisin not in vus:
+                        pile.append((voisin,sommet))
+                    #ici on a besoin de vérifier que le voisin n'est pas le parent qui est déjà dans vus
+                    elif  voisin != parent:  
+                        return True
+               
+        return False
+
+
     def detect_cycle(self):
-        """Détection de cycle pour graphe non orienté 
+        """Détection de cycle récursive pour graphe non orienté 
+        """
+        
+        gdict = self.__graph_dict
+        VU = 1
+        PAS_VU = 0
+        marque = {vertex : PAS_VU for vertex in self.vertices()}
+
+        def search_dfs(vertex, parent = None):
+            marque[vertex] = VU
+            rep = False
+            for neighbour in gdict[vertex]:
+                if marque[neighbour] == PAS_VU:
+                    rep = rep or search_dfs(neighbour, parent = vertex)
+                #pour un graphe non orienté on vérifie qu'on n'emprunte pas 2 fois de suite la même arête
+                elif neighbour != parent:  
+                    return True
+            return rep
+        
+        for vertex in self.vertices():
+            if marque[vertex] == PAS_VU and search_dfs(vertex):
+                return True
+        return False
+
+    def detect_cycle2(self):
+        """Détection de cycle pour graphe non orienté, version lourde.
          Au départ, tous les noeuds sont marqués comme n'ayant pas été visités. 
          Lors du parcours en profondeur, on marque comme étant "en cours de visite" 
          les noeuds pour lesquels un appel récursif est en cours 

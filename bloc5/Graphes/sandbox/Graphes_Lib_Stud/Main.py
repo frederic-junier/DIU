@@ -104,12 +104,12 @@ def main():
     graph.print_dot("graph2")
     graph.color(0)   #False
     graph.color(3)    #{'a': 1, 'c': 1, 'b': 0, 'e': 0, 'd': 0, 'f': 0, 'y': 0, 'x': 1, 'z': 0}
-
-
+ 
     print("Détection de cycle dans un graphe non orienté avec cycle")
     graph2 = Graph(graph_dict={"1" : ["2", "3"], "2" : ["1"], "3" : ["1", "4", "5"], "4": ["3", "6"], "5" : ["3", "6"],
                                              "6" : ["4", "5"]})
-    print("Détection de cycle :",graph2.detect_cycle(), "Détection de Brigitte :",graph2.contientCycle() )
+    print("Détection de cycle 1 :",graph2.detect_cycle(),"Détection de cycle 2 :",graph2.detect_cycle2(), 
+    "Détection de Brigitte 1 :",graph2.contientCycle(), "Détection de Brigitte 2 :",graph2.contientCycle2() )
     print("Affichage du graphe non orienté  avec cycle")
     graph2.print_dot("graph2")
     
@@ -117,14 +117,21 @@ def main():
     print("Détection de cycle dans un graphe non orienté  sans cycle")
     graph3 = Graph(graph_dict={"1" : ["2", "3"], "2" : ["1"], "3" : ["1", "4", "5"], "4": ["3"], "5" : ["3", "6"],
                                              "6" : [ "5"]})
-    print("Détection de cycle :",graph3.detect_cycle(),"Détection de Brigitte :",graph3.contientCycle() )
+    print("Détection de cycle :",graph3.detect_cycle(),"Détection de cycle 2 :",graph3.detect_cycle2(), 
+    "Détection de Brigitte :",graph3.contientCycle(), "Détection de Brigitte 2 :",graph3.contientCycle2() )
+    print("Affichage du  graphe  orienté avec cycle")
+    graph3.print_dot("graph3")
+    
+    print("Détection de cycle dans un graphe non orienté  sans cycle")
+    graph3 = Graph(graph_dict={"1" : ["2", "3"], "2" : ["1"], "3" : ["1", "4", "5"], "4": ["3"], "5" : ["3", "6"],
+                                             "6" : [ "5"]})
+    print("Détection de Brigitte :",graph3.contientCycle() )
     print("Affichage du  graphe  orienté avec cycle")
     graph3.print_dot("graph3")
 
-
     
 
-
+    
     print("Test de graphe orienté")
     directgraph = DirectGraph(graph_dict={"1" : ["2", "4"], "2" : [], "3" : ["2", "5"],
                             "4" : ["6"], "5" : ["4", "3"], "6" : [] })
@@ -165,6 +172,7 @@ def main():
 
     print("Tri topologique de directgraph3 ")
     print(directgraph3.topological_sort())
+    
 
     
 
