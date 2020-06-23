@@ -266,10 +266,10 @@ class Graph(object):
 
     def contientCycle(self) : 
         """Version de Brigitte"""
-        pile = []        
-        sommets = self.vertices()
+        pile = []    #sommets à traiter
+        sommets = self.vertices()   #sommets non traités
         while sommets :
-            vus = []
+            vus = []          #sommets en cours de traitement
             sommet = sommets.pop()
             pile.append(sommet)
             while pile != [] :                
