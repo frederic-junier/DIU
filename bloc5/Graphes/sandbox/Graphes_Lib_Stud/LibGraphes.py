@@ -272,7 +272,8 @@ class Graph(object):
             vus = []          #sommets en cours de traitement
             sommet = sommets.pop()
             pile.append(sommet)
-            while pile != [] :                
+            while pile != [] : 
+                print(pile, vus)               
                 sommet = pile.pop()
                 #si le sommet est déjà dans vus quand on doit  le traitee
                 #c'est qu'il a déjà été taité/vu avant et qu'on a un cycle
@@ -442,10 +443,10 @@ class Graph(object):
             else:
                 dot.node(k, k, color=foo[colors[k]])
         for edge in self.__generate_edges():
-            print(edge)
+            #print(edge)
             (v1, v2) = list(edge)[0], list(edge)[1]
             dot.edge(v1, v2, dir="none")
-        print(dot.source)
+        #print(dot.source)
         dot.render(name, view=True)        # print in pdf
 
     
@@ -506,10 +507,10 @@ class DirectGraph(Graph):
             else:
                 dot.node(k, k, color=foo[colors[k]])
         for edge in self.__generate_edges():
-            print(edge)
+            #print(edge)
             (v1, v2) = list(edge)[0], list(edge)[1]
             dot.edge(v1, v2)
-        print(dot.source)
+        #print(dot.source)
         dot.render(name, view=True)        # print in pdf
  
 #voir https://fr.wikipedia.org/wiki/Fermeture_transitive

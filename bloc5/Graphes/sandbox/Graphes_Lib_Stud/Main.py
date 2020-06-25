@@ -122,12 +122,15 @@ def main():
     print("Affichage du  graphe  orienté avec cycle")
     graph3.print_dot("graph3")
     
+
+
+
     print("Détection de cycle dans un graphe non orienté  sans cycle")
-    graph3 = Graph(graph_dict={"1" : ["2", "3"], "2" : ["1"], "3" : ["1", "4", "5"], "4": ["3"], "5" : ["3", "6"],
-                                             "6" : [ "5"]})
-    print("Détection de Brigitte :",graph3.contientCycle() )
-    print("Affichage du  graphe  orienté avec cycle")
-    graph3.print_dot("graph3")
+    graph4 = Graph(graph_dict={"1" : ["2", "3"], "2" : ["1", "3"], "3" : ["1", "2"]})
+    print("Détection de cycle :",graph4.detect_cycle(),"Détection de cycle 2 :",graph4.detect_cycle2(), 
+    "Détection de Brigitte :",graph4.contientCycle(), "Détection de Brigitte 2 :",graph4.contientCycle2() )
+    print("Affichage du  graphe 4 non  orienté avec cycle")
+    graph4.print_dot("graph4")
 
     
 
@@ -153,6 +156,7 @@ def main():
     directgraph2 = DirectGraph(graph_dict={"1" : ["2", "3"], "2" : ["4", "5"], "3" : ["7", "5"], "4": ["6"], "5" : ["6"],
                                              "6" : ["10", "11"], "7" : [], "8" : ["7"], "9" : ["8"], "10" : ["11","9"], "11" : ["12"], "12":[]})
     print("Détection de cycle :",directgraph2.detect_cycle())
+    print("Détection de Brigitte :",directgraph2.contientCycle() )
     print("Affichage du graphe orienté  sans cyle")
     directgraph2.print_dot("directgraph2")
     
@@ -161,6 +165,7 @@ def main():
     directgraph3 = DirectGraph(graph_dict={"1" : ["2", "3"], "2" : ["4", "5"], "3" : ["5"], "4": ["6"], "5" : ["6"],
                                              "6" : ["10", "11"], "7" : ["3"], "8" : ["7"], "9" : ["8"], "10" : ["11","9"], "11" : ["12"], "12":[]})
     print("Détection de cycle :",directgraph3.detect_cycle())
+    print("Détection de Brigitte :",directgraph3.contientCycle() )
     print("Affichage du  graphe  orienté avec cyle")
     directgraph3.print_dot("directgraph3")
 
