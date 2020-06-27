@@ -668,6 +668,17 @@ class DirectGraph(Graph):
         return (True, priority[::-1])    
 
 
+    def verif_topological_order(self, order):
+        if order == []:
+            return True
+        dejavu = {vertex : False for vertex in self.vertices()}
+        for vertex in order:
+            dejavu[vertex] = True
+            for neighbour in self.neighbours(vertex):
+                if dejavu[neighbour]:
+                    return False
+        return True
+
 #################### Fonctions outils ########################################
 
 def mat_boolean_product(mat1, mat2):

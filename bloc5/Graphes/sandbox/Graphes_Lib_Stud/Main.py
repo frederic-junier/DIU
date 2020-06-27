@@ -1,6 +1,8 @@
 # Main File to test the Graph Class
 # L & S Gonnord, 2016
 from LibGraphes import *
+import subprocess
+
 
 def main():
     g = { "a" : ["d"],
@@ -169,15 +171,28 @@ def main():
     print("Affichage du  graphe  orienté avec cyle")
     directgraph3.print_dot("directgraph3")
 
-    print("Tri topologique de directgraph ")
+    print("Tri topologique de directgraph version dfs ")
+    print(directgraph.topological_sort_dfs())
+
+
+
+    print("Tri topologique de directgraph")
     print(directgraph.topological_sort())
+    print("Tri topologique de directgraph version dfs")
+    print(directgraph.topological_sort_dfs())
+
+
+
 
     print("Tri topologique de directgraph2 ")
     print(directgraph2.topological_sort())
+    print("Tri topologique de directgraph2 version dfs ")
+    print(directgraph2.topological_sort_dfs())
 
     print("Tri topologique de directgraph3 ")
     print(directgraph3.topological_sort())
-    
+    print("Tri topologique de directgraph3 version dfs ")
+    print(directgraph3.topological_sort_dfs())
 
     
 
@@ -185,3 +200,5 @@ def main():
     
 if __name__ == '__main__':
     main()
+   
+
