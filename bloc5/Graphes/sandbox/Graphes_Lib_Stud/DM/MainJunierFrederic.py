@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 # Main File to test 
 
 
@@ -6,6 +8,9 @@
 from LibGraphesJunierFrederic import *
 from functools import wraps
 import subprocess
+import os.path
+import sys
+
 
 
 #############  Fonctions outils ###########################
@@ -25,68 +30,96 @@ def counter(f):
 
 #ici le compteur d'appel servira à numéroter les noms de fichiers de graphes
 @counter
-def test_graph(title= "Test", graph_dict = None, name = "directgraph", cycle = False):
+def test_graph(title= "Test", graph_dict = None, relative_path = "images/directgraph", cycle = False, pdf=False):
+    """Test d'un graphe orienté donné par son dictionnaire d'adjacence"""
     print('*' * 30 + f'DEBUT DU TEST {test_graph.compteur}' + '*' * 30)
     print(title)
     directgraph = DirectGraph(graph_dict=graph_dict)
-    print("Affichage du graphe dans la console ")
+    print("Affichage du graphe de contraintes dans la console ")
     print(directgraph)
-    print("Dessin du graphe en pdf avec GraphViz")
-    directgraph.print_dot(name + str(test_graph.compteur))
+    #génération du pdf avec graphviz si pdf == True
+    if pdf:
+        dir_path = os.path.dirname(os.path.realpath(__file__))
+        output_path = os.path.join(dir_path, relative_path + str(test_graph.compteur))
+        print("Dessin du graphe en pdf avec GraphViz")
+        directgraph.print_dot(output_path)
     has_cycle = directgraph.detect_cycle()
     #assertion de vérification du résultat
     assert has_cycle == cycle, "Erreur dans la détection de cycle"
     print("Détection de cycle dans le graphe orienté, réponse : ", has_cycle)    
-    (rep, order) = directgraph.topological_sort()  
+    (rep, order) = directgraph.topological_sort_greedy()  
     #assertion de vérification du résultat
     assert (cycle == (not rep)) and  (directgraph.verif_topological_order(order) == True), f"Erreur dans le tri topologique glouton"
-    print("Tri topologique de directgraph version gloutonne : ", order)
+    print(f"Tri topologique de directgraph version gloutonne / notice de montage possible : {not has_cycle}, ordre pour la notice de montage : ", order)
     (rep, order) = directgraph.topological_sort_dfs()
     #assertion de vérification du résultat
     assert (cycle == (not rep)) and (directgraph.verif_topological_order(order) == True), f"Erreur dans le tri topologique dfs" 
-    print("Tri topologique de directgraph version dfs", order)
+    print(f"Tri topologique de directgraph version dfs / notice de montage possible : {not has_cycle},  ordre pour la notice de montage : ", order)
     print('*' * 31 + f'FIN DU TEST {test_graph.compteur}' + '*' * 31)
 
 
-def main():
+def main(pdf =  False):
     """Regroupe les exemples pour les test"""
+
+
+    test_graph(title = "Un graphe orienté de contraintes avec cycle",
+               graph_dict={"a" : ["h"], "b" : [], "c" : ["a", "b", "e"], "d": ["b","c"], "e" : ["h","f"],
+                                             "f" : [], "g" : ["e"], "h" : [], "i" : ["e"]},
+                cycle = False, pdf = pdf)
     
-    test_graph(title = "Un graphe orienté avec cycle", 
-               graph_dict={"1" : ["2", "4"], "2" : [], "3" : ["2", "5"],
-                            "4" : ["6"], "5" : ["4", "3"], "6" : [] },                            
-               cycle = True)
+    test_graph(title = "Un graphe orienté de contraintes avec cycle", 
+               graph_dict={"a" : ["c"], "b" : ["a"], "c" : ["d", "e"],
+                            "d" : ["b"], "e" : [], "f" : ["c"] },                            
+               cycle = True, pdf = pdf)
 
-    test_graph(title = "Un graphe orienté sans cycle", 
-                graph_dict={"1" : ["2", "3"], "2" : ["4", "5"], "3" : ["7", "5"], "4": ["6"], "5" : ["6"],
-                                             "6" : ["10", "11"], "7" : [], "8" : ["7"], "9" : ["8"], 
-                                             "10" : ["11","9"], "11" : ["12"], "12":[]},
-                cycle = False)
+    test_graph(title = "Un graphe orienté de contraintes sans cycle", 
+                graph_dict={"a" : ["b", "c"], "b" : ["d", "e"], "c" : ["g", "e"], "d": ["f"], "e" : ["f"],
+                                             "f" : ["j", "k"], "g" : [], "h" : ["g"], "i" : ["h"], 
+                                             "j" : ["k","i"], "k" : ["l"], "l":[]},
+                cycle = False, pdf = pdf)
 
-    test_graph(title = "Un graphe orienté avec cycle",
-                graph_dict={"1" : ["2", "3"], "2" : ["4", "5"], "3" : ["5"], "4": ["6"], "5" : ["6"],
-                                             "6" : ["10", "11"], "7" : ["3"], "8" : ["7"], 
-                                             "9" : ["8"], "10" : ["11","9"], "11" : ["12"], "12":[]},
-                cycle = True)
+    test_graph(title = "Un graphe orienté de contraintes avec cycle",
+               graph_dict={"a" : ["b", "c"], "b" : ["d", "e"], "c" : ["a", "e"], "d": ["f"], "e" : ["f"],
+                                             "f" : ["j", "k"], "g" : ["c"], "h" : ["g"], "i" : ["h"], 
+                                             "j" : ["k","i"], "k" : ["l"], "l":[]},
+                cycle = True, pdf = pdf)
 
-    test_graph(title = "Un graphe orienté avec cycle",
-               graph_dict={"1" : ["8"], "2" : [], "3" : ["1", "2", "5"], "4": ["2","3"], "5" : ["8","6"],
-                                             "6" : [], "7" : ["5"], "8" : [], "7" : ["5"], "8" : [], 
-                                             "9" : ["5"]},
-                cycle = False)
+    
 
-    test_graph(title = "Un graphe orienté sans cycle", 
-               graph_dict={"1" : ["2","3"], "2" : ["4","5"], "3" : [ "5"],
-                             "4": [], "5" : [], "6" : ["5"]},
-                cycle = False)
+    test_graph(title = "Un graphe orienté de contraintes sans cycle", 
+               graph_dict={"a" : ["b","c"], "b" : ["e","f"], "c" : [ "e"],
+                             "d": [], "e" : [], "f" : ["e"]},
+                cycle = False, pdf = pdf)
 
 
 
 ############################ Exécution du programme principal #############################
 if __name__ == "__main__":
-    main()
-    try:
-        #conversion de tous les graphes en png pour l'affichage dans le fichier README.md sous Gitlab ou Github
-        subprocess.call("ls *.pdf | sed s/pdf//g | xargs -I% convert %pdf %png", shell=True)
-    except SystemError:
-        print("Erreur, xargs pas installé ? sudo apt install findutils")
+
+    arguments = list(map(lambda c : str.lstrip(c, '-'), map(str.lower, sys.argv)))
+    if 'pdf'in arguments  or 'png' in arguments:
+        print('Ici')
+        main(pdf = True)
+         #décommenter la pragraphe suivant pour convertir les pdf en png
+        try:
+            dir_path = os.path.dirname(os.path.realpath(__file__))
+            images_path = os.path.join(dir_path, 'images')
+            #conversion de tous les graphes en png pour l'affichage dans le fichier README.md sous Gitlab ou Github
+            subprocess.call(f"cd  {images_path} && ls *.pdf | sed s/pdf//g | xargs -I% convert %pdf %png", shell=True)
+        except SystemError:
+            print(f"""Erreur dans l'exécution de la commande `cd  {images_path} && ls *.pdf | sed s/pdf//g | xargs -I% convert %pdf %png`
+            *  xargs pas installé ? sudo apt install findutils
+            * convert pas installé ? sudo apt install imagemagick
+            """)
+    elif  'h' in arguments or 'help' in arguments:
+        print("""Utilisation du script MainJunierFrederic.py :
+        * 'python MainJunierFrederic.py h' ou  'python MainJunierFrederic.py -h' ou 'python MainJunierFrederic.py --h' pour afficher l'aide
+        * 'python MainJunierFrederic.py pdf' ou  'python MainJunierFrederic.py -pdf' ou  'python MainJunierFrederic.py --pdf' pour générer les pdf des graphes dans un sous-répertoire 'images'
+        du répertoire courant    
+        """)
+    else:
+        main(pdf = False)
+
+
+   
 

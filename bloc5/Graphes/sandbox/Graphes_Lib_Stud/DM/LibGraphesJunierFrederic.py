@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 ################## Imports de modules ####################
 
 from copy import deepcopy
@@ -453,7 +455,7 @@ class Graph(object):
             (v1, v2) = list(edge)[0], list(edge)[1]
             dot.edge(v1, v2, dir="none")
         #print(dot.source)
-        dot.render(name, view=True)        # print in pdf
+        dot.render(name, view=False)        # print in pdf
 
     
     
@@ -469,7 +471,8 @@ class DirectGraph(Graph):
         """
         super(DirectGraph, self).__init__(graph_dict=graph_dict)
         self.__transitive_closure = None
-        self.__graph_dict = self._Graph__graph_dict 
+        #pas propre il faudrait définir un getter dans la classe Graph pour accéder à son attribut privé  __graph_dict 
+        self.__graph_dict = self._Graph__graph_dict  
         self.__distmin_floyd_warshall = None
         self.__mat_adj = None
         self.__index_vertices = None
@@ -517,7 +520,7 @@ class DirectGraph(Graph):
             (v1, v2) = list(edge)[0], list(edge)[1]
             dot.edge(v1, v2)
         #print(dot.source)
-        dot.render(name, view=True)        # print in pdf
+        dot.render(name, view=False)        # print in pdf
  
 #voir https://fr.wikipedia.org/wiki/Fermeture_transitive
 #voir https://fr.wikipedia.org/wiki/Matrice_binaire
@@ -582,6 +585,9 @@ class DirectGraph(Graph):
         va énumérer tous les noeuds de ce cycle, et retomber sur le premier noeud, 
         avant que l'appel ne se termine.  
 
+        Référence France IOI : 
+        Tourner en Rond Niveau 4 du parcours général 
+        http://www.france-ioi.org/algo/task.php?idChapter=533&idTask=260
         """
         
         gdict = self.__graph_dict
@@ -608,10 +614,13 @@ class DirectGraph(Graph):
                 return True
         return False
     
-    def topological_sort(self):    
+    def topological_sort_greedy(self):    
         """Retourne les sommets d'un graphe orienté triés dans l'ordre topologique
         Traite d'abord les sommets de degré entrant nul et les insère dans une liste order
         dans l'ordre topologique
+
+        Référence :
+        Images des mathématiques : https://interstices.info/saider-des-graphes-pour-elaborer-une-notice-de-montage/
         """
         # on vérifie d'abord qu'il n'y ait pas de cycle
         if self.detect_cycle():
@@ -640,6 +649,10 @@ class DirectGraph(Graph):
     def topological_sort_dfs(self):    
         """Retourne les sommets d'un graphe orienté triés dans l'ordre topologique
         Remplit une liste des sommets dans l'ordre topologique inverse en déroulant un parcours DFS
+
+        Référence France IOI : 
+        TFermeture du labyrrinthe Niveau 4 du parcours général 
+        http://www.france-ioi.org/algo/task.php?idChapter=533&idTask=261
         """
 
         PAS_VU = 0
