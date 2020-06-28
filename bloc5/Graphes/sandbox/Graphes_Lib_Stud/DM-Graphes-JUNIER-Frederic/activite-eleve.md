@@ -21,6 +21,8 @@ Attention, L'étiquetage étant aléatoire, l'ordre alphabétique sur les étiqu
 À partir d'un tel graphe, vous devez définir un ordre d'exécution des étapes de montage pour la notice de montage, permettant à un utilisateur de monter le produit en respectant toutes les contraintes.
 
 
+# Questions 
+
 1. Le service ingénierie vous a fourni le __graphe 1__ de contraintes ci-dessous :
 
     ![premier graphe](images/directgraph1.png)\
