@@ -533,6 +533,24 @@ class DirectGraph(Graph):
     >>> directgraph1.vertices()
     ['1', '2', '3', '4', '5', '6']
 
+    >>> directgraph1.detect_cycle()
+    True
+
+    >>> directgraph1.topological_sort_greedy()
+    Le graphe contient un cycle, pas de tri topologique !
+    (False, [])
+
+    >>> directgraph2 = DirectGraph(graph_dict={"1" : ["2", "3"], "2" : ["4", "5"], "3" : ["7", "5"], "4": ["6"], "5" : ["6"],"6" : ["10", "11"], "7" : [], "8" : ["7"], "9" : ["8"], "10" : ["11","9"], "11" : ["12"], "12":[]})
+
+    >>> directgraph2.detect_cycle()
+    False
+
+    >>> directgraph2.topological_sort_greedy()
+    (True, ['1', '3', '2', '5', '4', '6', '10', '9', '8', '7', '11', '12'])
+
+    >>> directgraph2.topological_sort_dfs()
+    (True, ['1', '3', '2', '5', '4', '6', '10', '9', '8', '7', '11', '12'])
+
     """
 
     def __init__(self, graph_dict=None):
@@ -701,9 +719,11 @@ class DirectGraph(Graph):
         return False
     
     def topological_sort_greedy(self):    
-        """Retourne les sommets d'un graphe orienté triés dans l'ordre topologique
+        """Retourne un couple (booléen, liste) :
+        le booléen indique si un ordre topologique existe
+        la liste est celle des sommets dugraphe orienté triés dans un ordre topologique
         Traite d'abord les sommets de degré entrant nul et les insère dans une liste order
-        dans l'ordre topologique
+        dans  un ordre topologique
 
         Référence :
         Images des mathématiques : https://interstices.info/saider-des-graphes-pour-elaborer-une-notice-de-montage/
@@ -712,20 +732,27 @@ class DirectGraph(Graph):
         if self.detect_cycle():
             print("Le graphe contient un cycle, pas de tri topologique !")
             return (False, [])
-        # dictionnaire des degrés entrants par sommet
-        in_degree = { vertex : 0 for vertex in self.vertices() }        
+        #initialisation du dictionnaire des degrés entrants par sommet
+        in_degree = { vertex : 0 for vertex in self.vertices() }    
+        #pour chaque sommet    
         for vertex in self.vertices():
+            #on compte (vertex, neighbour) pour  incrémenter le compteur de degré d'arcs entrants de 1            
             for neighbour in self.neighbours(vertex):
                 in_degree[neighbour] += 1
-        #liste des sommets qui ont un degré entrant nul
+        #start_list est la liste des sommets qui ont un degré entrant nul
         start_list = [vertex for vertex in in_degree if in_degree[vertex] == 0]
         #liste des sommets dans l'ordre tolologique
         order = []
+        #tant qu'il reste des sommets non classés
         while len(start_list) != 0:
+            #on récupère un sommet de degré entrant nul
             start = start_list.pop()
+            #on l'ajoute à la liste des sommets dans l'ordre topologique
             order.append(start)
+            #on met à jout les compteurs de dégré entrant de voisins du sommet ordonné
             for neighbour in self.neighbours(start):
                 in_degree[neighbour] -= 1
+                #si on a un voisin de degré entrant nul on l'insère dans la liste start_list
                 if in_degree[neighbour] == 0:
                     start_list.append(neighbour)
         return (True, order) 
@@ -743,16 +770,23 @@ class DirectGraph(Graph):
 
         PAS_VU = 0
         VU = 1
-        priority = []
+        order = []
         vertices = self.vertices()
+        #dictionnaire de marques
+        #pour un DFS simple deux suffisents VU et PAS_VU
         marque = {vertex : PAS_VU for vertex in vertices}
 
         def search_dfs(vertex):
+            """Fonction auxilaire parcours DFS"""
+            #on marque le sommet comme VU
             marque[vertex] = VU
             for neighbour in self.neighbours(vertex):
+                #on lance récursivement le parcours DFS sur les voisins PAS_VU
                 if marque[neighbour] == PAS_VU:                    
                     search_dfs(neighbour)
-            priority.append(vertex)
+            #parcours DFS depuis sommet terminé 
+            #on ajoute le sommet à la liste ordonnée dans l'ordre inverse de l'ordre topologique
+            order.append(vertex)
         
         if self.detect_cycle():
             print("Le graphe contient un cycle, pas de tri topologique !")
@@ -763,10 +797,11 @@ class DirectGraph(Graph):
             if marque[vertex] == PAS_VU:    
                 search_dfs(vertex)
         #priority dans l'ordre inverse de l'ordre topologique
-        return (True, priority[::-1])    
+        return (True, order[::-1])    
 
 
     def verif_topological_order(self, order):
+        """Vérifie si order est un ordre topologique sur les sommets du graphe"""
         if order == []:
             return True
         dejavu = {vertex : False for vertex in self.vertices()}
@@ -791,6 +826,7 @@ def mat_boolean_product(mat1, mat2):
 
 
 if __name__ == "__main__":
+    #vérification des tests dans les documentations des classes
     import doctest
     doctest.testmod(verbose=True)
 
