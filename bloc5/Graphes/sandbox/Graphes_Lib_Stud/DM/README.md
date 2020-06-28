@@ -6,6 +6,7 @@
 
 Illustration du tri topologique dans un contexte et implémentation de ce tri comme méthode d'une classe d'objets graphes orientés.
 
+L'ensemble de fichiers de cette activité sont disponibles en ligne sur ce dépôt <https://github.com/frederic-junier/DIU-Junier/tree/master/bloc5/Graphes/sandbox/Graphes_Lib_Stud/DM>.
 
 ## Contenu de l'archive et mode d'emploi
 
