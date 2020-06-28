@@ -5,7 +5,7 @@
 
 ##############  Imports des modules #####################
 
-from LibGraphesJunierFrederic import *
+from lib_graphes_junier_frederic import *
 from functools import wraps
 import subprocess
 import os.path
@@ -30,7 +30,7 @@ def counter(f):
 
 #ici le compteur d'appel servira à numéroter les noms de fichiers de graphes
 @counter
-def test_graph(title= "Test", graph_dict = None, relative_path = "images/directgraph", cycle = False, pdf=False, greedy = True, dfs = True):
+def test_graph(title= "Test", graph_dict = None, relative_path = "images/directgraph", cycle = False, pdf=False, greedy = False, dfs = False):
     """Test d'un graphe orienté donné par son dictionnaire d'adjacence"""
     print('*' * 30 + f'DEBUT DU TEST {test_graph.compteur}' + '*' * 30)
     print(title)
@@ -62,38 +62,38 @@ def test_graph(title= "Test", graph_dict = None, relative_path = "images/directg
     print('*' * 31 + f'FIN DU TEST {test_graph.compteur}' + '*' * 31)
 
 
-def main(pdf =  False):
+def main(pdf =  False, greedy = True, dfs  = True):
     """Regroupe les exemples pour les test"""
 
 
     test_graph(title = "Un graphe orienté de contraintes avec cycle",
                graph_dict={"a" : ["h"], "b" : [], "c" : ["a", "b", "e"], "d": ["b","c"], "e" : ["h","f"],
                                              "f" : [], "g" : ["e"], "h" : [], "i" : ["e"]},
-                cycle = False, pdf = pdf)
+                cycle = False, pdf = pdf, greedy = greedy, dfs = dfs)
     
     test_graph(title = "Un graphe orienté de contraintes avec cycle", 
                graph_dict={"a" : ["c"], "b" : ["a"], "c" : ["d", "e"],
                             "d" : ["b"], "e" : [], "f" : ["c"] },                            
-               cycle = True, pdf = pdf)
+               cycle = True, pdf = pdf, greedy = greedy, dfs = dfs)
 
     test_graph(title = "Un graphe orienté de contraintes sans cycle", 
                 graph_dict={"a" : ["b", "c"], "b" : ["d", "e"], "c" : ["g", "e"], "d": ["f"], "e" : ["f"],
                                              "f" : ["j", "k"], "g" : [], "h" : ["g"], "i" : ["h"], 
                                              "j" : ["k","i"], "k" : ["l"], "l":[]},
-                cycle = False, pdf = pdf)
+                cycle = False, pdf = pdf, greedy = greedy, dfs = dfs)
 
     test_graph(title = "Un graphe orienté de contraintes avec cycle",
                graph_dict={"a" : ["b", "c"], "b" : ["d", "e"], "c" : ["a", "e"], "d": ["f"], "e" : ["f"],
                                              "f" : ["j", "k"], "g" : ["c"], "h" : ["g"], "i" : ["h"], 
                                              "j" : ["k","i"], "k" : ["l"], "l":[]},
-                cycle = True, pdf = pdf)
+                cycle = True, pdf = pdf, greedy = greedy, dfs = dfs)
 
     
 
     test_graph(title = "Un graphe orienté de contraintes sans cycle", 
                graph_dict={"a" : ["b","c"], "b" : ["e","f"], "c" : [ "e"],
                              "d": [], "e" : [], "f" : ["e"]},
-                cycle = False, pdf = pdf)
+                cycle = False, pdf = pdf, greedy = greedy, dfs = dfs)
 
 
 
@@ -101,21 +101,11 @@ def main(pdf =  False):
 if __name__ == "__main__":
 
     arguments = list(map(lambda c : str.lstrip(c, '-'), map(str.lower, sys.argv)))
-    if 'pdf'in arguments  or 'png' in arguments:
-        print('Ici')
-        main(pdf = True)
-         #décommenter la pragraphe suivant pour convertir les pdf en png
-        try:
-            dir_path = os.path.dirname(os.path.realpath(__file__))
-            images_path = os.path.join(dir_path, 'images')
-            #conversion de tous les graphes en png pour l'affichage dans le fichier README.md sous Gitlab ou Github
-            subprocess.call(f"cd  {images_path} && ls *.pdf | sed s/pdf//g | xargs -I% convert %pdf %png", shell=True)
-        except SystemError:
-            print(f"""Erreur dans l'exécution de la commande `cd  {images_path} && ls *.pdf | sed s/pdf//g | xargs -I% convert %pdf %png`
-            *  xargs pas installé ? sudo apt install findutils
-            * convert pas installé ? sudo apt install imagemagick
-            """)
-    elif  'h' in arguments or 'help' in arguments:
+    #le premier arguments récupéré dans sys.argv est le nom du script qui ne nous intéresse pas
+    #dictionnaire des arguments à passer à la fonction main
+    kwargs = {arg : True for arg in arguments[1:]}
+    print(kwargs)
+    if  'h' in arguments or 'help' in arguments:
         print("""Utilisation du script MainJunierFrederic.py :
         * 'python MainJunierFrederic.py h' ou  'python MainJunierFrederic.py -h' ou 'python MainJunierFrederic.py --h' pour afficher l'aide
         * 'python MainJunierFrederic.py pdf' ou  'python MainJunierFrederic.py -pdf' ou  'python MainJunierFrederic.py --pdf' pour générer les pdf des graphes dans un sous-répertoire 'images'
@@ -124,7 +114,20 @@ if __name__ == "__main__":
         * 'python MainJunierFrederic.py dfs' pour tester la méthode de tri topologique avec dfs
         """)
     else:
-        main(pdf = False)
+        main(**kwargs)
+        if 'pdf'in arguments  or 'png' in arguments:
+            try:
+                dir_path = os.path.dirname(os.path.realpath(__file__))
+                images_path = os.path.join(dir_path, 'images')
+                #conversion de tous les graphes en png pour l'affichage dans le fichier README.md sous Gitlab ou Github
+                subprocess.call(f"cd  {images_path} && ls *.pdf | sed s/pdf//g | xargs -I% convert %pdf %png", shell=True)
+            except SystemError:
+                print(f"""Erreur dans l'exécution de la commande `cd  {images_path} && ls *.pdf | sed s/pdf//g | xargs -I% convert %pdf %png`
+                *  xargs pas installé ? sudo apt install findutils
+                * convert pas installé ? sudo apt install imagemagick
+                """)
+   
+
 
 
    
