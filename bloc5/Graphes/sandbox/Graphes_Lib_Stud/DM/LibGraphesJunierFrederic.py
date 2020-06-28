@@ -11,6 +11,9 @@ import numpy as np
 
 ###############  Définitions de classes ####################
 
+
+## Classes d'exceptions
+
 class Error(Exception):
     """Base class for exceptions in this module."""
     pass
@@ -22,6 +25,8 @@ class GraphError(Error):
     def __init__(self, message):
         self.message = message
 
+
+## Classe de graphe non orienté
 
 class Graph(object):
     """Objets de classe graphe"""
@@ -50,6 +55,10 @@ class Graph(object):
 
     def neighbours(self, vertex):
         return self.__graph_dict[vertex]
+
+    def get_graph_dict(self):
+        """Returns private attribute __graph_dict read only"""
+        return self.__graph_dict
 
     def add_vertex(self, vertex):
         """ If the vertex "vertex" is not in
@@ -269,6 +278,77 @@ class Graph(object):
                 components.append(list(seen.keys()))
         return components
 
+    def detect_cycle2(self):
+        """Détection de cycle pour graphe non orienté, version lourde.
+         Au départ, tous les noeuds sont marqués comme n'ayant pas été visités. 
+         Lors du parcours en profondeur, on marque comme étant "en cours de visite" 
+         les noeuds pour lesquels un appel récursif est en cours 
+         et comme "déjà visités"
+         les noeuds pour lesquels l'appel récursif s'est terminé. 
+         Si un appel récursif est fait sur un noeud qui est dans l'état "en cours de visite", 
+         cela signifie que l'ensemble des noeuds en cours de visite forment un cycle, 
+         donc qu'il y a un cycle dans le graphe. Si cela ne se produit jamais, 
+         c'est que le graphe ne contient pas de cycle.
+
+        Lorsque le graphe contient un cycle, on est certain de retomber 
+        sur un noeud dans l'état "en cours de visite"
+        au cours du parcours. En effet, lorsque l'on appelle la fonction récursive
+        pour la première fois sur un noeud faisant partie d'un cycle, le parcours en profondeur
+        va énumérer tous les noeuds de ce cycle, et retomber sur le premier noeud, 
+        avant que l'appel ne se termine.  
+        Pour un graphe non orienté on vérifie également qu'on ne revient pas au noeud parent
+        ce qui reviendrait à emprunter 2 fois de suite la même arête (on aurait alors toujours un cycle)      
+        """
+        
+        gdict = self.__graph_dict
+        TRAITE = 2
+        EN_COURS = 1
+        PAS_VU = 0
+        marque = {vertex : PAS_VU for vertex in self.vertices()}
+
+        def search_dfs(vertex, parent = None):
+            marque[vertex] = EN_COURS
+            rep = False
+            for neighbour in gdict[vertex]:
+                if marque[neighbour] == PAS_VU:
+                    marque[neighbour] = EN_COURS
+                    rep = rep or search_dfs(neighbour, parent = vertex)
+                #pour un graphe non orienté on vérifie qu'on n'emprunte pas 2 fois de suite la même arête
+                elif marque[neighbour] == EN_COURS and neighbour != parent:  
+                    return True
+            marque[vertex] = TRAITE
+            return rep
+        
+        for vertex in self.vertices():
+            if marque[vertex] == PAS_VU and search_dfs(vertex):
+                return True
+        return False
+
+    def detect_cycle(self):
+        """Détection de cycle récursive pour graphe non orienté 
+        """
+        
+        gdict = self.__graph_dict
+        VU = 1
+        PAS_VU = 0
+        marque = {vertex : PAS_VU for vertex in self.vertices()}
+
+        def search_dfs(vertex, parent = None):
+            marque[vertex] = VU
+            rep = False
+            for neighbour in gdict[vertex]:
+                if marque[neighbour] == PAS_VU:
+                    rep = rep or search_dfs(neighbour, parent = vertex)
+                #pour un graphe non orienté on vérifie qu'on n'emprunte pas 2 fois de suite la même arête
+                elif neighbour != parent:  
+                    return True
+            return rep
+        
+        for vertex in self.vertices():
+            if marque[vertex] == PAS_VU and search_dfs(vertex):
+                return True
+        return False
+
     def contientCycle(self) : 
         """Détection de cycle version de Brigitte Mougeot"""
         pile = []    #sommets à traiter
@@ -316,77 +396,6 @@ class Graph(object):
                
         return False
 
-
-    def detect_cycle(self):
-        """Détection de cycle récursive pour graphe non orienté 
-        """
-        
-        gdict = self.__graph_dict
-        VU = 1
-        PAS_VU = 0
-        marque = {vertex : PAS_VU for vertex in self.vertices()}
-
-        def search_dfs(vertex, parent = None):
-            marque[vertex] = VU
-            rep = False
-            for neighbour in gdict[vertex]:
-                if marque[neighbour] == PAS_VU:
-                    rep = rep or search_dfs(neighbour, parent = vertex)
-                #pour un graphe non orienté on vérifie qu'on n'emprunte pas 2 fois de suite la même arête
-                elif neighbour != parent:  
-                    return True
-            return rep
-        
-        for vertex in self.vertices():
-            if marque[vertex] == PAS_VU and search_dfs(vertex):
-                return True
-        return False
-
-    def detect_cycle2(self):
-        """Détection de cycle pour graphe non orienté, version lourde.
-         Au départ, tous les noeuds sont marqués comme n'ayant pas été visités. 
-         Lors du parcours en profondeur, on marque comme étant "en cours de visite" 
-         les noeuds pour lesquels un appel récursif est en cours 
-         et comme "déjà visités"
-         les noeuds pour lesquels l'appel récursif s'est terminé. 
-         Si un appel récursif est fait sur un noeud qui est dans l'état "en cours de visite", 
-         cela signifie que l'ensemble des noeuds en cours de visite forment un cycle, 
-         donc qu'il y a un cycle dans le graphe. Si cela ne se produit jamais, 
-         c'est que le graphe ne contient pas de cycle.
-
-        Lorsque le graphe contient un cycle, on est certain de retomber 
-        sur un noeud dans l'état "en cours de visite"
-        au cours du parcours. En effet, lorsque l'on appelle la fonction récursive
-        pour la première fois sur un noeud faisant partie d'un cycle, le parcours en profondeur
-        va énumérer tous les noeuds de ce cycle, et retomber sur le premier noeud, 
-        avant que l'appel ne se termine.  
-        Pour un graphe non orienté on vérifie également qu'on ne revient pas au noeud parent
-        ce qui reviendrait à emprunter 2 fois de suite la même arête (on aurait alors toujours un cycle)      
-        """
-        
-        gdict = self.__graph_dict
-        TRAITE = 2
-        EN_COURS = 1
-        PAS_VU = 0
-        marque = {vertex : PAS_VU for vertex in self.vertices()}
-
-        def search_dfs(vertex, parent = None):
-            marque[vertex] = EN_COURS
-            rep = False
-            for neighbour in gdict[vertex]:
-                if marque[neighbour] == PAS_VU:
-                    marque[neighbour] = EN_COURS
-                    rep = rep or search_dfs(neighbour, parent = vertex)
-                #pour un graphe non orienté on vérifie qu'on n'emprunte pas 2 fois de suite la même arête
-                elif marque[neighbour] == EN_COURS and neighbour != parent:  
-                    return True
-            marque[vertex] = TRAITE
-            return rep
-        
-        for vertex in self.vertices():
-            if marque[vertex] == PAS_VU and search_dfs(vertex):
-                return True
-        return False
 
     def coloration(self, K):
         """Coloration du graphe avec l'heuristique de Kempe
@@ -437,7 +446,7 @@ class Graph(object):
                 return False
         return coloring
 
-    def print_dot(self, name="toto", colors={}):
+    def print_dot(self, name="toto", showgraph = False, colors={}):
         """
         Use graphviz to print the graph. Colors is optional.
         """
@@ -453,14 +462,78 @@ class Graph(object):
             (v1, v2) = list(edge)[0], list(edge)[1]
             dot.edge(v1, v2, dir="none")
         #print(dot.source)
-        dot.render(name, view=False)        # print in pdf
+        dot.render(name, view=showgraph)        # print in pdf
 
     
-    
-
+## Classe de graphe orienté
 
 
 class DirectGraph(Graph):
+
+    """
+    Classe de graphes orientés, hérite de la classe graphe, ci-dessous quelques exemples de résultats attendus pour doctest.
+
+    >>> directgraph1 = DirectGraph(graph_dict={"1" : ["2", "4"], "2" : [], "3" : ["2", "5"], "4" : ["6"], "5" : ["4", "3"], "6" : [] })
+
+    >>> directgraph1.get_graph_dict()
+    {'1': ['2', '4'], '2': [], '3': ['2', '5'], '4': ['6'], '5': ['4', '3'], '6': []}
+
+    >>> directgraph1.vertices()
+    ['1', '2', '3', '4', '5', '6']
+
+    >>> directgraph1.get_edges()
+    [('1', '2'), ('1', '4'), ('3', '2'), ('3', '5'), ('4', '6'), ('5', '4'), ('5', '3')]
+
+
+    >>> directgraph1.bfs_traversal('1')
+    ['1', '2', '4', '6']
+
+    >>> directgraph1.bfs_traversal('3')
+    ['3', '2', '5', '4', '6']
+
+    >>> directgraph1.dfs_traversal('3')
+    ['3', '5', '4', '6', '2']
+
+    >>> directgraph1.get_transitive_closure_floydWarshall()
+    [[False, True, False, True, False, True], [False, False, False, False, False, False], [False, True, True, True, True, True], [False, False, False, False, False, True], [False, True, True, True, True, True], [False, False, False, False, False, False]]
+    
+    >>> directgraph1.get_transitive_closure()
+    array([[0, 1, 0, 1, 0, 1],
+           [0, 0, 0, 0, 0, 0],
+           [0, 1, 1, 1, 1, 1],
+           [0, 0, 0, 0, 0, 1],
+           [0, 1, 1, 1, 1, 1],
+           [0, 0, 0, 0, 0, 0]])
+           
+    >>> directgraph1.add_edge(("1", "3"))
+    
+    >>> directgraph1.get_edges()
+    [('1', '2'), ('1', '4'), ('1', '3'), ('3', '2'), ('3', '5'), ('4', '6'), ('5', '4'), ('5', '3')]
+    
+    >>> directgraph1.add_vertex("7")
+    
+    >>> directgraph1.add_edge(("7", "1"))
+    
+    >>> directgraph1.get_edges()
+    [('1', '2'), ('1', '4'), ('1', '3'), ('3', '2'), ('3', '5'), ('4', '6'), ('5', '4'), ('5', '3'), ('7', '1')]
+    
+    >>> directgraph1.vertices()
+    ['1', '2', '3', '4', '5', '6', '7']
+    
+    >>> directgraph1.delete_edge(("1","3"))
+    
+    >>> directgraph1.get_edges()
+    [('1', '2'), ('1', '4'), ('3', '2'), ('3', '5'), ('4', '6'), ('5', '4'), ('5', '3'), ('7', '1')]
+    
+    >>> directgraph1.delete_vertex("7")
+    
+    >>> directgraph1.get_edges()
+    [('1', '2'), ('1', '4'), ('3', '2'), ('3', '5'), ('4', '6'), ('5', '4'), ('5', '3')]
+    
+    >>> directgraph1.vertices()
+    ['1', '2', '3', '4', '5', '6']
+
+    """
 
     def __init__(self, graph_dict=None):
         """ initializes a graph object
@@ -478,11 +551,27 @@ class DirectGraph(Graph):
 
     def add_edge(self, edge):      
         (vertex1, vertex2)  = edge
-        if vertex1 in self.__graph_dict:
+        if vertex1 in self.get_graph_dict():
             self.__graph_dict[vertex1].append(vertex2)
         else:
             self.__graph_dict[vertex1] = [vertex2]
-        
+    
+    def __generate_edges(self):
+        """ A static method generating the tuples of edges.
+        Returns a list of tuples.
+        Private methode
+        """
+        edges = []
+        for vertex in self.vertices():
+            for neighbour in self.neighbours(vertex):
+                if (vertex, neighbour) not in edges:
+                    edges.append((vertex, neighbour))
+        return edges
+
+    def get_edges(self):
+        """Return list of edges"""
+        return self.__generate_edges()
+
     def __str__(self):
         res = "vertices: "
         for k in self.__graph_dict:
@@ -492,16 +581,7 @@ class DirectGraph(Graph):
             res += str(edge) + " "
         return res
 
-    def __generate_edges(self):
-        """ A static method generating the set of edges
-        (they appear twice in the dictionnary). Returns a list of sets.
-        """
-        edges = []
-        for vertex in self.vertices():
-            for neighbour in self.neighbours(vertex):
-                if (vertex, neighbour) not in edges:
-                    edges.append((vertex, neighbour))
-        return edges
+    
 
     def delete_vertex(self, vertex):  # delete vertex and all the adjacent edges
         gdict = self.__graph_dict
@@ -511,7 +591,7 @@ class DirectGraph(Graph):
         (v1, v2) = edge
         self.__graph_dict[v1].remove(v2)
 
-    def print_dot(self, name="toto", colors={}):
+    def print_dot(self, name="toto", showgraph = False, colors={}):
         """
         Use graphviz to print the graph. Colors is optional.
         """
@@ -527,23 +607,23 @@ class DirectGraph(Graph):
             (v1, v2) = list(edge)[0], list(edge)[1]
             dot.edge(v1, v2)
         #print(dot.source)
-        dot.render(name, view=False)        # print in pdf
+        dot.render(name, view=showgraph)        # print in pdf
  
 #voir https://fr.wikipedia.org/wiki/Fermeture_transitive
 #voir https://fr.wikipedia.org/wiki/Matrice_binaire
 #voir https://adrien.poupa.fr/efrei/Th%C3%A9orie%20des%20graphes/FermetureMatrices.pdf
 #voir http://www-igm.univ-mlv.fr/~perrin/Enseignement/X/X98/pc8/pc8Java/pc8Java.html
-    def set_transitive_closure(self):
+    def set_transitive_closure(self, verbose = False):
         """Complexité en O(n^4)"""
         mat = self.get_mat_adj()
         mat = mat.astype(bool)  #conversion de la matrice d'adjacence en matrice booléenne
         self.__transitive_closure = mat
         for k in range(1, len(self.__graph_dict)):
             mat = mat_boolean_product(mat, self.__transitive_closure)
-            print(f"Matrice d'adjacence binaire à la puissance {k + 1}")
-            print(mat.astype(int))
+            if verbose:
+                print(f"Matrice d'adjacence binaire à la puissance {k + 1}")
+                print(mat.astype(int))
             self.__transitive_closure = np.logical_or(self.__transitive_closure, mat)
-        print("Matrice de fermeture transitive du graphe")
         self.__transitive_closure = self.__transitive_closure.astype(int)
 
     def get_transitive_closure(self):
@@ -561,7 +641,6 @@ class DirectGraph(Graph):
         for vertex in self.vertices():
             for neighbour in self.neighbours(vertex):
                 dist[self.__index_vertices[vertex]][self.__index_vertices[neighbour]] = True    
-        print(dist)
         for k in range(0, degree):
             for i in range(0, degree):
                 for j in range(0, degree):                    
@@ -711,5 +790,8 @@ def mat_boolean_product(mat1, mat2):
     return mat3
 
 
+if __name__ == "__main__":
+    import doctest
+    doctest.testmod(verbose=True)
 
 

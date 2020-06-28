@@ -25,7 +25,7 @@ L'ensemble de fichiers de cette activité sont disponibles en ligne sur ce dép�
 └── README.md
 
 * `README.md` est ce fichier
-* `LibGraphesJunierFrederic.py` est le fichier contenant la bibliothèque de graphes avec deux classes `Graph` et `DirectGraph` qui hérite de `Graph`.
+* `LibGraphesJunierFrederic.py` est le fichier contenant la bibliothèque de graphes avec deux classes `Graph` et `DirectGraph` qui hérite de `Graph`. La documentation de la classe `DirectGraph` contient une série de tests d'exécution des différentes méthodes de classes sur quelques exemples. Ils peuvent être vérifiés automatiquement avec le module `doctest` lorsqu'on exécute le fichier directement `LibGraphesJunierFrederic.py`.
 * `MainJunierFrederic.py` est le fichier de tests avec un jeu de tests réduit, à compléter par els élèves,  il peut s'exécuter avec des options :
   * `python3 MainJunierFrederic.py` exécute le script sans générer de fichiers `pdf` et `png` pour les graphes manipulés, les sorties des tests sont affichées dans la console
   * `python3 MainJunierFrederic.py h` ou `python3 MainJunierFrederic.py -h` affiche l'aide (réduite) du programme
