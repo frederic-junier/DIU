@@ -1,0 +1,9 @@
+// My Graph
+digraph {
+	1 [label=1 color=red]
+	2 [label=2 color=red]
+	3 [label=3 color=red]
+		1 -> 2 [dir=none]
+		3 -> 1 [dir=none]
+		3 -> 2 [dir=none]
+}
