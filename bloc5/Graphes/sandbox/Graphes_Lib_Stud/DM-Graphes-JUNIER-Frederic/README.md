@@ -45,14 +45,14 @@ Le contenu est plus complet que dans la partie Contexte ci-dessous avec en parti
  Pour générer les versions `pdf` et `odt` de l'activité, il suffit d'ouvrir un terminal de commande dans le répertoire courant 
  et  d'exécuter la commande `make` ou `make all`. Le script `main_junier_frederic.py` est alors exécuté avec l'option `pdf`, les fichiers `pdf` et `png` des graphes 
   sont générés dans le sous-répertoire `images` et les fichiers `activite-eleve.pdf` et `activite-eleve.odt` sont générés avec `pandoc` à partir de la source `activite-eleve.md`. 
-On peut nettoyer   les fichiers créés en exécutant `make clean` et si on a modifié le contenu d'un fichier source on peut tout reconstruire avec `make fresh`. 
+On peut nettoyer   les fichiers créés en exécutant `make clean` et si on a modifié le contenu d'un fichier source et on peut tout reconstruire avec `make fresh`. 
 Pour outiller l'activité, il faudra fournir aux élèves un code à trous avec des `# TO DO` à compléter au niveau des  méthodes ciblées.
 
 
 ## Contexte de l'activité
 
 
-Vous travaillez au service _Notice de montage_ de l'entreprise  __AEKI__ qi fabrique et commercialise des meubles en kit, _à monter soi-même_.
+Vous travaillez au service _Notice de montage_ de l'entreprise  __AEKI__ qui fabrique et commercialise des meubles en kit, _à monter soi-même_.
 
 Pour chaque nouveau produit, le service ingénierie vous founit un schéma sous la forme d'un _graphe de contraintes_ qui est un graphe orienté :
 * chaque étape de montage  est un sommet du graphe, identifié par une étiquette distincte choisie aléatoirement  parmi les  lettres minuscules

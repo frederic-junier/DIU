@@ -8,7 +8,7 @@ fontsize: 12pt
 # Contexte
 
 
-Vous travaillez au service _Notice de montage_ de l'entreprise  __AEKI__ qi fabrique et commercialise des meubles en kit, _à monter soi-même_.
+Vous travaillez au service _Notice de montage_ de l'entreprise  __AEKI__ qui fabrique et commercialise des meubles en kit, _à monter soi-même_.
 
 Pour chaque nouveau produit, le service ingénierie vous founit un schéma sous la forme d'un _graphe de contraintes_ qui est un graphe orienté :
 
