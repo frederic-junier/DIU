@@ -50,7 +50,7 @@ Pour chaque nouveau produit, le service ingénierie vous founit un schéma sous 
 Attention, L'étiquetage étant aléatoire, l'ordre alphabétique sur les étiquettes des étapes n'est pas forcément l'ordre de montage !
 À partir d'un tel graphe, vous devez définir un ordre d'exécution des étapes de montage pour la notice de montage, permettant à un utilisateur de monter le produit en respectant toutes les contraintes.
 
-Voici une synthèse des questions possibles :
+Voici une liste ordonnée de questions possibles :
 
 
 1. Le service ingénierie vous a fourni un graphe de contraintes ci-dessous, vous devez vérifier si l'ordre de montage (voir activité élève)  respecte  les contraintes du graphe. 
@@ -61,22 +61,17 @@ Existe-t-il d'autres ordres possibles pour la notice de montage ?
 
     * Pouvez-vous déterminer un ordre de montage respectant ces contraintes ?
     * Quelle condition nécessaire doit vérifier un graphe de contraintes pour qu'un ordre de montage existe ? 
-    On admet que cette condition nécessaire est suffisante, c'est-à-dire que si elle est vérifiée alors un ordre de montage existe.
+
 
 3. Votre chef vous demande d'écrire en pseudo-code  un algorithme qui automatise la génération d'un ordre de montage 
 à partir d'un graphe de contraintes pour lequel il existe un ordre de montage.
-Ayant suivi la spécialité NSI au lycée, vous vous souvenez des algorithmes gloutons présentés en classe de première.
+Ayant suivi la spécialité NSI au lycée, vous vous souvenez des algorithmes gloutons présentés en classe de première (lesquels au fait ?). 
 
-   * Citez au moins un algorithme glouton que vous avez déjà rencontré.
-   * Dans le cadre de votre problème, pour obtenir un ordre de montage compatible avec le graphe de contraintes, quel choix  glouton peut-on faire à chaque étape ?
-   * Complétez l'écriture en pseudo-code d'un algorithme glouton qui permettrait de déterminer un ordre de montage compatible avec un graphe donné.
-   * Déroulez cet algorithme sur le graphe de contraintes donné en question 1.
-   * Un ordre de montage pour un graphe de contraintes s'appelle un __ordre topologique__ sur les sommets du graphe.
-    Implémentez votre algorithme en `Python` en complétant la méthode `topological_sort_greedy` de la classe `DirectGraph` dans le  fichier `LibGraphes.py`.
-   * Testez votre méthode avec le fichier `Main.py`.
-   * Complétez le code de la  méthode `verif_topological_order`  de la classe `DirectGraph` dans le  fichier `LibGraphes.py` 
-   pour qu'elle vérifie si un ordre de montage donné en paramètre est bien compatible avec le graphe de contraintes.
+   * Si on résout ce problème par étape, quel choix glouton optimal peut-on faire à chaque étape ? 
+   * Écrivez en  pseudo-code un algorithme glouton qui permet de déterminer un ordre de montage compatible avec un graphe donné puis implémentez en Python en complétant le code de la  méthode `verif_topological_order`  de la classe `DirectGraph` dans le  fichier `LibGraphes.py`.
+   * Testez avec le script  `Main.py` , affichez d'abord l'aide avec `python3 Main.py h`.
+   * Complétez le code de la  méthode `verif_topological_order`  de la classe `DirectGraph` dans le  fichier `LibGraphes.py`, elle droit vérifier qu'un ordre de montage donné en paramètre est bien compatible avec le graphe de contraintes.
 
 4. Il existe un autre algorithme pour déterminer un ordre topologique sur les sommets d'un graphe, basé sur un parcours en profondeur du graphe. 
-   * Visionnez ce tutoriel video <https://youtu.be/eVsCO71q1L0>, puis implémentez cet algorithme en complétant la méthode `topological_sort_dfs` de la classe `DirectGraph` dans le  fichier `LibGraphes.py`.
-   * Testez votre méthode avec le fichier `Main.py`. 
+   Visionnez ce tutoriel video <https://youtu.be/eVsCO71q1L0>, puis implémentez cet algorithme 
+   en complétant la méthode `topological_sort_dfs` de la classe `DirectGraph` dans le  fichier `LibGraphes.py`.

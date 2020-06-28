@@ -42,11 +42,11 @@ Ayant suivi la spécialité NSI au lycée, vous vous souvenez des algorithmes gl
 
    * Citez au moins un algorithme glouton que vous avez déjà rencontré.
    * Dans le cadre de votre problème, pour obtenir un ordre de montage compatible avec le graphe, quel choix  glouton peut-on faire à chaque étape ?
-   * Complétez l'écriture en pseudo-code d'un algorithme glouton qui permettrait de déterminer un ordre de montage compatible avec un graphe donné.
+   * Proposez l'écriture en pseudo-code d'un algorithme glouton qui permettrait de déterminer un ordre de montage compatible avec un graphe donné.
    * Déroulez cet algorithme sur le __graphe 1__ de contraintes ci-dessus.
    * On ne demande pas de démontrer que l'algorithme est correct, mais pouvez-vous estimer la complexité de votre algorithme en fonction du nombre d'étapes de montage (sommets du graphe) et du nombre d'arêtes (les contraintes) ?
    * Un ordre de montage pour un graphe de contraintes s'appelle un __ordre topologique__ sur les sommets du graphe. Implémentez votre algorithme en `Python` en complétant la méthode `topological_sort_greedy` de la classe `DirectGraph` dans le  fichier `LibGraphes.py`. Commencez par lire la documentation de la classe `DirectGraph`.
-   * Testez votre méthode avec le fichier `Main.py`.
+   * Testez votre méthode avec le fichier `Main.py`, affichez d'abord l'aide avec `python3 Main.py h`.
    * Complétez le code de la  méthode `verif_topological_order`  de la classe `DirectGraph` dans le  fichier `LibGraphes.py` pour qu'elle vérifie si un ordre de montage donné en paramètre est bien compatible avec le graphe de contraintes.
 
 
