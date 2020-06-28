@@ -20,8 +20,7 @@ class Error(Exception):
 
 
 class GraphError(Error):
-    """Exception raised for self loops
-    """
+    """Exception raised for self loops """
     def __init__(self, message):
         self.message = message
 
@@ -29,7 +28,47 @@ class GraphError(Error):
 ## Classe de graphe non orienté
 
 class Graph(object):
-    """Objets de classe graphe"""
+    """Classe de graphes non orientés.
+    
+    >>> graph = Graph({'a' : ['d', 'z', 'b'], 'b' : ['a', 'c'], 'c':['e', 'd', 'b'], 'd':['a', 'c'], 'e' : ['z','c'], 'f' : ['g'], 'g':['f','h'], 'h':['g'], 'z' : ['a', 'e']})
+
+    >>> graph.get_graph_dict()
+    {'a': ['d', 'z', 'b'], 'b': ['a', 'c'], 'c': ['e', 'd', 'b'], 'd': ['a', 'c'], 'e': ['z', 'c'], 'f': ['g'], 'g': ['f', 'h'], 'h': ['g'], 'z': ['a', 'e']}
+
+    >>> graph.vertices()
+    ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'z']
+
+    >>> graph.get_edges() == [{'d', 'a'}, {'z', 'a'}, {'b', 'a'}, {'b', 'c'}, {'c', 'e'}, {'c', 'd'}, {'z', 'e'}, {'g', 'f'}, {'g', 'h'}]
+    True
+
+    >>> graph.dfs_traversal('a')
+    ['a', 'b', 'c', 'd', 'e', 'z']
+
+    >>> graph.dfs_traversal('f')
+    ['f', 'g', 'h']
+
+    >>> graph.bfs_traversal('a')
+    ['a', 'd', 'z', 'b', 'c', 'e']
+
+    >>> graph.detect_cycle()
+    True
+
+    >>> graph.color(2)
+    False
+
+    >>> graph.color(3)
+    {'f': 0, 'g': 1, 'h': 0, 'b': 0, 'a': 1, 'd': 0, 'c': 1, 'e': 0, 'z': 2}
+
+    >>> graph.add_vertex('x')
+
+    >>> graph.vertices() == ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'z', 'x']
+    True
+
+    >>> graph.add_edge({'x', 'f'})
+
+    >>> graph.get_edges() == [{'d', 'a'}, {'z', 'a'}, {'b', 'a'}, {'b', 'c'}, {'c', 'e'}, {'c', 'd'}, {'z', 'e'}, {'g', 'f'}, {'x', 'f'}, {'g', 'h'}]
+    True
+    """
 
     def __init__(self, graph_dict=None):
         """ initializes a graph object
@@ -86,7 +125,7 @@ class Graph(object):
                 self.__graph_dict[vertex2] = [vertex1]
         except GraphError as s:
             print("pb with adding edge: "+s.message)
-            pass
+            pass 
 
     def __generate_edges(self):
         """ A static method generating the set of edges
@@ -99,6 +138,10 @@ class Graph(object):
                     edges.append({vertex, neighbour})
         return edges
 
+    def get_edges(self):
+        """Return list of edges"""
+        return self.__generate_edges()
+        
     def __str__(self):
         res = "vertices: "
         for k in self.__graph_dict:
@@ -182,10 +225,11 @@ class Graph(object):
         # TODO : Implement DFS : use .pop() 
         while todo:
             vertex = todo.pop()
-            seen.append(vertex)  #je ferais cette mise à jour juste après avoir ajouté un voisin dans la pile
-            for neighbour in gdict[vertex]:
-                if neighbour not in seen: #pas terrible en complexité
-                    todo.append(neighbour)                    
+            if vertex not in seen:
+                seen.append(vertex)  
+                for neighbour in gdict[vertex]:
+                    if neighbour not in seen: #pas terrible en complexité
+                        todo.append(neighbour)                    
         return seen
 
    
@@ -205,16 +249,16 @@ class Graph(object):
         return aux(root)
 
     def bfs_traversal(self, root):
-        seen = []
+        seen = [root]
         todo = [root]
         gdict = self.__graph_dict
         # TODO : Implement BFS : use .pop(0) to dequeue
-        while todo:
+        while len(todo) > 0:
             vertex = todo.pop(0)
-            seen.append(vertex)
             for neighbour in gdict[vertex]:
                 if neighbour not in seen:
-                    todo.append(neighbour)                    
+                    todo.append(neighbour)
+                    seen.append(neighbour)                    
         return seen
 
 
@@ -561,7 +605,7 @@ class DirectGraph(Graph):
         super(DirectGraph, self).__init__(graph_dict=graph_dict)
         self.__transitive_closure = None
         #pas propre il faudrait définir un getter dans la classe Graph pour accéder à son attribut privé  __graph_dict 
-        self.__graph_dict = self._Graph__graph_dict  
+        self.__graph_dict = self.get_graph_dict()
         self.__distmin_floyd_warshall = None
         self.__mat_adj = None
         self.__index_vertices = None
@@ -574,7 +618,7 @@ class DirectGraph(Graph):
         else:
             self.__graph_dict[vertex1] = [vertex2]
     
-    def __generate_edges(self):
+    def __generate_oriented_edges(self):
         """ A static method generating the tuples of edges.
         Returns a list of tuples.
         Private methode
@@ -588,14 +632,14 @@ class DirectGraph(Graph):
 
     def get_edges(self):
         """Return list of edges"""
-        return self.__generate_edges()
-
+        return self.__generate_oriented_edges()
+    
     def __str__(self):
         res = "vertices: "
-        for k in self.__graph_dict:
+        for k in self.get_graph_dict():
             res += str(k) + " "
         res += "\nedges: "
-        for edge in self.__generate_edges():
+        for edge in self.get_edges():
             res += str(edge) + " "
         return res
 
@@ -620,7 +664,7 @@ class DirectGraph(Graph):
                 dot.node(k, k, color="red")
             else:
                 dot.node(k, k, color=foo[colors[k]])
-        for edge in self.__generate_edges():
+        for edge in self.get_edges():
             #print(edge)
             (v1, v2) = list(edge)[0], list(edge)[1]
             dot.edge(v1, v2)

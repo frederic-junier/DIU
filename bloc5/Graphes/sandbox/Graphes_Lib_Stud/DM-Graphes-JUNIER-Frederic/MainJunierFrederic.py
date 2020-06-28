@@ -30,7 +30,7 @@ def counter(f):
 
 #ici le compteur d'appel servira à numéroter les noms de fichiers de graphes
 @counter
-def test_graph(title= "Test", graph_dict = None, relative_path = "images/directgraph", cycle = False, pdf=False):
+def test_graph(title= "Test", graph_dict = None, relative_path = "images/directgraph", cycle = False, pdf=False, greedy = True, dfs = True):
     """Test d'un graphe orienté donné par son dictionnaire d'adjacence"""
     print('*' * 30 + f'DEBUT DU TEST {test_graph.compteur}' + '*' * 30)
     print(title)
@@ -43,18 +43,22 @@ def test_graph(title= "Test", graph_dict = None, relative_path = "images/directg
         output_path = os.path.join(dir_path, relative_path + str(test_graph.compteur))
         print("Dessin du graphe en pdf avec GraphViz")
         directgraph.print_dot(output_path)
+    #Détection de cycle
     has_cycle = directgraph.detect_cycle()
     #assertion de vérification du résultat
     assert has_cycle == cycle, "Erreur dans la détection de cycle"
-    print("Détection de cycle dans le graphe orienté, réponse : ", has_cycle)    
-    (rep, order) = directgraph.topological_sort_greedy()  
-    #assertion de vérification du résultat
-    assert (cycle == (not rep)) and  (directgraph.verif_topological_order(order) == True), f"Erreur dans le tri topologique glouton"
-    print(f"Tri topologique de directgraph version gloutonne / notice de montage possible : {not has_cycle}, ordre pour la notice de montage : ", order)
-    (rep, order) = directgraph.topological_sort_dfs()
-    #assertion de vérification du résultat
-    assert (cycle == (not rep)) and (directgraph.verif_topological_order(order) == True), f"Erreur dans le tri topologique dfs" 
-    print(f"Tri topologique de directgraph version dfs / notice de montage possible : {not has_cycle},  ordre pour la notice de montage : ", order)
+    print("Détection de cycle dans le graphe orienté, réponse : ", has_cycle)   
+    #Tri topologique glouton
+    if greedy: 
+        (rep, order) = directgraph.topological_sort_greedy()  
+        #assertion de vérification du résultat
+        assert (cycle == (not rep)) and  (directgraph.verif_topological_order(order) == True), f"Erreur dans le tri topologique glouton"
+        print(f"Tri topologique de directgraph version gloutonne / notice de montage possible : {not has_cycle}, ordre pour la notice de montage : ", order)
+    if dfs:
+        (rep, order) = directgraph.topological_sort_dfs()
+        #assertion de vérification du résultat
+        assert (cycle == (not rep)) and (directgraph.verif_topological_order(order) == True), f"Erreur dans le tri topologique dfs" 
+        print(f"Tri topologique de directgraph version dfs / notice de montage possible : {not has_cycle},  ordre pour la notice de montage : ", order)
     print('*' * 31 + f'FIN DU TEST {test_graph.compteur}' + '*' * 31)
 
 
@@ -116,6 +120,8 @@ if __name__ == "__main__":
         * 'python MainJunierFrederic.py h' ou  'python MainJunierFrederic.py -h' ou 'python MainJunierFrederic.py --h' pour afficher l'aide
         * 'python MainJunierFrederic.py pdf' ou  'python MainJunierFrederic.py -pdf' ou  'python MainJunierFrederic.py --pdf' pour générer les pdf des graphes dans un sous-répertoire 'images'
         du répertoire courant    
+        * 'python MainJunierFrederic.py greedy' pour tester la méthode de tri topologique gloutonne
+        * 'python MainJunierFrederic.py dfs' pour tester la méthode de tri topologique avec dfs
         """)
     else:
         main(pdf = False)
