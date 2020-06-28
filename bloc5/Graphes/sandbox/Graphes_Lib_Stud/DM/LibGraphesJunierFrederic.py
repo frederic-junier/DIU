@@ -400,9 +400,7 @@ class Graph(object):
             lower = todo[0]
             todo_vertices.append(lower)
             gcopy.delete_vertex(lower)
-        print(todo_vertices)
         coloring = dict()
-        indexcolor = 0
         for vertex in todo_vertices[::-1]:
             set_indexcolor_neighbour = {coloring[neighbour] for neighbour in self.neighbours(vertex) if neighbour in coloring}
             set_index_free = set(range(K)).difference(set_indexcolor_neighbour)
@@ -478,12 +476,21 @@ class DirectGraph(Graph):
         self.__index_vertices = None
 
 
-    def add_edge(self, edge):        
+    def add_edge(self, edge):      
+        (vertex1, vertex2)  = edge
         if vertex1 in self.__graph_dict:
             self.__graph_dict[vertex1].append(vertex2)
         else:
             self.__graph_dict[vertex1] = [vertex2]
         
+    def __str__(self):
+        res = "vertices: "
+        for k in self.__graph_dict:
+            res += str(k) + " "
+        res += "\nedges: "
+        for edge in self.__generate_edges():
+            res += str(edge) + " "
+        return res
 
     def __generate_edges(self):
         """ A static method generating the set of edges
@@ -659,7 +666,6 @@ class DirectGraph(Graph):
         VU = 1
         priority = []
         vertices = self.vertices()
-        root = vertices[0]
         marque = {vertex : PAS_VU for vertex in vertices}
 
         def search_dfs(vertex):
