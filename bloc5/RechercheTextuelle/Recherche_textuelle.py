@@ -3,7 +3,7 @@
 
 # ## Recherche naive par fenêtre glissante
 
-# In[41]:
+# In[45]:
 
 
 def correspondance_motif(texte, motif,i):
@@ -28,9 +28,14 @@ def recherche_motif_naive(texte, motif):
 
 # ## Algorithme de Boyer-Moore
 
+# Sitographie :
+#     
+# * [https://en.wikipedia.org/wiki/Boyer%E2%80%93Moore_string-search_algorithm](https://en.wikipedia.org/wiki/Boyer%E2%80%93Moore_string-search_algorithm)
+# * [http://whocouldthat.be/visualizing-string-matching/](http://whocouldthat.be/visualizing-string-matching/)
+
 # ### Règle du mauvais caractère
 
-# In[60]:
+# In[46]:
 
 
 def mauvais_caractere(motif, alphabet):
@@ -50,13 +55,13 @@ def mauvais_caractere(motif, alphabet):
     return mc
 
 
-# In[61]:
+# In[47]:
 
 
 mauvais_caractere('GCAGAGAG', 'ACGT')
 
 
-# In[53]:
+# In[48]:
 
 
 def correspondance_suffixe(motif, i, j):
@@ -69,7 +74,15 @@ def correspondance_suffixe(motif, i, j):
     return False
         
 
-
+def comparaison_prefixe_suffixe(debut_suffixe, motif):
+    index_prefixe = 0
+    index_suffixe = debut_suffixe
+    m = len(motif)
+    while index_suffixe < m and motif[index_suffixe] == motif[index_prefixe]:
+        index_prefixe += 1
+        index_suffixe += 1
+    return index_suffixe == m
+    
 def bon_suffixe(motif):
     m = len(motif)
     bs = [0] * m   
@@ -77,44 +90,35 @@ def bon_suffixe(motif):
         j = i - 1        
         while j >= 0 and not correspondance_suffixe(motif, i, j):            
             j = j - 1   
-        if j < 0:
-            #second cas : recherche du plus long préfixe qui est aussi un suffixe
+        if j >= 0:  #second cas du bon suffixe : recherche du début d'un suffixe/préfixe 
+            bs[i] = i - j           
+        else:  # premier cas du bon suffixe : recherche du 
             p = i  + 1
-            while p < m and motif[p] != motif[0]:
+            while p < m and not comparaison_prefixe_suffixe(p, motif):
                 p = p + 1
-            debut_suffixe = p
-            k = 0
-            while p < m and motif[p] == motif[k]:
-                p += 1
-                k += 1
-            if p == m and debut_suffixe < m:
-                bs[i] = debut_suffixe
-            else:
-                bs[i] = m          
-        else:
-            bs[i] = i - j
+            bs[i] = p
     return bs
 
 
-# In[54]:
+# In[49]:
 
 
 bon_suffixe('GCAGAGAG')
 
 
-# In[55]:
+# In[50]:
 
 
 bon_suffixe('ABABA')
 
 
-# In[56]:
+# In[51]:
 
 
 bon_suffixe('AAA')
 
 
-# In[58]:
+# In[52]:
 
 
 def boyer_moore(texte, motif, alphabet):
@@ -141,11 +145,26 @@ def boyer_moore(texte, motif, alphabet):
         
 
 
-# In[62]:
+# In[53]:
 
 
 texte = "GCATCGCAGAGAGTATACAGTACG"
 motif = "GCAGAGAG"
 alphabet = "ACGT"
 boyer_moore(texte, motif, alphabet)
+
+
+# In[54]:
+
+
+T = "GCATCGCAGAGAGTATACAGTACG"
+M = "GCAGAGAG"
+alphabet = "ACGT"
+boyer_moore(T, M, alphabet)
+
+
+# In[55]:
+
+
+bon_suffixe(M)
 
