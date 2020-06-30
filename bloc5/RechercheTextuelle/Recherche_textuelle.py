@@ -3,7 +3,7 @@
 
 # ## Recherche naive par fenêtre glissante
 
-# In[45]:
+# In[28]:
 
 
 def correspondance_motif(texte, motif,i):
@@ -35,7 +35,7 @@ def recherche_motif_naive(texte, motif):
 
 # ### Règle du mauvais caractère
 
-# In[46]:
+# In[29]:
 
 
 def mauvais_caractere(motif, alphabet):
@@ -46,22 +46,21 @@ def mauvais_caractere(motif, alphabet):
     m = len(motif)
     #mc = [0] * len(alphabet)  
     mc = {c : 0 for c in alphabet} #j préfère utiliser un dictionnaire
-    for i in range(len(alphabet)):
-        c = alphabet[i]
+    for c in alphabet:
         k = 1
         while k < m and c != motif[m - 1 - k]:
             k = k + 1
-        mc[i] = k
+        mc[c] = k
     return mc
 
 
-# In[47]:
+# In[30]:
 
 
 mauvais_caractere('GCAGAGAG', 'ACGT')
 
 
-# In[48]:
+# In[31]:
 
 
 def correspondance_suffixe(motif, i, j):
@@ -100,25 +99,25 @@ def bon_suffixe(motif):
     return bs
 
 
-# In[49]:
+# In[32]:
 
 
 bon_suffixe('GCAGAGAG')
 
 
-# In[50]:
+# In[33]:
 
 
 bon_suffixe('ABABA')
 
 
-# In[51]:
+# In[34]:
 
 
 bon_suffixe('AAA')
 
 
-# In[52]:
+# In[35]:
 
 
 def boyer_moore(texte, motif, alphabet):
@@ -145,7 +144,7 @@ def boyer_moore(texte, motif, alphabet):
         
 
 
-# In[53]:
+# In[36]:
 
 
 texte = "GCATCGCAGAGAGTATACAGTACG"
@@ -154,7 +153,7 @@ alphabet = "ACGT"
 boyer_moore(texte, motif, alphabet)
 
 
-# In[54]:
+# In[37]:
 
 
 T = "GCATCGCAGAGAGTATACAGTACG"
@@ -163,8 +162,17 @@ alphabet = "ACGT"
 boyer_moore(T, M, alphabet)
 
 
-# In[55]:
+# In[38]:
 
 
 bon_suffixe(M)
+
+
+# In[39]:
+
+
+T='CBABABA'
+M='ABABA'
+alphabet = "ABC"
+boyer_moore(T, M, alphabet)
 
