@@ -168,11 +168,273 @@ boyer_moore(T, M, alphabet)
 bon_suffixe(M)
 
 
-# In[39]:
+# In[65]:
 
 
 T='CBABABA'
 M='ABABA'
-alphabet = "ABC"
+alphabet = "ACB"
+print("Mauvais caractère : ", mauvais_caractere(M, 'ABC'))
+print("Bon suffixe : ", bon_suffixe(M))
+print(f"Recherche de {M} dans {T} avec Boyer-Moore")
 boyer_moore(T, M, alphabet)
+
+
+# # Version de Julien Velcin
+
+# In[41]:
+
+
+T = "GCATCGCAGAGAGTATACAGTACG"
+M = "GCAGAGAG"
+#M = "CCGGTGAA"
+#T = "AAAAAAAAAAAAAAAAAAAA"
+#M = "AAAAAA"
+#T = "AAAAAAAAAAAAAAAAAAAA"
+#M = "ACGT"
+#M = "ACGCA"
+
+n = len(T)
+m = len(M)
+
+
+# In[42]:
+
+
+
+
+for i in range(n-m+1):
+    for j in range(m):
+        if T[i+j] != M[j]: # on s'arrête dès qu'on voit une différence (mismatch)
+            break
+    if (j == (m-1)): # critère d'arrêt à (j == (m-1)) car j n'est pas incrémenté à la fin
+        print("motif trouvé en " + str(i))
+
+
+
+# In[43]:
+
+
+
+
+nb_comp = 0 # nombre total de comparaisons
+i = 0
+while (i <= (n-m)):
+    j = 0
+    while (j < m) and (T[i+j] == M[j]): # on incrémente tant que c'est identique
+        nb_comp += 1
+        j = j + 1
+    if (j == m): # on remarque que le critère d'arrêt est (j == m) ici
+        print("motif trouvé en " + str(i))
+    else:
+        nb_comp += 1 # pour ne pas oublier de compter les échecs de comparaison (mismatch)
+    i = i + 1
+print("Nombre total de comparaisons : " + str(nb_comp))
+
+
+
+# ## Heuristique du Mauvais Caractère
+
+# In[46]:
+
+
+symboles = ["A", "C", "G", "T"] # c'est l'alphabet
+    
+# calcul préalable de MC
+MC = {}
+for s in symboles: # on initialise à m par défaut (caractère introuvable dans le motif)
+    MC[s] = m
+for i in range(m-1): 
+    MC[M[i]] = m-i-1
+
+
+# In[45]:
+
+
+MC
+
+
+# In[47]:
+
+
+
+
+import numpy as np
+
+nb_comp = 0 # nombre total de comparaisons
+i = 0
+while (i <= (n-m)):
+    print("Position : " + str(i))    
+    j = m - 1 # on commence par la fin du motif
+    while (j >= 0) and (T[i+j] == M[j]): # on incrémente tant que c'est identique
+        #print("comp de " + str(i+j) + " et " + str(j))
+        nb_comp += 1
+        j = j - 1
+    if (j >= 0):
+        nb_comp += 1
+        i = i + np.max([1, MC[T[i+j]] + j - m + 1])
+    else: # on remarque que le critère d'arrêt est à présent (j < 0)
+        print("motif trouvé en " + str(i))
+        i = i + 1
+        
+print("Nombre total de comparaisons : " + str(nb_comp))
+
+
+
+# ## Heuristique du Bon Suffixe (BS)
+
+# In[49]:
+
+
+
+
+# calcul préalable de BS
+# (attention, il s'agit probablement de l'implémentation la moins efficace
+# mais peut-être la plus claire)
+
+# calcul du plus grand préfixe qui est également suffixe (mais pas M tout entier)
+i = m-1
+while i > 0 and (M[i:m] == M[0:m-i]):
+    # on vérifie que la fin (entre i et (m-1)) est identique au début (entre 0 et m-i)
+    i = i - 1
+
+BS = [i+1] * m
+BS[m-1] = 1 # cas particulier pour le dernier symbole de M
+# recherche du prochain motif le plus à droite
+i = m - 2
+while (i >= 0):
+    # motif à rechercher
+    MM = M[i+1:m]
+    l_MM = len(MM)
+    k = i
+    # on cherche le motif "à rebours"
+    while (k>=0):
+        if (M[k:k+l_MM] == MM) and ((k==0) or (M[k-1]!=M[i])):
+            print("à l'index " + str(i) + " : sous-motif " + MM + " trouvé en " + str(k))
+            BS[i] = i - k + 1
+            break;
+        k = k - 1
+    i = i - 1
+
+
+
+# In[50]:
+
+
+BS
+
+
+# In[51]:
+
+
+import numpy as np
+
+nb_comp = 0 # nombre total de comparaisons
+i = 0
+while (i <= (n-m)):
+    print("Position : " + str(i))
+    j = m - 1 # on commence par la fin du motif
+    while (j >= 0) and (T[i+j] == M[j]): # on incrémente tant que c'est identique
+        nb_comp += 1
+        j = j - 1
+    if (j >= 0):
+        nb_comp += 1        
+        i = i + BS[j]
+    else:
+        print("motif trouvé en " + str(i))
+        i = i + BS[0]
+
+print("Nombre total de comparaisons : " + str(nb_comp))
+
+
+# ## Boyer-Moore : mettre tout ça ensemble
+
+# In[52]:
+
+
+import numpy as np
+
+nb_comp = 0 # nombre total de comparaisons
+i = 0
+while (i <= (n-m)):
+    print("Position : " + str(i))
+    j = m - 1 # on commence par la fin du motif
+    while (j >= 0) and (T[i+j] == M[j]): # on incrémente tant que c'est identique
+        nb_comp += 1
+        j = j - 1
+    if (j >= 0):
+        nb_comp += 1 
+        i = i + np.max([BS[j], MC[T[i+j]] + j - m + 1])        
+    else: 
+        print("motif trouvé en " + str(i))
+        i = i + BS[0]
+print("Nombre total de comparaisons : " + str(nb_comp))
+
+
+# ## Contre-Exemple illustrant la mauvais implémentation du Bon Préfixe
+
+# In[59]:
+
+
+T='CBABABA'
+M='ABABA'
+
+n = len(T)
+m = len(M)
+
+symboles = ["A", "C", "B"] # c'est l'alphabet
+    
+# calcul préalable de MC
+MC = {}
+for s in symboles: # on initialise à m par défaut (caractère introuvable dans le motif)
+    MC[s] = m
+for i in range(m-1): 
+    MC[M[i]] = m-i-1
+    
+
+# calcul préalable de BS
+# (attention, il s'agit probablement de l'implémentation la moins efficace
+# mais peut-être la plus claire)
+
+# calcul du plus grand préfixe qui est également suffixe (mais pas M tout entier)
+i = m-1
+while i > 0 and (M[i:m] == M[0:m-i]):
+    # on vérifie que la fin (entre i et (m-1)) est identique au début (entre 0 et m-i)
+    i = i - 1
+
+BS = [i+1] * m
+BS[m-1] = 1 # cas particulier pour le dernier symbole de M
+# recherche du prochain motif le plus à droite
+i = m - 2
+while (i >= 0):
+    # motif à rechercher
+    MM = M[i+1:m]
+    l_MM = len(MM)
+    k = i
+    # on cherche le motif "à rebours"
+    while (k>=0):
+        if (M[k:k+l_MM] == MM) and ((k==0) or (M[k-1]!=M[i])):
+            #print("à l'index " + str(i) + " : sous-motif " + MM + " trouvé en " + str(k))
+            BS[i] = i - k + 1
+            break;
+        k = k - 1
+    i = i - 1
+    
+nb_comp = 0 # nombre total de comparaisons
+i = 0
+while (i <= (n-m)):
+    print("Position : " + str(i))
+    j = m - 1 # on commence par la fin du motif
+    while (j >= 0) and (T[i+j] == M[j]): # on incrémente tant que c'est identique
+        nb_comp += 1
+        j = j - 1
+    if (j >= 0):
+        nb_comp += 1 
+        i = i + np.max([BS[j], MC[T[i+j]] + j - m + 1])        
+    else: 
+        print("motif trouvé en " + str(i))
+        i = i + BS[0]
+print(MC)
+print(BS)
+print("Nombre total de comparaisons : " + str(nb_comp))
 
